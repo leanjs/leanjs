@@ -1,0 +1,30 @@
+{
+  "name": "@lean-frontend/root",
+  "version": "0.0.0",
+  "private": true,
+  "workspaces": [
+    "packages/*"
+  ],
+  "scripts": {
+    "build": "turbo run build",
+    "dev": "turbo run dev --parallel",
+    "lint": "turbo run lint",
+    "format": "prettier --write \"**/*.{ts,tsx,md}\""
+  },
+  "devDependencies": {
+    "@swc/core": "^1.2.142",
+    "@swc/jest": "^0.2.17",
+    "@types/jest": "^27.4.0",
+    "jest": "^27.5.1",
+    "lerna": "^4.0.0",
+    "prettier": "^2.5.1",
+    "ts-jest": "^27.1.3",
+    "turbo": "latest",
+    "typescript": "^4.5.3"
+  },
+  "engines": {
+    "npm": ">=7.0.0",
+    "node": ">=14.0.0"
+  },
+  "packageManager": "yarn@1.22.17"
+}
