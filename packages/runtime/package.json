@@ -1,6 +1,6 @@
 {
-  "name": "@lean-frontend/core",
-  "version": "0.0.0-alpha.1",
+  "name": "@leanjs/runtime",
+  "version": "0.0.0.0",
   "main": "./index.tsx",
   "types": "./index.tsx",
   "license": "MIT",

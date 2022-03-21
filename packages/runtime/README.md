@@ -1,18 +1,6 @@
-# @leanjs/core
+# @leanjs/runtime
 
-This package contains utilities and TypeScript definitions that are shared across different abstractions used in micro-frontends.
-
-Utilities in this package don't target any web frameworks or UI libraries. If you are building micro-frontends for a project you should not use this library directly very often. Instead use libraries targeted to the libraries or frameworks used in your project, e.g. React.
-
-## Runtime
-
-This `runtime` enables micro-frontends to share state or execution context in a controlled manner. By default nothing is shared.
-
-Guiding principles to define your `runtime`:
-
-- Less is more. The more things shared between micro-frontends the higher coupling. Use this `runtime` sparingly.
-- Make the `runtime` type-safety. Only types defined in the configuration of the `runtime` are allowed. This way developers in different teams know what can be shared and what can't be shared.
-- Centralise the configuration of the `runtime`. Anyone can use the `runtime` but only a few people can define what can be shared.
+This `runtime` enables micro-frontends to share state or execution context in a controlled manner, keeping your micro-frontends performant and maintainable. By default nothing is shared.
 
 The `runtime` is created in two steps:
 
@@ -22,23 +10,31 @@ The `runtime` is created in two steps:
 
 There are two things that you can share in a `runtime`:
 
-- State. By design, we don't facilitate sharing complex data structures. The `runtime` shared state is a flatten data structure, it doesn't support nested state natively unlike Redux for instance. You can think of the `runtime` state as a **read-write** [hash table](https://en.wikipedia.org/wiki/Hash_table).
+- State. By design, we don't facilitate creating complex data structures. The `runtime` shared state is a flatten data structure, it doesn't support nested states unlike Redux for instance. However, you can add any object in a given state property. You can think of the `runtime` state as a **read-write** hash table.
 - Execution context. It contains instances of code that we want to share. E.g. a WebSocket client that holds WS connections. You can think of it as a **read-only** hash table.
 
-### Usage
+# Installation
 
-#### Basic
+`yarn add @leanjs/runtime`
+
+# Usage
+
+## Guiding principles
+
+When designing your shared runtime follow these recommendations:
+
+- Less is more. The more things shared between micro-frontends the higher coupling. Use this `runtime` sparingly.
+- Make the `runtime` type-safety. Only types defined in the configuration of the `runtime` are allowed. This way developers in different teams know what can be shared and what can't be shared. Use TypeScript.
+- Centralise the configuration of the `runtime`. Anyone can use the `runtime` but only a few people should be able to change what can be shared. Execute `configureRuntime` in its own repo with restricted access, or use CODEOWNERS if in a monorepo, then export it for anyone to use.
+
+## Basic
 
 ```ts
-interface SharedState {
-  locale: string;
-}
-
-const defaultState: SharedState = {
+const defaultState = {
   locale: "en",
 };
 
-const { createRuntime } = configureRuntime<SharedState>(defaultState)({
+const { createRuntime } = configureRuntime(defaultState)({
   onError: (error) => {}, // required, log the error properly, e.g. Sentry, Datadog, etc
 });
 ```
@@ -58,9 +54,9 @@ const { createRuntime } = configureRuntime(defaultState)({
 });
 ```
 
-### API
+## API
 
-#### `configureRuntime`
+### `configureRuntime`
 
 It's a function with two curried arguments. The argument of the first function receives the default state. The argument of the second function is the configuration of the runtime.
 
@@ -72,7 +68,7 @@ const defaultState = {
 };
 ```
 
-If a consumer of the `runtime` tries to read or write a shared state property named `foo`, the `runtime` will throw an error. Only `locale` is a valid shared state property. In other words, the default state is also used as a runtime validator. This behaviour can't be disabled.
+if a consumer of the `runtime` tries to read or write a shared state property named `foo`, the `runtime` will throw an error. Only `locale` is a valid shared state property. In other words, the default state is also used as a runtime validator. This behaviour can't be disabled.
 
 If you use TypeScript, the `runtime` will infer the types of the shared state from the default state. For instance, in the previous `defaultState` TypeScript will only allow consumers of your shared state to read and write a state property called `locale` and its only possible value will be a string.
 
@@ -94,11 +90,11 @@ const { createRuntime } = configureRuntime<SharedState>(defaultState)({
 });
 ```
 
-##### onError - required function
+#### onError - required function
 
 The `runtime` makes any asynchronous code internally look synchronous externally. This means that you won't be able to catch all the promises that might be generated. The `onError` function will be invoked whenever there is an errors in the runtime, either sync or async.
 
-##### context - optional object
+#### context - optional object
 
 Similarly to `defaultState` each property in this context object argument is used to validate access at runtime to the shared context. Context is read-only. If you use TypeScript, since context can't change, the types of the context values will be inferred by TypeScript as follows:
 
@@ -116,7 +112,7 @@ configureRuntime(defaultState)({
 });
 ```
 
-#### `createRuntime`
+### `createRuntime`
 
 It creates a `runtime`. Example:
 
@@ -132,7 +128,7 @@ const { createRuntime } = configureRuntime(defaultState)({
 const runtime = createRuntime();
 ```
 
-#### `booted`
+### `booted`
 
 Async method that resolves true when all the async context resolves. If any of the async context properties is rejected it resolves false.
 
@@ -140,7 +136,7 @@ Async method that resolves true when all the async context resolves. If any of t
 await runtime.booted();
 ```
 
-#### `state`
+### `state`
 
 It holds the current shared state.
 
@@ -150,9 +146,10 @@ const locale = runtime.state.locale;
 
 // you can write state
 runtime.state.locale = "es";
+// subscribers to state.locale are notified
 ```
 
-#### `subscribe`
+### `subscribe`
 
 It's used to subscribe to state changes. It receives a state property and a callback. When the state property changes the callback is invoked. It returns an `unsubscribe` function. Example:
 
@@ -162,7 +159,7 @@ const unsubscribe = runtime.subscribe("locale", (locale) =>
 );
 ```
 
-#### `context`
+### `context`
 
 It holds the current shared context. Example:
 
@@ -175,7 +172,7 @@ const wsClient = runtime.context.wsClient;
 
 It's not recommended to access the context directly whenever possible. If you want to update some shared state based on an event from the shared context then use the `on` method underneath.
 
-#### `on`
+### `on`
 
 This method is used to update shared state based on events from the context.
 
@@ -196,7 +193,7 @@ const off = runtime.on("wsClient", (wsClient, state) => {
 off(); // wsClient.off("locale-changed", updateLocale); is called
 ```
 
-#### `load`
+### `load`
 
 It loads some value in a given state property. Once a state property is loaded with a value, no other loader will have effect on the given state property. `load` is async. Example:
 
@@ -216,7 +213,7 @@ runtime.load("locale", fetchLocale);
 runtime.load("locale", fetchLocale);
 ```
 
-#### `loaded`
+### `loaded`
 
 It's an async method that will await while a given state property is being loaded. If the state property is not being loaded it resolves immediately. Example:
 
@@ -242,7 +239,7 @@ await runtime.loaded();
 // both locale and token have been loaded
 ```
 
-#### `loader`
+### `loader`
 
 It returns the state of a loader: `loading: boolean` and `error?: string`. Example:
 
