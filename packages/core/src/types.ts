@@ -13,7 +13,7 @@ export interface Request {
 
 export type Unsubscribe = () => void;
 
-export interface StoreRuntime<State, Prop extends KeyOf<State>> {
+export interface RuntimeRuntime<State, Prop extends KeyOf<State>> {
   isBrowser: boolean;
   loader: Record<Prop, LoaderState>;
   load: <P extends Prop>(
@@ -27,8 +27,8 @@ export interface StoreRuntime<State, Prop extends KeyOf<State>> {
 
 export type BaseCtxFactory<State, Prop extends KeyOf<State>> = Record<
   Key,
-  | ((args: StoreRuntime<State, Prop>) => Promise<any>)
-  | ((args: StoreRuntime<State, Prop>) => any)
+  | ((args: RuntimeRuntime<State, Prop>) => Promise<any>)
+  | ((args: RuntimeRuntime<State, Prop>) => any)
   | Promise<any>
   | Record<any, any>
 >;
@@ -69,7 +69,7 @@ export type OnCallback<CtxFactory, Prop extends KeyOf<CtxFactory>, State> = (
   state: State
 ) => OffCallback;
 
-export interface ConfigureStoreOptions<
+export interface ConfigureRuntimeOptions<
   State,
   Prop extends KeyOf<State>,
   CtxFactory extends BaseCtxFactory<State, Prop>
@@ -79,7 +79,7 @@ export interface ConfigureStoreOptions<
   request?: Request;
 }
 
-export interface Store<
+export interface Runtime<
   State extends BaseShape,
   Prop extends KeyOf<State>,
   CtxFactory extends BaseCtxFactory<State, Prop>,
@@ -112,7 +112,7 @@ export interface InternalLoaderState extends LoaderState {
   done?: boolean;
 }
 
-export interface CreateStore<State extends BaseShape> {
+export interface CreateRuntime<State extends BaseShape> {
   initialState?: State;
   request?: Request;
 }

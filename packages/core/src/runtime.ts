@@ -6,19 +6,19 @@ import type {
   InternalLoaderState,
   LoaderState,
   BaseCtxFactory,
-  ConfigureStoreOptions,
-  Store,
+  ConfigureRuntimeOptions,
+  Runtime,
   ValuesFromCtxFactory,
   OnCallback,
   ValueFromCtxFactorySync,
-  CreateStore,
+  CreateRuntime,
   Unsubscribe,
 } from "./types";
 
 export const isPromise = (arg?: any): arg is Promise<any> =>
   typeof arg?.then === "function";
 
-const createStore =
+const createRuntime =
   <
     State extends BaseShape = BaseShape,
     Prop extends KeyOf<State> = KeyOf<State>
@@ -32,7 +32,7 @@ const createStore =
     context: ctxFactory,
     onError,
     request,
-  }: ConfigureStoreOptions<State, Prop, CtxFactory>): Store<
+  }: ConfigureRuntimeOptions<State, Prop, CtxFactory>): Runtime<
     State,
     Prop,
     CtxFactory,
@@ -210,10 +210,10 @@ Current valid props are: ${Object.keys(currentState).join(", ")}`);
       callback: OnCallback<CtxFactory, P, State>
     ) => {
       if (!context) {
-        throw new Error(`No context found in store, "on" is not allowed`);
+        throw new Error(`No context found in runtime, "on" is not allowed`);
       }
       if (!context[prop]) {
-        throw new Error(`No context found in store for prop ${prop}.`);
+        throw new Error(`No context found in runtime for prop ${prop}.`);
       }
       const offPromise = Promise.resolve(context[prop])
         .then((ctxValue) =>
@@ -238,21 +238,21 @@ Current valid props are: ${Object.keys(currentState).join(", ")}`);
     };
   };
 
-export const configureStore = <
+export const configureRuntime = <
   State extends BaseShape = BaseShape,
   Prop extends KeyOf<State> = KeyOf<State>
 >(
   defaultState: State
 ) => {
   if (!defaultState)
-    throw new Error(`default state is required to configure a store`);
+    throw new Error(`default state is required to configure a runtime`);
 
   return <CtxFactory extends BaseCtxFactory<State, Prop>>({
     context,
     onError,
-  }: ConfigureStoreOptions<State, Prop, CtxFactory>) => ({
-    createStore: ({ initialState, request }: CreateStore<State> = {}) =>
-      createStore<State>(initialState ?? defaultState)({
+  }: ConfigureRuntimeOptions<State, Prop, CtxFactory>) => ({
+    createRuntime: ({ initialState, request }: CreateRuntime<State> = {}) =>
+      createRuntime<State>(initialState ?? defaultState)({
         context,
         onError,
         request,
