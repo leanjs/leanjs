@@ -2,19 +2,19 @@ import waitForExpect from "wait-for-expect";
 
 import { configureRuntime, isPromise } from "./runtime";
 
-const defaultState = {
-  locale: "en",
-  token: undefined,
-  user: undefined,
-};
-
-interface State {
+interface SharedState {
   locale: string;
   token?: string;
   user?: {
     username: string;
   };
 }
+
+const defaultState: SharedState = {
+  locale: "en",
+  token: undefined,
+  user: undefined,
+};
 
 class FakeGQLClient {}
 
@@ -40,7 +40,7 @@ const fetchToken = () =>
 
 const eventEmitter = new FakeEventEmitter();
 
-const { createRuntime } = configureRuntime<State>(defaultState)({
+const { createRuntime } = configureRuntime<SharedState>(defaultState)({
   onError: () => {},
   context: {
     eventEmitter,
@@ -132,7 +132,7 @@ describe("createRuntime", () => {
   });
 
   it(`can receive some initial state that overrides the default state`, async () => {
-    const { createRuntime } = configureRuntime<State>(defaultState)({
+    const { createRuntime } = configureRuntime<SharedState>(defaultState)({
       onError: () => {},
     });
     const username = Math.random().toString();
@@ -149,7 +149,7 @@ describe("booted", () => {
   it(`resolves when all the async context is ready`, async () => {
     let isGqlResolved = false;
     let isFirebaseResolved = false;
-    const runtime = configureRuntime<State>(defaultState)({
+    const runtime = configureRuntime<SharedState>(defaultState)({
       onError: () => {},
       context: {
         gql: new Promise<FakeGQLClient>((resolve) => {
@@ -423,7 +423,7 @@ describe("on", () => {
 
   it("passes a resolved context value to the callback even if the context prop is async", async () => {
     const localEventEmitter = new FakeEventEmitter();
-    const { createRuntime } = configureRuntime<State>(defaultState)({
+    const { createRuntime } = configureRuntime<SharedState>(defaultState)({
       onError: () => {},
       context: {
         eventEmitter: async () =>
@@ -529,7 +529,7 @@ Current valid props are: locale, token, user`);
 describe("load", () => {
   it("always returns a promise given a valid state prop", () => {
     const runtime = createRuntime();
-    const value = runtime.load("locale", () => Promise.resolve("title"));
+    const value = runtime.load("locale", () => "title");
 
     expect(isPromise(value)).toBe(true);
   });
