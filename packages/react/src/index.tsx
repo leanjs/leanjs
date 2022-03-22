@@ -1,2 +1,2 @@
 export * from "./createRuntimeBindings";
-export * from "./RuntimeProvider";
+export { useGenericRuntime } from "./RuntimeProvider";

@@ -3,10 +3,10 @@ import type {
   Runtime as BaseRuntime,
   KeyOf,
   CreateRuntimeArgs,
-  BaseShape,
 } from "@leanjs/runtime";
 
-import { useGenericRuntime } from "./RuntimeProvider";
+import { useGenericRuntime, RuntimeProvider } from "./RuntimeProvider";
+import type { RuntimeProviderComp } from "./types";
 
 type CreateRuntime = (args: CreateRuntimeArgs<any>) => BaseRuntime;
 
@@ -52,5 +52,6 @@ export const createRuntimeBindings = <
     useGetter,
     useSetter,
     useRuntime,
+    RuntimeProvider: RuntimeProvider as RuntimeProviderComp<MyRuntime>,
   };
 };

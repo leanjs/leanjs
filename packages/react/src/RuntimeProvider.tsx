@@ -1,18 +1,11 @@
 import type { Runtime as BaseRuntime } from "@leanjs/runtime";
 import React, { createContext, useContext } from "react";
-import type { ReactNode } from "react";
 
-interface RuntimeProviderProps {
-  children: ReactNode;
-  runtime: BaseRuntime;
-}
+import type { RuntimeProviderComp } from "./types";
 
 const RuntimeContext = createContext<BaseRuntime | undefined>(undefined);
 
-export const RuntimeProvider = ({
-  children,
-  runtime,
-}: RuntimeProviderProps) => (
+export const RuntimeProvider: RuntimeProviderComp = ({ children, runtime }) => (
   <RuntimeContext.Provider value={runtime}>{children}</RuntimeContext.Provider>
 );
 

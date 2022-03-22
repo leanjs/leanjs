@@ -172,7 +172,7 @@ describe("useSetter", () => {
       });
 
       describe("given a valid prop", () => {
-        it("returns a tupple of 3 elements where the first index is the current value", async () => {
+        it("returns a tuple of 3 elements where the first index is the current value", async () => {
           const runtime = createRuntime();
           const random = Math.random().toString();
           const { result } = renderHook(() => useGetter("locale"), {
@@ -188,7 +188,7 @@ describe("useSetter", () => {
           await waitForExpect(() => expect(result.current[0]).toBe(random));
         });
 
-        it("returns a tupple of 3 elements where the second index is the current loading state of that state prop", async () => {
+        it("returns a tuple of 3 elements where the second index is the current loading state of that state prop", async () => {
           const runtime = createRuntime();
           const random = Math.random().toString();
           const { result, waitForNextUpdate } = renderHook(
@@ -214,7 +214,7 @@ describe("useSetter", () => {
           await waitForExpect(() => expect(result.current[1]).toBe(false));
         });
 
-        it("returns a tupple of 3 elements where the third index is the current error of that state prop", async () => {
+        it("returns a tuple of 3 elements where the third index is the current error of that state prop", async () => {
           const runtime = createRuntime();
           const random = Math.random().toString();
           const { result, waitForNextUpdate } = renderHook(
