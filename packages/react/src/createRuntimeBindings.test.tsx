@@ -68,7 +68,6 @@ describe("useSetter", () => {
 
   it(`throws an error given an invalid prop`, () => {
     const Component = () => {
-      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
       // @ts-ignore
       const setInvalidProp = useSetter("invalid_prop");
       setInvalidProp("1");
@@ -153,7 +152,6 @@ describe("useSetter", () => {
 
       it(`throws an error given an invalid prop`, () => {
         const Component = () => {
-          // eslint-disable-next-line @typescript-eslint/ban-ts-comment
           // @ts-ignore
           useGetter("invalid_prop");
 
