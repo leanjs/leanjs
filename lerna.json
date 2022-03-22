@@ -1,0 +1,14 @@
+{
+    "version": "independent",
+    "npmClient": "yarn",
+    "useWorkspaces": true,
+    "command": {
+      "version": {
+        "ignoreChanges": ["**/dist/**/*", "**/node_modules/**/*"]
+      },
+      "publish": {
+        "ignoreChanges": ["**/dist/**/*", "**/node_modules/**/*"]
+      }
+    }
+  }
+  

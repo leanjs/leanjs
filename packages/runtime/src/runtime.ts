@@ -11,7 +11,7 @@ import type {
   ValuesFromCtxFactory,
   OnCallback,
   ValueFromCtxFactorySync,
-  CreateRuntime,
+  CreateRuntimeArgs,
   Unsubscribe,
 } from "./types";
 
@@ -48,6 +48,13 @@ const createRuntime =
     const subscribers = new Map<Prop, Set<Subscriber<State[Prop]>>>();
     const loaders = new Map<Key | undefined, InternalLoaderState>();
     const ctxPromises = new Map<CtxProp, Promise<any>>();
+    const callSubscribers = <P extends Prop>(prop: P) => {
+      subscribers
+        .get(prop)
+        ?.forEach((subscriber) =>
+          subscriber(state[prop], loader[prop].loading, loader[prop].error)
+        );
+    };
 
     function validateProp(prop: Prop) {
       if (!(prop in currentState)) {
@@ -69,7 +76,8 @@ Current valid props are: ${Object.keys(currentState).join(", ")}`);
         validateProp(prop);
         if (target[prop] !== value) {
           target[prop] = value;
-          subscribers.get(prop)?.forEach((subscriber) => subscriber(value));
+
+          callSubscribers(prop);
         }
 
         return true;
@@ -103,15 +111,18 @@ Current valid props are: ${Object.keys(currentState).join(", ")}`);
       },
     });
 
-    const subscribe = (
-      prop: Prop,
-      subscriber: Subscriber<State[Prop]>
+    const subscribe = <P extends Prop>(
+      prop: P,
+      subscriber: Subscriber<State[P]>
     ): Unsubscribe => {
       validateProp(prop);
       const propSubscribers =
-        subscribers.get(prop) ?? new Set<Subscriber<State[Prop]>>();
+        subscribers.get(prop) ?? new Set<Subscriber<State[P]>>();
       propSubscribers.add(subscriber);
-      subscribers.set(prop, propSubscribers);
+      subscribers.set(
+        prop,
+        propSubscribers as unknown as Set<Subscriber<State[Prop]>>
+      );
 
       return () => {
         propSubscribers.delete(subscriber);
@@ -132,25 +143,30 @@ Current valid props are: ${Object.keys(currentState).join(", ")}`);
       } else {
         try {
           const promiseOrValue = loader();
+          const doneLoading = (newValue: State[P]) => {
+            loaders.set(prop, {
+              loading: false,
+              done: true,
+            });
+            state[prop] = newValue;
+          };
           if (isPromise(promiseOrValue)) {
             loaders.set(prop, {
               loading: true,
               promise: promiseOrValue,
             });
-            currentState[prop] = await promiseOrValue;
+            callSubscribers(prop);
+            doneLoading(await promiseOrValue);
           } else {
-            currentState[prop] = promiseOrValue;
+            doneLoading(promiseOrValue);
           }
-          loaders.set(prop, {
-            loading: false,
-            done: true,
-          });
         } catch (error) {
           loaders.set(prop, {
             loading: false,
             done: true,
             error: (error as Error)?.message ?? error,
           });
+          callSubscribers(prop);
           onError(error);
         }
       }
@@ -251,7 +267,7 @@ export const configureRuntime = <
     context,
     onError,
   }: ConfigureRuntimeOptions<State, Prop, CtxFactory>) => ({
-    createRuntime: ({ initialState, request }: CreateRuntime<State> = {}) =>
+    createRuntime: ({ initialState, request }: CreateRuntimeArgs<State> = {}) =>
       createRuntime<State>(initialState ?? defaultState)({
         context,
         onError,
