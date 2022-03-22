@@ -5,7 +5,6 @@ import React, { ReactNode } from "react";
 import waitForExpect from "wait-for-expect";
 
 import { createRuntimeBindings } from "./createRuntimeBindings";
-import { RuntimeProvider } from "./RuntimeProvider";
 
 const defaultState = {
   locale: "en",
@@ -16,7 +15,7 @@ const { createRuntime } = configureRuntime(defaultState)({
   onError: () => {},
 });
 
-const { useGetter, useSetter, useRuntime } =
+const { useGetter, useSetter, useRuntime, RuntimeProvider } =
   createRuntimeBindings(createRuntime);
 
 interface WrapperProps {
