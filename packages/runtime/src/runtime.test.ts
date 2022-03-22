@@ -274,7 +274,7 @@ Current valid props are: locale, token, user`);
     runtime.state.locale = random;
 
     expect(subscriber).toHaveBeenCalledTimes(1);
-    expect(subscriber).toHaveBeenCalledWith(random);
+    expect(subscriber).toHaveBeenCalledWith(random, false, undefined);
   });
 
   it("it won't call any subscribers of a prop if the current value is shallowly equal to the new value", () => {
@@ -298,7 +298,7 @@ Current valid props are: locale, token, user`);
     runtime.state.locale = random;
 
     expect(subscriber).toHaveBeenCalledTimes(1);
-    expect(subscriber).toHaveBeenCalledWith(random);
+    expect(subscriber).toHaveBeenCalledWith(random, false, undefined);
   });
 
   it("can unsubscribe and stops calling the subscriber", () => {
@@ -312,9 +312,9 @@ Current valid props are: locale, token, user`);
     runtime.state.locale = random;
 
     expect(subscriberA).toHaveBeenCalledTimes(1);
-    expect(subscriberA).toHaveBeenCalledWith(random);
+    expect(subscriberA).toHaveBeenCalledWith(random, false, undefined);
     expect(subscriberB).toHaveBeenCalledTimes(1);
-    expect(subscriberB).toHaveBeenCalledWith(random);
+    expect(subscriberB).toHaveBeenCalledWith(random, false, undefined);
 
     subscriberA.mockReset();
     subscriberB.mockReset();
@@ -344,8 +344,8 @@ Current valid props are: locale, token, user`);
     runtime.state.user = randomB;
 
     expect(subscriber).toHaveBeenCalledTimes(2);
-    expect(subscriber).toHaveBeenCalledWith(randomA);
-    expect(subscriber).toHaveBeenCalledWith(randomB);
+    expect(subscriber).toHaveBeenCalledWith(randomA, false, undefined);
+    expect(subscriber).toHaveBeenCalledWith(randomB, false, undefined);
   });
 });
 

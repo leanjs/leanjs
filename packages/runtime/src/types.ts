@@ -2,7 +2,11 @@ export type Key = string | symbol;
 export type BaseShape = Record<Key, any>;
 export type KeyOf<Shape extends BaseShape> = Exclude<keyof Shape, number>;
 
-export type Subscriber<Value> = (value: Value, error?: Error | string) => void;
+export type Subscriber<Value> = (
+  value: Value,
+  loading: boolean,
+  error?: string
+) => void;
 
 export type Cookies = Record<string, string>;
 
@@ -13,7 +17,7 @@ export interface Request {
 
 export type Unsubscribe = () => void;
 
-export interface RuntimeRuntime<State, Prop extends KeyOf<State>> {
+export interface ContextRuntime<State, Prop extends KeyOf<State>> {
   isBrowser: boolean;
   loader: Record<Prop, LoaderState>;
   load: <P extends Prop>(
@@ -27,8 +31,8 @@ export interface RuntimeRuntime<State, Prop extends KeyOf<State>> {
 
 export type BaseCtxFactory<State, Prop extends KeyOf<State>> = Record<
   Key,
-  | ((args: RuntimeRuntime<State, Prop>) => Promise<any>)
-  | ((args: RuntimeRuntime<State, Prop>) => any)
+  | ((args: ContextRuntime<State, Prop>) => Promise<any>)
+  | ((args: ContextRuntime<State, Prop>) => any)
   | Promise<any>
   | Record<any, any>
 >;
@@ -80,13 +84,17 @@ export interface ConfigureRuntimeOptions<
 }
 
 export interface Runtime<
-  State extends BaseShape,
-  Prop extends KeyOf<State>,
-  CtxFactory extends BaseCtxFactory<State, Prop>,
-  CtxProp extends KeyOf<CtxFactory>
+  State extends BaseShape = BaseShape,
+  Prop extends KeyOf<State> = KeyOf<State>,
+  CtxFactory extends BaseCtxFactory<State, Prop> = BaseCtxFactory<State, Prop>,
+  CtxProp extends KeyOf<CtxFactory> = KeyOf<CtxFactory>
 > {
   state: State;
-  subscribe: (prop: Prop, subscriber: Subscriber<State[Prop]>) => Unsubscribe;
+  //subscribe: (prop: Prop, subscriber: Subscriber<State[Prop]>) => Unsubscribe;
+  subscribe: <P extends Prop>(
+    prop: P,
+    subscriber: Subscriber<State[P]>
+  ) => Unsubscribe;
   loader: Record<Prop, LoaderState>;
   booted: () => Promise<boolean>;
   context: ValuesFromCtxFactory<CtxFactory, CtxProp>;
@@ -112,7 +120,7 @@ export interface InternalLoaderState extends LoaderState {
   done?: boolean;
 }
 
-export interface CreateRuntime<State extends BaseShape> {
+export interface CreateRuntimeArgs<State extends BaseShape> {
   initialState?: State;
   request?: Request;
 }
