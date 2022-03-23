@@ -3,14 +3,23 @@
   "version": "0.0.0",
   "private": true,
   "workspaces": [
-    "packages/*"
+    "packages/*",
+    "examples/shell",
+    "examples/micros/*",
+    "examples/packages/*"
   ],
   "scripts": {
+    "run:examples": "concurrently \"yarn run:shell\" \"yarn run:profile\" \"yarn run:todo\" \"yarn run:feed\"",
+    "run:shell": "cd examples/shell && yarn start",
+    "run:profile": "cd examples/micros/profile && yarn start",
+    "run:feed": "cd examples/micros/feed && yarn start",
+    "run:todo": "cd examples/micros/todo && yarn start"
   },
   "devDependencies": {
     "@swc/core": "^1.2.142",
     "@swc/jest": "^0.2.17",
     "@types/jest": "^27.4.0",
+    "concurrently": "^7.0.0",
     "jest": "^27.5.1",
     "lerna": "^4.0.0",
     "prettier": "^2.5.1",
