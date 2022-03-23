@@ -1,8 +1,8 @@
 {
   "name": "@leanjs/react",
   "version": "0.0.0",
-  "main": "./index.tsx",
-  "types": "./index.tsx",
+  "main": "./src/index.tsx",
+  "types": "./src/index.tsx",
   "license": "MIT",
   "devDependencies": {
     "@leanjs/runtime": "^0.0.0",
@@ -14,6 +14,7 @@
     "wait-for-expect": "^3.0.2"
   },
   "peerDependencies": {
+    "@leanjs/runtime": "^0.0.0",
     "react": "^17.0.2"
   },
   "scripts": {
