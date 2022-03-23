@@ -5,6 +5,7 @@
   "types": "./index.tsx",
   "license": "MIT",
   "devDependencies": {
+    "@leanjs/runtime": "^0.0.0",
     "@testing-library/react": "^12.1.4",
     "@testing-library/react-hooks": "^7.0.2",
     "@types/react": "^17.0.41",
@@ -14,9 +15,6 @@
   },
   "peerDependencies": {
     "react": "^17.0.2"
-  },
-  "dependencies": {
-    "@leanjs/runtime": "^0.0.0"
   },
   "scripts": {
     "test": "jest"
