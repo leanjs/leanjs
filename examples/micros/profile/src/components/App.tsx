@@ -7,7 +7,7 @@ import { Button } from "./Button";
 
 export function App() {
   const shareUsername = useSetter("username");
-  const [sharedUsername] = useGetter("username");
+  const [sharedUsername = ""] = useGetter("username");
   const [username, setUsername] = useState(sharedUsername);
 
   return (

@@ -3,7 +3,7 @@ import { Nav } from "../components/Nav";
 
 const runtime = createRuntime();
 
-runtime.on("pusher", (pusher, state) => {
+runtime.on("pusher", function pusherUsernameListener(pusher, state) {
   const channelName = "user-channel";
   const channel = pusher.subscribe(channelName);
 

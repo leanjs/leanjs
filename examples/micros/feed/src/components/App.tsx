@@ -3,7 +3,7 @@ import { useGetter } from "@my-org/react-runtime";
 import { fetchUsername } from "@my-org/user-api";
 
 export function App() {
-  const [username] = useGetter("username", fetchUsername);
+  const [username = ""] = useGetter("username");
 
   return (
     <>

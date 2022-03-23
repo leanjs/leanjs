@@ -6,11 +6,11 @@
     "start": "NODE_OPTIONS='--inspect' next dev -p 3001"
   },
   "dependencies": {
+    "@my-org/react-runtime": "^1.0.0",
+    "@my-org/user-api": "^1.0.0",
     "next": "11.1.2",
     "react": "17.0.2",
-    "react-dom": "17.0.2",
-    "@my-org/react-runtime": "^1.0.0",
-    "@my-org/user-api": "^1.0.0"
+    "react-dom": "17.0.2"
   },
   "devDependencies": {
     "@types/node": "^16.11.1",

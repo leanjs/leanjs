@@ -2,7 +2,7 @@
   <div id="app">
     <h2>{{ username }}'s ToDos</h2>
     <form v-on:submit.prevent="onSubmit">
-      <input type="text" v-model="text" placeholder="Type your TODO..." />
+      <input type="text" v-model="text" placeholder="I have to do..." />
       <button>Add</button>
     </form>
     <p v-for="todo in todos" :key="todo.id">
@@ -19,14 +19,14 @@ export default {
   props: ["runtime"],
   data(props) {
     return {
-      username: props.runtime.state.username,
+      username: props.runtime?.state.username,
       todos: [],
       text: "",
       id: 1,
     };
   },
   mounted() {
-    this.runtime.subscribe("username", (username) => {
+    this.runtime?.subscribe("username", (username) => {
       this.username = username;
     });
   },

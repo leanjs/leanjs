@@ -26,7 +26,7 @@ export function mount(el: HTMLElement, { runtime }: MountOptions) {
 }
 
 if (process.env.NODE_ENV === "development") {
-  const el = document.getElementById("root-profile-dev");
+  const el = document.getElementById("root-feed-dev");
   if (el) {
     mount(el, { runtime: createRuntime() });
   }

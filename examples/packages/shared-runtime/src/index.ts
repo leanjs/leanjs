@@ -14,9 +14,8 @@ interface State {
 export const { createRuntime } = configureRuntime<State>(defaultState)({
   onError: console.log, // add a proper logger here,
   context: {
-    pusher: new Pusher("947b6030dd7a69c41e5e", {
+    pusher: new Pusher("", {
       cluster: "eu",
-      authEndpoint: "http://example.com/pusher/auth",
     }),
   },
 });
