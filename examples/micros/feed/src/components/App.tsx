@@ -8,16 +8,16 @@ export function App() {
     <>
       <h2>Activity feed</h2>
       <p>
-        <strong>{username}</strong> ✅ completed "slides for CityJS"
+        ✅ &nbsp; <strong>{username}</strong> completed{" "}
+        <em>"slides for CityJS"</em>
       </p>
       <p>
-        <strong>Ana</strong> 👀 is watching "after-work yoga class"
+        ✅ &nbsp; <strong>{username}</strong> completed{" "}
+        <em> "book holidays in Tenerife"</em>
       </p>
       <p>
-        <strong>{username}</strong> ✅ completed "book holidays in Tenerife"
-      </p>
-      <p>
-        <strong>Richard</strong> ❌ cancelled "read alexlobera.com latest post"
+        ❌ &nbsp; <strong>Richard</strong> cancelled{" "}
+        <em>"read alexlobera.com latest post"</em>
       </p>
     </>
   );

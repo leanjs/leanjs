@@ -3,7 +3,11 @@ import Link from "next/link";
 import { useGetter } from "@my-org/react-runtime";
 
 export function Nav() {
-  const [username] = useGetter("username");
+  const [username = "", loading] = useGetter("username", () =>
+    fetch("/api/user")
+      .then((response) => response.json())
+      .then((data) => data.username)
+  );
 
   return (
     <nav>
@@ -16,7 +20,7 @@ export function Nav() {
       </Link>{" "}
       |{" "}
       <Link shallow href="/profile">
-        {username}
+        {loading ? "..." : username}
       </Link>
     </nav>
   );

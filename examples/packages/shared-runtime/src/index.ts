@@ -3,10 +3,15 @@ import Pusher from "pusher-js";
 
 const defaultState = {
   theme: "dark",
-  username: "Alex",
+  username: undefined,
 };
 
-export const { createRuntime } = configureRuntime(defaultState)({
+interface State {
+  theme: string;
+  username?: string;
+}
+
+export const { createRuntime } = configureRuntime<State>(defaultState)({
   onError: console.log, // add a proper logger here,
   context: {
     pusher: new Pusher("947b6030dd7a69c41e5e", {
