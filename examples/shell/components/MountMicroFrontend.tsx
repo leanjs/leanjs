@@ -13,7 +13,7 @@ const CreateRoot = React.memo(function CreateRoot({
 }: {
   mount: Function;
 }) {
-  const ref = useRef();
+  const ref = useRef<HTMLHeadingElement>(null);
   const runtime = useGenericRuntime();
 
   useLayoutEffect(() => {
@@ -25,7 +25,12 @@ const CreateRoot = React.memo(function CreateRoot({
   return <div ref={ref} />;
 });
 
-export function MountMicroFrontend({ url, name }) {
+interface MountMicroFrontendProps {
+  url: string;
+  name: string;
+}
+
+export function MountMicroFrontend({ url, name }: MountMicroFrontendProps) {
   const mountKey = url + name;
   const cachedMount = mountCache.get(mountKey);
   const [mount = cachedMount, setMount] = useState();
