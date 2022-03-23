@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { useSetter, useGetter } from "@my-org/react-runtime";
+import { fetchUsername } from "@my-org/user-api";
 
 import { Input } from "./Input";
 import { Button } from "./Button";

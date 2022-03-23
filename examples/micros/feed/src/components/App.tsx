@@ -1,8 +1,9 @@
 import React from "react";
 import { useGetter } from "@my-org/react-runtime";
+import { fetchUsername } from "@my-org/user-api";
 
 export function App() {
-  const [username] = useGetter("username");
+  const [username] = useGetter("username", fetchUsername);
 
   return (
     <>

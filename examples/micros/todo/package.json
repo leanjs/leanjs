@@ -5,7 +5,8 @@
     "start": "webpack serve --config webpack.config.js"
   },
   "dependencies": {
-    "vue": "^3.0.0"
+    "vue": "^3.0.0",
+    "@my-org/user-api": "^1.0.0"
   },
   "license": "MIT",
   "devDependencies": {

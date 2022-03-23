@@ -9,7 +9,8 @@
     "next": "11.1.2",
     "react": "17.0.2",
     "react-dom": "17.0.2",
-    "@my-org/react-runtime": "^1.0.0"
+    "@my-org/react-runtime": "^1.0.0",
+    "@my-org/user-api": "^1.0.0"
   },
   "devDependencies": {
     "@types/node": "^16.11.1",

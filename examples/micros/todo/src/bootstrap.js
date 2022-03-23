@@ -1,13 +1,19 @@
 import { createApp } from "vue";
+import { fetchUsername } from "@my-org/user-api";
 import App from "./components/App.vue";
 
 export function mount(el, { runtime }) {
   if (el) {
+    // runtime.load("username", fetchUsername);
     const app = createApp(App, { runtime });
     app.mount(el);
   }
 
-  return { unmmount: () => {} };
+  return {
+    unmmount: () => {
+      // TODO
+    },
+  };
 }
 
 if (process.env.NODE_ENV === "development") {
