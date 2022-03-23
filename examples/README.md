@@ -1,4 +1,4 @@
-# Micro-fontends examples
+# Micro-frontends examples
 
 Examples shared `runtime` using React, Vue and Nextjs
 
