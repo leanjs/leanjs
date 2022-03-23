@@ -18,8 +18,15 @@ export const createRuntimeBindings = <
 ) => {
   const useRuntime = () => useGenericRuntime() as MyRuntime;
 
-  const useGetter = (prop: KeyOf<MyRuntime["state"]>) => {
+  const useGetter = <
+    Prop extends KeyOf<MyRuntime["state"]> = KeyOf<MyRuntime["state"]>
+  >(
+    prop: Prop,
+    loader?: () => MyRuntime["state"][Prop] | Promise<MyRuntime["state"][Prop]>
+  ) => {
     const runtime = useRuntime();
+    if (loader) runtime.load(prop, loader);
+
     const [value, setLocalState] = useState(runtime.state[prop]);
     const [error, setLocalError] = useState(runtime.loader[prop].error);
     const [loading, setLocalLoading] = useState(runtime.loader[prop].loading);

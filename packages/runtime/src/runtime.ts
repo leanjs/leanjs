@@ -134,9 +134,12 @@ Current valid props are: ${Object.keys(currentState).join(", ")}`);
       loader: () => Promise<State[P]> | State[P]
     ) => {
       validateProp(prop);
-
       const loaderState = loaders.get(prop);
-      if (loaderState?.done) {
+      if (!isBrowser) {
+        loaders.set(prop, {
+          loading: true,
+        });
+      } else if (loaderState?.done) {
         // do nothing
       } else if (loaderState?.promise) {
         await loaderState.promise;
