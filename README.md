@@ -6,11 +6,11 @@ Tools for building maintainable and performant micro-frontends.
 
 ### Runtime
 
-Visit package [`@leanjs/runtime`](/leanjs/leanjs/tree/main/packages/runtime.md)
+Visit package [`@leanjs/runtime`](packages/runtime.md)
 
 ### React bindings for `runtime`
 
-Visit package [`@leanjs/react`](/leanjs/leanjs/tree/main/packages/react.md)
+Visit package [`@leanjs/react`](packages/react.md)
 
 ## License
 
