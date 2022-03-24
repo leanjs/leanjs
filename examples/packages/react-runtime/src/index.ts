@@ -5,5 +5,11 @@ export { createRuntime };
 
 export type Runtime = GetRuntime<typeof createRuntime>;
 
-export const { useGetter, useSetter, useLoader, useRuntime, RuntimeProvider } =
-  createRuntimeBindings(createRuntime);
+export const {
+  useGetter,
+  useSetter,
+  useLoading,
+  useError,
+  useRuntime,
+  RuntimeProvider,
+} = createRuntimeBindings(createRuntime);
