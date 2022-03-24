@@ -15,8 +15,14 @@ const { createRuntime } = configureRuntime(defaultState)({
   onError: () => {},
 });
 
-const { useGetter, useSetter, useLoader, useRuntime, RuntimeProvider } =
-  createRuntimeBindings(createRuntime);
+const {
+  useGetter,
+  useSetter,
+  useLoading,
+  useError,
+  useRuntime,
+  RuntimeProvider,
+} = createRuntimeBindings(createRuntime);
 
 interface WrapperProps {
   children: ReactNode;
@@ -199,10 +205,10 @@ describe("useGetter", () => {
   });
 });
 
-describe("useLoader", () => {
+describe("useLoading", () => {
   it("throws an error if there is no Runtime in the context", () => {
     const Component = () => {
-      useLoader("locale");
+      useLoading("locale");
       return null;
     };
 
@@ -214,7 +220,7 @@ describe("useLoader", () => {
   it(`throws an error given an invalid prop`, () => {
     const Component = () => {
       // @ts-ignore
-      useLoader("invalid_prop");
+      useLoading("invalid_prop");
 
       return null;
     };
@@ -229,53 +235,79 @@ describe("useLoader", () => {
     }).toThrowError();
   });
 
-  describe("given a valid prop", () => {
-    it("returns a 2-element tuple where the first index is the current loading state of that state prop", async () => {
-      const runtime = createRuntime();
-      const random = Math.random().toString();
-      const { result, waitForNextUpdate } = renderHook(
-        () => useLoader("locale"),
-        {
-          wrapper: createWrapper(runtime),
-        }
+  it("returns the current loading state of that state prop given a valid prop", async () => {
+    const runtime = createRuntime();
+    const random = Math.random().toString();
+    const { result, waitForNextUpdate } = renderHook(
+      () => useLoading("locale"),
+      {
+        wrapper: createWrapper(runtime),
+      }
+    );
+
+    expect(result.current).toBe(false);
+
+    act(() => {
+      runtime.load(
+        "locale",
+        () => new Promise((resolve) => setTimeout(() => resolve(random), 1))
       );
-
-      expect(result.current[0]).toBe(false);
-
-      act(() => {
-        runtime.load(
-          "locale",
-          () => new Promise((resolve) => setTimeout(() => resolve(random), 1))
-        );
-      });
-
-      expect(result.current[0]).toBe(true);
-
-      await waitForNextUpdate();
-      await waitForExpect(() => expect(result.current[0]).toBe(false));
     });
 
-    it("returns a 2-element tuple where the second index is the current error of that state prop", async () => {
-      const runtime = createRuntime();
-      const random = Math.random().toString();
-      const { result, waitForNextUpdate } = renderHook(
-        () => useLoader("locale"),
-        {
-          wrapper: createWrapper(runtime),
-        }
+    expect(result.current).toBe(true);
+
+    await waitForNextUpdate();
+    await waitForExpect(() => expect(result.current).toBe(false));
+  });
+});
+
+describe("useError", () => {
+  it("throws an error if there is no Runtime in the context", () => {
+    const Component = () => {
+      useError("locale");
+      return null;
+    };
+
+    expect(() => {
+      render(<Component />);
+    }).toThrowError();
+  });
+
+  it(`throws an error given an invalid prop`, () => {
+    const Component = () => {
+      // @ts-ignore
+      useError("invalid_prop");
+
+      return null;
+    };
+    const Wrapper = createWrapper();
+
+    expect(() => {
+      render(
+        <Wrapper>
+          <Component />
+        </Wrapper>
       );
+    }).toThrowError();
+  });
 
-      expect(result.current[1]).toBe(undefined);
-
-      act(() => {
-        runtime.load(
-          "locale",
-          () => new Promise((_, reject) => setTimeout(() => reject(random), 1))
-        );
-      });
-      await waitForNextUpdate();
-
-      expect(result.current[1]).toBe(random);
+  it("returns the current error of that state prop given a valid prop", async () => {
+    const runtime = createRuntime();
+    const random = Math.random().toString();
+    const { result, waitForNextUpdate } = renderHook(() => useError("locale"), {
+      wrapper: createWrapper(runtime),
     });
+
+    expect(result.current).toBe(undefined);
+
+    act(() => {
+      runtime.load(
+        "locale",
+        () => new Promise((_, reject) => setTimeout(() => reject(random), 1))
+      );
+    });
+    await waitForNextUpdate();
+
+    expect(result.current).toBe(random);
   });
 });
