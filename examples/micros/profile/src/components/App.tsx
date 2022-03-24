@@ -14,7 +14,6 @@ export function App() {
     <>
       <h2>User profile</h2>
       <form
-        style={{ display: "inline" }}
         onSubmit={(e) => {
           e.preventDefault();
           shareUsername(username);

@@ -26,7 +26,9 @@ export const createRuntimeBindings = <
   ) => {
     const runtime = useRuntime();
     if (loader) runtime.load(prop, loader);
-    const [value, setValue] = useState(runtime.state[prop]);
+    const [value, setValue] = useState<MyRuntime["state"][Prop]>(
+      runtime.state[prop]
+    );
 
     useEffect(
       () =>

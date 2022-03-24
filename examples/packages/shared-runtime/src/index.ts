@@ -3,18 +3,13 @@ import Pusher from "pusher-js";
 
 const defaultState = {
   theme: "dark",
-  username: undefined,
+  username: "",
 };
 
-interface State {
-  theme: string;
-  username?: string;
-}
-
-export const { createRuntime } = configureRuntime<State>(defaultState)({
+export const { createRuntime } = configureRuntime(defaultState)({
   onError: console.log, // add a proper logger here,
   context: {
-    pusher: new Pusher("", {
+    pusher: new Pusher("ADD_KEY", {
       cluster: "eu",
     }),
   },
