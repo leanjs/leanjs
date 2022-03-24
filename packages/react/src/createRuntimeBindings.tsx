@@ -26,22 +26,17 @@ export const createRuntimeBindings = <
   ) => {
     const runtime = useRuntime();
     if (loader) runtime.load(prop, loader);
-
     const [value, setLocalState] = useState(runtime.state[prop]);
-    const [error, setLocalError] = useState(runtime.loader[prop].error);
-    const [loading, setLocalLoading] = useState(runtime.loader[prop].loading);
 
     useEffect(
       () =>
-        runtime.subscribe(prop, (nextValue, nextLoading, nextError) => {
+        runtime.subscribe(prop, (nextValue) => {
           setLocalState(nextValue);
-          setLocalLoading(nextLoading);
-          setLocalError(nextError);
         }),
       [runtime]
     );
 
-    return [value, loading, error];
+    return value;
   };
 
   const useSetter = <Prop extends KeyOf<MyRuntime["state"]>>(prop: Prop) => {
@@ -55,9 +50,27 @@ export const createRuntimeBindings = <
     );
   };
 
+  const useLoader = <Prop extends KeyOf<MyRuntime["state"]>>(prop: Prop) => {
+    const runtime = useRuntime();
+    const [error, setLocalError] = useState(runtime.loader[prop].error);
+    const [loading, setLocalLoading] = useState(runtime.loader[prop].loading);
+
+    useEffect(
+      () =>
+        runtime.subscribe(prop, (_, nextLoading, nextError) => {
+          setLocalLoading(nextLoading);
+          setLocalError(nextError);
+        }),
+      [runtime]
+    );
+
+    return [loading, error];
+  };
+
   return {
     useGetter,
     useSetter,
+    useLoader,
     useRuntime,
     RuntimeProvider: RuntimeProvider as RuntimeProviderComp<MyRuntime>,
   };
