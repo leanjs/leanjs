@@ -1,10 +1,11 @@
 import React from "react";
 import Link from "next/link";
-import { useGetter } from "@my-org/react-runtime";
+import { useGetter, useLoader } from "@my-org/react-runtime";
 import { fetchUsername } from "@my-org/user-api";
 
 export function Nav() {
-  const [username = "", loading] = useGetter("username", fetchUsername);
+  const username = useGetter("username", fetchUsername);
+  const [loading] = useLoader("username");
 
   return (
     <nav>
