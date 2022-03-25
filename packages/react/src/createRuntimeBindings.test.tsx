@@ -179,7 +179,6 @@ describe("useGetter", () => {
   describe("given a valid prop", () => {
     it("returns the current value", async () => {
       const runtime = createRuntime();
-      const random = Math.random().toString();
       const { result } = renderHook(() => useGetter("locale"), {
         wrapper: createWrapper(runtime),
       });
