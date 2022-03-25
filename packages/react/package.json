@@ -1,6 +1,8 @@
 {
   "name": "@leanjs/react",
   "version": "0.0.0",
+  "author": "Alex Lobera <alex@leanjs.com>",
+  "description": "Create your own typed React bindings for @leanjs/runtime",
   "main": "./src/index.tsx",
   "types": "./src/index.tsx",
   "license": "MIT",

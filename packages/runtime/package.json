@@ -1,6 +1,8 @@
 {
   "name": "@leanjs/runtime",
   "version": "0.0.0",
+  "author": "Alex Lobera <alex@leanjs.com>",
+  "description": "Package to share a runtime between distributed web apps in a performant and maintainable way",
   "types": "./dist/index.d.ts",
   "main": "./dist/index.js",
   "license": "MIT",

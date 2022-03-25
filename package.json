@@ -1,7 +1,9 @@
 {
   "name": "@leanjs/root",
   "version": "0.0.0",
+  "author": "Alex Lobera <alex@leanjs.com>",
   "private": true,
+  "description": "Tools for building maintainable and performant micro-frontends.",
   "workspaces": [
     "packages/*",
     "examples/shell",
