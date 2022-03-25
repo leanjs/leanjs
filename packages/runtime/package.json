@@ -1,11 +1,19 @@
 {
   "name": "@leanjs/runtime",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "author": "Alex Lobera <alex@leanjs.com>",
   "description": "Package to share a runtime between distributed web apps in a performant and maintainable way",
   "types": "./dist/index.d.ts",
   "main": "./dist/index.js",
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/leanjs/leanjs.git",
+    "directory": "packages/runtime"
+  },
+  "files": [
+    "dist"
+  ],
   "devDependencies": {
     "wait-for-expect": "^3.0.2"
   },
