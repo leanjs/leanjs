@@ -18,6 +18,8 @@
     "react": "^17.0.2"
   },
   "scripts": {
-    "test": "jest"
+    "test": "jest",
+    "prebuild": "del-cli dist",
+    "build": "tsc --outDir dist --project ./tsconfig.build.json"
   }
 }

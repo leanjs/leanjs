@@ -1,13 +1,15 @@
 {
   "name": "@leanjs/runtime",
   "version": "0.0.0",
-  "main": "./src/index.tsx",
-  "types": "./src/index.tsx",
+  "types": "./dist/index.d.ts",
+  "main": "./dist/index.js",
   "license": "MIT",
   "devDependencies": {
     "wait-for-expect": "^3.0.2"
   },
   "scripts": {
-    "test":"jest"
+    "test":"jest",
+    "prebuild": "del-cli dist",
+    "build": "tsc --outDir dist --project ./tsconfig.build.json"
   }
 }

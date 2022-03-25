@@ -4,7 +4,7 @@ This package contains React bindings for the shared `runtime`.
 
 # Installation
 
-`yarn add @leanjs/react`
+`yarn add @leanjs/react @leanjs/runtime`
 
 # Usage
 
