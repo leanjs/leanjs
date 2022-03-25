@@ -7,7 +7,7 @@
   "author": "",
   "license": "MIT",
   "dependencies": {
-    "@leanjs/react": "^0.0.0",
+    "@leanjs/react": "^0.0.1",
     "@my-org/shared-runtime": "^1.0.0"
   }
 }
