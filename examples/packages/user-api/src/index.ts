@@ -1,4 +1,4 @@
 export const fetchUsername = () =>
-  fetch("/api/user")
+  fetch("http://localhost:3001/api/user")
     .then((response) => response.json())
     .then((data) => data.username);
