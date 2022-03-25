@@ -1,7 +1,9 @@
 {
   "name": "@leanjs/root",
   "version": "0.0.0",
+  "author": "Alex Lobera <alex@leanjs.com>",
   "private": true,
+  "description": "Tools for building maintainable and performant micro-frontends.",
   "workspaces": [
     "packages/*",
     "examples/shell",
@@ -20,6 +22,7 @@
     "@swc/jest": "^0.2.17",
     "@types/jest": "^27.4.0",
     "concurrently": "^7.0.0",
+    "del-cli": "^4.0.1",
     "jest": "^27.5.1",
     "lerna": "^4.0.0",
     "prettier": "^2.5.1",

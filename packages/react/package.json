@@ -1,6 +1,8 @@
 {
   "name": "@leanjs/react",
   "version": "0.0.0",
+  "author": "Alex Lobera <alex@leanjs.com>",
+  "description": "Create your own typed React bindings for @leanjs/runtime",
   "main": "./src/index.tsx",
   "types": "./src/index.tsx",
   "license": "MIT",
@@ -18,6 +20,8 @@
     "react": "^17.0.2"
   },
   "scripts": {
-    "test": "jest"
+    "test": "jest",
+    "prebuild": "del-cli dist",
+    "build": "tsc --outDir dist --project ./tsconfig.build.json"
   }
 }
