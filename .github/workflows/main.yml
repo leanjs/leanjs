@@ -64,4 +64,3 @@ jobs:
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
           GH_TOKEN: ${{ secrets.ADMIN_GH_TOKEN }}
-          NODE_AUTH_TOKEN: ${{ secrets.ADMIN_GH_TOKEN }}
