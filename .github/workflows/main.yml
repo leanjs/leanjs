@@ -57,17 +57,15 @@ jobs:
       - name: Authenticate with NPM
         run: |
           yarn logout
-          echo "@leanjs:registry=http://registry.npmjs.org/" > .npmrc
-          echo "registry=http://registry.npmjs.org/" >> .npmrc
+          echo "@leanjs:registry=https://registry.npmjs.org/" > .npmrc
+          echo "registry=https://registry.npmjs.org/" >> .npmrc
           echo "always-auth=true" >> .npmrc
           echo "//registry.npmjs.org/:_authToken=$NPM_TOKEN" >> .npmrc
           npm whoami
         env:
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
       - name: Version and publish
-        run: |
-          npm whoami
-          yarn ci
+        run: yarn ci
         env:
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
           GH_TOKEN: ${{ secrets.ADMIN_GH_TOKEN }}
