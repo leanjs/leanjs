@@ -92,7 +92,7 @@ Current valid props are: ${Object.keys(currentState).join(", ")}`);
         return currentState[prop];
       } else {
         await Promise.all(
-          [...loaders.values()].map((loader) => loader.promise)
+          Array.from(loaders.values()).map((loader) => loader.promise)
         );
 
         return undefined;

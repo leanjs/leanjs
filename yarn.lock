@@ -713,11 +713,6 @@
     "@jridgewell/resolve-uri" "^3.0.3"
     "@jridgewell/sourcemap-codec" "^1.4.10"
 
-"@leanjs/runtime@^0.0.0":
-  version "0.0.0"
-  resolved "https://registry.yarnpkg.com/@leanjs/runtime/-/runtime-0.0.0.tgz#3dfb63f791f4f11c0c969c839f95a292b857de25"
-  integrity sha512-Kv4tOU+RMqTwSXQdGQFShcTBVSs2wvRmNEyKbvJKfJPuGR/JaT8g6stBOMeXkia7iZkzmJTVaUTD3GAzpi4S9w==
-
 "@lerna/add@4.0.0":
   version "4.0.0"
   resolved "https://registry.yarnpkg.com/@lerna/add/-/add-4.0.0.tgz#c36f57d132502a57b9e7058d1548b7a565ef183f"
