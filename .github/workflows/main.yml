@@ -46,7 +46,7 @@ jobs:
         run: |
           git --version
           git config --global user.email alex@leanjs.com
-          git config --global user.name alexlbr
+          git config --global user.name leanjsbot
           git remote rm origin
           git remote add origin "https://alexlbr:$GITHUB_TOKEN@github.com/leanjs/leanjs.git"
           git push -u origin main
@@ -59,6 +59,7 @@ jobs:
           yarn logout
           echo "@leanjs:registry=http://registry.npmjs.org/" > .npmrc
           echo "registry=http://registry.npmjs.org/" >> .npmrc
+          echo "always-auth=true" >> .npmrc
           echo "//registry.npmjs.org/:_authToken=$NPM_TOKEN" >> .npmrc
           npm whoami
         env:
