@@ -1,0 +1,17 @@
+**/coverage/**
+**/node_modules/**
+bin/
+packages/*/dist/**
+packages/*/lib/**
+packages/*/scripts/**
+**/dist/*
+**/public/*
+**/__testfixtures__/**
+**/__tests__/fixtures/**
+peril
+docs
+plop-templates
+starters
+benchmarks
+examples
+**/*.d.ts

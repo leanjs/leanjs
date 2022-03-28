@@ -1,0 +1,14 @@
+name: Install dependencies
+
+runs:
+  using: composite
+  steps:
+    - name: Setup Node LTS and yarn cache
+      uses: actions/setup-node@v2
+      with:
+        cache: yarn
+        check-latest: true
+        node-version: 16
+    - name: Install dependencies
+      run: yarn install --frozen-lockfile
+      shell: bash
