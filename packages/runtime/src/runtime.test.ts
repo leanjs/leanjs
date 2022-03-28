@@ -19,7 +19,9 @@ const defaultState: SharedState = {
 class FakeGQLClient {}
 
 class FakeFirebase {
-  constructor(token: string) {}
+  constructor(token: string) {
+    // empty
+  }
   public toString = (): string => `FakeFirebase`;
 }
 
@@ -41,7 +43,9 @@ const fetchToken = () =>
 const eventEmitter = new FakeEventEmitter();
 
 const { createRuntime } = configureRuntime<SharedState>(defaultState)({
-  onError: () => {},
+  onError: () => {
+    // empty
+  },
   context: {
     eventEmitter,
     gql: new Promise((resolve) => resolve(new FakeGQLClient())),
@@ -91,7 +95,7 @@ describe("configureRuntime", () => {
     const onError = jest.fn();
     const randomError = new Error(Math.random().toString());
     const runtime = configureRuntime(defaultState)({
-      onError: () => {},
+      onError,
       context: {
         eventEmitter: Promise.resolve(randomError),
       },
@@ -111,7 +115,9 @@ describe("createRuntime", () => {
       error: undefined,
     };
     const { createRuntime } = configureRuntime(defaultState)({
-      onError: () => {},
+      onError: () => {
+        // empty
+      },
       context,
     });
 
@@ -133,7 +139,9 @@ describe("createRuntime", () => {
 
   it(`can receive some initial state that overrides the default state`, async () => {
     const { createRuntime } = configureRuntime<SharedState>(defaultState)({
-      onError: () => {},
+      onError: () => {
+        // empty
+      },
     });
     const username = Math.random().toString();
 
@@ -150,7 +158,9 @@ describe("booted", () => {
     let isGqlResolved = false;
     let isFirebaseResolved = false;
     const runtime = configureRuntime<SharedState>(defaultState)({
-      onError: () => {},
+      onError: () => {
+        // empty
+      },
       context: {
         gql: new Promise<FakeGQLClient>((resolve) => {
           isGqlResolved = true;
@@ -174,7 +184,9 @@ describe("booted", () => {
 
   it(`returns false if it can't resolve all the async context`, async () => {
     const runtime = configureRuntime(defaultState)({
-      onError: () => {},
+      onError: () => {
+        // empty
+      },
       context: {
         a: Promise.resolve(1),
         b: Promise.resolve(2),
@@ -189,7 +201,9 @@ describe("booted", () => {
 
   it(`returns true if it can resolve all the async context`, async () => {
     const runtime = configureRuntime(defaultState)({
-      onError: () => {},
+      onError: () => {
+        // empty
+      },
       context: {
         a: Promise.resolve(1),
         b: Promise.resolve(2),
@@ -218,7 +232,7 @@ describe("state", () => {
     try {
       const runtime = createRuntime();
       // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-      //@ts-ignore
+      // @ts-ignore
       runtime.state.invalid_prop;
     } catch (error: any) {
       errorMessage = error.message;
@@ -254,8 +268,10 @@ describe("subscribe", () => {
     try {
       await runtime
         // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-        //@ts-ignore
-        .subscribe("invalid_prop", () => {});
+        // @ts-ignore
+        .subscribe("invalid_prop", () => {
+          // empty
+        });
     } catch (error: any) {
       errorMessage = error.message;
     }
@@ -282,6 +298,7 @@ Current valid props are: locale, token, user`);
     const subscriber = jest.fn();
 
     runtime.subscribe("locale", subscriber);
+    // eslint-disable-next-line no-self-assign
     runtime.state.locale = runtime.state.locale;
 
     expect(subscriber).not.toHaveBeenCalled();
@@ -381,7 +398,9 @@ describe("on", () => {
       onError,
     }).createRuntime();
     expect(() => {
-      runtime.on("this-prop-does-not-exist", () => () => {});
+      runtime.on("this-prop-does-not-exist", () => () => {
+        // empty
+      });
     }).toThrow(`No context found in runtime for prop this-prop-does-not-exist`);
   });
 
@@ -398,7 +417,9 @@ describe("on", () => {
         // eslint-disable-next-line @typescript-eslint/ban-ts-comment
         // @ts-ignore
         "this-prop-does-not-exist",
-        () => () => {}
+        () => () => {
+          // empty
+        }
       );
     }).toThrow(`No context found in runtime for prop this-prop-does-not-exist`);
   });
@@ -410,7 +431,9 @@ describe("on", () => {
         state.locale = value;
       });
 
-      return () => {};
+      return () => {
+        // empty
+      };
     });
 
     await runtime.booted();
@@ -424,7 +447,9 @@ describe("on", () => {
   it("passes a resolved context value to the callback even if the context prop is async", async () => {
     const localEventEmitter = new FakeEventEmitter();
     const { createRuntime } = configureRuntime<SharedState>(defaultState)({
-      onError: () => {},
+      onError: () => {
+        // empty
+      },
       context: {
         eventEmitter: async () =>
           new Promise<FakeEventEmitter>((resolve) => {
@@ -441,7 +466,9 @@ describe("on", () => {
         state.locale = value;
       });
 
-      return () => {};
+      return () => {
+        // empty
+      };
     });
 
     await runtime.booted();
@@ -514,7 +541,7 @@ describe("loader", () => {
     try {
       await runtime;
       // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-      //@ts-ignore
+      // @ts-ignore
       runtime.loader.invalid_prop.loading;
     } catch (error: any) {
       errorMessage = error.message;
@@ -573,8 +600,10 @@ describe("load", () => {
     try {
       await runtime
         // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-        //@ts-ignore
-        .load("invalid_prop", () => {});
+        // @ts-ignore
+        .load("invalid_prop", () => {
+          // empty
+        });
     } catch (error: any) {
       errorMessage = error.message;
     }
@@ -638,8 +667,10 @@ describe("loaded", () => {
     try {
       await runtime
         // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-        //@ts-ignore
-        .loaded("invalid_prop", () => {});
+        // @ts-ignore
+        .loaded("invalid_prop", () => {
+          // empty
+        });
     } catch (error: any) {
       errorMessage = error.message;
     }

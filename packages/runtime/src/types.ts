@@ -90,7 +90,7 @@ export interface Runtime<
   CtxProp extends KeyOf<CtxFactory> = KeyOf<CtxFactory>
 > {
   state: State;
-  //subscribe: (prop: Prop, subscriber: Subscriber<State[Prop]>) => Unsubscribe;
+  // subscribe: (prop: Prop, subscriber: Subscriber<State[Prop]>) => Unsubscribe;
   subscribe: <P extends Prop>(
     prop: P,
     subscriber: Subscriber<State[P]>

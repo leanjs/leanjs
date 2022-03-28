@@ -95,7 +95,7 @@ Current valid props are: ${Object.keys(currentState).join(", ")}`);
           [...loaders.values()].map((loader) => loader.promise)
         );
 
-        return;
+        return undefined;
       }
     };
 

@@ -12,7 +12,9 @@ const defaultState = {
 };
 
 const { createRuntime } = configureRuntime(defaultState)({
-  onError: () => {},
+  onError: () => {
+    // empty
+  },
 });
 
 const {
@@ -74,6 +76,7 @@ describe("useSetter", () => {
 
   it(`throws an error given an invalid prop`, () => {
     const Component = () => {
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
       // @ts-ignore
       const setInvalidProp = useSetter("invalid_prop");
       setInvalidProp("1");
@@ -160,6 +163,7 @@ describe("useGetter", () => {
 
   it(`throws an error given an invalid prop`, () => {
     const Component = () => {
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
       // @ts-ignore
       useGetter("invalid_prop");
 
@@ -218,6 +222,7 @@ describe("useLoading", () => {
 
   it(`throws an error given an invalid prop`, () => {
     const Component = () => {
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
       // @ts-ignore
       useLoading("invalid_prop");
 
@@ -274,6 +279,7 @@ describe("useError", () => {
 
   it(`throws an error given an invalid prop`, () => {
     const Component = () => {
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
       // @ts-ignore
       useError("invalid_prop");
 

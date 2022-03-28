@@ -15,7 +15,7 @@
     "build": "lerna run build",
     "----------------------LINTING----------------------": ".",
     "lint": "eslint .",
-    "lint:fix": "lint:ts --fix",
+    "lint:fix": "yarn lint --fix",
     "check-types": "tsc --noEmit",
     "----------------------TESTING----------------------": ".",
     "test": "lerna run test",
