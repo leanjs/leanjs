@@ -6,10 +6,9 @@
   "description": "Tools for building maintainable and performant micro-frontends.",
   "scripts": {
     "----------------------CI TOOLS----------------------": ".",
-    "ci": "run-s ci:divergence ci:version ci:publish",
-    "ci:divergence": "git push -u origin main",
-    "ci:version": "HUSKY=0 yarn lerna version --yes --include-merged-tags --create-release github --conventional-commits --message 'chore: publish'",
-    "ci:publish": "yarn lerna publish from-package --yes",
+    "ci": "run-s ci:version ci:publish",
+    "ci:version": "HUSKY=0 yarn lerna --since version --yes --include-merged-tags --create-release github --conventional-commits --message 'chore: publish'",
+    "ci:publish": "yarn lerna publish from-package --yes lerna list --since",
     "----------------------BUILDING----------------------": ".",
     "prebuild": "del-cli **/dist !**/node_modules/**/dist",
     "build": "lerna run build",
