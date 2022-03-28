@@ -54,11 +54,14 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.ADMIN_GH_TOKEN }}
       - name: Build changed
         run: yarn build
-      - name: Setup NPM
-        uses: actions/setup-node@v2
-        with:
-          node-version: "16.x"
-          registry-url: "https://registry.npmjs.org"
+     - name: Authenticate with NPM
+        run: |
+          echo "@leanjs:registry=http://registry.npmjs.org/" > .npmrc
+          echo "registry=http://registry.npmjs.org/" >> .npmrc
+          echo "//registry.npmjs.org/:_authToken=$NPM_TOKEN" >> .npmrc
+          npm whoami
+        env:
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
       - name: Version and publish
         run: yarn ci
         env:
