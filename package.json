@@ -10,6 +10,13 @@
     "ci:divergence": "git push -u origin main",
     "ci:version": "HUSKY=0 yarn lerna version --yes --include-merged-tags --create-release github --conventional-commits --message 'chore: publish'",
     "ci:publish": "yarn lerna publish from-package --yes",
+    "----------------------BUILDING----------------------": ".",
+    "prebuild": "del-cli **/dist !**/node_modules/**/dist",
+    "build": "lerna run build",
+    "----------------------LINTING----------------------": ".",
+    "lint": "eslint .",
+    "lint:fix": "lint:ts --fix",
+    "check-types": "tsc --noEmit",
     "----------------------RUNNING----------------------": ".",
     "prepare": "husky install"
   },
