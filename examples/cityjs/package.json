@@ -5,8 +5,13 @@
   "private": true,
   "description": "Tools for building maintainable and performant micro-frontends.",
   "workspaces": [
+    "shell",
+    "micros/*",
     "packages/*"
   ],
+  "scripts": {
+    "start": "lerna run start --parallel"
+  },
   "devDependencies": {
     "@swc/core": "^1.2.142",
     "@swc/jest": "^0.2.17",

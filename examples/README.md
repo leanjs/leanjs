@@ -1,16 +1,3 @@
-# Micro-frontends examples
+# Examples
 
-Examples shared `runtime` using React, Vue and Nextjs
-
-## Usage
-
-Run at the root of the repository:
-
-`yarn run:examples`
-
-## Examples
-
-- http://localhost:8889 Feed micro-app (React)
-- http://localhost:8888 Profile micro-app (React)
-- http://localhost:8887 ToDo micro-app (Vue)
-- http://localhost:3001 Shell app (Nextjs)
+Each example is a separate project. They are not workspaces in the monorepo so you have to `yarn` each example separately. Read the README of each example to know how to run it.

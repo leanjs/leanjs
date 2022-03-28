@@ -1,5 +1,5 @@
 {
-  "name": "@my-org/user-api",
+  "name": "@my-org/user",
   "version": "1.0.0",
   "description": "",
   "main": "./src/index.ts",
