@@ -1,0 +1,51 @@
+name: Build and deploy main branch
+on:
+  push:
+    branches:
+      - main
+####
+permissions:
+  contents: write
+
+jobs:
+  check-changed:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+      - name: Install dependencies
+        uses: ./.github/install-dependencies
+      - name: Build
+        run: yarn build
+      - name: Test
+        run: yarn test --since
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Install dependencies
+        uses: ./.github/install-dependencies
+      - name: Lint
+        run: yarn lint
+  deploy:
+    runs-on: ubuntu-latest
+    needs: [check-changed, lint]
+    if: "!contains(github.event.head_commit.message, 'chore: publish')"
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+      - name: Install dependencies
+        uses: ./.github/install-dependencies
+      - name: Build changed
+        run: yarn build
+      - name: Version and publish
+        run: yarn ci
+        env:
+          GH_TOKEN: ${{ secrets.ADMIN_GH_TOKEN }}
+          NODE_AUTH_TOKEN: ${{ secrets.ADMIN_GH_TOKEN }}

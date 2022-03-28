@@ -1,0 +1,49 @@
+name: Check pull request (PR)
+on:
+  pull_request:
+    paths:
+      - packages/**
+
+jobs:
+  check-changed:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+      - name: Install dependencies
+        uses: ./.github/install-dependencies
+      - name: Build
+        run: yarn build
+      - name: Test
+        run: yarn test --since
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Install dependencies
+        uses: ./.github/install-dependencies
+      - name: Lint
+        run: yarn lint
+  commitlint:
+    runs-on: ubuntu-latest
+    if: github.actor != 'dependabot[bot]'
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+      - uses: wagoid/commitlint-github-action@v4
+      - name: Post comment if commitlint fails
+        if: ${{ failure() }}
+        uses: actions/github-script@v3
+        with:
+          github-token: ${{secrets.GITHUB_TOKEN}}
+          script: |
+            github.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: "Your commit failed the linter\n\n`leanjs` uses a [specific commit convention](https://github.com/conventional-changelog/commitlint) to auto version packages + generate your changelog for you. \n\nHere's an example of what a typical commit looks like:\n```\fix(runtim): server-side rendering support\n\n - It checks if it runs on the server and if so loaders are not executed\n"
+            })
