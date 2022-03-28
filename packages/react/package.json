@@ -15,7 +15,7 @@
     "dist"
   ],
   "devDependencies": {
-    "@leanjs/runtime": "^0.0.3",
+    "@leanjs/runtime": "^0.0.1",
     "@testing-library/react": "^12.1.4",
     "@testing-library/react-hooks": "^7.0.2",
     "@types/react": "^17.0.41",
