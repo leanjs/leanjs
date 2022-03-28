@@ -1,18 +1,18 @@
 import { createApp } from "vue";
-import { fetchUsername } from "@my-org/user-api";
-//import { createRuntime } from "@my-org/shared-runtime";
+import { fetchUsername } from "@my-org/user";
+import { createRuntime } from "@my-org/shared-runtime";
 import App from "./components/App.vue";
 
 export function mount(el, { runtime }) {
   if (el) {
-    // runtime?.load("username", fetchUsername);
+    runtime?.load("username", fetchUsername);
     const app = createApp(App, { runtime });
     app.mount(el);
   }
 
   return {
     unmmount: () => {
-      // TODO
+      app.unmmount();
     },
   };
 }
@@ -20,7 +20,6 @@ export function mount(el, { runtime }) {
 if (process.env.NODE_ENV === "development") {
   const el = document.querySelector("#root-todo-dev");
   if (el) {
-    // mount(el, { runtime: createRuntime() });
-    mount(el, { runtime: null });
+    mount(el, { runtime: createRuntime() });
   }
 }

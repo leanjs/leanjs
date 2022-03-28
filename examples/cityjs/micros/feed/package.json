@@ -9,12 +9,14 @@
   "license": "MIT",
   "dependencies": {
     "@my-org/react-runtime": "^1.0.0",
-    "@my-org/user-api": "^1.0.0",
+    "@my-org/user": "^1.0.0",
     "react": "^17.0.2",
     "react-dom": "^17.0.2"
   },
   "devDependencies": {
     "@swc/core": "^1.2.160",
+    "@types/react": "^17.0.43",
+    "@types/react-dom": "^17.0.14",
     "html-webpack-plugin": "^5.4.0",
     "swc-loader": "^0.1.15",
     "webpack": "^5.58.2",

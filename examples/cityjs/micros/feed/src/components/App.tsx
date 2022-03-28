@@ -1,6 +1,6 @@
 import React from "react";
 import { useGetter } from "@my-org/react-runtime";
-import { fetchUsername } from "@my-org/user-api";
+import { fetchUsername } from "@my-org/user";
 
 export function App() {
   const username = useGetter("username", fetchUsername);
