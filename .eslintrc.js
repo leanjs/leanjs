@@ -7,7 +7,7 @@ module.exports = {
     "plugin:import/warnings",
     "plugin:jest-dom/recommended",
     "plugin:testing-library/react",
-    `prettier`,
+    "plugin:prettier/recommended",
   ],
   plugins: [
     "@typescript-eslint",
@@ -15,7 +15,6 @@ module.exports = {
     "simple-import-sort",
     "jest-dom",
     "testing-library",
-    `prettier`,
   ],
   parserOptions: {
     ecmaVersion: 2020,
@@ -32,8 +31,6 @@ module.exports = {
   },
   rules: {
     "no-unused-expressions": `off`,
-    "@babel/no-invalid-this": `error`,
-    "no-invalid-this": `off`,
     "new-cap": `off`,
     "no-unused-vars": [
       `warn`,

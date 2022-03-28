@@ -21,3 +21,6 @@ test/**/out*
 # Editors
 **/.idea
 **/.#*
+
+# tools
+.eslintcache
