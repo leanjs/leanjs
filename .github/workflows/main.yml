@@ -56,6 +56,7 @@ jobs:
         run: yarn build
       - name: Authenticate with NPM
         run: |
+          yarn logout
           echo "@leanjs:registry=http://registry.npmjs.org/" > .npmrc
           echo "registry=http://registry.npmjs.org/" >> .npmrc
           echo "//registry.npmjs.org/:_authToken=$NPM_TOKEN" >> .npmrc
