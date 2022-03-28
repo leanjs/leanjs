@@ -5,7 +5,7 @@ on:
       - packages/**
 
 jobs:
-  check-changed:
+  test:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout

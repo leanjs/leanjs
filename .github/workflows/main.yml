@@ -8,7 +8,7 @@ permissions:
   contents: write
 
 jobs:
-  check-changed:
+  test:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -32,7 +32,7 @@ jobs:
         run: yarn lint
   deploy:
     runs-on: ubuntu-latest
-    needs: [check-changed, lint]
+    needs: [test, lint]
     if: "!contains(github.event.head_commit.message, 'chore: publish')"
     steps:
       - name: Checkout
@@ -42,6 +42,16 @@ jobs:
           persist-credentials: false
       - name: Install dependencies
         uses: ./.github/install-dependencies
+      - name: Configure Git
+        run: |
+          git --version
+          git config --global user.email alex@leanjs.com
+          git config --global user.name alexlbr
+          git remote rm origin
+          git remote add origin "https://alexlbr:$GITHUB_TOKEN@github.com/leanjs.git"
+          git push -u origin master
+        env:
+          GITHUB_TOKEN: ${{ secrets.ADMIN_GH_TOKEN }}
       - name: Build changed
         run: yarn build
       - name: Version and publish
