@@ -17,6 +17,8 @@
     "lint": "eslint .",
     "lint:fix": "lint:ts --fix",
     "check-types": "tsc --noEmit",
+    "----------------------TESTING----------------------": ".",
+    "test": "lerna run test",
     "----------------------RUNNING----------------------": ".",
     "prepare": "husky install"
   },
