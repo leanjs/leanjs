@@ -54,7 +54,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.ADMIN_GH_TOKEN }}
       - name: Build changed
         run: yarn build
-     - name: Authenticate with NPM
+      - name: Authenticate with NPM
         run: |
           echo "@leanjs:registry=http://registry.npmjs.org/" > .npmrc
           echo "registry=http://registry.npmjs.org/" >> .npmrc
