@@ -64,7 +64,9 @@ jobs:
         env:
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
       - name: Version and publish
-        run: yarn ci
+        run: |
+          npm whoami
+          yarn ci
         env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
           GH_TOKEN: ${{ secrets.ADMIN_GH_TOKEN }}
