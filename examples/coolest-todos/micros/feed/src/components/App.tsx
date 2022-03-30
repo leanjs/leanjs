@@ -4,6 +4,7 @@ import { fetchUsername } from "@my-org/user";
 
 export function App() {
   const username = useGetter("username", fetchUsername);
+  //const username = "you";
 
   return (
     <>
