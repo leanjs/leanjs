@@ -1,8 +1,8 @@
-# CityJS conf example
+# Coolest To-Dos example
 
 # Installation
 
-Run `yarn` in this folder `examples/cityjs`.
+Run `yarn` in this folder `examples/coolest-todos`.
 
 # Usage
 

@@ -4,7 +4,7 @@ import { useGetter, useLoading } from "@my-org/react-runtime";
 import { fetchUsername } from "@my-org/user";
 
 export function Nav() {
-  const username = useGetter("username", fetchUsername);
+  const username = useGetter("username");
   const loading = useLoading("username");
 
   return (
