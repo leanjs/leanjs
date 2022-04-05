@@ -1,6 +1,6 @@
 {
   "name": "@leanjs/runtime",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "author": "Alex Lobera <alex@leanjs.com>",
   "description": "Package to share a runtime between distributed web apps in a performant and maintainable way",
   "types": "./dist/index.d.ts",
