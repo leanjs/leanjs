@@ -1,6 +1,6 @@
 # @leanjs/runtime
 
-This `runtime` enables micro-frontends to share state or execution context in a controlled manner, keeping your micro-frontends performant and maintainable. By default nothing is shared.
+This `runtime` enables micro-frontends to share state or execution context in a controlled manner, keeping your micro-frontends performant and maintainable. By default nothing is shared. You can read more about [the why of this package in this post](https://alexlobera.com/sharing-state-in-micro-frontends-at-runtime/).
 
 The `runtime` is created in two steps:
 
