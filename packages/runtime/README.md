@@ -3,6 +3,7 @@
 This `runtime` enables micro-frontends to share state or execution context in a controlled manner, keeping your micro-frontends performant and maintainable. By default nothing is shared. You can read more about [the why of this package in this post](https://alexlobera.com/sharing-state-in-micro-frontends-at-runtime/).
 
 The `runtime` is created in two steps:
+ss
 
 1. `configureRuntime`. In a distributed architecture there are many places where a runtime could be created. For instance, each micro-app will create a `runtime` if they run in isolation. However, when micro-apps are composed into a single app, only one `runtime` should be created and shared across all of them. The `runtime` can be created in more than one place but the configuration of it should be the same for all of them. Don't invoke `configureRuntime` more than once in a project. By project I mean in your whole micro-frontends architecture.
 
