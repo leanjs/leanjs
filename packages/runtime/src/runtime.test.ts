@@ -572,6 +572,15 @@ describe("load", () => {
     expect(value).toBe(random);
   });
 
+  it("sets an error message if it fails", async () => {
+    const runtime = createRuntime();
+    const random = Math.random().toString();
+    const value = await runtime.load("locale", () => Promise.reject(random));
+
+    expect(runtime.loader.locale.error).toBe(random);
+    expect(runtime.loader.locale.loading).toBe(false);
+  });
+
   it("doesn't run on the server", async () => {
     const { window } = global;
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
