@@ -35,6 +35,7 @@
     "del-cli": "^4.0.1",
     "eslint": "^8.12.0",
     "eslint-config-prettier": "^8.5.0",
+    "eslint-import-resolver-typescript": "^2.7.1",
     "eslint-plugin": "^1.0.1",
     "eslint-plugin-import": "^2.25.4",
     "eslint-plugin-jest-dom": "^4.0.1",
@@ -61,5 +62,6 @@
   "lint-staged": {
     "*.{ts,tsx,js,jsx}": "eslint --cache --fix",
     "*.{ts,tsx,js,jsx,css,md}": "prettier --write"
-  }
+  },
+  "dependencies": {}
 }
