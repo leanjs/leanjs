@@ -1,14 +1,16 @@
 {
-    "version": "independent",
-    "npmClient": "yarn",
-    "useWorkspaces": true,
-    "command": {
-      "version": {
-        "ignoreChanges": ["**/dist/**/*", "**/node_modules/**/*"]
-      },
-      "publish": {
-        "ignoreChanges": ["**/dist/**/*", "**/node_modules/**/*"]
-      }
+  "version": "independent",
+  "npmClient": "yarn",
+  "useWorkspaces": true,
+  "command": {
+    "version": {
+      "ignoreChanges": ["**/dist/**/*", "**/node_modules/**/*"]
+    },
+    "publish": {
+      "ignoreChanges": ["**/dist/**/*", "**/node_modules/**/*"],
+      "conventionalCommits": true,
+      "message": "chore: publish",
+      "allowBranch": "main"
     }
   }
-  
+}
