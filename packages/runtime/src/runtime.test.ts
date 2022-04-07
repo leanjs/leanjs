@@ -572,6 +572,22 @@ describe("load", () => {
     expect(value).toBe(random);
   });
 
+  it("doesn't run on the server", async () => {
+    const { window } = global;
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
+    delete global.window;
+    const runtime = createRuntime();
+    const random = Math.random().toString();
+    const value = await runtime.load(
+      "locale",
+      () => new Promise((resolve) => setTimeout(() => resolve(random), 10))
+    );
+
+    global.window = window;
+    expect(value).toBe("en");
+  });
+
   it("it only loads a value once even if `load` is called many times for the same state prop ", async () => {
     const random = Math.random().toString();
     const runtime = createRuntime();
@@ -581,11 +597,9 @@ describe("load", () => {
     );
 
     await runtime.load("locale", loader);
-    Promise.all([
-      runtime.load("locale", loader),
-      runtime.load("locale", loader),
-      runtime.load("locale", loader),
-    ]);
+    runtime.load("locale", loader);
+    runtime.load("locale", loader);
+    runtime.load("locale", loader);
     await runtime.load("locale", loader);
 
     expect(runtime.state.locale).toBe(random);
