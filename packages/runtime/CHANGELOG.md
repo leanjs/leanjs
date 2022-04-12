@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.0.5](https://github.com/leanjs/leanjs/compare/@leanjs/runtime@0.0.4...@leanjs/runtime@0.0.5) (2022-04-12)
+
+**Note:** Version bump only for package @leanjs/runtime
+
+
+
+
+
 ## [0.0.4](https://github.com/leanjs/leanjs/compare/@leanjs/runtime@0.0.3...@leanjs/runtime@0.0.4) (2022-04-07)
 
 **Note:** Version bump only for package @leanjs/runtime
