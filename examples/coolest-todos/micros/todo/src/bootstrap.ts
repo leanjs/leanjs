@@ -1,18 +1,18 @@
-import { createApp } from "vue";
-import { fetchUsername } from "@my-org/user";
-import { createRuntime } from "@my-org/shared-runtime";
+import { createApp, App as VueApp } from "vue";
+import { createRuntime, Runtime } from "@my-org/runtime-shared";
 import App from "./components/App.vue";
 
-export function mount(el, { runtime }) {
+export function mount(el: Element, { runtime }: { runtime: Runtime }) {
+  let app: VueApp;
   if (el) {
-    runtime?.load("username", fetchUsername);
-    const app = createApp(App, { runtime });
+    app = createApp(App);
+    app.provide("runtime", runtime);
     app.mount(el);
   }
 
   return {
     unmmount: () => {
-      app.unmmount();
+      app?.unmount();
     },
   };
 }

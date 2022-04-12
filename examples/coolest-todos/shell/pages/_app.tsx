@@ -1,4 +1,4 @@
-import { RuntimeProvider, createRuntime } from "@my-org/react-runtime";
+import { RuntimeProvider, createRuntime } from "@my-org/runtime-react";
 import { Nav } from "../components/Nav";
 
 const runtime = createRuntime();

@@ -1,11 +1,12 @@
 {
-  "name": "@my-org/micros-todo",
+  "name": "@my-org/micros-profile-reset",
   "version": "1.0.0",
   "scripts": {
     "start": "webpack serve --config webpack.config.js"
   },
   "dependencies": {
     "@my-org/user": "^1.0.0",
+    "@my-org/runtime-vue": "^1.0.0",
     "vue": "^3.0.0"
   },
   "license": "MIT",
@@ -20,7 +21,6 @@
     "html-webpack-plugin": "^4.5.0",
     "style-loader": "^2.0.0",
     "ts-loader": "^9.2.8",
-    "typescript": "^4.6.3",
     "vue-loader": "^16.0.0-beta.9",
     "vue-style-loader": "^4.1.2",
     "webpack": "^5.58.2",

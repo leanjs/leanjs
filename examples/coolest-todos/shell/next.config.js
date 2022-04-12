@@ -2,8 +2,8 @@ const packageJsonDeps = require("./package.json").dependencies;
 const withTM = require("next-transpile-modules")([
   "@leanjs/runtime",
   "@leanjs/react",
-  "@my-org/react-runtime",
-  "@my-org/shared-runtime",
+  "@my-org/runtime-react",
+  "@my-org/runtime-shared",
 ]);
 
 module.exports = withTM({

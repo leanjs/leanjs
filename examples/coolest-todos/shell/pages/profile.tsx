@@ -12,6 +12,10 @@ const Profile = () => {
         url="http://localhost:8888/remoteEntry.js"
         name="profile"
       />
+      <MountMicroFrontend
+        url="http://localhost:8886/remoteEntry.js"
+        name="profile_reset"
+      />
     </>
   );
 };

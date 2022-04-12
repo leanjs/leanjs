@@ -1,5 +1,5 @@
 {
-  "name": "@my-org/shared-runtime",
+  "name": "@my-org/runtime-react",
   "version": "1.0.0",
   "description": "",
   "main": "./src/index.ts",
@@ -7,7 +7,7 @@
   "author": "",
   "license": "MIT",
   "dependencies": {
-    "@leanjs/runtime": "^0.0.1",
-    "pusher-js": "^7.0.6"
+    "@leanjs/react": "*",
+    "@my-org/runtime-shared": "*"
   }
 }

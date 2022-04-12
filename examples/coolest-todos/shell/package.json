@@ -6,8 +6,8 @@
     "start": "NODE_OPTIONS='--inspect' next dev -p 3001"
   },
   "dependencies": {
-    "@my-org/react-runtime": "^1.0.0",
-    "@my-org/user": "^1.0.0",
+    "@my-org/runtime-react": "*",
+    "@my-org/user": "*",
     "cors": "^2.8.5",
     "next": "12.1.1",
     "react": "17.0.2",
