@@ -1,20 +1,14 @@
 import { useCallback, useEffect, useState } from "react";
-import type {
-  Runtime as BaseRuntime,
-  KeyOf,
-  CreateRuntimeArgs,
-} from "@leanjs/runtime";
+import type { KeyOf, CreateRuntime } from "@leanjs/runtime";
 
 import { useGenericRuntime, RuntimeProvider } from "./RuntimeProvider";
 import type { RuntimeProviderComp } from "./types";
-
-type CreateRuntime = (args: CreateRuntimeArgs<any>) => BaseRuntime;
 
 export const createRuntimeBindings = <
   MyCreateRuntime extends CreateRuntime = CreateRuntime,
   MyRuntime extends ReturnType<MyCreateRuntime> = ReturnType<MyCreateRuntime>
 >(
-  createRuntime: MyCreateRuntime // arg only used to infer Runtime type
+  _createRuntime: MyCreateRuntime // arg only used to infer Runtime type
 ) => {
   const useRuntime = () => useGenericRuntime() as MyRuntime;
 
