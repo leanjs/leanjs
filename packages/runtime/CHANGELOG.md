@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.0.7](https://github.com/leanjs/leanjs/compare/@leanjs/runtime@0.0.6...@leanjs/runtime@0.0.7) (2022-05-02)
+
+
+### Bug Fixes
+
+* **runtime:** createRuntime args made optional ([72e34fa](https://github.com/leanjs/leanjs/commit/72e34fa3ca76fb073dcbced366b8f2115afaaef1))
+
+
+
+
+
 ## [0.0.6](https://github.com/leanjs/leanjs/compare/@leanjs/runtime@0.0.5...@leanjs/runtime@0.0.6) (2022-04-18)
 
 
