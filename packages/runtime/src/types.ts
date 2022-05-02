@@ -125,7 +125,7 @@ export interface CreateRuntimeArgs<State extends BaseShape> {
   request?: Request;
 }
 
-export type CreateRuntime = (args: CreateRuntimeArgs<any>) => Runtime;
+export type CreateRuntime = (args?: CreateRuntimeArgs<any>) => Runtime;
 
 export type GetRuntime<MyCreateRuntime extends CreateRuntime> =
   ReturnType<MyCreateRuntime>;
