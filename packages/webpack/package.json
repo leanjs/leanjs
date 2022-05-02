@@ -1,0 +1,35 @@
+{
+  "name": "@leanjs/webpack",
+  "version": "0.0.0",
+  "description": "Webpack plugin for LEAN micro-frontends",
+  "types": "./dist/src/index.d.ts",
+  "main": "./dist/src/index.js",
+  "author": "Alex Lobera <alex@leanjs.com>",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/leanjs/leanjs.git",
+    "directory": "packages/webpack"
+  },
+  "license": "MIT",
+  "scripts": {
+    "prebuild": "del-cli dist",
+    "copy:assets": "copyfiles src/index.html dist",
+    "transpile": "tsc --outDir dist --project ./tsconfig.json",
+    "build": "yarn transpile && yarn copy:assets"
+  },
+  "files": [
+    "dist"
+  ],
+  "dependencies": {
+    "@leanjs/core": "^0.0.1",
+    "html-webpack-plugin": "^5.4.0",
+    "webpack": "^5.72.0",
+    "webpack-virtual-modules": "^0.4.3"
+  },
+  "devDependencies": {
+    "copyfiles": "^2.4.1"
+  },
+  "publishConfig": {
+    "access": "public"
+  }
+}
