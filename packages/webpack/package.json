@@ -1,6 +1,6 @@
 {
   "name": "@leanjs/webpack",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "description": "Webpack plugin for LEAN micro-frontends",
   "types": "./dist/src/index.d.ts",
   "main": "./dist/src/index.js",
