@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { useSetter, useGetter } from "@my-org/react-runtime";
+import React, { useState, useEffect } from "react";
+import { useSetter, useGetter } from "@my-org/runtime-react";
 import { fetchUsername } from "@my-org/user";
 
 import { Input } from "./Input";
@@ -7,8 +7,13 @@ import { Button } from "./Button";
 
 export function App() {
   const shareUsername = useSetter("username");
-  const sharedUsername = useGetter("username");
-  const [username, setUsername] = useState(sharedUsername);
+  // TODO replace useEffect and useState with a useWatchState hook from @leanjs/react
+  const sharedUsername = useGetter("username", fetchUsername);
+  const [username = "", setUsername] = useState(sharedUsername.current);
+
+  useEffect(() => {
+    setUsername(sharedUsername.current);
+  }, [sharedUsername.current]);
 
   return (
     <>
@@ -16,7 +21,14 @@ export function App() {
       <form
         onSubmit={(e) => {
           e.preventDefault();
-          shareUsername(username);
+          const previous = sharedUsername.current;
+          if (previous !== username) {
+            shareUsername({
+              ...shareUsername,
+              current: username,
+              previous,
+            });
+          }
         }}
       >
         <Input

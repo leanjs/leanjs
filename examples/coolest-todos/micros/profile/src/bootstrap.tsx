@@ -1,7 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import { App } from "./components/App";
-import { Runtime, RuntimeProvider, createRuntime } from "@my-org/react-runtime";
+import { Runtime, RuntimeProvider, createRuntime } from "@my-org/runtime-react";
 
 // 🔥 this code is is not production ready
 

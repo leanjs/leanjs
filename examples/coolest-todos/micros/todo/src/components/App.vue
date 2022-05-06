@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <h2>{{ username }}'s ToDos</h2>
+    <h2>{{ username?.current }}'s ToDos</h2>
     <form v-on:submit.prevent="onSubmit">
       <input type="text" v-model="text" placeholder="I have to do..." />
       <button>Add</button>
@@ -14,20 +14,22 @@
 </template>
 
 <script>
+import { useSharedState } from "@my-org/runtime-vue";
+import { fetchUsername } from "@my-org/user";
+
 export default {
   name: "App",
-  props: ["runtime"],
   data(props) {
     return {
-      username: props.runtime?.state.username,
       todos: [],
       text: "",
       id: 1,
     };
   },
-  mounted() {
-    this.runtime?.subscribe("username", (username) => {
-      this.username = username;
+  setup() {
+    return useSharedState({
+      prop: "username",
+      loader: fetchUsername,
     });
   },
   methods: {

@@ -1158,15 +1158,25 @@
     "@jridgewell/resolve-uri" "^3.0.3"
     "@jridgewell/sourcemap-codec" "^1.4.10"
 
-"@leanjs/react@^0.0.1":
-  version "0.0.1"
-  resolved "https://registry.yarnpkg.com/@leanjs/react/-/react-0.0.1.tgz#9c3115bd9dadef9bcf41e48636ab07c87fd94e1d"
-  integrity sha512-ELmIsJ8gdZ1a2kf3IJ2i6GvPGtvdmstdl34nOq0rvgeUOaf4JPqF5TzwkWo5IkOFRCBhB0MrN5H4ubefohSmog==
+"@leanjs/react@0.0.5":
+  version "0.0.5"
+  resolved "https://registry.yarnpkg.com/@leanjs/react/-/react-0.0.5.tgz#bb0e1c53b5f189ec04997e1fb114fdba86ec7fbe"
+  integrity sha512-B7eRFTSPbKXr6hFKta0mIoa8H8g3Ro736fWac/mxJk0IIUPYxb5ebHCGOVtE03VKE8VbPd5Exyezt4PbC0GpJw==
 
-"@leanjs/runtime@^0.0.1":
+"@leanjs/react@0.0.6":
+  version "0.0.6"
+  resolved "https://registry.yarnpkg.com/@leanjs/react/-/react-0.0.6.tgz#a077702b650db84536badcad85230df29e0de6e0"
+  integrity sha512-KGkH0tPx3PGA3oAwLVJARcUUBtK6MQVhoQ4Ks0zfUgPco4yITH6DUhr9SmgVwgqeLuzbjTc03Mym4tZ+UIUByw==
+
+"@leanjs/runtime@*":
+  version "0.0.7"
+  resolved "https://registry.yarnpkg.com/@leanjs/runtime/-/runtime-0.0.7.tgz#8e0f1ca79828ddd447d9eea0c6a69098e26ab667"
+  integrity sha512-CxDuehehku4KukownPNsVgwFIRZOiCIfwaj4ZkKB4EFVmtRIsWrHsnHpXqhtECYT/CRGyylXqxdcf5sbyoXugQ==
+
+"@leanjs/vue@^0.0.1":
   version "0.0.1"
-  resolved "https://registry.yarnpkg.com/@leanjs/runtime/-/runtime-0.0.1.tgz#d6997d1c6148ae9b892fc701dda4f6e398c247c3"
-  integrity sha512-VUjMY3jaj+VX743AayyQqtD6VvQ7zECSYA2AxlEG0QcVvw+clVEbJ2oGesSvt/nlJvIAauEmUNv+mGn0gxQWsA==
+  resolved "https://registry.yarnpkg.com/@leanjs/vue/-/vue-0.0.1.tgz#2f27ef8d63ad7ca363121c5f0022bbffdde21976"
+  integrity sha512-qPKuC7CN4sQb/ef95+zC4qgCUR/513FRyYNDL4uI3zcQ2aUoswFtyXUgOWcJmexYZj9HWdyvwYpb5d+Y2kWDYA==
 
 "@lerna/add@4.0.0":
   version "4.0.0"
@@ -4234,7 +4244,7 @@ encoding@^0.1.12:
   dependencies:
     iconv-lite "^0.6.2"
 
-enhanced-resolve@^5.7.0, enhanced-resolve@^5.9.2:
+enhanced-resolve@^5.0.0, enhanced-resolve@^5.7.0, enhanced-resolve@^5.9.2:
   version "5.9.2"
   resolved "https://registry.yarnpkg.com/enhanced-resolve/-/enhanced-resolve-5.9.2.tgz#0224dcd6a43389ebfb2d55efee517e5466772dd9"
   integrity sha512-GIm3fQfwLJ8YZx2smuHpBKkXC1yOk+OBEmKckVyL0i/ea8mqDEykK3ld5dgH1QYPNyT/lIllxV2LULnxCHaHkA==
@@ -6471,7 +6481,7 @@ methods@~1.1.2:
   resolved "https://registry.yarnpkg.com/methods/-/methods-1.1.2.tgz#5529a4d67654134edcc5266656835b0f851afcee"
   integrity sha1-VSmk1nZUE07cxSZmVoNbD4Ua/O4=
 
-micromatch@^4.0.2, micromatch@^4.0.4:
+micromatch@^4.0.0, micromatch@^4.0.2, micromatch@^4.0.4:
   version "4.0.5"
   resolved "https://registry.yarnpkg.com/micromatch/-/micromatch-4.0.5.tgz#bc8999a7cbbf77cdc89f132f6e467051b49090c6"
   integrity sha512-DMy+ERcEW2q8Z2Po+WNXuw3c5YaUSFjAO5GsJqfEl7UjvtIuFKO6ZrKvcItdy98dwFI2N1tg3zNIdKaQT+aNdA==
@@ -8818,6 +8828,16 @@ ts-jest@^27.1.3:
     semver "7.x"
     yargs-parser "20.x"
 
+ts-loader@^9.2.8:
+  version "9.2.8"
+  resolved "https://registry.yarnpkg.com/ts-loader/-/ts-loader-9.2.8.tgz#e89aa32fa829c5cad0a1d023d6b3adecd51d5a48"
+  integrity sha512-gxSak7IHUuRtwKf3FIPSW1VpZcqF9+MBrHOvBp9cjHh+525SjtCIJKVGjRKIAfxBwDGDGCFF00rTfzB1quxdSw==
+  dependencies:
+    chalk "^4.1.0"
+    enhanced-resolve "^5.0.0"
+    micromatch "^4.0.0"
+    semver "^7.3.4"
+
 tslib@^1.9.0:
   version "1.14.1"
   resolved "https://registry.yarnpkg.com/tslib/-/tslib-1.14.1.tgz#cf2d38bdc34a134bcaf1091c41f6619e2f672d00"
@@ -8907,7 +8927,7 @@ typedarray@^0.0.6:
   resolved "https://registry.yarnpkg.com/typedarray/-/typedarray-0.0.6.tgz#867ac74e3864187b1d3d47d996a78ec5c8830777"
   integrity sha1-hnrHTjhkGHsdPUfZlqeOxciDB3c=
 
-typescript@^4.4.4, typescript@^4.5.3:
+typescript@^4.4.4, typescript@^4.5.3, typescript@^4.6.3:
   version "4.6.3"
   resolved "https://registry.yarnpkg.com/typescript/-/typescript-4.6.3.tgz#eefeafa6afdd31d725584c67a0eaba80f6fc6c6c"
   integrity sha512-yNIatDa5iaofVozS/uQJEl3JRWLKKGJKh6Yaiv0GLGSuhpFJe7P3SbHZ8/yjAHRQwKRoA6YZqlfjXWmVzoVSMw==

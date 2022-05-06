@@ -1,5 +1,5 @@
 {
-  "name": "@my-org/react-runtime",
+  "name": "@my-org/runtime-vue",
   "version": "1.0.0",
   "description": "",
   "main": "./src/index.ts",
@@ -7,7 +7,7 @@
   "author": "",
   "license": "MIT",
   "dependencies": {
-    "@leanjs/react": "^0.0.1",
-    "@my-org/shared-runtime": "^1.0.0"
+    "@leanjs/vue": "^0.0.1",
+    "@my-org/runtime-shared": "*"
   }
 }
