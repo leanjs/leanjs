@@ -1,0 +1,34 @@
+{
+  "name": "@leanjs/vue",
+  "version": "0.0.0",
+  "author": "Alex Lobera <alex@leanjs.com>",
+  "description": "Create your own typed Vue bindings for @leanjs/runtime",
+  "types": "./dist/index.d.ts",
+  "main": "./dist/index.js",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/leanjs/leanjs.git",
+    "directory": "packages/vue"
+  },
+  "files": [
+    "dist"
+  ],
+  "devDependencies": {
+    "@leanjs/runtime": "^0.0.6",
+    "vue": "^3.0.0",
+    "wait-for-expect": "^3.0.2"
+  },
+  "peerDependencies": {
+    "@leanjs/runtime": "^0.0.6",
+    "vue": "^3.0.0"
+  },
+  "scripts": {
+    "test": "jest",
+    "prebuild": "del-cli dist",
+    "build": "tsc --outDir dist --project ./tsconfig.build.json"
+  },
+  "publishConfig": {
+    "access": "public"
+  }
+}
