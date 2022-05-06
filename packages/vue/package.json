@@ -2,7 +2,7 @@
   "name": "@leanjs/vue",
   "version": "0.0.1",
   "author": "Alex Lobera <alex@leanjs.com>",
-  "description": "Create your own typed Vue bindings for @leanjs/runtime",
+  "description": "Create your own typed Vue bindings for LeanJS Runtime",
   "types": "./dist/index.d.ts",
   "main": "./dist/index.js",
   "license": "MIT",
@@ -15,13 +15,14 @@
     "dist"
   ],
   "devDependencies": {
-    "@leanjs/runtime": "^0.0.6",
     "vue": "^3.0.0",
     "wait-for-expect": "^3.0.2"
   },
   "peerDependencies": {
-    "@leanjs/runtime": "^0.0.6",
     "vue": "^3.0.0"
+  },
+  "dependencies": {
+    "@leanjs/core": "^0.0.2"
   },
   "scripts": {
     "test": "jest",

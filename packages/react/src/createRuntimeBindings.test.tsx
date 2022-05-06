@@ -1,4 +1,4 @@
-import { configureRuntime } from "@leanjs/runtime";
+import { configureRuntime } from "@leanjs/core";
 import { render } from "@testing-library/react";
 import { act, renderHook } from "@testing-library/react-hooks";
 import React, { ReactNode } from "react";

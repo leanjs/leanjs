@@ -2,7 +2,7 @@
   "name": "@leanjs/react",
   "version": "0.0.8",
   "author": "Alex Lobera <alex@leanjs.com>",
-  "description": "Create your own typed React bindings for @leanjs/runtime",
+  "description": "Create your own typed React bindings for LeanJS Runtime",
   "types": "./dist/index.d.ts",
   "main": "./dist/index.js",
   "license": "MIT",
@@ -26,7 +26,7 @@
     "react": "^17.0.2"
   },
   "dependencies": {
-    "@leanjs/runtime": "^0.0.7"
+    "@leanjs/core": "^0.0.2"
   },
   "scripts": {
     "test": "jest",

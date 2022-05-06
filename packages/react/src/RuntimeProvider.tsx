@@ -1,4 +1,4 @@
-import type { Runtime as BaseRuntime } from "@leanjs/runtime";
+import type { Runtime as BaseRuntime } from "@leanjs/core";
 import React, { createContext, useContext } from "react";
 
 import type { RuntimeProviderComp } from "./types";

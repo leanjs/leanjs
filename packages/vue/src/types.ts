@@ -1,4 +1,4 @@
-import type { KeyOf, BaseShape } from "@leanjs/runtime";
+import type { KeyOf, BaseShape } from "@leanjs/core";
 
 export type Cleanups = () => void;
 

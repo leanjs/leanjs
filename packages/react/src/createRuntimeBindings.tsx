@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useState } from "react";
-import type { KeyOf, CreateRuntime } from "@leanjs/runtime";
+import type { KeyOf, CreateRuntime } from "@leanjs/core";
 
 import { useGenericRuntime, RuntimeProvider } from "./RuntimeProvider";
 import type { RuntimeProviderComp } from "./types";

@@ -1,4 +1,4 @@
-import { configureRuntime, GetRuntime } from "@leanjs/runtime";
+import { configureRuntime, GetRuntime } from "@leanjs/core";
 import Pusher from "pusher-js";
 
 const defaultState = {

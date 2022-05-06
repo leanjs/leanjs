@@ -1,6 +1,6 @@
 const packageJsonDeps = require("./package.json").dependencies;
 const withTM = require("next-transpile-modules")([
-  "@leanjs/runtime",
+  "@leanjs/core",
   "@leanjs/react",
   "@my-org/runtime-react",
   "@my-org/runtime-shared",

@@ -3,7 +3,7 @@ import type {
   Runtime as BaseRuntime,
   KeyOf,
   CreateRuntime,
-} from "@leanjs/runtime";
+} from "@leanjs/core";
 
 import type { Cleanups, StatePropArgs } from "./types";
 import { shallowCopy, isPrimitive } from "./utils";
