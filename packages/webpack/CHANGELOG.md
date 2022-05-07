@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.2.0](https://github.com/leanjs/leanjs/compare/@leanjs/webpack@0.1.0...@leanjs/webpack@0.2.0) (2022-05-07)
+
+
+### Features
+
+* **webpack:** add ErrorOverlayPlugin ([d1fc082](https://github.com/leanjs/leanjs/commit/d1fc08285f9c9c34fa6c0d1d8d55ecd0f63edac9))
+
+
+
+
+
 # [0.1.0](https://github.com/leanjs/leanjs/compare/@leanjs/webpack@0.0.3...@leanjs/webpack@0.1.0) (2022-05-07)
 
 
