@@ -14,7 +14,7 @@
     "esModuleInterop": true,
     "module": "CommonJS"
   },
-  "include": ["./src"],
+  "include": ["./src", "./types.d.ts"],
   "exclude": [
     "**/node_modules",
     "**/test",
