@@ -4,11 +4,11 @@ This package contains React bindings for the shared `runtime`.
 
 # Installation
 
-`yarn add @leanjs/react @leanjs/runtime`
+`yarn add @leanjs/react`
 
 # Usage
 
-First, you must create custom bindings for your `runtime`. This will add type-safety to your React hooks and components based on your `runtime`.
+First, you must create custom bindings for your LeanJS `runtime`. This will add type-safety to your React hooks and components based on your LeanJS `runtime`.
 
 ```ts
 // shared-runtime.ts

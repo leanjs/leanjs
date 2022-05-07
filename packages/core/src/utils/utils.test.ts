@@ -1,4 +1,4 @@
-import { createValidJSVarName } from "./utils";
+import { createValidJSVarName } from "./index";
 
 describe("utils: createValidJSVarName", () => {
   it(`removes all characters but numberes and ASCII letters`, async () => {

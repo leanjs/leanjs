@@ -1,17 +1,17 @@
 # @leanjs/vue
 
-This package contains Vue bindings for [@leanjs/runtime](https://github.com/leanjs/leanjs/tree/main/packages/runtime). You can learn more about the rationale behind a shared runtime in the following links:
+This package contains Vue bindings for [@leanjs/core](/leanjs/leanjs/tree/main/packages/core). You can learn more about the rationale behind a shared runtime in the following links:
 
 - 🍿 [Video of talk at CityJS London](https://www.youtube.com/watch?v=pKiZI9meWw8)
 - 📖 [Article in Alex Lobera's blog](https://alexlobera.com/sharing-state-in-micro-frontends-at-runtime/)
 
 # Installation
 
-`yarn add @leanjs/vue @leanjs/runtime`
+`yarn add @leanjs/vue`
 
 # Usage
 
-1 . Create your custom `useSharedState` composable. This will add type-safety to your `useSharedState` composable based on your instance of `@leanjs/runtime`.
+1 . Create your custom `useSharedState` composable. This will add type-safety to your `useSharedState` composable based on your instance of LeanJS `runtime`.
 
 ```ts
 // runtime-vue.ts

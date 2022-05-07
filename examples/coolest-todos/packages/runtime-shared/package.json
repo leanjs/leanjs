@@ -7,7 +7,7 @@
   "author": "",
   "license": "MIT",
   "dependencies": {
-    "@leanjs/runtime": "*",
+    "@leanjs/core": "*",
     "pusher-js": "^7.0.6"
   }
 }

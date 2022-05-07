@@ -1168,9 +1168,9 @@
   resolved "https://registry.yarnpkg.com/@leanjs/react/-/react-0.0.6.tgz#a077702b650db84536badcad85230df29e0de6e0"
   integrity sha512-KGkH0tPx3PGA3oAwLVJARcUUBtK6MQVhoQ4Ks0zfUgPco4yITH6DUhr9SmgVwgqeLuzbjTc03Mym4tZ+UIUByw==
 
-"@leanjs/runtime@*":
+"@leanjs/core@*":
   version "0.0.7"
-  resolved "https://registry.yarnpkg.com/@leanjs/runtime/-/runtime-0.0.7.tgz#8e0f1ca79828ddd447d9eea0c6a69098e26ab667"
+  resolved "https://registry.yarnpkg.com/@leanjs/core/-/runtime-0.0.7.tgz#8e0f1ca79828ddd447d9eea0c6a69098e26ab667"
   integrity sha512-CxDuehehku4KukownPNsVgwFIRZOiCIfwaj4ZkKB4EFVmtRIsWrHsnHpXqhtECYT/CRGyylXqxdcf5sbyoXugQ==
 
 "@leanjs/vue@^0.0.1":

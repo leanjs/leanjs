@@ -1,5 +1,5 @@
 import type { ReactNode } from "react";
-import type { Runtime as BaseRuntime } from "@leanjs/runtime";
+import type { Runtime as BaseRuntime } from "@leanjs/core";
 
 export interface RuntimeProviderProps<Runtime extends BaseRuntime> {
   children: ReactNode;

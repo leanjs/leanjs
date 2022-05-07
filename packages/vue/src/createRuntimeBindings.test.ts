@@ -1,5 +1,5 @@
 import { createApp } from "vue";
-import { configureRuntime, GetRuntime } from "@leanjs/runtime";
+import { configureRuntime, GetRuntime } from "@leanjs/core";
 import waitForExpect from "wait-for-expect";
 
 import { createRuntimeBindings } from "./createRuntimeBindings";
