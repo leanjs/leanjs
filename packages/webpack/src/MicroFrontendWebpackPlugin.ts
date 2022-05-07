@@ -2,8 +2,11 @@ import { createValidJSVarName } from "@leanjs/core";
 import { Compiler, WebpackPluginInstance, container } from "webpack";
 import HtmlWebpackPlugin from "html-webpack-plugin";
 import VirtualModulesPlugin from "webpack-virtual-modules";
+import ErrorOverlayPlugin from "error-overlay-webpack-plugin";
 import * as fs from "fs";
 import * as path from "path";
+import chalk from "chalk";
+import * as os from "os";
 
 export interface MicroFrontendWebpackInternalOptions {
   shared: Record<string, string | SharedConfig>;
@@ -60,6 +63,23 @@ export class MicroFrontendWebpackPlugin implements WebpackPluginInstance {
       "utf8"
     );
     const html = indexHtml.replace(/%PACKAGE_NAME%/g, packageName);
+
+    const { devtool } = compiler.options;
+    if (devtool !== "cheap-module-source-map") {
+      console.log(
+        `⚠️ devtool is set to ${chalk.cyan(
+          devtool
+        )}. Webpack Error Overlay Plugin has been disabled. ${
+          os.EOL
+        }Please update devtool in your Webpack config to ${chalk.cyan(
+          "cheap-module-source-map"
+        )} to enable Webpack Error Overlay Plugin in ${chalk.cyan(
+          process.cwd()
+        )} and restart Webpack`
+      );
+    } else {
+      new ErrorOverlayPlugin().apply(compiler);
+    }
 
     new ModuleFederationPlugin({
       name: moduleName,
