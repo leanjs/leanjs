@@ -28,11 +28,7 @@
   "dependencies": {
     "@leanjs/core": "^0.0.3"
   },
-  "scripts": {
-    "test": "jest",
-    "prebuild": "del-cli dist",
-    "build": "tsc --outDir dist --project ./tsconfig.build.json"
-  },
+  "scripts": {},
   "publishConfig": {
     "access": "public"
   }
