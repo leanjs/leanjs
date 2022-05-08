@@ -12,6 +12,10 @@ const defaultState = {
   },
 };
 
+function onError(_error: Error) {
+  // empty
+}
+
 const createRuntime = () => {
   // Vue will mutate the original defaultState so we need to deeply copy defaultState for each test
   // otherwise tests can affect each other
@@ -20,11 +24,11 @@ const createRuntime = () => {
   ) as typeof defaultState;
 
   return configureRuntime(deeplyClonedDefaultState)({
-    onError: () => {
-      // empty
-    },
+    onError,
   }).createRuntime();
 };
+
+createRuntime.log = onError;
 
 export const { useSharedState } = createRuntimeBindings(createRuntime);
 type MyRuntime = GetRuntime<typeof createRuntime>;

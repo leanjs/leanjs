@@ -22,7 +22,8 @@
     "prepare": "husky install"
   },
   "workspaces": [
-    "packages/*"
+    "packages/*",
+    "e2e/test-subjects/*"
   ],
   "devDependencies": {
     "@commitlint/cli": "^16.2.3",

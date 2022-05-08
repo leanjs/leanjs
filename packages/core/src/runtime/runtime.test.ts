@@ -137,7 +137,7 @@ describe("createRuntime", () => {
     expect(typeof runtime.subscribe).toBe("function");
   });
 
-  it(`can receive some initial state that overrides the default state`, async () => {
+  it(`can receive some initial state that overrides the default state`, () => {
     const { createRuntime } = configureRuntime<SharedState>(defaultState)({
       onError: () => {
         // empty
@@ -150,6 +150,18 @@ describe("createRuntime", () => {
     });
 
     expect(runtime.state.user?.username).toBe(username);
+  });
+
+  it(`exposes a log function that accepts an Error argument`, async () => {
+    const onError = jest.fn();
+    const { createRuntime } = configureRuntime<SharedState>(defaultState)({
+      onError,
+    });
+
+    const error = new Error(Math.random().toString());
+    createRuntime.log(error);
+
+    expect(onError).toHaveBeenCalledWith(error);
   });
 });
 

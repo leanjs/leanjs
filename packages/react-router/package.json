@@ -1,0 +1,42 @@
+{
+  "name": "@leanjs/react-router",
+  "version": "0.0.0",
+  "author": "Alex Lobera <alex@leanjs.com>",
+  "description": "Micro-frontends for React Router micro-apps",
+  "types": "./dist/index.d.ts",
+  "main": "./dist/index.js",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/leanjs/leanjs.git",
+    "directory": "packages/react-router"
+  },
+  "files": [
+    "dist"
+  ],
+  "devDependencies": {
+    "@testing-library/react": "^12.1.4",
+    "@testing-library/react-hooks": "^7.0.2",
+    "@types/react": "^17.0.41",
+    "history": "^5.3.0",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2",
+    "react-router-dom": "^6.3.0",
+    "wait-for-expect": "^3.0.2"
+  },
+  "peerDependencies": {
+    "history": "^5.3.0",
+    "react": "^17.0.2",
+    "react-router-dom": "^6.3.0"
+  },
+  "dependencies": {
+    "@leanjs/react": "^0.0.9"
+  },
+  "scripts": {
+    "prebuild": "del-cli dist",
+    "build": "tsc --outDir dist --project ./tsconfig.build.json"
+  },
+  "publishConfig": {
+    "access": "public"
+  }
+}

@@ -1,9 +1,9 @@
 import { configureRuntime } from "@leanjs/core";
 import { render } from "@testing-library/react";
 import { renderHook } from "@testing-library/react-hooks";
-import React, { ReactNode } from "react";
+import React, { ReactElement } from "react";
 
-import { RuntimeProvider, useGenericRuntime } from "./RuntimeProvider";
+import { BaseRuntimeProvider, useBaseRuntime } from "./RuntimeProvider";
 
 const defaultState = {
   locale: "en",
@@ -15,17 +15,17 @@ const { createRuntime } = configureRuntime(defaultState)({
 });
 
 interface WrapperProps {
-  children: ReactNode;
+  children: ReactElement;
 }
 const createWrapper =
   (runtime = createRuntime()) =>
   // eslint-disable-next-line react/display-name
   ({ children }: WrapperProps) =>
-    <RuntimeProvider runtime={runtime}>{children}</RuntimeProvider>;
+    <BaseRuntimeProvider runtime={runtime}>{children}</BaseRuntimeProvider>;
 
 describe("useRuntime", () => {
   it("returns a Runtime if there is a Runtime in the context", () => {
-    const { result } = renderHook(() => useGenericRuntime(), {
+    const { result } = renderHook(() => useBaseRuntime(), {
       wrapper: createWrapper(),
     });
     const runtime = result.current;
@@ -41,7 +41,7 @@ describe("useRuntime", () => {
 
   it("throws an error if it can't find a runtime in the context", () => {
     const EmptyComp = () => {
-      useGenericRuntime();
+      useBaseRuntime();
       return null;
     };
 
@@ -52,7 +52,7 @@ describe("useRuntime", () => {
 
   it(`doesn't throw an error if it can't find a runtime in the context`, () => {
     const EmptyComp = () => {
-      useGenericRuntime();
+      useBaseRuntime();
       return null;
     };
 
@@ -60,9 +60,9 @@ describe("useRuntime", () => {
       const runtime = createRuntime();
 
       render(
-        <RuntimeProvider runtime={runtime}>
+        <BaseRuntimeProvider runtime={runtime}>
           <EmptyComp />
-        </RuntimeProvider>
+        </BaseRuntimeProvider>
       );
     }).not.toThrowError();
   });
