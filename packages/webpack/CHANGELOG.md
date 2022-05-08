@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.3.0](https://github.com/leanjs/leanjs/compare/@leanjs/webpack@0.2.0...@leanjs/webpack@0.3.0) (2022-05-08)
+
+
+### Features
+
+* **webpack:** add ModuleScopePlugin by default ([199a6cc](https://github.com/leanjs/leanjs/commit/199a6cc0f0bc1ed3ea1df9a2b15cff2224aa59ed))
+
+
+
+
+
 # [0.2.0](https://github.com/leanjs/leanjs/compare/@leanjs/webpack@0.1.0...@leanjs/webpack@0.2.0) (2022-05-07)
 
 
