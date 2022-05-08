@@ -8,6 +8,8 @@ import * as path from "path";
 import chalk from "chalk";
 import * as os from "os";
 
+import { ModuleScopePlugin } from "./ModuleScopePlugin";
+
 export interface MicroFrontendWebpackInternalOptions {
   shared: Record<string, string | SharedConfig>;
   shareAllDependencies?: boolean;
@@ -63,6 +65,14 @@ export class MicroFrontendWebpackPlugin implements WebpackPluginInstance {
       "utf8"
     );
     const html = indexHtml.replace(/%PACKAGE_NAME%/g, packageName);
+
+    compiler.options.resolve = {
+      ...compiler.options.resolve,
+      plugins: [
+        ...(compiler.options.resolve.plugins ?? []),
+        new ModuleScopePlugin(),
+      ],
+    };
 
     const { devtool } = compiler.options;
     if (devtool !== "cheap-module-source-map") {
