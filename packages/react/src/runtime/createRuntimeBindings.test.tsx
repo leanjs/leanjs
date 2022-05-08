@@ -1,7 +1,7 @@
 import { configureRuntime } from "@leanjs/core";
 import { render } from "@testing-library/react";
 import { act, renderHook } from "@testing-library/react-hooks";
-import React, { ReactNode } from "react";
+import React, { ReactElement } from "react";
 import waitForExpect from "wait-for-expect";
 
 import { createRuntimeBindings } from "./createRuntimeBindings";
@@ -27,7 +27,7 @@ const {
 } = createRuntimeBindings(createRuntime);
 
 interface WrapperProps {
-  children: ReactNode;
+  children: ReactElement;
 }
 const createWrapper =
   (runtime = createRuntime()) =>

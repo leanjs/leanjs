@@ -78,7 +78,7 @@ export interface ConfigureRuntimeOptions<
   Prop extends KeyOf<State>,
   CtxFactory extends BaseCtxFactory<State, Prop>
 > {
-  onError: (error: any) => void;
+  onError: (error: Error) => void;
   context?: CtxFactory;
   request?: Request;
 }
@@ -125,7 +125,10 @@ export interface CreateRuntimeArgs<State extends BaseShape> {
   request?: Request;
 }
 
-export type CreateRuntime = (args?: CreateRuntimeArgs<any>) => Runtime;
+export type CreateRuntime = {
+  (args?: CreateRuntimeArgs<any>): Runtime;
+  log: (error: Error) => void;
+};
 
 export type GetRuntime<MyCreateRuntime extends CreateRuntime> =
   ReturnType<MyCreateRuntime>;

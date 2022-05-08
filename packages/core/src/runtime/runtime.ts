@@ -38,6 +38,14 @@ const createRuntime =
     CtxFactory,
     CtxProp
   > => {
+    function log(error: any) {
+      onError(
+        error && error.stack && error.message
+          ? (error as Error)
+          : new Error(typeof error === "string" ? error : "Unknown error")
+      );
+    }
+
     const isBrowser = typeof window !== "undefined";
     const url = request?.url
       ? request.url
@@ -169,7 +177,7 @@ Current valid props are: ${Object.keys(currentState).join(", ")}`);
             error: (error as Error)?.message ?? error,
           });
           callSubscribers(prop);
-          onError(error);
+          log(error);
         }
       }
 
@@ -198,12 +206,12 @@ Current valid props are: ${Object.keys(currentState).join(", ")}`);
                 try {
                   item = item(runtime);
                 } catch (error) {
-                  onError(error);
+                  log(error);
                 }
               }
               if (isPromise(item)) {
                 ctxPromises.set(key, item);
-                item.catch(onError);
+                item.catch(log);
               }
               acc[key] = item as any;
 
@@ -237,10 +245,10 @@ Current valid props are: ${Object.keys(currentState).join(", ")}`);
         .then((ctxValue) =>
           callback(ctxValue as ValueFromCtxFactorySync<CtxFactory, P>, state)
         )
-        .catch(onError);
+        .catch(log);
 
       return () => {
-        offPromise.then((off) => off?.()).catch(onError);
+        offPromise.then((off) => off?.()).catch(log);
       };
     };
 
@@ -268,12 +276,19 @@ export const configureRuntime = <
   return <CtxFactory extends BaseCtxFactory<State, Prop>>({
     context,
     onError,
-  }: ConfigureRuntimeOptions<State, Prop, CtxFactory>) => ({
-    createRuntime: ({ initialState, request }: CreateRuntimeArgs<State> = {}) =>
+  }: ConfigureRuntimeOptions<State, Prop, CtxFactory>) => {
+    const internalCreateRuntime = ({
+      initialState,
+      request,
+    }: CreateRuntimeArgs<State> = {}) =>
       createRuntime<State>(initialState ?? defaultState)({
         context,
         onError,
         request,
-      }),
-  });
+      });
+
+    internalCreateRuntime.log = onError;
+
+    return { createRuntime: internalCreateRuntime };
+  };
 };
