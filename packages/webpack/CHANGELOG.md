@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.4.0](https://github.com/leanjs/leanjs/compare/@leanjs/webpack@0.3.1...@leanjs/webpack@0.4.0) (2022-05-09)
+
+
+### Features
+
+* **webpack:** add dev server proxy to store micro app origin ([992fdcc](https://github.com/leanjs/leanjs/commit/992fdcca595b0beabd1b3d933ff7923302a3ee7f))
+
+
+
+
+
 ## [0.3.1](https://github.com/leanjs/leanjs/compare/@leanjs/webpack@0.3.0...@leanjs/webpack@0.3.1) (2022-05-08)
 
 **Note:** Version bump only for package @leanjs/webpack

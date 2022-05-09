@@ -1,7 +1,7 @@
 {
   "name": "@leanjs/e2e-test-subjects-micro-react-1",
   "private": true,
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "",
   "scripts": {
     "start": "webpack serve"
@@ -9,12 +9,12 @@
   "author": "",
   "license": "MIT",
   "dependencies": {
-    "@leanjs/react-router": "*",
+    "@leanjs/react-router": "^0.1.1",
     "react": "^17.0.2",
     "react-dom": "^17.0.2"
   },
   "devDependencies": {
-    "@leanjs/webpack": "*",
+    "@leanjs/webpack": "^0.4.0",
     "@swc/core": "^1.2.160",
     "@types/react": "^17.0.43",
     "@types/react-dom": "^17.0.14",
