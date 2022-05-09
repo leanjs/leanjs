@@ -9,6 +9,7 @@ import chalk from "chalk";
 import * as os from "os";
 
 import { ModuleScopePlugin } from "./ModuleScopePlugin";
+import { saveMicroAppPort } from "../proxy";
 
 export interface MicroFrontendWebpackInternalOptions {
   shared: Record<string, string | SharedConfig>;
@@ -52,6 +53,7 @@ export class MicroFrontendWebpackPlugin implements WebpackPluginInstance {
   }
 
   apply(compiler: Compiler) {
+    saveMicroAppPort({ microAppPort: compiler.options.devServer?.port });
     // eslint-disable-next-line @typescript-eslint/no-var-requires
     const packageJson = require(`${process.cwd()}/package.json`);
     const { shared = {}, shareAllDependencies = true } = this.options;
@@ -61,7 +63,7 @@ export class MicroFrontendWebpackPlugin implements WebpackPluginInstance {
     const indexHtml = fs.readFileSync(
       fs.existsSync(indexHtmlPath)
         ? indexHtmlPath
-        : path.resolve(__dirname, "index.html"),
+        : path.resolve(__dirname, "../index.html"),
       "utf8"
     );
     const html = indexHtml.replace(/%PACKAGE_NAME%/g, packageName);
@@ -106,7 +108,7 @@ export class MicroFrontendWebpackPlugin implements WebpackPluginInstance {
     new VirtualModulesPlugin({
       "./src/index.js": `import("./bootstrap");`,
       "./src/bootstrap": fs.readFileSync(
-        path.resolve(__dirname, "./bootstrap.js"),
+        path.resolve(__dirname, "../bootstrap.js"),
         "utf8"
       ),
       "./public/index.html": html,

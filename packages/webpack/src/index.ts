@@ -1,2 +1,2 @@
-export * from "./MicroFrontendWebpackPlugin";
-export * from "./ModuleScopePlugin";
+export * from "./plugins/MicroFrontendWebpackPlugin";
+export * from "./plugins/ModuleScopePlugin";
