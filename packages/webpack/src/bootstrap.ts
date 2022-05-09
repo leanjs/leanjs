@@ -1,7 +1,7 @@
 import packageJson from "../package.json";
 const packageName = packageJson.name;
 
-import("./micro").then(({ default: config }) => {
+import("./remote").then(({ default: config }) => {
   const el = document.getElementById(packageName);
   const env = process.env.NODE_ENV;
   const isDev = env === "development";

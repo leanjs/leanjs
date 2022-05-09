@@ -1,37 +1,34 @@
 {
-  "name": "@leanjs/react-router",
-  "version": "0.1.1",
+  "name": "@leanjs/nextjs",
+  "version": "0.0.0",
   "author": "Alex Lobera <alex@leanjs.com>",
-  "description": "Micro-frontends for React Router micro-apps",
+  "description": "Micro-frontend tools for Nextjs",
   "types": "./dist/index.d.ts",
   "main": "./dist/index.js",
   "license": "MIT",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/leanjs/leanjs.git",
-    "directory": "packages/react-router"
+    "directory": "packages/nextjs"
   },
   "files": [
     "dist"
   ],
   "devDependencies": {
     "@testing-library/react": "^12.1.4",
-    "@testing-library/react-hooks": "^7.0.2",
     "@types/react": "^17.0.41",
-    "history": "^5.3.0",
-    "react": "^17.0.2",
-    "react-dom": "^17.0.2",
-    "react-router-dom": "^6.3.0",
-    "wait-for-expect": "^3.0.2"
+    "next": "12",
+    "react": "17",
+    "react-dom": "17"
   },
   "peerDependencies": {
-    "history": "^5.3.0",
-    "react": "^17.0.2",
-    "react-router-dom": "^6.3.0"
+    "next": "12",
+    "react": "17",
+    "react-dom": "17"
   },
   "dependencies": {
-    "@leanjs/react": "^0.1.1",
-    "@leanjs/core": "^0.2.0"
+    "@leanjs/react": "^0.1.0",
+    "@leanjs/core": "^0.1.0"
   },
   "scripts": {
     "prebuild": "del-cli dist",

@@ -1,22 +1,35 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
+
 import type { MountFunc } from "@leanjs/core";
-import { loadModule, loadScript, createValidJSVarName } from "@leanjs/core";
+import { _ as CoreUtils } from "@leanjs/core";
+import type { UseHostArgs } from "../types";
+import { HostContext } from "../private/HostProvider";
+import { useRuntime } from "../runtime";
+
+const {
+  loadModule,
+  loadScript,
+  createRemoteName,
+  deleteTrailingSlash,
+  getRemoteUrl,
+  defaultOrigin,
+} = CoreUtils;
 
 const mountCache = new Map<string, MountFunc>();
 
-export interface Remote {
-  packageName: string;
-}
-
-export interface UseHostArgs {
-  src: string;
-  remote: Remote;
-}
-
-export function useHost({ src, remote }: UseHostArgs) {
+export function useHost({ remote }: UseHostArgs) {
   const { packageName } = remote;
-  const url = src;
-  const name = createValidJSVarName(packageName);
+  const context = useContext(HostContext);
+  if (!context) {
+    throw new Error(
+      `No HostContext found in the component tree. Did you add a HostProvider?`
+    );
+  }
+
+  const origin = deleteTrailingSlash(context.origin ?? defaultOrigin);
+  const url = getRemoteUrl({ origin, packageName });
+  const runtime = useRuntime();
+  const name = createRemoteName(packageName);
   const mountKey = url + name;
   const cachedMount = mountCache.get(mountKey);
   const [mount = cachedMount, setMount] = useState();
@@ -31,8 +44,6 @@ export function useHost({ src, remote }: UseHostArgs) {
             setError(new Error("Remote module didn't return a function"));
           } else {
             const { mount: remoteMount } = config({
-              // TODO is this process.env in the final build that the browser runs?
-              isDev: process.env.NODE_ENV === "development",
               isSelfHosted: false,
             });
 
@@ -49,5 +60,5 @@ export function useHost({ src, remote }: UseHostArgs) {
     };
   }, [name, mountKey, url, cachedMount]);
 
-  return { mount, error, name };
+  return { mount, error, name, url, runtime };
 }

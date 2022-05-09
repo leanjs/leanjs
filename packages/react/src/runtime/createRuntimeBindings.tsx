@@ -1,7 +1,9 @@
 import { useCallback, useEffect, useState, ReactElement } from "react";
 import type { KeyOf, CreateRuntime } from "@leanjs/core";
 
-import { useBaseRuntime, BaseRuntimeProvider } from "./RuntimeProvider";
+import { HostProvider } from "../private/HostProvider";
+import type { HostProviderProps } from "../types";
+import { useRuntime as useBaseRuntime } from "./RuntimeProvider";
 
 export const createRuntimeBindings = <
   MyCreateRuntime extends CreateRuntime = CreateRuntime,
@@ -81,9 +83,8 @@ export const createRuntimeBindings = <
     useLoading,
     useError,
     useRuntime,
-    RuntimeProvider: BaseRuntimeProvider as (props: {
-      children: ReactElement;
-      runtime: MyRuntime;
-    }) => ReactElement,
+    HostProvider: HostProvider as (
+      props: HostProviderProps<MyRuntime>
+    ) => ReactElement,
   };
 };

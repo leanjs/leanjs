@@ -5,6 +5,7 @@ import React, { ReactElement } from "react";
 import waitForExpect from "wait-for-expect";
 
 import { createRuntimeBindings } from "./createRuntimeBindings";
+import { RuntimeProvider } from "./RuntimeProvider";
 
 const defaultState = {
   locale: "en",
@@ -17,14 +18,8 @@ const { createRuntime } = configureRuntime(defaultState)({
   },
 });
 
-const {
-  useGetter,
-  useSetter,
-  useLoading,
-  useError,
-  useRuntime,
-  RuntimeProvider,
-} = createRuntimeBindings(createRuntime);
+const { useGetter, useSetter, useLoading, useError, useRuntime } =
+  createRuntimeBindings(createRuntime);
 
 interface WrapperProps {
   children: ReactElement;
@@ -33,6 +28,14 @@ const createWrapper =
   (runtime = createRuntime()) =>
   ({ children }: WrapperProps) =>
     <RuntimeProvider runtime={runtime}>{children}</RuntimeProvider>;
+
+describe("createRuntimeBindings", () => {
+  it("returns a HostProvider", () => {
+    const { HostProvider } = createRuntimeBindings(createRuntime);
+
+    expect(typeof HostProvider).toBe("function");
+  });
+});
 
 describe("useRuntime", () => {
   it("throws an error if there is no Runtime in the context", () => {

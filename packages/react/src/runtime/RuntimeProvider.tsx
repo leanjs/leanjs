@@ -5,11 +5,11 @@ const RuntimeContext = createContext<
   { runtime: BaseRuntime | undefined } | undefined
 >(undefined);
 
-export const BaseRuntimeProvider = ({
+export const RuntimeProvider = ({
   children,
   runtime,
 }: {
-  children: ReactElement;
+  children: ReactElement | ReactElement[];
   runtime?: BaseRuntime;
 }) => (
   <RuntimeContext.Provider value={{ runtime }}>
@@ -17,11 +17,11 @@ export const BaseRuntimeProvider = ({
   </RuntimeContext.Provider>
 );
 
-export function useBaseRuntime() {
+export function useRuntime() {
   const runtime = useContext(RuntimeContext)?.runtime;
   if (!runtime) {
     throw new Error(
-      `No runtime instance found in the context. Did you pass createRuntime to createMicro?`
+      `No LeanJS runtime instance found in the context. Did you pass createRuntime to createRemote?`
     );
   }
 

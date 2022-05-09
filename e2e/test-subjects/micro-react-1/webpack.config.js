@@ -5,9 +5,6 @@ const port = 8889;
 
 module.exports = {
   mode: "development",
-  output: {
-    publicPath: `http://localhost:${port}/`,
-  },
   devtool: "cheap-module-source-map", // 'eval' is not supported by error-overlay-webpack-plugin
   devServer: {
     port,
