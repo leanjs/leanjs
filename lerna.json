@@ -4,10 +4,10 @@
   "useWorkspaces": true,
   "command": {
     "version": {
-      "ignoreChanges": ["**/*.md", "**/*.test.*"]
+      "ignoreChanges": ["**/*.md", "**/*.test.*", "e2e/**"]
     },
     "publish": {
-      "ignoreChanges": ["**/*.md", "**/*.test.*"],
+      "ignoreChanges": ["**/*.md", "**/*.test.*", "e2e/**"],
       "conventionalCommits": true,
       "message": "chore: publish",
       "allowBranch": "main"
