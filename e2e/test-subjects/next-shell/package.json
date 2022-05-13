@@ -1,6 +1,6 @@
 {
   "name": "@leanjs/e2e-test-subjects-nextjs-shell",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "private": true,
   "scripts": {
     "dev": "next dev",
@@ -10,7 +10,7 @@
   },
   "dependencies": {
     "@leanjs/core": "*",
-    "@leanjs/next": "^0.0.2",
+    "@leanjs/next": "^0.0.3",
     "@leanjs/react": "*",
     "next": "^11.0.0",
     "react": "^17.0.2",
