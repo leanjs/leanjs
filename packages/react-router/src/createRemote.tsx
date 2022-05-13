@@ -1,17 +1,17 @@
-import {
-  BaseRuntimeProvider,
-  ErrorBoundary,
-  CreateMicroConfig,
-  RunMicroOptions,
+import { RuntimeProvider, RemoteApp, _ as ReactUtils } from "@leanjs/react";
+import type {
+  CreateRemoteConfig,
+  RunRemoteOptions,
   MountOptions,
   Cleanup,
-  MicroApp,
-} from "@leanjs/react";
+} from "@leanjs/core";
 import React from "react";
 import ReactDOM from "react-dom";
 import { createBrowserHistory, createMemoryHistory } from "history";
 
 import { UniversalRouter } from "./components/UniversalRouter";
+
+const { ErrorBoundary } = ReactUtils;
 
 let inMemoryInitialState: any | undefined = undefined;
 
@@ -19,10 +19,10 @@ function saveInitialState(state: any) {
   inMemoryInitialState = state;
 }
 
-export const createMicro =
-  (App: MicroApp, config?: CreateMicroConfig) =>
+export const createRemote =
+  (App: RemoteApp, config?: CreateRemoteConfig) =>
   (
-    options: RunMicroOptions = {
+    options: RunRemoteOptions = {
       isSelfHosted: false,
     }
   ) => {
@@ -39,7 +39,7 @@ export const createMicro =
       el: HTMLElement,
       {
         runtime = createRuntime?.(),
-        onMicroNavigate,
+        onRemoteNavigate,
         basename,
         pathname,
       }: MountOptions = {}
@@ -53,9 +53,9 @@ export const createMicro =
 
         history.push(initialPath);
 
-        if (onMicroNavigate) {
+        if (onRemoteNavigate) {
           cleanups.push(
-            history.listen((e) => onMicroNavigate(e.location.pathname))
+            history.listen((e) => onRemoteNavigate(e.location.pathname))
           );
         }
 
@@ -77,9 +77,9 @@ export const createMicro =
         ReactDOM.render(
           <ErrorBoundary onError={log}>
             <UniversalRouter history={history} basename={basename}>
-              <BaseRuntimeProvider runtime={runtime}>
+              <RuntimeProvider runtime={runtime}>
                 <App isSelfHosted={isSelfHosted} {...appProps} />
-              </BaseRuntimeProvider>
+              </RuntimeProvider>
             </UniversalRouter>
           </ErrorBoundary>,
           el

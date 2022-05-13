@@ -1,6 +1,6 @@
 import React, { memo, useLayoutEffect, useRef } from "react";
 
-import type { MountProps } from "./types";
+import type { MountProps } from "../types";
 
 export const Mount = memo(function Mount({
   navigate,
@@ -16,7 +16,7 @@ export const Mount = memo(function Mount({
 
   useLayoutEffect(() => {
     const { unmount, onHostNavigate } = mount(ref.current, {
-      onMicroNavigate: (nextPathname, { hash, search } = {}) => {
+      onRemoteNavigate: (nextPathname, { hash, search } = {}) => {
         const { pathname } = window.location;
         if (pathname !== nextPathname) {
           navigate?.({

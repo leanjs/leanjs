@@ -1,6 +1,6 @@
 import type { CreateRuntime, Runtime } from "./runtime";
 
-export interface CreateMicroOutput {
+export interface CreateRemoteOutput {
   mount: MountFunc;
   createRuntime: CreateRuntime;
 }
@@ -24,7 +24,7 @@ export type OnNavigate = (
 
 export interface MountOptions extends BasePath {
   runtime?: Runtime;
-  onMicroNavigate?: OnNavigate;
+  onRemoteNavigate?: OnNavigate;
 }
 
 export type NavigateFunc = (arg: NavigationUpdate) => void;
@@ -59,7 +59,7 @@ export type MountFunc = (
 };
 
 type SaveInitialState = (state: any) => void;
-export interface RunMicroOptions {
+export interface RunRemoteOptions {
   isSelfHosted: boolean;
   initialState?: any;
 }
@@ -76,7 +76,7 @@ export interface OnBeforeMountArgs {
 export type OnUnmounted = () => void;
 
 type AppProps = Record<string, any>;
-export interface CreateMicroConfig {
+export interface CreateRemoteConfig {
   createRuntime?: CreateRuntime;
   onBeforeMount?: (args: OnBeforeMountArgs) => AppProps;
 }
@@ -86,7 +86,7 @@ export interface NavigationOptions {
   search?: string;
 }
 
-export type OnMicroNavigate = (
+export type OnRemoteNavigate = (
   nextPathname: string,
   options?: NavigationOptions
 ) => void;

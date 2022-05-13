@@ -1,4 +1,5 @@
 export * from "./Mount";
 export * from "./useHost";
-export * from "./types";
 export * from "./ErrorBoundary";
+export * from "./DefaultError";
+export * from "./DefaultLoading";
