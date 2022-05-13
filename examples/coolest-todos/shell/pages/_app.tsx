@@ -1,4 +1,4 @@
-import { RuntimeProvider, createRuntime } from "@my-org/runtime-react";
+import { HostProvider, createRuntime } from "@my-org/runtime-react";
 import { Nav } from "../components/Nav";
 
 const runtime = createRuntime();
@@ -18,9 +18,9 @@ runtime.on("pusher", function pusherUsernameListener(pusher, state) {
 
 export default function MyApp({ Component, pageProps }) {
   return (
-    <RuntimeProvider runtime={runtime}>
+    <HostProvider runtime={runtime}>
       <Nav />
       <Component {...pageProps} />
-    </RuntimeProvider>
+    </HostProvider>
   );
 }

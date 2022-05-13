@@ -1,12 +1,12 @@
 {
-  "name": "@my-org/micros-profile-reset",
+  "name": "@my-org/remote-profile-reset",
   "version": "1.0.0",
   "scripts": {
-    "start": "webpack serve --config webpack.config.js"
+    "dev": "webpack serve --config webpack.config.js"
   },
   "dependencies": {
-    "@my-org/user": "^1.0.0",
-    "@my-org/runtime-vue": "^1.0.0",
+    "@my-org/user": "*",
+    "@my-org/runtime-vue": "*",
     "vue": "^3.0.0"
   },
   "license": "MIT",

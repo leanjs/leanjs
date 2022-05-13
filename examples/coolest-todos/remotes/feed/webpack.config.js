@@ -1,37 +1,18 @@
-const HtmlWebpackPlugin = require("html-webpack-plugin");
-const ModuleFederationPlugin = require("webpack/lib/container/ModuleFederationPlugin");
-const VirtualModulesPlugin = require("webpack-virtual-modules");
-const packageJson = require("./package.json");
+// eslint-disable-next-line @typescript-eslint/no-var-requires
+const { MicroFrontendWebpackPlugin } = require("@leanjs/webpack");
 
-const port = 8888;
+const port = 8889;
 
 module.exports = {
   mode: "development",
-  output: {
-    publicPath: `http://localhost:${port}/`,
-  },
+  devtool: "eval-cheap-source-map",
   devServer: {
     port,
     historyApiFallback: {
       index: "/index.html",
     },
   },
-  plugins: [
-    new HtmlWebpackPlugin({
-      template: "./public/index.html",
-    }),
-    new VirtualModulesPlugin({
-      "./src/index.js": `import("./bootstrap");`,
-    }),
-    new ModuleFederationPlugin({
-      name: "profile",
-      filename: "remoteEntry.js",
-      exposes: {
-        "./Index": "./src/bootstrap",
-      },
-      shared: packageJson.dependencies,
-    }),
-  ],
+  plugins: [new MicroFrontendWebpackPlugin()],
   module: {
     rules: [
       {

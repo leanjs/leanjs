@@ -9,5 +9,5 @@ export const {
   useLoading,
   useError,
   useRuntime,
-  RuntimeProvider,
+  HostProvider,
 } = createRuntimeBindings(createRuntime);
