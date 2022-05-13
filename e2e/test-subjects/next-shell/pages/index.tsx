@@ -1,5 +1,5 @@
 import type { NextPage } from "next";
-import { Host } from "@leanjs/nextjs";
+import { Host } from "@leanjs/next";
 
 import { createRuntime, HostProvider } from "../libs/runtime";
 

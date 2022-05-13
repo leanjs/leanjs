@@ -1,5 +1,5 @@
 {
-  "name": "@leanjs/nextjs",
+  "name": "@leanjs/next",
   "version": "0.0.2",
   "author": "Alex Lobera <alex@leanjs.com>",
   "description": "Micro-frontend tools for Nextjs",
@@ -9,7 +9,7 @@
   "repository": {
     "type": "git",
     "url": "git+https://github.com/leanjs/leanjs.git",
-    "directory": "packages/nextjs"
+    "directory": "packages/next"
   },
   "files": [
     "dist"
