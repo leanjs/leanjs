@@ -781,6 +781,11 @@
     "@jridgewell/resolve-uri" "^3.0.3"
     "@jridgewell/sourcemap-codec" "^1.4.10"
 
+"@leanjs/core@^0.1.0":
+  version "0.1.0"
+  resolved "https://registry.yarnpkg.com/@leanjs/core/-/core-0.1.0.tgz#09cb2cb7a6bf29396c4650be96287906eb02211b"
+  integrity sha512-tW6i/n5IC6JKhLc6GAg+LO0w0p6V0Ir8jM5XPQjY7yYiTVqzmNEzasXeKDkqTf+Re2baVNCZYpM9NiPwNCIcHQ==
+
 "@leichtgewicht/ip-codec@^2.0.1":
   version "2.0.4"
   resolved "https://registry.yarnpkg.com/@leichtgewicht/ip-codec/-/ip-codec-2.0.4.tgz#b2ac626d6cb9c8718ab459166d4bb405b8ffa78b"
