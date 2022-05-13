@@ -1,6 +1,6 @@
 {
   "name": "@leanjs/nextjs",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "author": "Alex Lobera <alex@leanjs.com>",
   "description": "Micro-frontend tools for Nextjs",
   "types": "./dist/index.d.ts",
