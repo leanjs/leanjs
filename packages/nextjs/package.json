@@ -15,6 +15,8 @@
     "dist"
   ],
   "devDependencies": {
+    "@leanjs/core": "^0.1.0",
+    "@leanjs/react": "^0.1.2",
     "@testing-library/react": "^12.1.4",
     "@types/react": "^17.0.41",
     "next": "12",
@@ -22,13 +24,11 @@
     "react-dom": "17"
   },
   "peerDependencies": {
+    "@leanjs/core": "^0.1.0",
+    "@leanjs/react": "^0.1.2",
     "next": "12",
     "react": "17",
     "react-dom": "17"
-  },
-  "dependencies": {
-    "@leanjs/core": "^0.1.0",
-    "@leanjs/react": "^0.1.2"
   },
   "scripts": {
     "prebuild": "del-cli dist",
