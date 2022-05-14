@@ -11,11 +11,11 @@ const Home: NextPage = () => {
       <h1>Nextjs Host</h1>
       <HostProvider runtime={runtime}>
         <Host
-          remote={{ packageName: "@leanjs/e2e-test-subjects-micro-react-1" }}
+          remote={{ packageName: "@leanjs/e2e-test-subjects-remote-react-1" }}
         />
         <hr />
         <Host
-          remote={{ packageName: "@leanjs/e2e-test-subjects-micro-react-2" }}
+          remote={{ packageName: "@leanjs/e2e-test-subjects-remote-react-2" }}
         />
       </HostProvider>
     </>
