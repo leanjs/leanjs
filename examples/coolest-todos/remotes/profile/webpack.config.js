@@ -1,5 +1,5 @@
 // eslint-disable-next-line @typescript-eslint/no-var-requires
-const { MicroFrontendWebpackPlugin } = require("@leanjs/webpack");
+const { RemoteWebpackPlugin } = require("@leanjs/webpack");
 
 const port = 8888;
 
@@ -12,7 +12,7 @@ module.exports = {
       index: "/index.html",
     },
   },
-  plugins: [new MicroFrontendWebpackPlugin()],
+  plugins: [new RemoteWebpackPlugin()],
   module: {
     rules: [
       {

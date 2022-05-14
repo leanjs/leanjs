@@ -1,3 +1,5 @@
+// eslint-disable-next-line @typescript-eslint/no-var-requires
+const { HostWebpackPlugin } = require("@leanjs/webpack");
 const packageJsonDeps = require("./package.json").dependencies;
 const withTM = require("next-transpile-modules")([
   "@leanjs/core",
@@ -7,22 +9,20 @@ const withTM = require("next-transpile-modules")([
 ]);
 
 module.exports = withTM({
-  webpack: (config, options) => {
-    const federationConfig = {
-      shared: {
-        react: {
-          eager: true,
-          requiredVersion: packageJsonDeps.react,
-        },
-        "react-dom": {
-          eager: true,
-          requiredVersion: packageJsonDeps["react-dom"],
-        },
-      },
-    };
-
+  webpack: (config) => {
     config.plugins.push(
-      new options.webpack.container.ModuleFederationPlugin(federationConfig)
+      new HostWebpackPlugin({
+        shared: {
+          react: {
+            eager: true,
+            requiredVersion: packageJsonDeps.react,
+          },
+          "react-dom": {
+            eager: true,
+            requiredVersion: packageJsonDeps["react-dom"],
+          },
+        },
+      })
     );
 
     return config;
