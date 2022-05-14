@@ -1,7 +1,7 @@
 {
-  "name": "@leanjs/e2e-test-subjects-micro-react-2",
-  "version": "1.1.1",
+  "name": "@leanjs/e2e-test-subjects-remote-react-1",
   "private": true,
+  "version": "1.1.1",
   "description": "",
   "scripts": {
     "start": "webpack serve"
@@ -14,7 +14,7 @@
     "react-dom": "^17.0.2"
   },
   "devDependencies": {
-    "@leanjs/webpack": "^0.4.1",
+    "@leanjs/webpack": "*",
     "@swc/core": "^1.2.160",
     "@types/react": "^17.0.43",
     "@types/react-dom": "^17.0.14",
