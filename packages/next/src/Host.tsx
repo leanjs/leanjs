@@ -69,9 +69,11 @@ export function Host({
 
   return (
     <>
-      <Head>
-        <link rel="preload" as="script" href={url} />
-      </Head>
+      {process.env.NODE_ENV === "development" ? null : (
+        <Head>
+          <link rel="preload" as="script" href={url} />
+        </Head>
+      )}
       {children}
     </>
   );
