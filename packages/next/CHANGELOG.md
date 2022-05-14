@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.0.5](https://github.com/leanjs/leanjs/compare/@leanjs/next@0.0.4...@leanjs/next@0.0.5) (2022-05-14)
+
+
+### Bug Fixes
+
+* **next:** makes @leanjs/core only devDependency ([eb2e1b0](https://github.com/leanjs/leanjs/commit/eb2e1b02cce7b9e54c0988c6a309ce4619be5d72))
+
+
+
+
+
 ## [0.0.4](https://github.com/leanjs/leanjs/compare/@leanjs/next@0.0.3...@leanjs/next@0.0.4) (2022-05-14)
 
 
