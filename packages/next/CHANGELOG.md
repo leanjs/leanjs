@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.0.4](https://github.com/leanjs/leanjs/compare/@leanjs/next@0.0.3...@leanjs/next@0.0.4) (2022-05-14)
+
+
+### Bug Fixes
+
+* **next:** preload remote only in prod ([af64d97](https://github.com/leanjs/leanjs/commit/af64d97a4694257e5a476b1b946ed81a6c8543d2))
+
+
+
+
+
 ## 0.0.3 (2022-05-13)
 
 **Note:** Version bump only for package @leanjs/next
