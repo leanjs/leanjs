@@ -2,4 +2,4 @@
 
 ## Installation
 
-`yarn add @leanjs/next @leanjs/react @leanjs/core`
+`yarn add @leanjs/next @leanjs/react`
