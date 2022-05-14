@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.5.0](https://github.com/leanjs/leanjs/compare/@leanjs/webpack@0.4.1...@leanjs/webpack@0.5.0) (2022-05-14)
+
+
+### Features
+
+* **webpack:** add Host and Remote plugins ([718c383](https://github.com/leanjs/leanjs/commit/718c3836885885e2633cef619d0b6b7e256860e6))
+
+
+
+
+
 ## [0.4.1](https://github.com/leanjs/leanjs/compare/@leanjs/webpack@0.4.0...@leanjs/webpack@0.4.1) (2022-05-13)
 
 
