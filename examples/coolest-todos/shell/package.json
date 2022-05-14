@@ -3,9 +3,10 @@
   "version": "0.0.1",
   "private": true,
   "scripts": {
-    "start": "NODE_OPTIONS='--inspect' next dev -p 3001"
+    "dev": "NODE_OPTIONS='--inspect' next dev -p 3001"
   },
   "dependencies": {
+    "@leanjs/next": "*",
     "@my-org/runtime-react": "*",
     "@my-org/user": "*",
     "cors": "^2.8.5",

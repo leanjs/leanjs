@@ -1,7 +1,6 @@
+import { Host } from "@leanjs/next";
 import React from "react";
 import Head from "next/head";
-
-import { MountMicroFrontend } from "../components/MountMicroFrontend";
 
 const Home = () => {
   return (
@@ -9,10 +8,7 @@ const Home = () => {
       <Head>
         <title>Home</title>
       </Head>
-      <MountMicroFrontend
-        url="http://localhost:8889/remoteEntry.js"
-        name="feed"
-      />
+      <Host remote={{ packageName: "@my-org/remote-feed" }} />
     </>
   );
 };

@@ -4,13 +4,11 @@ const ModuleFederationPlugin = require("webpack/lib/container/ModuleFederationPl
 const VirtualModulesPlugin = require("webpack-virtual-modules");
 const packageJson = require("./package.json");
 
-const port = 8886;
+const port = 8887;
 
 module.exports = {
   mode: "development",
-  output: {
-    publicPath: `http://localhost:${port}/`,
-  },
+  devtool: "eval-cheap-source-map",
   devServer: {
     port,
     historyApiFallback: {
@@ -19,7 +17,7 @@ module.exports = {
   },
   plugins: [
     new ModuleFederationPlugin({
-      name: "profile_reset",
+      name: "todo",
       filename: "remoteEntry.js",
       exposes: {
         "./Index": "./src/bootstrap",

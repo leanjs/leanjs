@@ -6,11 +6,11 @@
   "description": "Tools for building maintainable and performant micro-frontends.",
   "workspaces": [
     "shell",
-    "micros/*",
+    "remotes/*",
     "packages/*"
   ],
   "scripts": {
-    "start": "lerna run start --parallel"
+    "dev": "lerna run dev --parallel"
   },
   "devDependencies": {
     "@swc/core": "^1.2.142",
@@ -25,7 +25,11 @@
     "typescript": "^4.5.3"
   },
   "dependencies": {
-    "@leanjs/react": "0.0.5"
+    "@leanjs/next": "^0.0.3",
+    "@leanjs/react-router": "^0.1.2",
+    "@leanjs/react": "^0.1.2",
+    "@leanjs/core": "^0.2.1",
+    "@leanjs/vue": "^0.1.2"
   },
   "engines": {
     "npm": ">=7.0.0",

@@ -7,7 +7,7 @@
   "author": "",
   "license": "MIT",
   "dependencies": {
-    "@leanjs/vue": "^0.0.1",
+    "@leanjs/vue": "*",
     "@my-org/runtime-shared": "*"
   }
 }

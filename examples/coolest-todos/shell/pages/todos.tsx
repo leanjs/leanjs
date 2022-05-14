@@ -1,6 +1,6 @@
 import React from "react";
 import Head from "next/head";
-import { MountMicroFrontend } from "../components/MountMicroFrontend";
+// import { MountMicroFrontend } from "../components/MountMicroFrontend";
 
 const Todo = () => {
   return (
@@ -8,10 +8,10 @@ const Todo = () => {
       <Head>
         <title>Host & Chat</title>
       </Head>
-      <MountMicroFrontend
+      {/* <MountMicroFrontend
         url="http://localhost:8887/remoteEntry.js"
         name="todo"
-      />
+      /> */}
     </>
   );
 };
