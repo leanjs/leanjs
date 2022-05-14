@@ -10,38 +10,12 @@ import * as path from "path";
 
 import { ModuleScopePlugin } from "./ModuleScopePlugin";
 import { saveMicroAppPort } from "../proxy";
+import type { SharedDependencies } from "./types";
 
 const { createRemoteName } = CoreUtils;
-export interface MicroFrontendWebpackInternalOptions {
-  shared: Record<string, string | SharedConfig>;
-  shareAllDependencies?: boolean;
-}
-
-export interface SharedConfig {
-  /**
-   * Include the provided and fallback module directly instead behind an async request. This allows to use this shared module in initial load too. All possible shared modules need to be eager too.
-   */
-  eager?: boolean;
-
-  /**
-   * Version requirement from module in share scope.
-   */
-  requiredVersion?: string | false;
-
-  /**
-   * Allow only a single version of the shared module in share scope (disabled by default).
-   */
-  singleton?: boolean;
-
-  /**
-   * Do not accept shared module if version is not valid (defaults to yes, if local fallback module is available and shared module is not a singleton, otherwise no, has no effect if there is no required version specified).
-   */
-  strictVersion?: boolean;
-
-  /**
-   * Version of the provided module. Will replace lower matching versions, but not higher.
-   */
-  version?: string | false;
+export interface RemoteWebpackInternalOptions {
+  shared: Record<string, string | SharedDependencies>;
+  shareAll?: boolean;
 }
 
 const { ModuleFederationPlugin } = container;
@@ -49,10 +23,10 @@ const { ModuleFederationPlugin } = container;
 // export const getOutputPath = (target = "web") =>
 //   `${path.join(process.cwd(), "dist")}/${target}`;
 
-export class MicroFrontendWebpackPlugin implements WebpackPluginInstance {
-  private options: MicroFrontendWebpackInternalOptions;
+export class RemoteWebpackPlugin implements WebpackPluginInstance {
+  private options: RemoteWebpackInternalOptions;
 
-  constructor(options: MicroFrontendWebpackInternalOptions) {
+  constructor(options: RemoteWebpackInternalOptions) {
     this.options = options || {};
   }
 
@@ -73,7 +47,7 @@ export class MicroFrontendWebpackPlugin implements WebpackPluginInstance {
       saveMicroAppPort({ microAppPort: compiler.options.devServer?.port });
       // eslint-disable-next-line @typescript-eslint/no-var-requires
       const packageJson = require(`${process.cwd()}/package.json`);
-      const { shared = {}, shareAllDependencies = true } = this.options;
+      const { shared = {}, shareAll = true } = this.options;
       const packageName = packageJson.name as string | undefined;
       if (!packageName) {
         throw new Error(`No package name found in package.json`);
@@ -151,7 +125,7 @@ export class MicroFrontendWebpackPlugin implements WebpackPluginInstance {
           ".": "./src/remote",
         },
         shared: {
-          ...(shareAllDependencies ? packageJson.dependencies : {}),
+          ...(shareAll ? packageJson.dependencies : {}),
           ...shared,
         },
       }).apply(compiler);
