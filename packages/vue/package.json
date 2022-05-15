@@ -22,7 +22,8 @@
     "vue": "^3.0.0"
   },
   "dependencies": {
-    "@leanjs/core": "^0.2.1"
+    "@leanjs/core": "^0.2.1",
+    "vue-router": "4"
   },
   "scripts": {
     "test": "jest",
