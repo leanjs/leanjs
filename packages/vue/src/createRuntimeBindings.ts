@@ -6,7 +6,7 @@ import type {
 } from "@leanjs/core";
 
 import type { Cleanups, StatePropArgs } from "./types";
-import { shallowCopy, isPrimitive } from "./utils";
+import { isPrimitive, shallowCopy } from "./utils";
 
 export const createRuntimeBindings = <
   MyCreateRuntime extends CreateRuntime = CreateRuntime,
@@ -21,17 +21,14 @@ export const createRuntimeBindings = <
     const cleanups: Cleanups[] = [];
     const runtime = inject<MyRuntime>("runtime");
     const vueState = {} as { [P in Prop]: Ref<State[P]> };
-
     if (!runtime) {
       throw new Error(
         "You must `provide` a `runtime` to the app at the root of the component tree"
       );
     }
-
     props.forEach((prop) => {
       let propName: Prop;
       let deep = false;
-
       if (typeof prop === "string") {
         propName = prop;
       } else if (isPropObj(prop)) {
@@ -45,10 +42,8 @@ export const createRuntimeBindings = <
           `prop must be either a string or an object with the key prop`
         );
       }
-
       // It uses a `ref` for each state prop instead of `reactive(vueState)` so state can be destructured
       vueState[propName] = ref(runtime.state[propName]);
-
       if (deep || isPrimitive(runtime.state[propName])) {
         // ref( runtime.state[propName] ) adds a proxy recursively to each property of runtime.state[propName]
         // so any property in any level of runtime.state[propName] will change when that property changes in vueState[propName].
@@ -75,7 +70,6 @@ export const createRuntimeBindings = <
           )
         );
       }
-
       cleanups.push(
         // Runtime returns a unsubscribe function
         runtime.subscribe(propName, (value) => {
@@ -84,7 +78,6 @@ export const createRuntimeBindings = <
         })
       );
     });
-
     // We call all the clean-up functions when the composable unmounts
     onUnmounted(() => cleanups.forEach((cleanup) => cleanup()));
 
