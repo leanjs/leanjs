@@ -10,12 +10,16 @@ const { useHost, Mount, DefaultLoading, DefaultError } = ReactUtils;
 export function Host({
   remote,
   pathname,
-  basename,
+  // basename,
   className,
   loadingComponent: LoadingComponent = DefaultLoading,
   errorComponent: ErrorComponent = DefaultError,
 }: HostProps) {
   const router = useRouter();
+  const basename = `${router.basePath}/${router.pathname}`.replace(
+    /\/{2,}/g,
+    "/"
+  );
   const { mount, error, url, runtime } = useHost({ remote });
 
   const navigate = useCallback(

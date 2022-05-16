@@ -71,6 +71,15 @@ export class ModuleScopePlugin implements ResolvePluginInstance {
         if (
           appSrcs.every((appSrc: string) => {
             const requestRelative = path.relative(appSrc, requestFullPath);
+
+            const nodeModulesPath = requestFullPath.split("node_modules")[0];
+            if (
+              nodeModulesPath?.length > 0 &&
+              appSrc.indexOf(nodeModulesPath) > -1
+            ) {
+              return false;
+            }
+
             return (
               requestRelative.startsWith("../") ||
               requestRelative.startsWith("..\\")

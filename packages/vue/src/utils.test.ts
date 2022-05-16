@@ -1,6 +1,6 @@
-import { shallowCopy, isPrimitive } from "./utils";
+import { shallowCopy, isPrimitive, isObject } from "./utils";
 
-describe("Vue runtime utils: shallowCopy", () => {
+describe("utils: shallowCopy", () => {
   it("changes the reference for objects", () => {
     const obj1 = { a: 1, b: 2 };
 
@@ -37,7 +37,7 @@ describe("Vue runtime utils: shallowCopy", () => {
   });
 });
 
-describe("Vue runtime utils: isPrimitive", () => {
+describe("utils: isPrimitive", () => {
   it("returns true for primitive types", () => {
     expect(isPrimitive(1)).toBe(true);
     expect(isPrimitive(false)).toBe(true);
@@ -48,5 +48,27 @@ describe("Vue runtime utils: isPrimitive", () => {
   it("returns false for non-primitive types", () => {
     expect(isPrimitive({})).toBe(false);
     expect(isPrimitive([])).toBe(false);
+  });
+});
+
+describe("utils: isObject", () => {
+  it("returns true for object types", () => {
+    expect(isObject({})).toBe(true);
+    expect(isObject({ a: 1 })).toBe(true);
+    expect(isObject({ a: { b: 2 } })).toBe(true);
+  });
+
+  it("returns false for non-primitive types", () => {
+    expect(
+      isObject(function () {
+        // empty
+      })
+    ).toBe(false);
+    expect(isObject([])).toBe(false);
+    expect(isObject("")).toBe(false);
+    expect(isObject(1)).toBe(false);
+    expect(isObject(false)).toBe(false);
+    expect(isObject(null)).toBe(false);
+    expect(isObject(undefined)).toBe(false);
   });
 });
