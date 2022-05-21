@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.1.3](https://github.com/leanjs/leanjs/compare/@leanjs/react@0.1.2...@leanjs/react@0.1.3) (2022-05-21)
+
+
+### Bug Fixes
+
+* **react:** remove basename from Host props ([0656270](https://github.com/leanjs/leanjs/commit/0656270096d96bc10ef355270cbdc3aaf5cacfdd))
+
+
+
+
+
 ## [0.1.2](https://github.com/leanjs/leanjs/compare/@leanjs/react@0.1.1...@leanjs/react@0.1.2) (2022-05-13)
 
 
