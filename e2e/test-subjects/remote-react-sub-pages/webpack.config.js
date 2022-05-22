@@ -1,19 +1,12 @@
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const { RemoteWebpackPlugin } = require("@leanjs/webpack");
 
-const port = 8888;
+const port = 44441;
 
 module.exports = {
   mode: "development",
-  output: {
-    publicPath: `http://localhost:${port}/`,
-  },
-  devtool: "cheap-module-source-map", // 'eval' is not supported by error-overlay-webpack-plugin
   devServer: {
     port,
-    historyApiFallback: {
-      index: "/index.html",
-    },
   },
   plugins: [new RemoteWebpackPlugin()],
   module: {

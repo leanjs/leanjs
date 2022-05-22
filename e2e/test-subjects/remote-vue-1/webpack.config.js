@@ -3,16 +3,12 @@ const { RemoteWebpackPlugin } = require("@leanjs/webpack");
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const { VueLoaderPlugin } = require("vue-loader");
 
-const port = 8886;
+const port = 44442;
 
 module.exports = {
   mode: "development",
-  devtool: "eval-cheap-source-map",
   devServer: {
     port,
-    historyApiFallback: {
-      index: "index.html",
-    },
   },
   plugins: [new RemoteWebpackPlugin(), new VueLoaderPlugin()],
   entry: "./src/index.js",

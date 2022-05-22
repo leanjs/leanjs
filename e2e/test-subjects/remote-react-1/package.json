@@ -4,7 +4,7 @@
   "version": "1.2.1",
   "description": "",
   "scripts": {
-    "start": "webpack serve"
+    "start:e2e": "webpack serve"
   },
   "author": "",
   "license": "MIT",
@@ -19,11 +19,9 @@
     "@swc/core": "^1.2.160",
     "@types/react": "^17.0.43",
     "@types/react-dom": "^17.0.14",
-    "html-webpack-plugin": "^5.4.0",
     "swc-loader": "^0.1.15",
     "webpack": "^5.58.2",
     "webpack-cli": "^4.9.1",
-    "webpack-dev-server": "^4.3.1",
-    "webpack-virtual-modules": "^0.4.3"
+    "webpack-dev-server": "^4.3.1"
   }
 }

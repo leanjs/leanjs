@@ -8,6 +8,7 @@ module.exports = {
     "plugin:jest-dom/recommended",
     "plugin:testing-library/react",
     "plugin:prettier/recommended",
+    "plugin:cypress/recommended",
   ],
   plugins: [
     "@typescript-eslint",

@@ -6,6 +6,14 @@ const packageJsonDeps = require("./package.json").dependencies;
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: true,
+  async rewrites() {
+    return [
+      {
+        source: "/react-sub-pages/:id",
+        destination: "/react-sub-pages?id=:id",
+      },
+    ];
+  },
   webpack: (config) => {
     config.plugins.push(
       new HostWebpackPlugin({
