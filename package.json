@@ -18,12 +18,14 @@
     "check-types": "tsc --noEmit",
     "----------------------TESTING----------------------": ".",
     "test": "lerna run test",
+    "test:e2e": "lerna run test:e2e --scope=@leanjs/e2e-tests",
     "----------------------RUNNING----------------------": ".",
     "prepare": "husky install"
   },
   "workspaces": [
     "packages/*",
-    "e2e/test-subjects/*"
+    "e2e/test-subjects/*",
+    "e2e/tests"
   ],
   "devDependencies": {
     "@commitlint/cli": "^16.2.3",
@@ -38,6 +40,7 @@
     "eslint-config-prettier": "^8.5.0",
     "eslint-import-resolver-typescript": "^2.7.1",
     "eslint-plugin": "^1.0.1",
+    "eslint-plugin-cypress": "^2.12.1",
     "eslint-plugin-import": "^2.25.4",
     "eslint-plugin-jest-dom": "^4.0.1",
     "eslint-plugin-prettier": "^4.0.0",

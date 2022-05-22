@@ -2,7 +2,7 @@
   "name": "@leanjs/e2e-test-subjects-remote-vue-1",
   "version": "1.1.0",
   "scripts": {
-    "start": "webpack serve --config webpack.config.js"
+    "start:e2e": "webpack serve"
   },
   "dependencies": {
     "@leanjs/vue-router": "^0.1.0",
@@ -18,15 +18,12 @@
     "babel-loader": "^8.1.0",
     "css-loader": "^5.0.0",
     "file-loader": "^6.2.0",
-    "html-webpack-plugin": "^4.5.0",
     "style-loader": "^2.0.0",
     "ts-loader": "^9.2.8",
     "vue-loader": "^16.0.0-beta.9",
     "vue-style-loader": "^4.1.2",
     "webpack": "^5.58.2",
     "webpack-cli": "^4.9.1",
-    "webpack-dev-server": "^4.3.1",
-    "webpack-merge": "^5.2.0",
-    "webpack-virtual-modules": "^0.4.3"
+    "webpack-dev-server": "^4.3.1"
   }
 }

@@ -5,7 +5,7 @@ export function App() {
   return (
     <>
       <h1>React micro-app 1</h1>
-      <Link to="/vue">Go to Vue page</Link>
+      <Link to="/">Home page</Link>
     </>
   );
 }
