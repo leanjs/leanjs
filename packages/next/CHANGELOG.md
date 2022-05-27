@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.1.3](https://github.com/leanjs/leanjs/compare/@leanjs/next@0.1.2...@leanjs/next@0.1.3) (2022-05-27)
+
+
+### Bug Fixes
+
+* **next:** remove comment from Host ([5c28836](https://github.com/leanjs/leanjs/commit/5c2883676511673e69f60eace8a9f126858b9bb8))
+
+
+
+
+
 ## [0.1.2](https://github.com/leanjs/leanjs/compare/@leanjs/next@0.1.1...@leanjs/next@0.1.2) (2022-05-27)
 
 **Note:** Version bump only for package @leanjs/next

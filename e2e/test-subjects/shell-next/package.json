@@ -1,6 +1,6 @@
 {
   "name": "@leanjs/e2e-test-subjects-shell-next",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "private": true,
   "scripts": {
     "start:e2e": "next dev -p 44443",
@@ -10,7 +10,7 @@
   },
   "dependencies": {
     "@leanjs/core": "^0.3.0",
-    "@leanjs/next": "^0.1.2",
+    "@leanjs/next": "^0.1.3",
     "@leanjs/react": "^0.2.0",
     "next": "^11.0.0",
     "react": "^17.0.2",
