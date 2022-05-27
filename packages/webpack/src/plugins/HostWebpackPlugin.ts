@@ -1,7 +1,7 @@
 import { Compiler, WebpackPluginInstance, container } from "webpack";
-import type { SharedDependencies } from "./types";
+import type { SharedDependencies } from "../types";
 
-export interface HostWebpackInternalOptions {
+export interface HostWebpackOptions {
   shared: Record<string, string | SharedDependencies>;
   shareAll?: boolean;
 }
@@ -9,9 +9,9 @@ export interface HostWebpackInternalOptions {
 const { ModuleFederationPlugin } = container;
 
 export class HostWebpackPlugin implements WebpackPluginInstance {
-  private options: HostWebpackInternalOptions;
+  private options: HostWebpackOptions;
 
-  constructor(options: HostWebpackInternalOptions) {
+  constructor(options: HostWebpackOptions) {
     this.options = options || {};
   }
 

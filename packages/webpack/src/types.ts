@@ -24,3 +24,9 @@ export interface SharedDependencies {
    */
   version?: string | false;
 }
+
+export interface LeanConfig {
+  devServer: {
+    port: number;
+  };
+}
