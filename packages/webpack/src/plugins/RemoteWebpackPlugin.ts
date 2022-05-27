@@ -9,25 +9,22 @@ import * as path from "path";
 // import * as os from "os";
 
 import { ModuleScopePlugin } from "./ModuleScopePlugin";
-import { saveMicroAppPort } from "../proxy";
-import type { SharedDependencies } from "./types";
+import { startDevServer } from "../devServer";
+import type { SharedDependencies } from "../types";
 
 const { createRemoteName } = CoreUtils;
-export interface RemoteWebpackInternalOptions {
-  shared: Record<string, string | SharedDependencies>;
+export interface RemoteWebpackOptions {
+  shared?: Record<string, string | SharedDependencies>;
   shareAll?: boolean;
 }
 
 const { ModuleFederationPlugin } = container;
 
-// export const getOutputPath = (target = "web") =>
-//   `${path.join(process.cwd(), "dist")}/${target}`;
-
 export class RemoteWebpackPlugin implements WebpackPluginInstance {
-  private options: RemoteWebpackInternalOptions;
+  private options: RemoteWebpackOptions;
 
-  constructor(options: RemoteWebpackInternalOptions) {
-    this.options = options || {};
+  constructor(options?: RemoteWebpackOptions) {
+    this.options = options ?? {};
   }
 
   apply(compiler: Compiler) {
@@ -38,20 +35,31 @@ export class RemoteWebpackPlugin implements WebpackPluginInstance {
       (acc, ext) => acc || fs.existsSync(`${process.cwd()}/src/remote${ext}`),
       false
     );
-
-    if (!remoteExists) {
-      console.log(
-        `⚠️ No src/remote.ts|js found. Exiting micro-frontend plugin.`
+    // eslint-disable-next-line @typescript-eslint/no-var-requires
+    const packageJson = require(`${process.cwd()}/package.json`);
+    const packageName = packageJson.name as string | undefined;
+    const remoteAppPort = compiler.options.devServer?.port;
+    const isProduction = process.env.NODE_ENV === "production";
+    if (!isProduction && !remoteAppPort) {
+      throw Error(
+        `Webpack config devServer needs a port. More info https://webpack.js.org/configuration/dev-server/#devserverport`
       );
+    }
+    if (!packageName) {
+      throw new Error(`No package name found in package.json`);
+    }
+    if (!remoteExists) {
+      console.log(`⚠️ No src/remote.ts|js found. Exiting RemoteWebpackPlugin.`);
     } else {
-      saveMicroAppPort({ microAppPort: compiler.options.devServer?.port });
-      // eslint-disable-next-line @typescript-eslint/no-var-requires
-      const packageJson = require(`${process.cwd()}/package.json`);
+      startDevServer()
+        .then((api) =>
+          api.updatePackagePort(packageName, compiler.options.devServer?.port)
+        )
+        .catch((err) => {
+          throw new Error(err);
+        });
+
       const { shared = {}, shareAll = true } = this.options;
-      const packageName = packageJson.name as string | undefined;
-      if (!packageName) {
-        throw new Error(`No package name found in package.json`);
-      }
       const moduleName = createRemoteName(packageName);
       const indexHtmlPath = path.resolve(process.cwd(), "public/index.html");
       const indexHtml = fs.readFileSync(
@@ -86,6 +94,7 @@ export class RemoteWebpackPlugin implements WebpackPluginInstance {
             "X-Requested-With, content-type, Authorization",
         },
       };
+
       compiler.options.output = {
         ...compiler.options.output,
         assetModuleFilename:

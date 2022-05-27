@@ -12,7 +12,6 @@ const {
   createRemoteName,
   deleteTrailingSlash,
   getRemoteUrl,
-  defaultOrigin,
 } = CoreUtils;
 
 const mountCache = new Map<string, MountFunc>();
@@ -25,8 +24,11 @@ export function useHost({ remote }: UseHostArgs) {
       `No HostContext found in the component tree. Did you add a HostProvider?`
     );
   }
+  if (!context.origin) {
+    throw new Error(`origin prop is required in HostProvider`);
+  }
 
-  const origin = deleteTrailingSlash(context.origin ?? defaultOrigin);
+  const origin = deleteTrailingSlash(context.origin);
   const url = getRemoteUrl({ origin, packageName });
   const runtime = useRuntime();
   const name = createRemoteName(packageName);

@@ -41,13 +41,13 @@ export interface UseHostArgs {
 }
 
 export interface HostContextValues {
-  origin?: string;
+  origin: string;
   errorComponent?: ErrorComponent;
   loadingComponent?: LoadingComponent;
 }
 
 export interface HostProviderProps<BaseRuntime extends Runtime = Runtime> {
-  origin?: string;
+  origin: string;
   errorComponent?: ErrorComponent;
   loadingComponent?: LoadingComponent;
   runtime: BaseRuntime;

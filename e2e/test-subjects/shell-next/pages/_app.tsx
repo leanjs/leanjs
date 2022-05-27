@@ -14,7 +14,7 @@ const App = ({
   Component: () => JSX.Element;
   pageProps: Record<string, any>;
 }) => (
-  <HostProvider runtime={runtime}>
+  <HostProvider origin="http://localhost:56500" runtime={runtime}>
     <ul>
       <li>
         <Link href="/">React page</Link>
