@@ -1,12 +1,12 @@
 {
   "name": "@leanjs/e2e-test-subjects-remote-vue-1",
   "private": true,
-  "version": "1.1.0",
+  "version": "1.1.1",
   "scripts": {
     "start:e2e": "webpack serve"
   },
   "dependencies": {
-    "@leanjs/vue-router": "^0.1.0",
+    "@leanjs/vue-router": "^0.1.1",
     "vue": "^3.0.0",
     "vue-router": "^4.0.0"
   },

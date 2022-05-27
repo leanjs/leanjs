@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.3.0](https://github.com/leanjs/leanjs/compare/@leanjs/core@0.2.1...@leanjs/core@0.3.0) (2022-05-27)
+
+
+### Features
+
+* **lean.config.js:** add config file and refactor proxy to devServer ([897941a](https://github.com/leanjs/leanjs/commit/897941a4c01d101c19b662bd773c1871183aae42))
+
+
+
+
+
 ## [0.2.1](https://github.com/leanjs/leanjs/compare/@leanjs/core@0.2.0...@leanjs/core@0.2.1) (2022-05-13)
 
 
