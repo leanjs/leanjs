@@ -10,7 +10,6 @@ const { useHost, Mount, DefaultLoading, DefaultError } = ReactUtils;
 export function Host({
   remote,
   pathname,
-  // basename,
   className,
   loadingComponent: LoadingComponent = DefaultLoading,
   errorComponent: ErrorComponent = DefaultError,
