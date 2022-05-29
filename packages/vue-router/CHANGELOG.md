@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.1.4](https://github.com/leanjs/leanjs/compare/@leanjs/vue-router@0.1.3...@leanjs/vue-router@0.1.4) (2022-05-29)
+
+
+### Bug Fixes
+
+* **vue:** vue router and vue types fixed ([a95f8dd](https://github.com/leanjs/leanjs/commit/a95f8dd1dbb74c6aa45f3f50d6611513e1e700f2))
+
+
+
+
+
 ## [0.1.3](https://github.com/leanjs/leanjs/compare/@leanjs/vue-router@0.1.2...@leanjs/vue-router@0.1.3) (2022-05-29)
 
 
