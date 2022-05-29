@@ -21,11 +21,15 @@
     "dist"
   ],
   "dependencies": {
+    "@babel/plugin-transform-runtime": "^7.12.1",
+    "@babel/core": "^7.12.3",
+    "@babel/preset-env": "^7.12.1",
     "@leanjs/cli": "^0.1.0",
     "@leanjs/core": "^0.3.0",
     "chalk": "^4.1.2",
-    "error-overlay-webpack-plugin": "^1.1.0",
     "html-webpack-plugin": "^5.4.0",
+    "ts-loader": "^9.2.8",
+    "vue-loader": "^17.0.0",
     "webpack": "^5.72.0",
     "webpack-virtual-modules": "^0.4.3"
   },
