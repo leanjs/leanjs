@@ -1,0 +1,9 @@
+{
+  "extends": "../../tsconfig.json",
+  "exclude": ["dist", "build", "node_modules"],
+  "include": ["src"],
+  "compilerOptions": {
+    "sourceMap": false,
+    "downlevelIteration": true
+  }
+}

@@ -7,8 +7,9 @@ import { basename } from "path";
 import detect from "detect-port";
 import { Sema } from "async-sema";
 import chalk from "chalk";
+import type { Server } from "http";
 
-import findConfigSync from "./utils/findConfigSync";
+import findLeanConfigSync from "./findLeanConfigSync";
 
 const { createRemoteName } = CoreUtils;
 const hashtable = new Map();
@@ -17,11 +18,14 @@ const defaultDevServerPort = 26560;
 
 let latestUsedPort: number;
 
-export function startDevServer(): Promise<{
-  updatePackagePort: (packageName: string, port: number) => void;
-  generatePackagePort: (packageName: string) => Promise<number>;
+export function startDevProxyServer(): Promise<{
+  api: {
+    updatePackagePort: (packageName: string, port: number) => void;
+    generatePackagePort: (packageName: string) => Promise<number>;
+  };
 }> {
-  const config = findConfigSync();
+  let devServer: Server | undefined;
+  const config = findLeanConfigSync();
   const configDevServerPort = config?.devServer?.port;
   if (!configDevServerPort) {
     console.warn(
@@ -51,19 +55,21 @@ export function startDevServer(): Promise<{
   };
 
   if (latestUsedPort) {
-    return Promise.resolve(api);
+    return Promise.resolve({ api, devServer });
   }
   latestUsedPort = devServerPort;
 
   return new Promise((resolve, reject) => {
     const resolveApi = () => {
       console.log(
-        `🚀 Lean dev server running at http://localhost:${devServerPort}`
+        `🚀 Lean dev server running at ${chalk.cyan(
+          `http://localhost:${devServerPort}`
+        )}`
       );
-      resolve(api);
+      resolve({ api });
     };
     const proxyServer = createProxyServer({ ignorePath: true });
-    createServer()
+    devServer = createServer()
       .use(cors())
       .use(json())
       .post("/remote/port", async (req, res) => {
@@ -108,30 +114,31 @@ export function startDevServer(): Promise<{
           }, {})
         );
       })
-      .listen(devServerPort, resolveApi)
-      .on("error", async (error: Error) => {
-        if (error.message.includes("EADDRINUSE")) {
-          let ok = false;
-          try {
-            // checking if the address is already in use by Lean Dev Server
-            const { data } = await axios.get(`${DEV_SERVER_ORIGIN}/status`);
-            ok = data.leanjs === "ok";
-          } catch (error) {
-            // GET /status failed, therefore Lean Dev Server is not running on that address
-          }
+      .listen(devServerPort, resolveApi);
 
-          if (ok) {
-            resolveApi();
-          } else {
-            reject(
-              `🚨 port ${chalk.cyan(
-                devServerPort
-              )} is in use. Update devServer port in lean.config.js`
-            );
-          }
-        } else {
-          reject(error);
+    devServer.on("error", async (error: Error) => {
+      if (error.message.includes("EADDRINUSE")) {
+        let ok = false;
+        try {
+          // checking if the address is already in use by Lean Dev Server
+          const { data } = await axios.get(`${DEV_SERVER_ORIGIN}/status`);
+          ok = data.leanjs === "ok";
+        } catch (error) {
+          // GET /status failed, therefore Lean Dev Server is not running on that address
         }
-      });
+
+        if (ok) {
+          resolveApi();
+        } else {
+          reject(
+            `🚨 port ${chalk.cyan(
+              devServerPort
+            )} is in use. Update devServer port in lean.config.js`
+          );
+        }
+      } else {
+        reject(error);
+      }
+    });
   });
 }

@@ -1,10 +1,10 @@
 {
-  "name": "@leanjs/e2e-test-subjects-remote-react-sub-pages",
+  "name": "@leanjs/e2e-test-subjects-cli",
   "private": true,
-  "version": "1.0.1",
+  "version": "1.0.0",
   "description": "",
   "scripts": {
-    "start:e2e": "webpack serve"
+    "start:e2e": "node ../../../packages/cli/dist/bin/lean-cli dev --config=react"
   },
   "author": "Alex Lobera <alex@leanjs.com>",
   "license": "MIT",
@@ -15,13 +15,7 @@
     "react-router-dom": "^6.3.0"
   },
   "devDependencies": {
-    "@leanjs/webpack": "^0.7.0",
-    "@swc/core": "^1.2.160",
     "@types/react": "^17.0.43",
-    "@types/react-dom": "^17.0.14",
-    "swc-loader": "^0.1.15",
-    "webpack": "^5.58.2",
-    "webpack-cli": "^4.9.1",
-    "webpack-dev-server": "^4.3.1"
+    "@types/react-dom": "^17.0.14"
   }
 }

@@ -6,7 +6,7 @@
   "license": "MIT",
   "scripts": {
     "start:all:e2e": "lerna run start:e2e --parallel",
-    "test:e2e": "start-test start:all:e2e \"44443|http-get://localhost:44440|http-get://localhost:44441|http-get://localhost:44442\" 'cypress run'"
+    "test:e2e": "start-test start:all:e2e \"44443|http-get://localhost:56501|http-get://localhost:44440|http-get://localhost:44441|http-get://localhost:44442\" 'cypress run'"
   },
   "repository": {
     "type": "git",
