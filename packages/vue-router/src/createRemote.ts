@@ -3,8 +3,10 @@ import type {
   RunRemoteOptions,
   MountOptions,
   Cleanup,
+  CreateRuntime,
 } from "@leanjs/core";
-import { createApp, App as VueApp } from "vue";
+import { createApp } from "vue";
+import type { Component } from "vue";
 import {
   createRouter,
   createWebHistory,
@@ -19,10 +21,16 @@ function saveInitialState(state: any) {
   inMemoryInitialState = state;
 }
 
-export { CreateRemoteConfig, RunRemoteOptions, MountOptions, Cleanup };
+export {
+  CreateRemoteConfig,
+  RunRemoteOptions,
+  MountOptions,
+  Cleanup,
+  CreateRuntime,
+};
 
 export const createRemote =
-  (App: VueApp, config?: CreateRemoteConfig) =>
+  (App: Component, config?: CreateRemoteConfig) =>
   (
     options: RunRemoteOptions = {
       isSelfHosted: false,
