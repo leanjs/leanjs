@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.2.1](https://github.com/leanjs/leanjs/compare/@leanjs/cli@0.2.0...@leanjs/cli@0.2.1) (2022-05-29)
+
+
+### Bug Fixes
+
+* **cli:** remotes using same port ([3d26518](https://github.com/leanjs/leanjs/commit/3d26518c883dbda424f1d6931fd60c984cca3f6d))
+
+
+
+
+
 # [0.2.0](https://github.com/leanjs/leanjs/compare/@leanjs/cli@0.1.0...@leanjs/cli@0.2.0) (2022-05-29)
 
 
