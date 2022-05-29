@@ -18,7 +18,7 @@ runtime.on("pusher", function pusherUsernameListener(pusher, state) {
 
 export default function MyApp({ Component, pageProps }) {
   return (
-    <HostProvider origin="http://localhost:56500" runtime={runtime}>
+    <HostProvider origin="http://localhost:56600" runtime={runtime}>
       <Nav />
       <Component {...pageProps} />
     </HostProvider>

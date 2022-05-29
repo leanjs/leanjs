@@ -1,10 +1,11 @@
 {
-  "name": "@my-org/remote-profile-reset",
+  "name": "@my-org/micro-profile-reset",
   "version": "1.0.0",
   "scripts": {
-    "dev": "webpack serve --config webpack.config.js"
+    "dev": "lean dev --config=vue"
   },
   "dependencies": {
+    "@leanjs/vue-router": "*",
     "@my-org/user": "*",
     "@my-org/runtime-vue": "*",
     "vue": "^3.0.0"
@@ -12,22 +13,6 @@
   "author": "Alex Lobera <alex@leanjs.com>",
   "license": "MIT",
   "devDependencies": {
-    "@babel/core": "^7.12.3",
-    "@babel/plugin-transform-runtime": "^7.12.1",
-    "@babel/preset-env": "^7.12.1",
-    "@vue/compiler-sfc": "^3.0.2",
-    "babel-loader": "^8.1.0",
-    "css-loader": "^5.0.0",
-    "file-loader": "^6.2.0",
-    "html-webpack-plugin": "^4.5.0",
-    "style-loader": "^2.0.0",
-    "ts-loader": "^9.2.8",
-    "vue-loader": "^16.0.0-beta.9",
-    "vue-style-loader": "^4.1.2",
-    "webpack": "^5.58.2",
-    "webpack-cli": "^4.9.1",
-    "webpack-dev-server": "^4.3.1",
-    "webpack-merge": "^5.2.0",
-    "webpack-virtual-modules": "^0.4.3"
+    "@leanjs/cli": "*"
   }
 }
