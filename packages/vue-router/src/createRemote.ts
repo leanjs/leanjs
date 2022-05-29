@@ -19,6 +19,8 @@ function saveInitialState(state: any) {
   inMemoryInitialState = state;
 }
 
+export { CreateRemoteConfig, RunRemoteOptions, MountOptions, Cleanup };
+
 export const createRemote =
   (App: VueApp, config?: CreateRemoteConfig) =>
   (
