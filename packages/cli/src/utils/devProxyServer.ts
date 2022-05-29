@@ -34,23 +34,23 @@ export function startDevProxyServer(): Promise<{
   }
   const devServerPort = configDevServerPort ?? defaultDevServerPort;
   const DEV_SERVER_ORIGIN = `http://localhost:${devServerPort}`;
-  const REMOTE_PORT_ENDPOINT = `${DEV_SERVER_ORIGIN}/remote/port`;
+  const UPDATE_PORT_PATH = `/remote/port`;
+  const GENERATE_PORT_PATH = `/remote/generate-port`;
   const api = {
     updatePackagePort: (packageName: string, port: number) =>
-      axios.post(REMOTE_PORT_ENDPOINT, { packageName, port }),
-    generatePackagePort: async (packageName: string) => {
-      await remotePortSema.acquire();
-      try {
-        latestUsedPort = await detect(latestUsedPort);
-      } finally {
-        remotePortSema.release();
-      }
-      await axios.post(REMOTE_PORT_ENDPOINT, {
+      axios.post(`${DEV_SERVER_ORIGIN}${UPDATE_PORT_PATH}`, {
         packageName,
-        port: latestUsedPort,
-      });
+        port,
+      }),
+    generatePackagePort: async (packageName: string) => {
+      const { data } = await axios.post(
+        `${DEV_SERVER_ORIGIN}${GENERATE_PORT_PATH}`,
+        {
+          packageName,
+        }
+      );
 
-      return latestUsedPort;
+      return data;
     },
   };
 
@@ -72,7 +72,7 @@ export function startDevProxyServer(): Promise<{
     devServer = createServer()
       .use(cors())
       .use(json())
-      .post("/remote/port", async (req, res) => {
+      .post(UPDATE_PORT_PATH, async (req, res) => {
         const { packageName, port } = req.body;
         const formattedName = createRemoteName(packageName);
         const origin = `http://localhost:${port}`;
@@ -83,6 +83,25 @@ export function startDevProxyServer(): Promise<{
         hashtable.set(formattedName, data);
         console.log(`Hashtable updated with ${formattedName}:`, data);
         res.json(port);
+      })
+      .post(GENERATE_PORT_PATH, async (req, res) => {
+        const { packageName } = req.body;
+        const formattedName = createRemoteName(packageName);
+        await remotePortSema.acquire();
+        try {
+          latestUsedPort++;
+          latestUsedPort = await detect(latestUsedPort);
+        } finally {
+          remotePortSema.release();
+        }
+        const origin = `http://localhost:${latestUsedPort}`;
+        const data = {
+          origin,
+          packageName,
+        };
+        hashtable.set(formattedName, data);
+        console.log(`Hashtable updated with ${formattedName}:`, data);
+        res.json(latestUsedPort);
       })
       .all("/:remoteName/*", (req, res) => {
         const { remoteName } = req.params;
