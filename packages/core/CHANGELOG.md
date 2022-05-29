@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.4.0](https://github.com/leanjs/leanjs/compare/@leanjs/core@0.3.0...@leanjs/core@0.4.0) (2022-05-29)
+
+
+### Features
+
+* **webpack:** add vue config ([8397e0a](https://github.com/leanjs/leanjs/commit/8397e0aeb8b4d4278213f227ac003c71d9e3db39))
+
+
+
+
+
 # [0.3.0](https://github.com/leanjs/leanjs/compare/@leanjs/core@0.2.1...@leanjs/core@0.3.0) (2022-05-27)
 
 

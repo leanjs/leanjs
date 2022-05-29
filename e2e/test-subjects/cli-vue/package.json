@@ -1,12 +1,12 @@
 {
   "name": "@leanjs/e2e-test-subjects-cli-vue",
   "private": true,
-  "version": "1.1.1",
+  "version": "1.2.0",
   "scripts": {
     "start:e2e": "node ../../../packages/cli/dist/bin/lean-cli dev --config=vue --port=56502"
   },
   "dependencies": {
-    "@leanjs/vue-router": "^0.1.1",
+    "@leanjs/vue-router": "^0.1.2",
     "vue": "^3.0.0",
     "vue-router": "^4.0.0"
   },
