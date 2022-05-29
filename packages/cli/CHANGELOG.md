@@ -3,17 +3,9 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
-# [1.1.0](https://github.com/leanjs/leanjs/compare/@leanjs/e2e-test-subjects-remote-react-sub-pages@1.0.1...@leanjs/e2e-test-subjects-remote-react-sub-pages@1.1.0) (2022-05-29)
+# 0.1.0 (2022-05-29)
 
 
 ### Features
 
 * **cli:** add cli with webpack support ([276d6d4](https://github.com/leanjs/leanjs/commit/276d6d4aab1c40c74ecf9eeeffa3046a9ce5026c))
-
-
-
-
-
-## 1.0.1 (2022-05-27)
-
-**Note:** Version bump only for package @leanjs/e2e-test-subjects-remote-react-sub-pages
