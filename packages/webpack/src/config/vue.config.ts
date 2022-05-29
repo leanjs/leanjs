@@ -1,19 +1,11 @@
-// eslint-disable-next-line @typescript-eslint/no-var-requires
-const { RemoteWebpackPlugin } = require("@leanjs/webpack");
-// eslint-disable-next-line @typescript-eslint/no-var-requires
-const { VueLoaderPlugin } = require("vue-loader");
+import type { Configuration } from "webpack";
+import { VueLoaderPlugin } from "vue-loader";
 
-const port = 44442;
+import { RemoteWebpackPlugin } from "../plugins/RemoteWebpackPlugin";
 
-module.exports = {
-  mode: "development",
-  devServer: {
-    port,
-  },
+export const vueWebpack_dontExtendMe: Configuration = {
+  mode: process.env.NODE_ENV === "development" ? "development" : "production",
   plugins: [new RemoteWebpackPlugin(), new VueLoaderPlugin()],
-  resolve: {
-    extensions: [".js", ".vue", ".ts"],
-  },
   module: {
     rules: [
       {
@@ -24,7 +16,7 @@ module.exports = {
         test: /\.ts$/,
         loader: "ts-loader",
         options: {
-          configFile: `${__dirname}/tsconfig.json`,
+          configFile: `${process.cwd()}/tsconfig.json`,
           appendTsSuffixTo: [/\.vue$/],
         },
       },
@@ -40,5 +32,8 @@ module.exports = {
         },
       },
     ],
+  },
+  resolve: {
+    extensions: [".js", ".vue", ".ts"],
   },
 };

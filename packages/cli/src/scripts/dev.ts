@@ -16,7 +16,8 @@ program
   .requiredOption(
     "-c, --config <type>",
     "Name of the config defined in lean.config.js that you want to use. E.g. --config=react"
-  );
+  )
+  .option("-p, --port <type>", "Port to run locally a given micro-frontend");
 
 program.parse(process.argv);
 
@@ -49,9 +50,9 @@ async function dev() {
       `Starting development environment for ${chalk.cyan(packageName)}`
     );
     process.env.NODE_ENV = "development";
+    const { config: configName, port: customPort } = program.opts();
     const { api } = await startDevProxyServer();
-    const port = await api.generatePackagePort(packageName);
-    const { config: configName } = program.opts();
+    const port = customPort ?? (await api.generatePackagePort(packageName));
 
     // Abstract away the following Webpack code when we support more bundlers
     const functionOrObjectConfig = leanConfig?.webpack?.[configName];

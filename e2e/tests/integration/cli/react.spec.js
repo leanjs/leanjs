@@ -1,7 +1,7 @@
 /// <reference types="cypress" />
 
-describe("Remote React app: success", () => {
-  it("displays a dev remote React app", () => {
+describe("Cli React config", () => {
+  it("displays a React app using the dev cli command", () => {
     cy.visit("http://localhost:56501");
 
     cy.contains("React micro-app via @leanjs/cli");

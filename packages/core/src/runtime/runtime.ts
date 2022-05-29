@@ -239,7 +239,9 @@ Current valid props are: ${Object.keys(currentState).join(", ")}`);
         throw new Error(`No context found in runtime, "on" is not allowed`);
       }
       if (!context[prop]) {
-        throw new Error(`No context found in runtime for prop ${prop}.`);
+        throw new Error(
+          `No context found in runtime for prop ${String(prop)}.`
+        );
       }
       const offPromise = Promise.resolve(context[prop])
         .then((ctxValue) =>
