@@ -8,6 +8,7 @@
     "@my-org/user": "*",
     "vue": "^3.0.0"
   },
+  "author": "Alex Lobera <alex@leanjs.com>",
   "license": "MIT",
   "devDependencies": {
     "@babel/core": "^7.12.3",

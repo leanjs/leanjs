@@ -9,11 +9,7 @@ const Profile = () => {
       <Head>
         <title>Profile page</title>
       </Head>
-      <Host remote={{ packageName: "@my-org/remote-profile" }} />
-      {/* <MountMicroFrontend
-        url="http://localhost:8886/remoteEntry.js"
-        name="profile_reset"
-      /> */}
+      <Host remote={{ packageName: "@my-org/micro-profile" }} />
     </>
   );
 };
