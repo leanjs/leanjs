@@ -8,7 +8,9 @@ const currentWorkingDir = process.cwd();
 let maxRecursion = 4;
 let config: LeanConfig;
 
-export default function findIn(relativePath = "."): LeanConfig | undefined {
+export default function findLeanConfigSync(
+  relativePath = "."
+): LeanConfig | undefined {
   // TODO check that this cached config works with Turborepo. Does Turbo run each script in a separate process?
   if (config) {
     return config;
@@ -26,9 +28,9 @@ export default function findIn(relativePath = "."): LeanConfig | undefined {
   if (exists) {
     // eslint-disable-next-line @typescript-eslint/no-var-requires
     config = require(fullpath);
-    // TODO validate config
+    // TODO validate config, maybe https://www.npmjs.com/package/max-validator ?
     return config;
   } else {
-    return findIn(path.join("..", relativePath));
+    return findLeanConfigSync(path.join("..", relativePath));
   }
 }

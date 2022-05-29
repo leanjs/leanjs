@@ -2,7 +2,11 @@ import type { Configuration } from "webpack";
 
 import { RemoteWebpackPlugin } from "../plugins/RemoteWebpackPlugin";
 
-const config: Configuration = {
+const imageInlineSizeLimit = parseInt(
+  process.env.IMAGE_INLINE_SIZE_LIMIT || "10000"
+);
+
+export const reactWebpack_dontExtendMe: Configuration = {
   mode: process.env.NODE_ENV === "development" ? "development" : "production",
   plugins: [new RemoteWebpackPlugin()],
   module: {
@@ -31,11 +35,18 @@ const config: Configuration = {
           },
         },
       },
+      {
+        test: [/\.bmp$/, /\.gif$/, /\.jpe?g$/, /\.png$/, /\.avif$/, /\.mp3$/],
+        type: "asset",
+        parser: {
+          dataUrlCondition: {
+            maxSize: imageInlineSizeLimit,
+          },
+        },
+      },
     ],
   },
   resolve: {
     extensions: [".js", ".jsx", ".ts", ".tsx"],
   },
 };
-
-export default config;

@@ -6,7 +6,7 @@
   "scripts": {
     "start:e2e": "webpack serve"
   },
-  "author": "",
+  "author": "Alex Lobera <alex@leanjs.com>",
   "license": "MIT",
   "dependencies": {
     "@leanjs/react-router": "^0.2.2",

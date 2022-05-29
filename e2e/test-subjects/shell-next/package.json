@@ -8,6 +8,7 @@
     "start": "next start",
     "lint": "next lint"
   },
+  "author": "Alex Lobera <alex@leanjs.com>",
   "dependencies": {
     "@leanjs/core": "^0.3.0",
     "@leanjs/next": "^0.1.3",
