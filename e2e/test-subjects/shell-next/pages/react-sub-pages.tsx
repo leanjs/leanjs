@@ -1,6 +1,7 @@
 import type { NextPage } from "next";
 import { Host } from "@leanjs/next";
 import { useRouter } from "next/router";
+import { CustomLoader } from "../components/CustomLoader";
 
 /*
 👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇👇
@@ -26,6 +27,7 @@ const React: NextPage = () => {
       <h1>Hosting multiple pages</h1>
       <Host
         pathname={pathname}
+        loadingComponent={CustomLoader}
         remote={{
           packageName: "@leanjs/e2e-test-subjects-remote-react-sub-pages",
         }}
