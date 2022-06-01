@@ -2,7 +2,8 @@
   "name": "@my-org/micro-todo",
   "version": "1.0.0",
   "scripts": {
-    "dev": "lean dev --config=vue"
+    "dev": "lean dev --config=vue",
+    "build": "lean build --config=vue"
   },
   "dependencies": {
     "@leanjs/vue-router": "*",

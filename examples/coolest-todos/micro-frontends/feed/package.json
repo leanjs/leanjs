@@ -2,7 +2,8 @@
   "name": "@my-org/micro-feed",
   "version": "1.0.0",
   "scripts": {
-    "dev": "webpack serve"
+    "dev": "NODE_ENV=development webpack serve --config webpack.dev.js",
+    "build": "NODE_ENV=production webpack build --config webpack.prod.js"
   },
   "license": "MIT",
   "dependencies": {

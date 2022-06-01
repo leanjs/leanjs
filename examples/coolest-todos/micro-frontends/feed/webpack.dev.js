@@ -3,6 +3,7 @@ const { RemoteWebpackPlugin } = require("@leanjs/webpack");
 const ErrorOverlayPlugin = require("error-overlay-webpack-plugin");
 
 // 👋 This is an example of a custom Webpack config for just one micro-frontend
+// This is not recommended. It's better that you share your configs using lean.config.js and use `lean dev --config config_key`
 
 const port = 8889;
 

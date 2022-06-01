@@ -2,7 +2,8 @@
   "name": "@my-org/micro-profile",
   "version": "1.0.0",
   "scripts": {
-    "dev": "lean dev --config=react"
+    "dev": "lean dev --config=react",
+    "build": "lean build --config=react"
   },
   "author": "Alex Lobera <alex@leanjs.com>",
   "license": "MIT",
