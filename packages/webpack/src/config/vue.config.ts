@@ -1,11 +1,20 @@
 import type { Configuration } from "webpack";
 import { VueLoaderPlugin } from "vue-loader";
+import { getOutputPath } from "@leanjs/cli";
 
 import { RemoteWebpackPlugin } from "../plugins/RemoteWebpackPlugin";
 
+const isEnvDevelopment = process.env.NODE_ENV === "development";
+const isEnvProduction = process.env.NODE_ENV === "production";
+
 export const vueWebpack_dontExtendMe: Configuration = {
-  mode: process.env.NODE_ENV === "development" ? "development" : "production",
+  mode: isEnvDevelopment ? "development" : "production",
   plugins: [new RemoteWebpackPlugin(), new VueLoaderPlugin()],
+  output: {
+    filename: isEnvProduction ? "[name].[contenthash].js" : undefined,
+    publicPath: "auto",
+    path: getOutputPath(),
+  },
   module: {
     rules: [
       {

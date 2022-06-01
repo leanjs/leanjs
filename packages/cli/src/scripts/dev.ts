@@ -2,44 +2,21 @@ import createCompiler from "webpack";
 import WebpackDevServer from "webpack-dev-server";
 import chalk from "chalk";
 import * as os from "os";
-import { Command } from "commander";
-import * as fs from "fs";
 
+import { getPackageName } from "../utils/packageJson";
 import { startDevProxyServer } from "../utils/devProxyServer";
-import findLeanConfigSync from "../utils/findLeanConfigSync";
+import { findLeanConfigSync, getWebpackConfig } from "../utils/leanConfig";
+import { createCommand } from "../utils/command";
 
-const program = new Command();
-program
-  .configureOutput({
-    outputError: (str, write) => write(chalk.red(str)),
-  })
-  .requiredOption(
-    "-c, --config <type>",
-    "Name of the config defined in lean.config.js that you want to use. E.g. --config=react"
-  )
-  .option("-p, --port <type>", "Port to run locally a given micro-frontend");
+const program = createCommand().option(
+  "-p, --port <type>",
+  "Port to run locally a given micro-frontend"
+);
 
 program.parse(process.argv);
 
 async function dev() {
-  const packageJsonFullPath = `${process.cwd()}/package.json`;
-  if (!fs.existsSync(packageJsonFullPath)) {
-    console.error(
-      chalk.red(`No package.json found in path: ${chalk.cyan(process.cwd())}`)
-    );
-    process.exit(1);
-  }
-  // eslint-disable-next-line @typescript-eslint/no-var-requires
-  const packageJson = require(packageJsonFullPath);
-  const packageName = packageJson.name as string | undefined;
-  if (!packageName) {
-    console.error(
-      chalk.red(
-        `No package name found in package.json. Path: ${process.cwd()}/package.json`
-      )
-    );
-    process.exit(1);
-  }
+  const packageName = getPackageName();
   const leanConfig = findLeanConfigSync();
   if (!leanConfig) {
     console.log(chalk.red(`No lean.config.js found.`));
@@ -55,21 +32,12 @@ async function dev() {
     const port = customPort ?? (await api.generatePackagePort(packageName));
 
     // Abstract away the following Webpack code when we support more bundlers
-    const functionOrObjectConfig = leanConfig?.webpack?.[configName];
-    if (!functionOrObjectConfig) {
-      console.log(
-        chalk.red(
-          `No webpack config found in lean.config.js for ${chalk.cyan(
-            configName
-          )} in package: ${chalk.cyan(packageName)}`
-        )
-      );
-      process.exit(1);
-    }
-    const webpackConfig =
-      typeof functionOrObjectConfig === "function"
-        ? functionOrObjectConfig({ port })
-        : functionOrObjectConfig;
+    const webpackConfig = getWebpackConfig({
+      webpack: leanConfig?.webpack,
+      packageName,
+      configName,
+      port,
+    });
     webpackConfig.devServer = {
       ...webpackConfig.devServer,
       port: webpackConfig.devServer?.port ?? port,

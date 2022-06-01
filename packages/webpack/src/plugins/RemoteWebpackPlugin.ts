@@ -27,6 +27,8 @@ export class RemoteWebpackPlugin implements WebpackPluginInstance {
   }
 
   apply(compiler: Compiler) {
+    const isEnvDevelopment = process.env.NODE_ENV === "development";
+    const isEnvProduction = process.env.NODE_ENV === "production";
     const { extensions } = compiler.options.resolve;
     const remoteExists = (
       extensions?.length ? extensions : [".ts", ".js"]
@@ -38,8 +40,7 @@ export class RemoteWebpackPlugin implements WebpackPluginInstance {
     const packageJson = require(`${process.cwd()}/package.json`);
     const packageName = packageJson.name as string | undefined;
     const remoteAppPort = compiler.options.devServer?.port;
-    const isProduction = process.env.NODE_ENV === "production";
-    if (!isProduction && !remoteAppPort) {
+    if (!isEnvProduction && !remoteAppPort) {
       throw Error(
         `Webpack config devServer needs a port. More info https://webpack.js.org/configuration/dev-server/#devserverport`
       );
@@ -57,13 +58,31 @@ export class RemoteWebpackPlugin implements WebpackPluginInstance {
       process.exit(1);
     }
 
-    startDevProxyServer()
-      .then(({ api }) =>
-        api.updatePackagePort(packageName, compiler.options.devServer?.port)
-      )
-      .catch((err) => {
-        throw new Error(err);
-      });
+    if (isEnvDevelopment) {
+      compiler.options.devServer = {
+        ...compiler.options.devServer,
+        historyApiFallback: {
+          ...compiler.options.devServer?.historyApiFallback,
+          index: `/index.html`,
+        },
+        headers: {
+          ...compiler.options.devServer?.headers,
+          "Access-Control-Allow-Origin": "*",
+          "Access-Control-Allow-Methods":
+            "GET, POST, PUT, DELETE, PATCH, OPTIONS",
+          "Access-Control-Allow-Headers":
+            "X-Requested-With, content-type, Authorization",
+        },
+      };
+
+      startDevProxyServer()
+        .then(({ api }) =>
+          api.updatePackagePort(packageName, compiler.options.devServer?.port)
+        )
+        .catch((err) => {
+          throw new Error(err);
+        });
+    }
 
     const { shared = {}, shareAll = true } = this.options;
     const moduleName = createRemoteName(packageName);
@@ -84,21 +103,6 @@ export class RemoteWebpackPlugin implements WebpackPluginInstance {
         ...(compiler.options.resolve.plugins ?? []),
         new ModuleScopePlugin(),
       ],
-    };
-    compiler.options.devServer = {
-      ...compiler.options.devServer,
-      historyApiFallback: {
-        ...compiler.options.devServer?.historyApiFallback,
-        index: `/index.html`,
-      },
-      headers: {
-        ...compiler.options.devServer?.headers,
-        "Access-Control-Allow-Origin": "*",
-        "Access-Control-Allow-Methods":
-          "GET, POST, PUT, DELETE, PATCH, OPTIONS",
-        "Access-Control-Allow-Headers":
-          "X-Requested-With, content-type, Authorization",
-      },
     };
 
     compiler.options.output = {

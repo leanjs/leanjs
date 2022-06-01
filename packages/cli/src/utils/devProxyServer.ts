@@ -9,7 +9,7 @@ import { Sema } from "async-sema";
 import chalk from "chalk";
 import type { Server } from "http";
 
-import findLeanConfigSync from "./findLeanConfigSync";
+import { findLeanConfigSync } from "./leanConfig";
 
 const { createRemoteName } = CoreUtils;
 const hashtable = new Map();
