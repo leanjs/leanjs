@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.10.0](https://github.com/leanjs/leanjs/compare/@leanjs/webpack@0.9.2...@leanjs/webpack@0.10.0) (2022-06-01)
+
+
+### Features
+
+* **build:** add cli build and react vue prod config ([f7f4c0d](https://github.com/leanjs/leanjs/commit/f7f4c0d34f0f14a8445d5ab8edc0fe9b7499ce0f))
+
+
+
+
+
 ## [0.9.2](https://github.com/leanjs/leanjs/compare/@leanjs/webpack@0.9.1...@leanjs/webpack@0.9.2) (2022-05-30)
 
 **Note:** Version bump only for package @leanjs/webpack
