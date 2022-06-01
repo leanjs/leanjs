@@ -1,3 +1,5 @@
+process.env.NODE_ENV = "development";
+
 import createCompiler from "webpack";
 import WebpackDevServer from "webpack-dev-server";
 import chalk from "chalk";
@@ -26,7 +28,6 @@ async function dev() {
     console.log(
       `Starting development environment for ${chalk.cyan(packageName)}`
     );
-    process.env.NODE_ENV = "development";
     const { config: configName, port: customPort } = program.opts();
     const { api } = await startDevProxyServer();
     const port = customPort ?? (await api.generatePackagePort(packageName));

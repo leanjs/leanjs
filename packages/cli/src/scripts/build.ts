@@ -1,3 +1,5 @@
+process.env.NODE_ENV = "production";
+
 import chalk from "chalk";
 import { emptyDirSync } from "fs-extra";
 import createCompiler from "webpack";
@@ -18,7 +20,6 @@ if (!leanConfig) {
 }
 
 console.log(`Building ${chalk.cyan(packageName)}`);
-process.env.NODE_ENV = "production";
 const { config: configName } = command.opts();
 
 emptyDirSync(getOutputPath());
