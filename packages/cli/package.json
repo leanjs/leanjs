@@ -1,6 +1,6 @@
 {
   "name": "@leanjs/cli",
-  "version": "0.3.0",
+  "version": "0.3.1",
   "description": "Cli for LEAN micro-frontends",
   "types": "./dist/index.d.ts",
   "main": "./dist/index.js",

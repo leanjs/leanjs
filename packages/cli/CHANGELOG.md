@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.3.1](https://github.com/leanjs/leanjs/compare/@leanjs/cli@0.3.0...@leanjs/cli@0.3.1) (2022-06-01)
+
+
+### Bug Fixes
+
+* **cli:** process.env.NODE_ENV dev and prod ([be25b2b](https://github.com/leanjs/leanjs/commit/be25b2bc7469d12b054b34d0c63cee99e2db4457))
+
+
+
+
+
 # [0.3.0](https://github.com/leanjs/leanjs/compare/@leanjs/cli@0.2.1...@leanjs/cli@0.3.0) (2022-06-01)
 
 
