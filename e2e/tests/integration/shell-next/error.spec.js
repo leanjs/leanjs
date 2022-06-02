@@ -12,12 +12,12 @@ describe("Nextjs shell: error", () => {
     cy.visit("http://localhost:44443");
     cy.contains("React error page").click();
     cy.contains(
-      /Error: Failed to load script.+test_subjects_not_existing.+/
+      /Error: Failed to load script.+i_dont_exist_but_have_a_default_error.+/
     ).should("be.visible");
   });
 
   it("displays a custom error message when using an error component", () => {
-    cy.visit("http://localhost:44443/react-error?customError=true");
+    cy.visit("http://localhost:44443/custom-react-error");
     cy.contains("Your app failed:").should("be.visible");
   });
 });
