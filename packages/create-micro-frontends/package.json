@@ -1,0 +1,26 @@
+{
+  "name": "create-micro-frontends",
+  "version": "0.0.0",
+  "description": "Cli for creating a LEAN micro-frontends project",
+  "types": "./dist/index.d.ts",
+  "main": "./dist/index.js",
+  "author": "Alex Lobera <alex@leanjs.com>",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/leanjs/leanjs.git",
+    "directory": "packages/create-micro-frontends"
+  },
+  "license": "MIT",
+  "scripts": {
+    "build": "tsc --outDir dist --project ./tsconfig.json",
+    "prebuild": "del-cli dist"
+  },
+  "files": [
+    "dist"
+  ],
+  "dependencies": {},
+  "devDependencies": {},
+  "publishConfig": {
+    "access": "public"
+  }
+}
