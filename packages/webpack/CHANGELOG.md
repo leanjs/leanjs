@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.10.4](https://github.com/leanjs/leanjs/compare/@leanjs/webpack@0.10.3...@leanjs/webpack@0.10.4) (2022-06-05)
+
+
+### Bug Fixes
+
+* **webpack:** defer importing vue loader ([eef1d8e](https://github.com/leanjs/leanjs/commit/eef1d8e00e3d120b01a3aaad24ce0d21bb06d84b))
+
+
+
+
+
 ## [0.10.3](https://github.com/leanjs/leanjs/compare/@leanjs/webpack@0.10.2...@leanjs/webpack@0.10.3) (2022-06-05)
 
 
