@@ -10,52 +10,54 @@ const imageInlineSizeLimit = parseInt(
 const isEnvDevelopment = process.env.NODE_ENV === "development";
 const isEnvProduction = process.env.NODE_ENV === "production";
 
-export const defaultReactWebpack: Configuration = {
-  mode: isEnvDevelopment ? "development" : "production",
-  plugins: [new RemoteWebpackPlugin()],
-  output: {
-    filename: isEnvProduction ? "[name].[contenthash].js" : undefined,
-    publicPath: "auto",
-    path: getOutputPath(),
-  },
-  module: {
-    rules: [
-      {
-        test: /\.(js|mjs|jsx|ts|tsx)$/,
-        exclude: /(node_modules|bower_components)/,
-        use: {
-          loader: require.resolve("swc-loader"),
-          options: {
-            jsc: {
-              parser: {
-                syntax: "typescript",
-                tsx: true,
-              },
-              transform: {
-                react: {
-                  pragma: "React.createElement",
-                  pragmaFrag: "React.Fragment",
-                  throwIfNamespace: true,
-                  development: false,
-                  useBuiltins: false,
+export const getDefaultReactWebpack = (): Configuration => {
+  return {
+    mode: isEnvDevelopment ? "development" : "production",
+    plugins: [new RemoteWebpackPlugin()],
+    output: {
+      filename: isEnvProduction ? "[name].[contenthash].js" : undefined,
+      publicPath: "auto",
+      path: getOutputPath(),
+    },
+    module: {
+      rules: [
+        {
+          test: /\.(js|mjs|jsx|ts|tsx)$/,
+          exclude: /(node_modules|bower_components)/,
+          use: {
+            loader: require.resolve("swc-loader"),
+            options: {
+              jsc: {
+                parser: {
+                  syntax: "typescript",
+                  tsx: true,
+                },
+                transform: {
+                  react: {
+                    pragma: "React.createElement",
+                    pragmaFrag: "React.Fragment",
+                    throwIfNamespace: true,
+                    development: false,
+                    useBuiltins: false,
+                  },
                 },
               },
             },
           },
         },
-      },
-      {
-        test: [/\.bmp$/, /\.gif$/, /\.jpe?g$/, /\.png$/, /\.avif$/, /\.mp3$/],
-        type: "asset",
-        parser: {
-          dataUrlCondition: {
-            maxSize: imageInlineSizeLimit,
+        {
+          test: [/\.bmp$/, /\.gif$/, /\.jpe?g$/, /\.png$/, /\.avif$/, /\.mp3$/],
+          type: "asset",
+          parser: {
+            dataUrlCondition: {
+              maxSize: imageInlineSizeLimit,
+            },
           },
         },
-      },
-    ],
-  },
-  resolve: {
-    extensions: [".js", ".jsx", ".ts", ".tsx"],
-  },
+      ],
+    },
+    resolve: {
+      extensions: [".js", ".jsx", ".ts", ".tsx"],
+    },
+  };
 };
