@@ -1,7 +1,7 @@
 import type { NextPage } from "next";
 import { Host } from "@leanjs/next";
 
-const Home: NextPage = () => {
+const Vue: NextPage = () => {
   return (
     <>
       <h1>Vue page</h1>
@@ -12,4 +12,4 @@ const Home: NextPage = () => {
   );
 };
 
-export default Home;
+export default Vue;

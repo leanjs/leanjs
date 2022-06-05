@@ -4,7 +4,7 @@
   "version": "1.1.5",
   "description": "",
   "scripts": {
-    "start:e2e": "webpack serve"
+    "start:e2e": "NODE_ENV=development webpack serve"
   },
   "author": "Alex Lobera <alex@leanjs.com>",
   "license": "MIT",

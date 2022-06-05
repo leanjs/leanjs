@@ -22,6 +22,12 @@ const App = ({
       <li>
         <Link href="/vue">Vue page</Link>
       </li>
+      <li>
+        <Link href="/react-sub-pages">React sub page</Link>
+      </li>
+      <li>
+        <Link href="/react-error">React error page</Link>
+      </li>
     </ul>
     <Component {...pageProps} />
   </HostProvider>
