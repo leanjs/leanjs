@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.10.3](https://github.com/leanjs/leanjs/compare/@leanjs/webpack@0.10.2...@leanjs/webpack@0.10.3) (2022-06-05)
+
+
+### Bug Fixes
+
+* **webpack:** add vue-template-compiler ([35eb045](https://github.com/leanjs/leanjs/commit/35eb0458bfb3283f71f1329d4aa740b2835c9829))
+
+
+
+
+
 ## [0.10.2](https://github.com/leanjs/leanjs/compare/@leanjs/webpack@0.10.1...@leanjs/webpack@0.10.2) (2022-06-05)
 
 
