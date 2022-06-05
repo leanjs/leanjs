@@ -7,7 +7,7 @@ import { RemoteWebpackPlugin } from "../plugins/RemoteWebpackPlugin";
 const isEnvDevelopment = process.env.NODE_ENV === "development";
 const isEnvProduction = process.env.NODE_ENV === "production";
 
-export const vueWebpack_dontExtendMe: Configuration = {
+export const defaultVueWebpack: Configuration = {
   mode: isEnvDevelopment ? "development" : "production",
   plugins: [new RemoteWebpackPlugin(), new VueLoaderPlugin()],
   output: {
