@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.10.2](https://github.com/leanjs/leanjs/compare/@leanjs/webpack@0.10.1...@leanjs/webpack@0.10.2) (2022-06-05)
+
+
+### Bug Fixes
+
+* **webpack:** add swc loader and rename vue and react config ([2ecc579](https://github.com/leanjs/leanjs/commit/2ecc579d502756681e417407c48be29cd3a100ec))
+
+
+
+
+
 ## [0.10.1](https://github.com/leanjs/leanjs/compare/@leanjs/webpack@0.10.0...@leanjs/webpack@0.10.1) (2022-06-01)
 
 **Note:** Version bump only for package @leanjs/webpack
