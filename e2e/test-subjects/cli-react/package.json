@@ -4,8 +4,8 @@
   "version": "1.1.0",
   "description": "",
   "scripts": {
-    "start:e2e": "node ../../../packages/cli/dist/bin/lean-cli dev --config=react",
-    "build:e2e": "node ../../../packages/cli/dist/bin/lean-cli build --config=react"
+    "start:e2e": "NODE_ENV=development node ../../../packages/cli/dist/bin/lean-cli dev --config=react",
+    "build:e2e": "NODE_ENV=production node ../../../packages/cli/dist/bin/lean-cli build --config=react"
   },
   "author": "Alex Lobera <alex@leanjs.com>",
   "license": "MIT",
