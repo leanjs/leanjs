@@ -12,12 +12,20 @@
   },
   "license": "MIT",
   "scripts": {
-    "build": "tsc --outDir dist --project ./tsconfig.json",
+    "copy:assets": "cp -R templates dist",
+    "build:tsc": "tsc --outDir dist --project ./tsconfig.json",
+    "build": "yarn build:tsc && yarn copy:assets",
     "prebuild": "del-cli dist"
   },
   "files": [
     "dist"
   ],
+  "dependencies": {
+    "copyfiles": "^2.4.1",
+    "enquirer": "^2.3.6",
+    "execa": "^6.1.0",
+    "hygen": "^6.2.4"
+  },
   "publishConfig": {
     "access": "public"
   }
