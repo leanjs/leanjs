@@ -10,7 +10,7 @@ const imageInlineSizeLimit = parseInt(
 const isEnvDevelopment = process.env.NODE_ENV === "development";
 const isEnvProduction = process.env.NODE_ENV === "production";
 
-export const reactWebpack_dontExtendMe: Configuration = {
+export const defaultReactWebpack: Configuration = {
   mode: isEnvDevelopment ? "development" : "production",
   plugins: [new RemoteWebpackPlugin()],
   output: {
