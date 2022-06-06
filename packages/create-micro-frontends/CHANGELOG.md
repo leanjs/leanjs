@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.0.10](https://github.com/leanjs/leanjs/compare/create-micro-frontends@0.0.9...create-micro-frontends@0.0.10) (2022-06-06)
+
+
+### Bug Fixes
+
+* **create-micro-frontends:** process.env.HYGEN_TMPLS = defaultTemplates; ([2f15339](https://github.com/leanjs/leanjs/commit/2f153392a48e23303e8ede4b3e781f5fcb38a52c))
+
+
+
+
+
 ## [0.0.9](https://github.com/leanjs/leanjs/compare/create-micro-frontends@0.0.8...create-micro-frontends@0.0.9) (2022-06-06)
 
 
