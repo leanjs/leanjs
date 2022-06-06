@@ -15,13 +15,16 @@ export async function run() {
   //   ]);
 
   const defaultTemplates = path.join(__dirname, "templates");
+  const cwd = process.cwd();
   console.log(`templates path:`, defaultTemplates);
+  console.log(`cwd:`, cwd);
   const { success } = await runner(["project", "next"], {
     templates: defaultTemplates,
-    cwd: process.cwd(),
+    cwd,
     logger: new Logger(console.log.bind(console)), // eslint-disable-line no-console
     debug: !!process.env.DEBUG,
     exec: (action: any, body: any) => {
+      console.log(`cwd:`, cwd);
       const opts = body && body.length > 0 ? { input: body } : {};
       return require("execa").command(action, { ...opts, shell: true }); // eslint-disable-line @typescript-eslint/no-var-requires
     },
