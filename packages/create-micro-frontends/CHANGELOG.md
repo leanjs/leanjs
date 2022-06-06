@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.0.4](https://github.com/leanjs/leanjs/compare/create-micro-frontends@0.0.3...create-micro-frontends@0.0.4) (2022-06-06)
+
+
+### Bug Fixes
+
+* **create-micro-frontends:** add tslib ([e731e43](https://github.com/leanjs/leanjs/commit/e731e4303b9809229629490462f5b81d35cdba61))
+
+
+
+
+
 ## [0.0.3](https://github.com/leanjs/leanjs/compare/create-micro-frontends@0.0.2...create-micro-frontends@0.0.3) (2022-06-06)
 
 
