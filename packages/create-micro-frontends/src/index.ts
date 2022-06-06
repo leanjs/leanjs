@@ -14,10 +14,14 @@ export async function run() {
   //     },
   //   ]);
 
-  const defaultTemplates = path.join(__dirname, "_templates");
   const cwd = process.cwd();
+  const defaultTemplates = path.join(__dirname, "_templates");
+
+  process.env.HYGEN_TMPLS = cwd;
+
   console.log(`templates path:`, defaultTemplates);
   console.log(`cwd:`, cwd);
+
   const { success } = await runner(["project", "next"], {
     templates: defaultTemplates,
     cwd,
