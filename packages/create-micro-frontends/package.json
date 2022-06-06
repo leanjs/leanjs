@@ -15,7 +15,7 @@
   },
   "license": "MIT",
   "scripts": {
-    "copy:assets": "cp -R templates dist",
+    "copy:assets": "cp -R _templates dist",
     "build:tsc": "tsc --outDir dist --project ./tsconfig.json",
     "build": "yarn build:tsc && yarn copy:assets",
     "prebuild": "del-cli dist"
