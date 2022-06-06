@@ -2,23 +2,25 @@
 
 Tools for building maintainable and performant micro-frontends.
 
-## Tools
+## Scaffolding Your First Lean Project
 
-### Runtime
+With NPM:
 
-Visit package [`@leanjs/core`](packages/core/README.md)
+```
+npm create micro-frontends
+```
 
-### React bindings for `runtime`
+With Yarn:
 
-Visit package [`@leanjs/react`](packages/react/README.md)
+```
+yarn create micro-frontends
+```
 
-### Vue bindings for `runtime`
+With PNPM:
 
-Visit package [`@leanjs/vue`](packages/vue/README.md)
-
-### Webpack plugin
-
-Visit package [`@leanjs/webpack`](packages/webpack/README.md)
+```
+pnpm create micro-frontends
+```
 
 ## License
 

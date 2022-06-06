@@ -1,4 +1,4 @@
-export default [
+module.exports = [
   {
     type: "input",
     message: "Pick the name of your project?",
