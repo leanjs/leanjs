@@ -14,7 +14,7 @@ export async function run() {
   //     },
   //   ]);
 
-  const defaultTemplates = path.join(__dirname, "templates");
+  const defaultTemplates = path.join(__dirname, "_templates");
   const cwd = process.cwd();
   console.log(`templates path:`, defaultTemplates);
   console.log(`cwd:`, cwd);
