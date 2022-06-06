@@ -39,6 +39,5 @@ to: <%= h.inflection.dasherize(projectName) %>/package.json
   "engines": {
     "npm": ">=7.0.0",
     "node": ">=14.0.0"
-  },
-  "packageManager": "yarn@1.22.17"
+  }
 }
