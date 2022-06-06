@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.0.5](https://github.com/leanjs/leanjs/compare/create-micro-frontends@0.0.4...create-micro-frontends@0.0.5) (2022-06-06)
+
+
+### Bug Fixes
+
+* **create-micro-frontends:** prompt.ts to promot.js ([ed51593](https://github.com/leanjs/leanjs/commit/ed5159362f883dd609f680754e908612cf3b77c2))
+
+
+
+
+
 ## [0.0.4](https://github.com/leanjs/leanjs/compare/create-micro-frontends@0.0.3...create-micro-frontends@0.0.4) (2022-06-06)
 
 
