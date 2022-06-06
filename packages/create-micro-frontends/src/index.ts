@@ -1,3 +1,4 @@
+import { execSync } from "child_process";
 import * as path from "path";
 import { runner, Logger } from "hygen";
 // import enquirer from "enquirer";
@@ -26,6 +27,15 @@ export async function run() {
     },
     createPrompter: () => require("enquirer"),
   });
+
+  const projectName = execSync("ls -t", { cwd: process.cwd() })
+    .toString()
+    .split("\n")[0];
+
+  console.log(`  cd ${projectName}`);
+  console.log(`  npm install (or \`yarn\`)`);
+  console.log(`  npm run dev (or \`yarn dev\`)`);
+  console.log();
 
   // TODO copy public folder from templates shell/public to destination
 
