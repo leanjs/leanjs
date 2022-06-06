@@ -3,8 +3,6 @@ import * as path from "path";
 import { runner, Logger } from "hygen";
 // import enquirer from "enquirer";
 
-const defaultTemplates = path.join(__dirname, "templates");
-
 export async function run() {
   //   Enable the following when we add support to Nuxt
   //   const answers = await enquirer.prompt([
@@ -16,6 +14,8 @@ export async function run() {
   //     },
   //   ]);
 
+  const defaultTemplates = path.join(__dirname, "templates");
+  console.log(`templates path:`, defaultTemplates);
   const { success } = await runner(["project", "next"], {
     templates: defaultTemplates,
     cwd: process.cwd(),
