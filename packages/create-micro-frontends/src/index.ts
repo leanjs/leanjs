@@ -16,11 +16,7 @@ export async function run() {
 
   const cwd = process.cwd();
   const defaultTemplates = path.join(__dirname, "_templates");
-
-  process.env.HYGEN_TMPLS = cwd;
-
-  console.log(`templates path:`, defaultTemplates);
-  console.log(`cwd:`, cwd);
+  process.env.HYGEN_TMPLS = defaultTemplates;
 
   const { success } = await runner(["project", "next"], {
     templates: defaultTemplates,
@@ -28,16 +24,13 @@ export async function run() {
     logger: new Logger(console.log.bind(console)), // eslint-disable-line no-console
     debug: !!process.env.DEBUG,
     exec: (action: any, body: any) => {
-      console.log(`cwd:`, cwd);
       const opts = body && body.length > 0 ? { input: body } : {};
       return require("execa").command(action, { ...opts, shell: true }); // eslint-disable-line @typescript-eslint/no-var-requires
     },
     createPrompter: () => require("enquirer"),
   });
 
-  const projectName = execSync("ls -t", { cwd: process.cwd() })
-    .toString()
-    .split("\n")[0];
+  const projectName = execSync("ls -t", { cwd }).toString().split("\n")[0];
 
   console.log(`  cd ${projectName}`);
   console.log(`  npm install (or \`yarn\`)`);
