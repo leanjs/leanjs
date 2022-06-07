@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.1.5](https://github.com/leanjs/leanjs/compare/@leanjs/next@0.1.4...@leanjs/next@0.1.5) (2022-06-07)
+
+
+### Bug Fixes
+
+* **next:** react peer dependency ([cd8a2cb](https://github.com/leanjs/leanjs/commit/cd8a2cb9e0a73a1f62d4a3057649bb96d7abcf95))
+
+
+
+
+
 ## [0.1.4](https://github.com/leanjs/leanjs/compare/@leanjs/next@0.1.3...@leanjs/next@0.1.4) (2022-05-29)
 
 **Note:** Version bump only for package @leanjs/next
