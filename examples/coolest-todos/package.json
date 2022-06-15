@@ -15,7 +15,7 @@
   },
   "devDependencies": {
     "@leanjs/cli": "^0.3.0",
-    "@leanjs/webpack": "^0.10.0",
+    "@leanjs/webpack": "^0.10.4",
     "@swc/core": "^1.2.142",
     "@swc/jest": "^0.2.17",
     "@types/jest": "^27.4.0",
