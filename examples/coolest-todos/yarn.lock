@@ -1198,6 +1198,25 @@
     webpack "^5.72.0"
     webpack-dev-server "^4.9.0"
 
+"@leanjs/cli@^0.3.1":
+  version "0.3.1"
+  resolved "https://registry.yarnpkg.com/@leanjs/cli/-/cli-0.3.1.tgz#3395eb0e9d30b8d05432ff375d9f19bd41561f93"
+  integrity sha512-nt2reR7TT1Ni+UApFkWSNeDtbFZk1Ka1XKoYugT2L3UVS2b843C2ZI9QkCgjHOZUTBfY14BBpY4UhrCCJtTp9A==
+  dependencies:
+    "@leanjs/core" "^0.4.0"
+    async-sema "^3.1.1"
+    axios "^0.27.2"
+    chalk "^4.1.2"
+    commander "^9.3.0"
+    cors "^2.8.5"
+    cross-spawn "^7.0.3"
+    detect-port "^1.3.0"
+    express "^4.18.1"
+    fs-extra "^10.1.0"
+    http-proxy "^1.18.1"
+    webpack "^5.72.0"
+    webpack-dev-server "^4.9.0"
+
 "@leanjs/core@*", "@leanjs/core@^0.4.0":
   version "0.4.0"
   resolved "https://registry.yarnpkg.com/@leanjs/core/-/core-0.4.0.tgz#fe28e56ee5635fae49f16f5bf11f9a4c15284563"
@@ -1237,7 +1256,7 @@
   dependencies:
     "@leanjs/core" "^0.4.0"
 
-"@leanjs/webpack@*", "@leanjs/webpack@^0.10.0":
+"@leanjs/webpack@*":
   version "0.10.0"
   resolved "https://registry.yarnpkg.com/@leanjs/webpack/-/webpack-0.10.0.tgz#63560cc8378cff6c324401adee0ec9a73c55f7f2"
   integrity sha512-4sSrNDjvnvAxsmpibNaOUm+fgi82Nsrv1OIZcGJVomiVhJGYdRT7eOKVzWo6sObymQKF7EUhya8pRX4WxJjeew==
@@ -1251,6 +1270,25 @@
     html-webpack-plugin "^5.4.0"
     ts-loader "^9.2.8"
     vue-loader "^17.0.0"
+    webpack "^5.72.0"
+    webpack-virtual-modules "^0.4.3"
+
+"@leanjs/webpack@^0.10.4":
+  version "0.10.4"
+  resolved "https://registry.yarnpkg.com/@leanjs/webpack/-/webpack-0.10.4.tgz#bfaeac18ff36c398087f4d17a61bf23a4de1bb81"
+  integrity sha512-UkZTdbRqyRYQt6RL++u7V4S8W1ccVkoAG824hbb6bLJei6jcigyuXc+fGalHVWuQNkCXxb9RAE5WGu8z0EkcBQ==
+  dependencies:
+    "@babel/core" "^7.12.3"
+    "@babel/plugin-transform-runtime" "^7.12.1"
+    "@babel/preset-env" "^7.12.1"
+    "@leanjs/cli" "^0.3.1"
+    "@leanjs/core" "^0.4.0"
+    chalk "^4.1.2"
+    html-webpack-plugin "^5.4.0"
+    swc-loader "^0.2.1"
+    ts-loader "^9.2.8"
+    vue-loader "^17.0.0"
+    vue-template-compiler "^2.6.14"
     webpack "^5.72.0"
     webpack-virtual-modules "^0.4.3"
 
@@ -2714,6 +2752,11 @@ data-urls@^2.0.0:
     whatwg-mimetype "^2.3.0"
     whatwg-url "^8.0.0"
 
+de-indent@^1.0.2:
+  version "1.0.2"
+  resolved "https://registry.yarnpkg.com/de-indent/-/de-indent-1.0.2.tgz#b2038e846dc33baa5796128d0804b455b8c1e21d"
+  integrity sha512-e/1zu3xH5MQryN2zdVaF0OrdNLUbvWxzMbi+iNA6Bky7l1RoP8a2fIbRocyHclXt/arDrrR6lL3TqFD9pMQTsg==
+
 debug@2.6.9, debug@^2.6.0:
   version "2.6.9"
   resolved "https://registry.yarnpkg.com/debug/-/debug-2.6.9.tgz#5d128515df134ff327e90a4c93f4e077a536341f"
@@ -3509,7 +3552,7 @@ hash-sum@^2.0.0:
   resolved "https://registry.yarnpkg.com/hash-sum/-/hash-sum-2.0.0.tgz#81d01bb5de8ea4a214ad5d6ead1b523460b0b45a"
   integrity sha512-WdZTbAByD+pHfl/g9QSsBIIwy8IT+EsPiKDs0KNX+zSHhdDLFKdZu0BQHljvO+0QI/BasbMSUa8wYNCZTvhslg==
 
-he@^1.2.0:
+he@^1.1.0, he@^1.2.0:
   version "1.2.0"
   resolved "https://registry.yarnpkg.com/he/-/he-1.2.0.tgz#84ae65fa7eafb165fddb61566ae14baf05664f0f"
   integrity sha512-F/1DnUGPopORZi0ni+CvrCgHQ5FyEAHRLSApuYWMmrbSwoN2Mn/7k+Gl38gJnR7yyDZk6WLXwiGod1JOWNDKGw==
@@ -5860,6 +5903,11 @@ swc-loader@^0.1.15:
   resolved "https://registry.yarnpkg.com/swc-loader/-/swc-loader-0.1.16.tgz#4c718d698e518f3e6ceb9f7872c1855cdb187066"
   integrity sha512-NKIm8aJjK/z/yfzk+v7YGwJMjBKaLaUs9ZKI2zoaIGKAjtkwjO92ZLI0fiTZuwzRqVLQl/29fBdSgFCBzquR0w==
 
+swc-loader@^0.2.1:
+  version "0.2.3"
+  resolved "https://registry.yarnpkg.com/swc-loader/-/swc-loader-0.2.3.tgz#6792f1c2e4c9ae9bf9b933b3e010210e270c186d"
+  integrity sha512-D1p6XXURfSPleZZA/Lipb3A8pZ17fP4NObZvFCDjK/OKljroqDpPmsBdTraWhVBqUNpcWBQY1imWdoPScRlQ7A==
+
 symbol-tree@^3.2.4:
   version "3.2.4"
   resolved "https://registry.yarnpkg.com/symbol-tree/-/symbol-tree-3.2.4.tgz#430637d248ba77e078883951fb9aa0eed7c63fa2"
@@ -6249,6 +6297,14 @@ vue-loader@^17.0.0:
     chalk "^4.1.0"
     hash-sum "^2.0.0"
     loader-utils "^2.0.0"
+
+vue-template-compiler@^2.6.14:
+  version "2.6.14"
+  resolved "https://registry.yarnpkg.com/vue-template-compiler/-/vue-template-compiler-2.6.14.tgz#a2f0e7d985670d42c9c9ee0d044fed7690f4f763"
+  integrity sha512-ODQS1SyMbjKoO1JBJZojSw6FE4qnh9rIpUZn2EUT86FKizx9uH5z6uXiIrm4/Nb/gwxTi/o17ZDEGWAXHvtC7g==
+  dependencies:
+    de-indent "^1.0.2"
+    he "^1.1.0"
 
 vue@^3.0.0:
   version "3.2.36"
