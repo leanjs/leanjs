@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.2.0](https://github.com/leanjs/leanjs/compare/@leanjs/e2e-test-subjects-cli-react@1.1.0...@leanjs/e2e-test-subjects-cli-react@1.2.0) (2022-06-17)
+
+
+### Features
+
+* **build:** add cli build and react vue prod config ([f7f4c0d](https://github.com/leanjs/leanjs/commit/f7f4c0d34f0f14a8445d5ab8edc0fe9b7499ce0f))
+
+
+
+
+
 # 1.1.0 (2022-05-29)
 
 

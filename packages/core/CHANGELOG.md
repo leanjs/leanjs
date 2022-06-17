@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.4.1](https://github.com/leanjs/leanjs/compare/@leanjs/core@0.4.0...@leanjs/core@0.4.1) (2022-06-17)
+
+
+### Bug Fixes
+
+* **types:** onBeforeMount ([d99e040](https://github.com/leanjs/leanjs/commit/d99e040957f7ae3dd5364ad68eeb990e9a4805b6))
+
+
+
+
+
 # [0.4.0](https://github.com/leanjs/leanjs/compare/@leanjs/core@0.3.0...@leanjs/core@0.4.0) (2022-05-29)
 
 

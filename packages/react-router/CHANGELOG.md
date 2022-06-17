@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.2.4](https://github.com/leanjs/leanjs/compare/@leanjs/react-router@0.2.3...@leanjs/react-router@0.2.4) (2022-06-17)
+
+
+### Bug Fixes
+
+* **types:** onBeforeMount ([d99e040](https://github.com/leanjs/leanjs/commit/d99e040957f7ae3dd5364ad68eeb990e9a4805b6))
+
+
+
+
+
 ## [0.2.3](https://github.com/leanjs/leanjs/compare/@leanjs/react-router@0.2.2...@leanjs/react-router@0.2.3) (2022-05-29)
 
 **Note:** Version bump only for package @leanjs/react-router
