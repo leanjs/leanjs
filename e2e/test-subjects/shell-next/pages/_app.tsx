@@ -1,8 +1,10 @@
 // import type { AppProps } from "next/app";
 import React from "react";
-import Link from "next/link";
-
-import { createRuntime, HostProvider } from "../libs/runtime";
+import {
+  createRuntime,
+  HostProvider,
+} from "@leanjs/e2e-test-subjects-package-runtime-react";
+import { Nav } from "../components/Nav";
 
 const runtime = createRuntime();
 
@@ -15,20 +17,7 @@ const App = ({
   pageProps: Record<string, any>;
 }) => (
   <HostProvider origin="http://localhost:56500" runtime={runtime}>
-    <ul>
-      <li>
-        <Link href="/">React page</Link>
-      </li>
-      <li>
-        <Link href="/vue">Vue page</Link>
-      </li>
-      <li>
-        <Link href="/react-sub-pages">React sub page</Link>
-      </li>
-      <li>
-        <Link href="/react-error">React error page</Link>
-      </li>
-    </ul>
+    <Nav />
     <Component {...pageProps} />
   </HostProvider>
 );
