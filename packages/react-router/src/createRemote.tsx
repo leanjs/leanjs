@@ -1,11 +1,13 @@
-import { RuntimeProvider, RemoteApp, _ as ReactUtils } from "@leanjs/react";
+import { RuntimeProvider, AppProps, _ as ReactUtils } from "@leanjs/react";
 import type {
   CreateRemoteConfig,
   RunRemoteOptions,
   MountOptions,
   Cleanup,
+  CreateRuntime,
+  GetRuntime,
 } from "@leanjs/core";
-import React from "react";
+import React, { ReactElement } from "react";
 import ReactDOM from "react-dom";
 import { createBrowserHistory, createMemoryHistory } from "history";
 
@@ -20,7 +22,13 @@ function saveInitialState(state: any) {
 }
 
 export const createRemote =
-  (App: RemoteApp, config?: CreateRemoteConfig) =>
+  <
+    MyCreateRuntime extends CreateRuntime = CreateRuntime,
+    MyAppProps extends AppProps = AppProps
+  >(
+    App: (props: MyAppProps) => ReactElement,
+    config?: CreateRemoteConfig<MyCreateRuntime, MyAppProps>
+  ) =>
   (
     options: RunRemoteOptions = {
       isSelfHosted: false,
@@ -38,11 +46,11 @@ export const createRemote =
     function mount(
       el: HTMLElement,
       {
-        runtime = createRuntime?.(),
+        runtime = createRuntime?.() as GetRuntime<MyCreateRuntime>,
         onRemoteNavigate,
         basename,
         pathname,
-      }: MountOptions = {}
+      }: MountOptions<GetRuntime<MyCreateRuntime>> = {}
     ) {
       let cleanups: Cleanup[] = [];
 
@@ -72,7 +80,7 @@ export const createRemote =
           onUnmounted: (callback: Cleanup) => {
             onUnmountedCallbacks.push(callback);
           },
-        });
+        }) as MyAppProps;
 
         ReactDOM.render(
           <ErrorBoundary onError={log}>

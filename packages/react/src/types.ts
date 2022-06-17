@@ -17,9 +17,8 @@ export interface MountProps extends BasePath {
 
 export interface AppProps {
   isSelfHosted?: boolean;
+  [x: string]: any;
 }
-
-export type RemoteApp = (props: AppProps) => ReactElement;
 
 export interface HostProps {
   remote: { packageName: string };

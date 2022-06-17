@@ -1,4 +1,4 @@
-import type { CreateRuntime, Runtime } from "./runtime";
+import type { CreateRuntime, Runtime, GetRuntime } from "./runtime";
 
 export interface CreateRemoteOutput {
   mount: MountFunc;
@@ -22,8 +22,9 @@ export type OnNavigate = (
   options?: NavigationOptions
 ) => void;
 
-export interface MountOptions extends BasePath {
-  runtime?: Runtime;
+export interface MountOptions<MyRuntime extends Runtime = Runtime>
+  extends BasePath {
+  runtime?: MyRuntime;
   onRemoteNavigate?: OnNavigate;
 }
 
@@ -64,8 +65,8 @@ export interface RunRemoteOptions {
   initialState?: any;
 }
 
-export interface OnBeforeMountArgs {
-  runtime?: Runtime;
+export interface OnBeforeMountArgs<MyRuntime extends Runtime> {
+  runtime?: MyRuntime;
   isSelfHosted: boolean;
   initialState?: any;
   saveInitialState: SaveInitialState;
@@ -76,9 +77,14 @@ export interface OnBeforeMountArgs {
 export type OnUnmounted = () => void;
 
 type AppProps = Record<string, any>;
-export interface CreateRemoteConfig {
-  createRuntime?: CreateRuntime;
-  onBeforeMount?: (args: OnBeforeMountArgs) => AppProps;
+export interface CreateRemoteConfig<
+  MyCreateRuntime extends CreateRuntime = CreateRuntime,
+  MyAppProps extends AppProps = AppProps
+> {
+  createRuntime?: MyCreateRuntime;
+  onBeforeMount?: (
+    args: OnBeforeMountArgs<GetRuntime<MyCreateRuntime>>
+  ) => MyAppProps;
 }
 
 export interface NavigationOptions {
