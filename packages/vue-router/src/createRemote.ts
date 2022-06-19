@@ -17,7 +17,7 @@ import {
 
 let inMemoryInitialState: any | undefined = undefined;
 
-function saveInitialState(state: any) {
+function updateInitialState(state: any) {
   inMemoryInitialState = state;
 }
 
@@ -40,7 +40,7 @@ export const createRemote =
     const { createRuntime, onBeforeMount } = config || {};
     const log = createRuntime?.log;
 
-    if (inMemoryInitialState === undefined) saveInitialState(initialState);
+    if (inMemoryInitialState === undefined) updateInitialState(initialState);
 
     function mount(
       el: HTMLElement,
@@ -70,7 +70,7 @@ export const createRemote =
               runtime,
               isSelfHosted,
               initialState: inMemoryInitialState,
-              saveInitialState,
+              updateInitialState,
               onBeforeUnmount: (callback: Cleanup) => {
                 onBeforeUnmountCallbacks.push(callback);
               },

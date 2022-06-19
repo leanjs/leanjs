@@ -15,11 +15,6 @@ export interface MountProps extends BasePath {
   className?: string;
 }
 
-export interface AppProps {
-  isSelfHosted?: boolean;
-  [x: string]: any;
-}
-
 export interface HostProps {
   remote: { packageName: string };
   errorComponent?: ErrorComponent;
