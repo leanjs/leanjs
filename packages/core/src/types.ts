@@ -51,15 +51,17 @@ export interface Path {
   hash?: string;
 }
 
+export interface MountOutput {
+  unmount: UnmountFunc;
+  onHostNavigate?: OnNavigate;
+}
+
 export type MountFunc = (
   element: HTMLElement | null,
   options: MountOptions
-) => {
-  unmount: UnmountFunc;
-  onHostNavigate?: OnNavigate;
-};
+) => MountOutput;
 
-type SaveInitialState = (state: any) => void;
+type UdpateInitialState = (state: any) => void;
 export interface RunRemoteOptions {
   isSelfHosted: boolean;
   initialState?: any;
@@ -69,14 +71,13 @@ export interface OnBeforeMountArgs<MyRuntime extends Runtime> {
   runtime?: MyRuntime;
   isSelfHosted: boolean;
   initialState?: any;
-  saveInitialState: SaveInitialState;
+  updateInitialState: UdpateInitialState;
   onBeforeUnmount: (callback: Cleanup) => void;
   onUnmounted: (callback: Cleanup) => void;
 }
 
 export type OnUnmounted = () => void;
 
-type AppProps = Record<string, any>;
 export interface CreateRemoteConfig<
   MyCreateRuntime extends CreateRuntime = CreateRuntime,
   MyAppProps extends AppProps = AppProps
@@ -98,3 +99,26 @@ export type OnRemoteNavigate = (
 ) => void;
 
 export type Cleanup = () => void;
+
+export type ConfigureMount = <MyAppProps extends AppProps = AppProps>(
+  args: ConfigureMountArgs<MyAppProps>
+) => MountOutput;
+
+export interface ConfigureMountArgs<MyAppProps extends AppProps> {
+  el: HTMLElement;
+  unmount: () => void;
+  runtime: any;
+  basename?: string;
+  pathname?: string;
+  pushInitialPath: (initialPath: string) => void;
+  render: ({ appProps }: { appProps: MyAppProps }) => void;
+  isSelfHosted: boolean;
+  onBeforeMount: any;
+  initialState: any;
+  cleanups: Cleanup[];
+}
+
+export interface AppProps {
+  isSelfHosted?: boolean;
+  [x: string]: any;
+}

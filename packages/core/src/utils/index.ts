@@ -1,5 +1,6 @@
 export * from "./loadScript";
 export * from "./loadModule";
+export * from "./configureMount";
 
 export const createRemoteName = (str: string) =>
   `_${str.replace(/[^a-z0-9+]+/gi, "_")}`;

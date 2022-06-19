@@ -8,15 +8,16 @@ export default createRemote(App, {
   onBeforeMount: ({
     runtime,
     initialState,
-    saveInitialState,
+    updateInitialState,
     onBeforeUnmount,
   }) => {
     const store = configureStore({
       // initial state potentially saved in a previous onBeforeUnmount
       ...initialState,
       settings: {
-        ...initialState.settings,
-        //  merging potentially stale initial state with potentially more up-to-date shared state
+        // merging potentially stale initial state
+        ...initialState?.settings,
+        // with potentially more up-to-date shared state
         locale: runtime?.state.locale,
       },
     });
@@ -36,7 +37,7 @@ export default createRemote(App, {
 
     onBeforeUnmount(() => {
       // save current Redux state for the next time this remote app is mounted
-      saveInitialState(store.getState());
+      updateInitialState(store.getState());
     });
 
     return { store };
