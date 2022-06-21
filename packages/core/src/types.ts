@@ -112,7 +112,7 @@ export interface ConfigureMountArgs<MyAppProps extends AppProps> {
   runtime: any;
   basename?: string;
   pathname?: string;
-  pushInitialPath: (initialPath: string) => void;
+  setInitialPath: (initialPath: string) => void;
   render: ({ appProps }: { appProps: MyAppProps }) => void;
   isSelfHosted: boolean;
   onBeforeMount: any;

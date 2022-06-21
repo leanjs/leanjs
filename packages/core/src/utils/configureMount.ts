@@ -10,7 +10,7 @@ export const configureMount: ConfigureMount = ({
   runtime,
   basename,
   pathname,
-  pushInitialPath,
+  setInitialPath,
   render,
   isSelfHosted,
   onBeforeMount,
@@ -31,7 +31,7 @@ export const configureMount: ConfigureMount = ({
         .replace(/\/{2,}/g, "/");
 
       // push initialPath to the router
-      pushInitialPath(initialPath);
+      setInitialPath(initialPath);
 
       // initialize appInitialState if it's the first time this app runs
       if (!initializedInitialState.has(appName)) {
