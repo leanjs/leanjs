@@ -25,12 +25,8 @@ export const createRemote =
     App: (props: MyAppProps) => ReactElement,
     config?: CreateRemoteConfig<MyCreateRuntime, MyAppProps>
   ) =>
-  (
-    options: RunRemoteOptions = {
-      isSelfHosted: false,
-    }
-  ) => {
-    const { isSelfHosted, initialState } = options;
+  (options: RunRemoteOptions) => {
+    const { isSelfHosted, initialState, appName } = options;
     const { createRuntime, onBeforeMount } = config || {};
     const history = isSelfHosted
       ? createBrowserHistory()
@@ -48,6 +44,7 @@ export const createRemote =
       return {
         ...configureMount<MyAppProps>({
           el,
+          appName,
           runtime,
           basename,
           pathname,

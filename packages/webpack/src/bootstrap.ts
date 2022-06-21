@@ -9,6 +9,7 @@ import("./remote").then(({ default: config }) => {
   const { mount, createRuntime } = config({
     isDev,
     isSelfHosted,
+    appName: packageName,
   });
 
   if (el) {
