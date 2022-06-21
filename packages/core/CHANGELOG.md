@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.4.4](https://github.com/leanjs/leanjs/compare/@leanjs/core@0.4.3...@leanjs/core@0.4.4) (2022-06-21)
+
+
+### Bug Fixes
+
+* **router:** replace push with replace for initial path ([8fccd43](https://github.com/leanjs/leanjs/commit/8fccd43e2fe813f57bf908aecf9261838c4ae7eb))
+
+
+
+
+
 ## [0.4.3](https://github.com/leanjs/leanjs/compare/@leanjs/core@0.4.2...@leanjs/core@0.4.3) (2022-06-21)
 
 

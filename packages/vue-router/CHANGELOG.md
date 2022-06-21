@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.1.8](https://github.com/leanjs/leanjs/compare/@leanjs/vue-router@0.1.7...@leanjs/vue-router@0.1.8) (2022-06-21)
+
+
+### Bug Fixes
+
+* **router:** replace push with replace for initial path ([8fccd43](https://github.com/leanjs/leanjs/commit/8fccd43e2fe813f57bf908aecf9261838c4ae7eb))
+
+
+
+
+
 ## [0.1.7](https://github.com/leanjs/leanjs/compare/@leanjs/vue-router@0.1.6...@leanjs/vue-router@0.1.7) (2022-06-21)
 
 
