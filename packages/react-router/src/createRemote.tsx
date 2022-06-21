@@ -51,7 +51,7 @@ export const createRemote =
           isSelfHosted,
           initialState,
           onBeforeMount,
-          pushInitialPath: history.push,
+          setInitialPath: history.replace,
           unmount: () => {
             ReactDOM.unmountComponentAtNode(el);
           },

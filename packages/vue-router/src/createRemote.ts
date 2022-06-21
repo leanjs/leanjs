@@ -77,7 +77,7 @@ export const createRemote =
           isSelfHosted,
           initialState,
           onBeforeMount,
-          pushInitialPath: history.push,
+          setInitialPath: history.replace,
           cleanups: onRemoteNavigate
             ? [
                 router.beforeEach((to, from) => {
