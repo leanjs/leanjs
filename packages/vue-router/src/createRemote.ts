@@ -4,22 +4,20 @@ import type {
   MountOptions,
   Cleanup,
   CreateRuntime,
+  AppProps,
+  GetRuntime,
 } from "@leanjs/core";
 import { createApp } from "vue";
-import type { Component } from "vue";
+import type { Component, App } from "vue";
 import {
   createRouter,
   createWebHistory,
   createMemoryHistory,
-  Router,
   START_LOCATION,
 } from "vue-router";
+import { _ as CoreUtils } from "@leanjs/core";
 
-let inMemoryInitialState: any | undefined = undefined;
-
-function updateInitialState(state: any) {
-  inMemoryInitialState = state;
-}
+const { configureMount } = CoreUtils;
 
 export {
   CreateRemoteConfig,
@@ -30,81 +28,58 @@ export {
 };
 
 export const createRemote =
-  (App: Component, config?: CreateRemoteConfig) =>
-  (
-    options: RunRemoteOptions = {
-      isSelfHosted: false,
-    }
-  ) => {
-    const { isSelfHosted, initialState } = options;
+  <
+    MyCreateRuntime extends CreateRuntime = CreateRuntime,
+    MyAppProps extends AppProps = AppProps
+  >(
+    App: Component,
+    config?: CreateRemoteConfig
+  ) =>
+  (options: RunRemoteOptions) => {
+    const { isSelfHosted = false, initialState, appName } = options;
     const { createRuntime, onBeforeMount } = config || {};
-    const log = createRuntime?.log;
-
-    if (inMemoryInitialState === undefined) updateInitialState(initialState);
 
     function mount(
       el: HTMLElement,
       {
-        runtime = createRuntime?.(),
+        runtime = createRuntime?.() as GetRuntime<MyCreateRuntime>,
         onRemoteNavigate,
         basename,
         pathname,
-      }: MountOptions = {}
+      }: MountOptions<GetRuntime<MyCreateRuntime>> = {}
     ) {
-      let cleanups: Cleanup[] = [];
-      const onBeforeUnmountCallbacks: Cleanup[] = [];
-      const onUnmountedCallbacks: Cleanup[] = [];
-      let router: Router | undefined = undefined;
+      const routes = [];
+      if (basename && basename !== "/") {
+        // we need to provide a "/" to vue router so we pass a fake template
+        routes.push({ path: "/", component: { template: "" } });
+        routes.push({ path: basename, component: App });
+      } else {
+        routes.push({ path: "/", component: App });
+      }
       const history = isSelfHosted
         ? createWebHistory(basename)
         : createMemoryHistory(basename);
 
-      if (el) {
-        const runMount = async () => {
-          try {
-            const initialPath = [basename, pathname]
-              .join("/")
-              .replace(/\/{2,}/g, "/");
+      const router = createRouter({
+        history,
+        routes,
+      });
 
-            const appProps = onBeforeMount?.({
-              runtime,
-              isSelfHosted,
-              initialState: inMemoryInitialState,
-              updateInitialState,
-              onBeforeUnmount: (callback: Cleanup) => {
-                onBeforeUnmountCallbacks.push(callback);
-              },
-              onUnmounted: (callback: Cleanup) => {
-                onUnmountedCallbacks.push(callback);
-              },
-            });
+      let app: App;
 
-            const routes = [];
-            if (basename && basename !== "/") {
-              routes.push({ path: "/", component: { template: "" } });
-              routes.push({ path: basename, component: App });
-            } else {
-              routes.push({ path: "/", component: App });
-            }
-
-            router = createRouter({
-              history,
-              routes,
-            });
-
-            await router.replace(initialPath);
-            const app = createApp(App, { ...appProps, isSelfHosted })
-              .provide("runtime", runtime)
-              .use(router);
-
-            app.mount(el);
-
-            cleanups = cleanups.concat(onBeforeUnmountCallbacks);
-            cleanups.push(() => app.unmount());
-            cleanups = cleanups.concat(onUnmountedCallbacks);
-
-            if (onRemoteNavigate) {
-              cleanups.push(
+      return {
+        ...configureMount<MyAppProps>({
+          el,
+          appName,
+          runtime,
+          basename,
+          pathname,
+          isSelfHosted,
+          initialState,
+          onBeforeMount,
+          pushInitialPath: history.push,
+          cleanups: onRemoteNavigate
+            ? [
                 router.beforeEach((to, from) => {
                   if (from !== START_LOCATION) {
                     onRemoteNavigate?.(to.path, {
@@ -112,25 +87,22 @@ export const createRemote =
                       // TODO search: to.query,
                     });
                   }
-                })
-              );
-            }
-          } catch (error: any) {
-            log?.(error as Error);
-            el.innerText = `Error: ${error.message ?? error}`;
-          }
-        };
-
-        runMount();
-      }
-
-      return {
-        unmount: () => {
-          cleanups.forEach((cleanup) => cleanup());
-        },
-        onHostNavigate: (newPathname: string) => {
-          const pathname = history.location;
-          if (newPathname !== pathname) router?.push(newPathname);
+                }),
+              ]
+            : [],
+          render: ({ appProps }) => {
+            app = createApp(App, { ...appProps, isSelfHosted })
+              .provide("runtime", runtime)
+              .use(router);
+            app.mount(el);
+          },
+          unmount: () => {
+            app?.unmount();
+          },
+        }),
+        onHostNavigate: (nextPathname: string) => {
+          const currentPathname = history.location;
+          if (nextPathname !== currentPathname) router?.push(nextPathname);
         },
       };
     }

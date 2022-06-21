@@ -65,6 +65,7 @@ type UdpateInitialState = (state: any) => void;
 export interface RunRemoteOptions {
   isSelfHosted: boolean;
   initialState?: any;
+  appName: string;
 }
 
 export interface OnBeforeMountArgs<MyRuntime extends Runtime> {
@@ -106,6 +107,7 @@ export type ConfigureMount = <MyAppProps extends AppProps = AppProps>(
 
 export interface ConfigureMountArgs<MyAppProps extends AppProps> {
   el: HTMLElement;
+  appName: string;
   unmount: () => void;
   runtime: any;
   basename?: string;

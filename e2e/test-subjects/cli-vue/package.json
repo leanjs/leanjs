@@ -3,7 +3,7 @@
   "private": true,
   "version": "1.2.4",
   "scripts": {
-    "start:e2e": "NODE_ENV=development node ../../../packages/cli/dist/bin/lean-cli dev --config=vue --port=56502"
+    "start:e2e": "NODE_ENV=development node ../../../packages/cli/dist/bin/lean-cli dev --config=vue"
   },
   "dependencies": {
     "@leanjs/vue-router": "^0.1.6",

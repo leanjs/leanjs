@@ -12,7 +12,7 @@ export function App() {
         <Route path="/:id" element={<Pet />}></Route>
       </Routes>
       <hr />
-      <Link to="~/">Back to home</Link>
+      <Link to="/">Back to home</Link>
     </>
   );
 }
