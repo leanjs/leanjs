@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.4.3](https://github.com/leanjs/leanjs/compare/@leanjs/core@0.4.2...@leanjs/core@0.4.3) (2022-06-21)
+
+
+### Bug Fixes
+
+* **core:** configMount initial state fix plus refactoring ([0e2406c](https://github.com/leanjs/leanjs/commit/0e2406cb0666320e675e8f1a2dbefe4b3089cf91))
+
+
+
+
+
 ## [0.4.2](https://github.com/leanjs/leanjs/compare/@leanjs/core@0.4.1...@leanjs/core@0.4.2) (2022-06-19)
 
 **Note:** Version bump only for package @leanjs/core

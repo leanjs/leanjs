@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.1.11](https://github.com/leanjs/leanjs/compare/@leanjs/e2e-test-subjects-remote-react-sub-pages@1.1.10...@leanjs/e2e-test-subjects-remote-react-sub-pages@1.1.11) (2022-06-21)
+
+
+### Bug Fixes
+
+* **core:** configMount initial state fix plus refactoring ([0e2406c](https://github.com/leanjs/leanjs/commit/0e2406cb0666320e675e8f1a2dbefe4b3089cf91))
+
+
+
+
+
 ## [1.1.10](https://github.com/leanjs/leanjs/compare/@leanjs/e2e-test-subjects-remote-react-sub-pages@1.1.9...@leanjs/e2e-test-subjects-remote-react-sub-pages@1.1.10) (2022-06-19)
 
 **Note:** Version bump only for package @leanjs/e2e-test-subjects-remote-react-sub-pages

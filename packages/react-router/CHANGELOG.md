@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.2.6](https://github.com/leanjs/leanjs/compare/@leanjs/react-router@0.2.5...@leanjs/react-router@0.2.6) (2022-06-21)
+
+
+### Bug Fixes
+
+* **core:** configMount initial state fix plus refactoring ([0e2406c](https://github.com/leanjs/leanjs/commit/0e2406cb0666320e675e8f1a2dbefe4b3089cf91))
+
+
+
+
+
 ## [0.2.5](https://github.com/leanjs/leanjs/compare/@leanjs/react-router@0.2.4...@leanjs/react-router@0.2.5) (2022-06-19)
 
 **Note:** Version bump only for package @leanjs/react-router
