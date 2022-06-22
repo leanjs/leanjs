@@ -1,7 +1,13 @@
 {
   "extends": "../../tsconfig.json",
-  "include": ["."],
-  "exclude": ["dist", "build", "node_modules"],
+  "exclude": [
+    "**/test",
+    "*.js",
+    "**/__tests__/",
+    "**/*.test.ts",
+    "**/*.test.tsx",
+    "**/dist/**/*"
+  ],
   "compilerOptions": {
     "jsx": "preserve",
     "moduleResolution": "node",

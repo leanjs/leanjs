@@ -7,6 +7,9 @@
       "**/*.test.ts",
       "**/*.test.tsx",
       "**/dist/**/*"
-    ]
+    ],
+    "compilerOptions": {
+      "module": "commonjs",
+    }
   }
   
