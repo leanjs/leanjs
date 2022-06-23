@@ -3,7 +3,7 @@
   "version": "0.3.13",
   "private": true,
   "scripts": {
-    "start:e2e": "next dev -p 44443",
+    "start:e2e": "next dev -p 44440",
     "build": "next build",
     "start": "next start",
     "lint": "next lint"

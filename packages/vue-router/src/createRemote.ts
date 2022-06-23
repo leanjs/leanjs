@@ -15,6 +15,12 @@ import {
   createMemoryHistory,
   START_LOCATION,
 } from "vue-router";
+import type {
+  RouteRecordRaw,
+  RouterScrollBehavior,
+  parseQuery,
+  stringifyQuery,
+} from "vue-router";
 import { _ as CoreUtils } from "@leanjs/core";
 
 const { configureMount } = CoreUtils;
@@ -27,17 +33,33 @@ export {
   CreateRuntime,
 };
 
+interface VueRouterConfig {
+  routes?: RouteRecordRaw[];
+  scrollBehavior?: RouterScrollBehavior;
+  parseQuery?: typeof parseQuery;
+  stringifyQuery?: typeof stringifyQuery;
+  linkActiveClass?: string;
+  linkExactActiveClass?: string;
+}
+interface CreateRemoteVueConfig extends CreateRemoteConfig {
+  router: VueRouterConfig;
+}
+
 export const createRemote =
   <
     MyCreateRuntime extends CreateRuntime = CreateRuntime,
     MyAppProps extends AppProps = AppProps
   >(
     App: Component,
-    config?: CreateRemoteConfig
+    config?: CreateRemoteVueConfig
   ) =>
   (options: RunRemoteOptions) => {
-    const { isSelfHosted = false, initialState, appName } = options;
-    const { createRuntime, onBeforeMount } = config || {};
+    const { isSelfHosted } = options;
+    const {
+      createRuntime,
+      onBeforeMount,
+      router: { routes = [], ...routerConfig } = {},
+    } = config || {};
 
     function mount(
       el: HTMLElement,
@@ -48,21 +70,13 @@ export const createRemote =
         pathname,
       }: MountOptions<GetRuntime<MyCreateRuntime>> = {}
     ) {
-      const routes = [];
-      if (basename && basename !== "/") {
-        // we need to provide a "/" to vue router so we pass a fake template
-        routes.push({ path: "/", component: { template: "" } });
-        routes.push({ path: basename, component: App });
-      } else {
-        routes.push({ path: "/", component: App });
-      }
       const history = isSelfHosted
         ? createWebHistory(basename)
         : createMemoryHistory(basename);
-
       const router = createRouter({
         history,
         routes,
+        ...routerConfig,
       });
 
       let app: App;
@@ -70,12 +84,10 @@ export const createRemote =
       return {
         ...configureMount<MyAppProps>({
           el,
-          appName,
+          ...options,
           runtime,
           basename,
           pathname,
-          isSelfHosted,
-          initialState,
           onBeforeMount,
           setInitialPath: history.replace,
           cleanups: onRemoteNavigate

@@ -1,7 +1,7 @@
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const { RemoteWebpackPlugin } = require("@leanjs/webpack");
 
-const port = 44440;
+const port = 44443;
 
 module.exports = {
   mode: "development",

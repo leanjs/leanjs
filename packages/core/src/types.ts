@@ -116,7 +116,7 @@ export interface ConfigureMountArgs<MyAppProps extends AppProps> {
   render: ({ appProps }: { appProps: MyAppProps }) => void;
   isSelfHosted: boolean;
   onBeforeMount: any;
-  initialState: any;
+  initialState?: any;
   cleanups: Cleanup[];
 }
 

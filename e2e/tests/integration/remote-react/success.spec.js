@@ -2,7 +2,7 @@
 
 describe("Remote React app: success", () => {
   it("displays a dev remote React app", () => {
-    cy.visit("http://localhost:44440");
+    cy.visit("http://localhost:44443");
 
     cy.contains("React micro-app 1");
   });
