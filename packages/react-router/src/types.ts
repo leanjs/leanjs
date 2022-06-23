@@ -4,6 +4,6 @@ export type UniversalHistory = MemoryHistory | BrowserHistory;
 
 export interface UniversalRouterProps {
   basename?: string;
-  children?: React.ReactElement;
+  children?: React.ReactElement | React.ReactElement[];
   history?: UniversalHistory;
 }
