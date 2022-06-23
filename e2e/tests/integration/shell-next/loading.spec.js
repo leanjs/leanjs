@@ -14,20 +14,20 @@ describe("Nextjs shell: loading", () => {
 
   it("displays a default loading component", () => {
     cy.contains("...").should("not.exist");
-    cy.visit("http://localhost:44443");
+    cy.visit("http://localhost:44440");
     cy.contains("Vue page").click();
     cy.contains("...").should("be.visible");
   });
 
   it("displays a custom loading component", () => {
-    cy.visit("http://localhost:44443");
+    cy.visit("http://localhost:44440");
     cy.contains("React sub page").click();
     cy.contains("...").should("not.exist");
     cy.contains("Loading micro frontend").should("be.visible");
   });
 
   it("doesn't display a loading component the second time the remote app is displayed", () => {
-    cy.visit("http://localhost:44443");
+    cy.visit("http://localhost:44440");
     cy.contains("Vue page").click();
     cy.contains("...").should("be.visible");
 

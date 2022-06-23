@@ -12,7 +12,7 @@ export const getDefaultVueWebpack = (): Configuration => {
 
   return {
     mode: isEnvDevelopment ? "development" : "production",
-    plugins: [new RemoteWebpackPlugin(), new VueLoaderPlugin()],
+    plugins: [new VueLoaderPlugin(), new RemoteWebpackPlugin()],
     output: {
       filename: isEnvProduction ? "[name].[contenthash].js" : undefined,
       publicPath: "auto",

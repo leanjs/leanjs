@@ -26,11 +26,14 @@ export const configureMount: ConfigureMount = ({
       const onUnmountedCallbacks: Cleanup[] = [];
 
       // initial path should start with basename
-      const initialPath = [basename, pathname]
+      const initialPath = [
+        basename,
+        isSelfHosted ? document.location.pathname : pathname,
+      ]
         .join("/")
         .replace(/\/{2,}/g, "/");
 
-      // push initialPath to the router
+      // set initialPath in router
       setInitialPath(initialPath);
 
       // initialize appInitialState if it's the first time this app runs

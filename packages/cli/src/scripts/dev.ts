@@ -39,15 +39,16 @@ async function dev() {
       configName,
       port,
     });
+    const { historyApiFallback } = webpackConfig.devServer || {};
     webpackConfig.devServer = {
-      ...webpackConfig.devServer,
+      historyApiFallback: {
+        ...(historyApiFallback === "object" ? historyApiFallback : {}),
+        index: `/index.html`,
+      },
       port: webpackConfig.devServer?.port ?? port,
     };
     const compiler = createCompiler(webpackConfig);
-    const devServerConfig = {
-      port: webpackConfig.devServer.port,
-    };
-    const devServer = new WebpackDevServer(devServerConfig, compiler);
+    const devServer = new WebpackDevServer(webpackConfig.devServer, compiler);
 
     devServer.start();
 
