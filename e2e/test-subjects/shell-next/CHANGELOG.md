@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.3.14](https://github.com/leanjs/leanjs/compare/@leanjs/e2e-test-subjects-shell-next@0.3.13...@leanjs/e2e-test-subjects-shell-next@0.3.14) (2022-06-23)
+
+
+### Bug Fixes
+
+* **webpack:** devServer historyApiFallback ([f380387](https://github.com/leanjs/leanjs/commit/f3803871d48bf45e30ef597871a495cdf660478c))
+
+
+
+
+
 ## [0.3.13](https://github.com/leanjs/leanjs/compare/@leanjs/e2e-test-subjects-shell-next@0.3.12...@leanjs/e2e-test-subjects-shell-next@0.3.13) (2022-06-21)
 
 **Note:** Version bump only for package @leanjs/e2e-test-subjects-shell-next

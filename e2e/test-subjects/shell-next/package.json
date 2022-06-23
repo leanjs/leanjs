@@ -1,6 +1,6 @@
 {
   "name": "@leanjs/e2e-test-subjects-shell-next",
-  "version": "0.3.13",
+  "version": "0.3.14",
   "private": true,
   "scripts": {
     "start:e2e": "next dev -p 44440",
@@ -10,15 +10,15 @@
   },
   "author": "Alex Lobera <alex@leanjs.com>",
   "dependencies": {
-    "@leanjs/core": "^0.4.4",
-    "@leanjs/next": "^0.1.9",
-    "@leanjs/react": "^0.2.5",
+    "@leanjs/core": "^0.4.5",
+    "@leanjs/next": "^0.1.10",
+    "@leanjs/react": "^0.2.6",
     "next": "^11.0.0",
     "react": "^17.0.2",
     "react-dom": "^17.0.2"
   },
   "devDependencies": {
-    "@leanjs/webpack": "^0.10.8",
+    "@leanjs/webpack": "^0.10.9",
     "@types/node": "^17.0.0",
     "@types/react": "^17.0.0",
     "@types/react-dom": "^17.0.0",

@@ -1,6 +1,6 @@
 {
   "name": "@leanjs/core",
-  "version": "0.4.4",
+  "version": "0.4.5",
   "author": "Alex Lobera <alex@leanjs.com>",
   "description": "Core utilities for @leanjs packages. This package is only relevant for library authors",
   "types": "./dist/index.d.ts",
