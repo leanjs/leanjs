@@ -12,11 +12,10 @@ interface ReactRouterHostProps extends HostProps {
 
 export function Host({
   remote,
-  pathname,
   basename = "/",
-  className,
   loadingComponent: LoadingComponent = DefaultLoading,
   errorComponent: ErrorComponent = DefaultError,
+  ...rest
 }: ReactRouterHostProps) {
   const navigate = useNavigate();
   const { mount, error, runtime } = useHost({ remote });
@@ -24,12 +23,11 @@ export function Host({
 
   return mount ? (
     <Mount
+      {...rest}
       mount={mount}
       navigate={navigate}
       listen={listen}
       basename={basename}
-      className={className}
-      pathname={pathname}
       runtime={runtime}
     />
   ) : error ? (
