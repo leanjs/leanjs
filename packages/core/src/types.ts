@@ -17,7 +17,7 @@ export interface NavigationOptions {
 
 export type UnmountFunc = () => void;
 
-export type OnNavigate = (path: Path) => void;
+export type OnNavigate = (location: Location) => void;
 
 export interface MountOptions<MyRuntime extends Runtime = Runtime>
   extends BasePath {
@@ -25,7 +25,7 @@ export interface MountOptions<MyRuntime extends Runtime = Runtime>
   onRemoteNavigate?: OnNavigate;
 }
 
-export type NavigateFunc = (location: Path) => void;
+export type NavigateFunc = (location: Location) => void;
 
 export type RemoveListener = () => void;
 
@@ -39,10 +39,10 @@ export interface Listener {
 
 export interface NavigationUpdate {
   action: Action;
-  location: Path;
+  location: Location;
 }
 
-export interface Path {
+export interface Location {
   pathname: string;
   search?: string;
   hash?: string;
@@ -53,9 +53,9 @@ export interface MountOutput {
   onHostNavigate?: OnNavigate;
 }
 
-export type MountFunc = (
+export type MountFunc<MyRuntime extends Runtime = Runtime> = (
   element: HTMLElement | null,
-  options: MountOptions
+  options: MountOptions<MyRuntime>
 ) => MountOutput;
 
 type UdpateInitialState = (state: any) => void;
@@ -98,23 +98,27 @@ export type OnRemoteNavigate = (
 
 export type Cleanup = () => void;
 
-export type ConfigureMount = <MyAppProps extends AppProps = AppProps>(
-  args: ConfigureMountArgs<MyAppProps>
+export type ConfigureMount = <
+  MyCreateRuntime extends CreateRuntime,
+  MyAppProps extends AppProps
+>(
+  args: ConfigureMountArgs<GetRuntime<MyCreateRuntime>, MyAppProps>
 ) => MountOutput;
 
-export interface ConfigureMountArgs<MyAppProps extends AppProps> {
-  el: HTMLElement;
+export interface ConfigureMountArgs<
+  MyRuntime extends Runtime,
+  MyAppProps extends AppProps
+> {
+  el: HTMLElement | null;
   appName: string;
   unmount: () => void;
-  runtime: any;
-  basename?: string;
-  pathname?: string;
-  setInitialPath: (initialPath: string) => void;
-  render: ({ appProps }: { appProps: MyAppProps }) => void;
+  runtime?: MyRuntime;
+  render: ({ appProps }: { appProps?: MyAppProps }) => void;
   isSelfHosted: boolean;
-  onBeforeMount: any;
+  onBeforeMount?: (args: OnBeforeMountArgs<MyRuntime>) => MyAppProps;
   initialState?: any;
   cleanups: Cleanup[];
+  log?: (error: any) => void;
 }
 
 export interface AppProps {

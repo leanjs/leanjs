@@ -17,6 +17,10 @@ const nextConfig = withTM({
         source: "/react-sub-pages/:id",
         destination: "/react-sub-pages?id=:id",
       },
+      {
+        source: "/vue-sub-pages/:path",
+        destination: "/vue-sub-pages?path=:path",
+      },
     ];
   },
   webpack: (config) => {
