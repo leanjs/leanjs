@@ -19,10 +19,7 @@ export const Mount = memo(function Mount({
       onRemoteNavigate: (nextPathname, { hash, search } = {}) => {
         const { pathname } = window.location;
         if (pathname !== nextPathname) {
-          navigate?.({
-            action: "PUSH",
-            location: { pathname: nextPathname, search, hash },
-          });
+          navigate?.({ pathname: nextPathname, search, hash });
         }
       },
       basename,

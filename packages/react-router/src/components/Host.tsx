@@ -1,7 +1,6 @@
-import React, { useCallback } from "react";
+import React from "react";
 import { _ as ReactUtils } from "@leanjs/react";
 import type { HostProps } from "@leanjs/react";
-import type { NavigationUpdate } from "@leanjs/core";
 import { useNavigate } from "react-router-dom";
 import { useListen } from "./UniversalRouter";
 
@@ -22,14 +21,11 @@ export function Host({
   const navigate = useNavigate();
   const { mount, error, runtime } = useHost({ remote });
   const listen = useListen();
-  const myNavigate = useCallback(({ location }: NavigationUpdate) => {
-    navigate(location);
-  }, []);
 
   return mount ? (
     <Mount
       mount={mount}
-      navigate={myNavigate}
+      navigate={navigate}
       listen={listen}
       basename={basename}
       className={className}
