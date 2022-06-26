@@ -54,7 +54,7 @@ export const createRemote =
             ReactDOM.unmountComponentAtNode(el);
           },
           cleanups: onRemoteNavigate
-            ? [history.listen((e) => onRemoteNavigate(e.location.pathname))]
+            ? [history.listen((e) => onRemoteNavigate(e.location))]
             : [],
           render: ({ appProps }) => {
             ReactDOM.render(

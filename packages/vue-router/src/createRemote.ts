@@ -94,7 +94,8 @@ export const createRemote =
             ? [
                 router.beforeEach((to, from) => {
                   if (from !== START_LOCATION) {
-                    onRemoteNavigate?.(to.path, {
+                    onRemoteNavigate?.({
+                      pathname: to.path,
                       hash: to.hash,
                       // TODO search: to.query,
                     });
