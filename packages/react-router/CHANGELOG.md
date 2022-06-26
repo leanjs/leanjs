@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.3.0](https://github.com/leanjs/leanjs/compare/@leanjs/react-router@0.2.8...@leanjs/react-router@0.3.0) (2022-06-26)
+
+
+### Features
+
+* **react-router:** add host component ([6d37246](https://github.com/leanjs/leanjs/commit/6d372466544ca6dfaaa0393cc9714dd93929207e))
+
+
+
+
+
 ## [0.2.8](https://github.com/leanjs/leanjs/compare/@leanjs/react-router@0.2.7...@leanjs/react-router@0.2.8) (2022-06-23)
 
 
