@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.3.3](https://github.com/leanjs/leanjs/compare/@leanjs/react-router@0.3.2...@leanjs/react-router@0.3.3) (2022-06-26)
+
+
+### Bug Fixes
+
+* **react-router:** simplifies Mount props from Host ([dad7330](https://github.com/leanjs/leanjs/commit/dad733009ca89c69fdba7ba3b08d2f78806b708a))
+
+
+
+
+
 ## [0.3.2](https://github.com/leanjs/leanjs/compare/@leanjs/react-router@0.3.1...@leanjs/react-router@0.3.2) (2022-06-26)
 
 
