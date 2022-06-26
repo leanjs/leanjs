@@ -17,10 +17,7 @@ export interface NavigationOptions {
 
 export type UnmountFunc = () => void;
 
-export type OnNavigate = (
-  nextPathname: string,
-  options?: NavigationOptions
-) => void;
+export type OnNavigate = (path: Path) => void;
 
 export interface MountOptions<MyRuntime extends Runtime = Runtime>
   extends BasePath {

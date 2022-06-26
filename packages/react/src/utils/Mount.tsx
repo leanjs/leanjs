@@ -16,10 +16,10 @@ export const Mount = memo(function Mount({
 
   useLayoutEffect(() => {
     const { unmount, onHostNavigate } = mount(ref.current, {
-      onRemoteNavigate: (nextPathname, { hash, search } = {}) => {
+      onRemoteNavigate: (location) => {
         const { pathname } = window.location;
-        if (pathname !== nextPathname) {
-          navigate?.({ pathname: nextPathname, search, hash });
+        if (pathname !== location.pathname) {
+          navigate?.(location);
         }
       },
       basename,
@@ -28,8 +28,8 @@ export const Mount = memo(function Mount({
     });
 
     const removeListener = onHostNavigate
-      ? listen?.(({ location: { pathname: nextPathname, ...rest } }) => {
-          onHostNavigate(nextPathname, rest);
+      ? listen?.((navigationUpdate) => {
+          onHostNavigate(navigationUpdate.location);
         })
       : null;
 
