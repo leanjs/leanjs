@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.1.11](https://github.com/leanjs/leanjs/compare/@leanjs/next@0.1.10...@leanjs/next@0.1.11) (2022-06-26)
+
+
+### Bug Fixes
+
+* **navigate:** simplifies arguments of navigate ([6d5a646](https://github.com/leanjs/leanjs/commit/6d5a646eb1eb35acbe773beebd9da62d2154508e))
+
+
+
+
+
 ## [0.1.10](https://github.com/leanjs/leanjs/compare/@leanjs/next@0.1.9...@leanjs/next@0.1.10) (2022-06-23)
 
 **Note:** Version bump only for package @leanjs/next

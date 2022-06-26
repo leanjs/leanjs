@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.2.7](https://github.com/leanjs/leanjs/compare/@leanjs/react@0.2.6...@leanjs/react@0.2.7) (2022-06-26)
+
+
+### Bug Fixes
+
+* **navigate:** simplifies arguments of navigate ([6d5a646](https://github.com/leanjs/leanjs/commit/6d5a646eb1eb35acbe773beebd9da62d2154508e))
+
+
+
+
+
 ## [0.2.6](https://github.com/leanjs/leanjs/compare/@leanjs/react@0.2.5...@leanjs/react@0.2.6) (2022-06-23)
 
 **Note:** Version bump only for package @leanjs/react

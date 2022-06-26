@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.3.1](https://github.com/leanjs/leanjs/compare/@leanjs/react-router@0.3.0...@leanjs/react-router@0.3.1) (2022-06-26)
+
+
+### Bug Fixes
+
+* **navigate:** simplifies arguments of navigate ([6d5a646](https://github.com/leanjs/leanjs/commit/6d5a646eb1eb35acbe773beebd9da62d2154508e))
+
+
+
+
+
 # [0.3.0](https://github.com/leanjs/leanjs/compare/@leanjs/react-router@0.2.8...@leanjs/react-router@0.3.0) (2022-06-26)
 
 
