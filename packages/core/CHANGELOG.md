@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.4.7](https://github.com/leanjs/leanjs/compare/@leanjs/core@0.4.6...@leanjs/core@0.4.7) (2022-06-26)
+
+
+### Bug Fixes
+
+* **onNavigate:** updates arguments onHostNavigate and onRemoteNavigate ([854bca1](https://github.com/leanjs/leanjs/commit/854bca1c3be0bc4452c0eeae2c92f9752e2b47ff))
+
+
+
+
+
 ## [0.4.6](https://github.com/leanjs/leanjs/compare/@leanjs/core@0.4.5...@leanjs/core@0.4.6) (2022-06-26)
 
 

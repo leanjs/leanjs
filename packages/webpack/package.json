@@ -1,6 +1,6 @@
 {
   "name": "@leanjs/webpack",
-  "version": "0.10.10",
+  "version": "0.10.11",
   "description": "Webpack plugins for LEAN micro-frontends",
   "types": "./dist/src/index.d.ts",
   "main": "./dist/src/index.js",
@@ -24,8 +24,8 @@
     "@babel/core": "^7.12.3",
     "@babel/plugin-transform-runtime": "^7.12.1",
     "@babel/preset-env": "^7.12.1",
-    "@leanjs/cli": "^0.3.7",
-    "@leanjs/core": "^0.4.6",
+    "@leanjs/cli": "^0.3.8",
+    "@leanjs/core": "^0.4.7",
     "chalk": "^4.1.2",
     "html-webpack-plugin": "^5.4.0",
     "swc-loader": "^0.2.1",
