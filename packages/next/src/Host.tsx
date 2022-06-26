@@ -1,7 +1,7 @@
 import React, { useCallback } from "react";
 import { _ as ReactUtils } from "@leanjs/react";
 import type { HostProps } from "@leanjs/react";
-import type { Listener, NavigationUpdate } from "@leanjs/core";
+import type { Listener, Path } from "@leanjs/core";
 import { useRouter } from "next/router";
 import Head from "next/head";
 
@@ -21,22 +21,19 @@ export function Host({
   );
   const { mount, error, url, runtime } = useHost({ remote });
 
-  const navigate = useCallback(
-    ({ location: { pathname, hash, search } }: NavigationUpdate) => {
-      router.push(
-        {
-          pathname,
-          hash,
-          search,
-        },
-        undefined,
-        {
-          shallow: true,
-        }
-      );
-    },
-    []
-  );
+  const navigate = useCallback(({ pathname, hash, search }: Path) => {
+    router.push(
+      {
+        pathname,
+        hash,
+        search,
+      },
+      undefined,
+      {
+        shallow: true,
+      }
+    );
+  }, []);
 
   const listen = useCallback((listener: Listener) => {
     function onRouteChangeComplete(newHostPathname: string) {

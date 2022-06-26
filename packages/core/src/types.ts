@@ -28,7 +28,7 @@ export interface MountOptions<MyRuntime extends Runtime = Runtime>
   onRemoteNavigate?: OnNavigate;
 }
 
-export type NavigateFunc = (arg: NavigationUpdate) => void;
+export type NavigateFunc = (location: Path) => void;
 
 export type RemoveListener = () => void;
 
