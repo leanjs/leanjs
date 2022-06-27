@@ -3,38 +3,30 @@ import type { ConfigureMount, Cleanup } from "../types";
 const appInitialState = new Map<string, any>();
 const initializedInitialState = new Set<string>();
 
+export const getDefaultPathname = (isSelfHosted: boolean) =>
+  isSelfHosted && typeof window !== "undefined"
+    ? window.location.pathname
+    : "/";
+
 export const configureMount: ConfigureMount = ({
   el,
   appName,
   unmount,
   runtime,
-  basename,
-  pathname,
-  setInitialPath,
   render,
   isSelfHosted,
   onBeforeMount,
   initialState,
   cleanups = [],
+  log,
 }) => {
   function updateInitialState(newInitialState: any) {
     appInitialState.set(appName, newInitialState);
   }
-  try {
-    if (el) {
+  if (el) {
+    try {
       const onBeforeUnmountCallbacks: Cleanup[] = [];
       const onUnmountedCallbacks: Cleanup[] = [];
-
-      // initial path should start with basename
-      const initialPath = [
-        basename,
-        isSelfHosted ? document.location.pathname : pathname,
-      ]
-        .join("/")
-        .replace(/\/{2,}/g, "/");
-
-      // set initialPath in router
-      setInitialPath(initialPath);
 
       // initialize appInitialState if it's the first time this app runs
       if (!initializedInitialState.has(appName)) {
@@ -64,10 +56,10 @@ export const configureMount: ConfigureMount = ({
       cleanups.push(unmount);
       // add unmounted hooks
       cleanups = cleanups.concat(onUnmountedCallbacks);
+    } catch (error: any) {
+      log?.(error as Error);
+      el.innerText = `Error: ${error.message ?? error}`;
     }
-  } catch (error: any) {
-    runtime?.log?.(error as Error);
-    el.innerText = `Error: ${error.message ?? error}`;
   }
 
   return {

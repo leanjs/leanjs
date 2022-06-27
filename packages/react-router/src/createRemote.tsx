@@ -2,10 +2,10 @@ import { RuntimeProvider, _ as ReactUtils } from "@leanjs/react";
 import type {
   CreateRemoteConfig,
   RunRemoteOptions,
-  MountOptions,
   CreateRuntime,
   GetRuntime,
   AppProps,
+  MountFunc,
 } from "@leanjs/core";
 import { _ as CoreUtils } from "@leanjs/core";
 import React, { ReactElement } from "react";
@@ -15,7 +15,7 @@ import { createBrowserHistory, createMemoryHistory } from "history";
 import { UniversalRouter } from "./components/UniversalRouter";
 
 const { ErrorBoundary } = ReactUtils;
-const { configureMount } = CoreUtils;
+const { configureMount, getDefaultPathname } = CoreUtils;
 
 export const createRemote =
   <
@@ -32,49 +32,57 @@ export const createRemote =
       ? createBrowserHistory()
       : createMemoryHistory();
 
-    function mount(
-      el: HTMLElement,
+    const mount: MountFunc<GetRuntime<MyCreateRuntime>> = (
+      el,
       {
         runtime = createRuntime?.() as GetRuntime<MyCreateRuntime>,
         onRemoteNavigate,
         basename,
-        pathname,
-      }: MountOptions<GetRuntime<MyCreateRuntime>> = {}
-    ) {
+        pathname = getDefaultPathname(isSelfHosted),
+      } = {}
+    ) => {
+      const initialPath = [basename, pathname]
+        .join("/")
+        .replace(/\/{2,}/g, "/");
+      history.replace(initialPath);
+
       return {
-        ...configureMount<MyAppProps>({
+        ...configureMount({
           el,
           ...options,
+          log: createRuntime?.log,
           runtime,
-          basename,
-          pathname,
           onBeforeMount,
-          setInitialPath: history.replace,
           unmount: () => {
-            ReactDOM.unmountComponentAtNode(el);
+            if (el) ReactDOM.unmountComponentAtNode(el);
           },
           cleanups: onRemoteNavigate
             ? [history.listen((e) => onRemoteNavigate(e.location))]
             : [],
           render: ({ appProps }) => {
-            ReactDOM.render(
-              <ErrorBoundary onError={createRuntime?.log}>
-                <UniversalRouter history={history} basename={basename}>
-                  <RuntimeProvider runtime={runtime}>
-                    <App isSelfHosted={isSelfHosted} {...appProps} />
-                  </RuntimeProvider>
-                </UniversalRouter>
-              </ErrorBoundary>,
-              el
-            );
+            if (el) {
+              ReactDOM.render(
+                <ErrorBoundary onError={createRuntime?.log}>
+                  <UniversalRouter history={history} basename={basename}>
+                    <RuntimeProvider runtime={runtime}>
+                      <App
+                        isSelfHosted={isSelfHosted}
+                        {...(appProps as MyAppProps)}
+                      />
+                    </RuntimeProvider>
+                  </UniversalRouter>
+                </ErrorBoundary>,
+                el
+              );
+            }
           },
         }),
-        onHostNavigate: (nextPathname: string) => {
-          const { pathname: currentPathname } = history.location;
+        onHostNavigate: ({ pathname: nextPathname }) => {
+          const currentPathname = document.location.pathname;
           if (nextPathname !== currentPathname) history.push(nextPathname);
         },
       };
-    }
+    };
 
     return { mount, createRuntime };
   };

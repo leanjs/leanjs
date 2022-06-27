@@ -6,6 +6,7 @@ import type {
   CreateRuntime,
   AppProps,
   GetRuntime,
+  MountFunc,
 } from "@leanjs/core";
 import { createApp } from "vue";
 import type { Component, App } from "vue";
@@ -23,7 +24,7 @@ import type {
 } from "vue-router";
 import { _ as CoreUtils } from "@leanjs/core";
 
-const { configureMount } = CoreUtils;
+const { configureMount, getDefaultPathname } = CoreUtils;
 
 export {
   CreateRemoteConfig,
@@ -46,10 +47,7 @@ interface CreateRemoteVueConfig extends CreateRemoteConfig {
 }
 
 export const createRemote =
-  <
-    MyCreateRuntime extends CreateRuntime = CreateRuntime,
-    MyAppProps extends AppProps = AppProps
-  >(
+  <MyCreateRuntime extends CreateRuntime = CreateRuntime>(
     App: Component,
     config?: CreateRemoteVueConfig
   ) =>
@@ -61,41 +59,41 @@ export const createRemote =
       router: { routes = [], ...routerConfig } = {},
     } = config || {};
 
-    function mount(
-      el: HTMLElement,
+    const mount: MountFunc<GetRuntime<MyCreateRuntime>> = (
+      el,
       {
-        runtime = createRuntime?.() as GetRuntime<MyCreateRuntime>,
+        runtime = createRuntime?.(),
         onRemoteNavigate,
         basename,
-        pathname,
-      }: MountOptions<GetRuntime<MyCreateRuntime>> = {}
-    ) {
+        pathname = getDefaultPathname(isSelfHosted),
+      } = {}
+    ) => {
+      let app: App;
       const history = isSelfHosted
         ? createWebHistory(basename)
         : createMemoryHistory(basename);
+      history.replace(pathname);
       const router = createRouter({
         history,
         routes,
         ...routerConfig,
       });
 
-      let app: App;
-
       return {
-        ...configureMount<MyAppProps>({
+        ...configureMount({
           el,
           ...options,
+          log: createRuntime?.log,
           runtime,
-          basename,
-          pathname,
           onBeforeMount,
-          setInitialPath: history.replace,
           cleanups: onRemoteNavigate
             ? [
                 router.beforeEach((to, from) => {
                   if (from !== START_LOCATION) {
                     onRemoteNavigate?.({
-                      pathname: to.path,
+                      pathname: [basename, to.path]
+                        .join("/")
+                        .replace(/\/{2,}/g, "/"),
                       hash: to.hash,
                       // TODO search: to.query,
                     });
@@ -113,12 +111,14 @@ export const createRemote =
             app?.unmount();
           },
         }),
-        onHostNavigate: (nextPathname: string) => {
-          const currentPathname = history.location;
-          if (nextPathname !== currentPathname) router?.push(nextPathname);
+        onHostNavigate: ({ pathname: nextPathname }) => {
+          const currentPathname = document.location.pathname;
+          if (nextPathname !== currentPathname) {
+            router?.push(nextPathname);
+          }
         },
       };
-    }
+    };
 
     return { mount, createRuntime };
   };
