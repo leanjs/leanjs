@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.2.9](https://github.com/leanjs/leanjs/compare/@leanjs/react@0.2.8...@leanjs/react@0.2.9) (2022-06-27)
+
+**Note:** Version bump only for package @leanjs/react
+
+
+
+
+
 ## [0.2.8](https://github.com/leanjs/leanjs/compare/@leanjs/react@0.2.7...@leanjs/react@0.2.8) (2022-06-26)
 
 

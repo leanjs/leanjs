@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.1.12](https://github.com/leanjs/leanjs/compare/@leanjs/vue-router@0.1.11...@leanjs/vue-router@0.1.12) (2022-06-27)
+
+
+### Bug Fixes
+
+* **remote routing:** fix react router and vue router navigations in sub pages ([fe53dd4](https://github.com/leanjs/leanjs/commit/fe53dd4116ef355da638105ebe6a424073666fdb))
+
+
+
+
+
 ## [0.1.11](https://github.com/leanjs/leanjs/compare/@leanjs/vue-router@0.1.10...@leanjs/vue-router@0.1.11) (2022-06-26)
 
 

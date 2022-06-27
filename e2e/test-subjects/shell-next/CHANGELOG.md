@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.3.17](https://github.com/leanjs/leanjs/compare/@leanjs/e2e-test-subjects-shell-next@0.3.16...@leanjs/e2e-test-subjects-shell-next@0.3.17) (2022-06-27)
+
+
+### Bug Fixes
+
+* **remote routing:** fix react router and vue router navigations in sub pages ([fe53dd4](https://github.com/leanjs/leanjs/commit/fe53dd4116ef355da638105ebe6a424073666fdb))
+
+
+
+
+
 ## [0.3.16](https://github.com/leanjs/leanjs/compare/@leanjs/e2e-test-subjects-shell-next@0.3.15...@leanjs/e2e-test-subjects-shell-next@0.3.16) (2022-06-26)
 
 **Note:** Version bump only for package @leanjs/e2e-test-subjects-shell-next
