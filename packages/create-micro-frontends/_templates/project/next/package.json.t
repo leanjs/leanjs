@@ -34,7 +34,10 @@ to: <%= h.inflection.dasherize(projectName) %>/package.json
     "@leanjs/core": "^0.4.0",
     "@leanjs/next": "^0.1.4",
     "@leanjs/react": "^0.2.1",
-    "@leanjs/react-router": "^0.2.3"
+    "@leanjs/react-router": "^0.2.3",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2",
+    "react-router-dom": "^6.3.0"
   },
   "engines": {
     "npm": ">=7.0.0",

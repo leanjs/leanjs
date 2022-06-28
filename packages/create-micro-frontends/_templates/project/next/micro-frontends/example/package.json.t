@@ -13,9 +13,9 @@ to: <%= h.inflection.dasherize(projectName) %>/micro-frontends/<%= h.inflection.
   "dependencies": {
     "@leanjs/react-router": "*",
     "@<%=h.inflection.dasherize(projectName)%>/runtime-react": "*",
-    "react": "^17.0.2",
-    "react-dom": "^17.0.2",
-    "react-router-dom": "^6.3.0"
+    "react": "*",
+    "react-dom": "*",
+    "react-router-dom": "*"
   },
   "devDependencies": {
     "@leanjs/cli": "*"
