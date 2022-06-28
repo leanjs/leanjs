@@ -78,8 +78,9 @@ export const createRemote =
           },
         }),
         onHostNavigate: ({ pathname: nextPathname }) => {
-          const currentPathname = document.location.pathname;
-          if (nextPathname !== currentPathname) history.push(nextPathname);
+          if (nextPathname !== history.location.pathname) {
+            history.push(nextPathname);
+          }
         },
       };
     };
