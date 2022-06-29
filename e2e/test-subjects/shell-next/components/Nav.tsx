@@ -19,10 +19,15 @@ export function Nav() {
         <Link href="/vue">Vue page</Link>
       </li>
       <li>
-        <Link href="/react-sub-pages">React sub page</Link>
+        <Link href="/react-sub-pages">React sub pages</Link>
+        <ul>
+          <li>
+            <Link href="/react-sub-pages/0">Page Lola</Link>
+          </li>
+        </ul>
       </li>
       <li>
-        <Link href="/vue-sub-pages">Vue sub page</Link>
+        <Link href="/vue-sub-pages">Vue sub pages</Link>
       </li>
       <li>
         <Link href="/react-error">React error page</Link>
