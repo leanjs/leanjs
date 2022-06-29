@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.3.5](https://github.com/leanjs/leanjs/compare/@leanjs/react-router@0.3.4...@leanjs/react-router@0.3.5) (2022-06-29)
+
+
+### Bug Fixes
+
+* **react-router:** on host navigate current pathname ([48df117](https://github.com/leanjs/leanjs/commit/48df11721bb9ce10c0cccdac6bc49b6eb03087a1))
+
+
+
+
+
 ## [0.3.4](https://github.com/leanjs/leanjs/compare/@leanjs/react-router@0.3.3...@leanjs/react-router@0.3.4) (2022-06-27)
 
 

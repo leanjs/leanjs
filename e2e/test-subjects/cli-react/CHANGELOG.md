@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.2.10](https://github.com/leanjs/leanjs/compare/@leanjs/e2e-test-subjects-cli-react@1.2.9...@leanjs/e2e-test-subjects-cli-react@1.2.10) (2022-06-29)
+
+**Note:** Version bump only for package @leanjs/e2e-test-subjects-cli-react
+
+
+
+
+
 ## [1.2.9](https://github.com/leanjs/leanjs/compare/@leanjs/e2e-test-subjects-cli-react@1.2.8...@leanjs/e2e-test-subjects-cli-react@1.2.9) (2022-06-27)
 
 **Note:** Version bump only for package @leanjs/e2e-test-subjects-cli-react

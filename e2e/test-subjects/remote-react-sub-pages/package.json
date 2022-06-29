@@ -1,7 +1,7 @@
 {
   "name": "@leanjs/e2e-test-subjects-remote-react-sub-pages",
   "private": true,
-  "version": "1.1.18",
+  "version": "1.1.19",
   "description": "",
   "scripts": {
     "start:e2e": "NODE_ENV=development webpack serve"
@@ -9,7 +9,7 @@
   "author": "Alex Lobera <alex@leanjs.com>",
   "license": "MIT",
   "dependencies": {
-    "@leanjs/react-router": "^0.3.4",
+    "@leanjs/react-router": "^0.3.5",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "react-router-dom": "^6.3.0"
