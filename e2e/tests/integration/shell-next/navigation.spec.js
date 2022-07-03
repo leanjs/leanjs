@@ -9,11 +9,17 @@ describe("Nextjs shell: navigation", () => {
     cy.contains("h2", "Pets").should("be.visible");
   });
 
-  it("navigates to a sub-path of a remote React app", () => {
+  it("navigates to a sub-path of a remote React app on the initial page load", () => {
     cy.visit("http://localhost:44440/react-sub-pages/1");
     cy.contains("h2", "Buster is a snake").should("be.visible");
     cy.contains("a", "Back to list").click();
     cy.contains("a", "Lola").click();
+    cy.contains("h2", "Lola is a cat").should("be.visible");
+  });
+
+  it("navigates to a sub-path of a remote React app afther the initial page load", () => {
+    cy.visit("http://localhost:44440");
+    cy.contains("a", "Page Lola").click();
     cy.contains("h2", "Lola is a cat").should("be.visible");
   });
 
