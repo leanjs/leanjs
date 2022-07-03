@@ -13,6 +13,8 @@ interface GetRemoteUrl {
 
 export const deleteTrailingSlash = (str: string) => str.replace(/\/+$/g, "");
 
+export const dedupeSlash = (str: string) => str.replace(/\/{2,}/g, "/");
+
 export const getRemoteUrl = ({
   origin,
   packageName,

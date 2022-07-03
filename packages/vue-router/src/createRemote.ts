@@ -4,7 +4,6 @@ import type {
   MountOptions,
   Cleanup,
   CreateRuntime,
-  AppProps,
   GetRuntime,
   MountFunc,
 } from "@leanjs/core";
@@ -24,7 +23,7 @@ import type {
 } from "vue-router";
 import { _ as CoreUtils } from "@leanjs/core";
 
-const { configureMount, getDefaultPathname } = CoreUtils;
+const { configureMount, getDefaultPathname, dedupeSlash } = CoreUtils;
 
 export {
   CreateRemoteConfig,
@@ -45,6 +44,8 @@ interface VueRouterConfig {
 interface CreateRemoteVueConfig extends CreateRemoteConfig {
   router: VueRouterConfig;
 }
+
+let semaphore = true;
 
 export const createRemote =
   <MyCreateRuntime extends CreateRuntime = CreateRuntime>(
@@ -72,6 +73,7 @@ export const createRemote =
       const history = isSelfHosted
         ? createWebHistory(basename)
         : createMemoryHistory(basename);
+
       history.replace(pathname);
       const router = createRouter({
         history,
@@ -111,10 +113,19 @@ export const createRemote =
             app?.unmount();
           },
         }),
-        onHostNavigate: ({ pathname: nextPathname }) => {
-          const currentPathname = document.location.pathname;
-          if (nextPathname !== currentPathname) {
-            router?.push(nextPathname);
+        onHostNavigate: async ({ pathname: rawNextPathname }) => {
+          const nextPathname = basename
+            ? dedupeSlash(rawNextPathname.replace(basename, "/"))
+            : rawNextPathname;
+
+          if (semaphore && nextPathname !== history.location) {
+            semaphore = false;
+            // We need a semaphore here because VueRouter router.push is async.
+            // router.push triggers an event in the router of the host because of onRemoteNavigate,
+            // which triggers onHostNavigate again. However, history.location is not yet updated this second time because router.push is async.
+            // That creates an infinite loop. This semaphore avoids such infinite loop.
+            await router?.push(nextPathname);
+            semaphore = true;
           }
         },
       };
