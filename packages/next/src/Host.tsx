@@ -1,11 +1,13 @@
 import React, { useCallback } from "react";
 import { _ as ReactUtils } from "@leanjs/react";
 import type { HostProps } from "@leanjs/react";
-import type { Listener, Path } from "@leanjs/core";
+import type { Listener, Location } from "@leanjs/core";
+import { _ as CoreUtils } from "@leanjs/core";
 import { useRouter } from "next/router";
 import Head from "next/head";
 
 const { useHost, Mount, DefaultLoading, DefaultError } = ReactUtils;
+const { dedupeSlash } = CoreUtils;
 
 export function Host({
   remote,
@@ -15,13 +17,10 @@ export function Host({
   errorComponent: ErrorComponent = DefaultError,
 }: HostProps) {
   const router = useRouter();
-  const basename = `${router.basePath}/${router.pathname}`.replace(
-    /\/{2,}/g,
-    "/"
-  );
+  const basename = dedupeSlash(`${router.basePath}/${router.pathname}`);
   const { mount, error, url, runtime } = useHost({ remote });
 
-  const navigate = useCallback(({ pathname, hash, search }: Path) => {
+  const navigate = useCallback(({ pathname, hash, search }: Location) => {
     router.push(
       {
         pathname,

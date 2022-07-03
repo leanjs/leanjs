@@ -28,6 +28,11 @@ export function Nav() {
       </li>
       <li>
         <Link href="/vue-sub-pages">Vue sub pages</Link>
+        <ul>
+          <li>
+            <Link href="/vue-sub-pages/about">Page about Vue</Link>
+          </li>
+        </ul>
       </li>
       <li>
         <Link href="/react-error">React error page</Link>

@@ -15,7 +15,7 @@
     "dist"
   ],
   "devDependencies": {
-    "@leanjs/core": "^0.1.0",
+    "@leanjs/core": "^0.5.0",
     "@leanjs/react": "^0.2.10",
     "@testing-library/react": "^12.1.4",
     "@types/react": "^17.0.41",
@@ -24,7 +24,7 @@
     "react-dom": "17"
   },
   "peerDependencies": {
-    "@leanjs/react": "^0.2.1",
+    "@leanjs/react": "^0.2.10",
     "next": "12",
     "react": "17",
     "react-dom": "17"
