@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.5.0](https://github.com/leanjs/leanjs/compare/@leanjs/core@0.4.8...@leanjs/core@0.5.0) (2022-07-03)
+
+
+### Features
+
+* **core:** add context lazy loading ([acf12d5](https://github.com/leanjs/leanjs/commit/acf12d5f2dcf1913e8cf7b44ade02b9284a1baf8))
+
+
+
+
+
 ## [0.4.8](https://github.com/leanjs/leanjs/compare/@leanjs/core@0.4.7...@leanjs/core@0.4.8) (2022-06-27)
 
 

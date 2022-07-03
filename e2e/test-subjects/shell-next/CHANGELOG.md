@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.3.18](https://github.com/leanjs/leanjs/compare/@leanjs/e2e-test-subjects-shell-next@0.3.17...@leanjs/e2e-test-subjects-shell-next@0.3.18) (2022-07-03)
+
+
+### Bug Fixes
+
+* **react-router:** on host navigate current pathname ([48df117](https://github.com/leanjs/leanjs/commit/48df11721bb9ce10c0cccdac6bc49b6eb03087a1))
+
+
+
+
+
 ## [0.3.17](https://github.com/leanjs/leanjs/compare/@leanjs/e2e-test-subjects-shell-next@0.3.16...@leanjs/e2e-test-subjects-shell-next@0.3.17) (2022-06-27)
 
 

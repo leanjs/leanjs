@@ -1,6 +1,6 @@
 {
   "name": "@leanjs/cli",
-  "version": "0.3.9",
+  "version": "0.3.10",
   "description": "Cli for LEAN micro-frontends",
   "types": "./dist/index.d.ts",
   "main": "./dist/index.js",
@@ -22,7 +22,7 @@
     "lean": "./dist/bin/lean-cli.js"
   },
   "dependencies": {
-    "@leanjs/core": "^0.4.8",
+    "@leanjs/core": "^0.5.0",
     "async-sema": "^3.1.1",
     "axios": "^0.27.2",
     "chalk": "^4.1.2",
