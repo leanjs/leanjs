@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.1.15](https://github.com/leanjs/leanjs/compare/@leanjs/vue-router@0.1.14...@leanjs/vue-router@0.1.15) (2022-07-03)
+
+
+### Bug Fixes
+
+* **vue-router:** fix semaphore when there are multiple vue-router remotes ([17be1ce](https://github.com/leanjs/leanjs/commit/17be1ceee16dc83909384bc9dabdeb0a1d5da24f))
+
+
+
+
+
 ## [0.1.14](https://github.com/leanjs/leanjs/compare/@leanjs/vue-router@0.1.13...@leanjs/vue-router@0.1.14) (2022-07-03)
 
 
