@@ -75,12 +75,12 @@ Current valid props are: ${Object.keys(currentState).join(", ")}`);
     }
 
     const state = new Proxy<State>(currentState, {
-      get: (target, prop: Prop) => {
+      get(target, prop: Prop) {
         validateProp(prop);
 
         return target[prop];
       },
-      set: (target, prop: Prop, value) => {
+      set(target, prop: Prop, value) {
         validateProp(prop);
         if (target[prop] !== value) {
           target[prop] = value;
@@ -196,31 +196,45 @@ Current valid props are: ${Object.keys(currentState).join(", ")}`);
       state,
     };
 
-    const emptyCtx = {} as ValuesFromCtxFactory<CtxFactory, CtxProp>;
-    const context = Object.freeze(
-      ctxFactory
-        ? (Object.keys(ctxFactory || {}) as Array<CtxProp>).reduce(
-            (acc, key) => {
-              let item = ctxFactory[key];
-              if (typeof item === "function") {
-                try {
-                  item = item(runtime);
-                } catch (error) {
-                  log(error);
-                }
-              }
-              if (isPromise(item)) {
-                ctxPromises.set(key, item);
-                item.catch(log);
-              }
-              acc[key] = item as any;
+    const context = new Proxy({} as ValuesFromCtxFactory<CtxFactory, CtxProp>, {
+      get(target, prop: CtxProp) {
+        if (target[prop] === undefined) {
+          let item = ctxFactory?.[prop];
+          if (typeof item === "function") {
+            try {
+              item = item(runtime);
+            } catch (error) {
+              log(error);
+            }
+          }
 
-              return acc;
-            },
-            emptyCtx
-          )
-        : emptyCtx
-    );
+          if (isPromise(item)) {
+            ctxPromises.set(prop, item);
+            item.catch(log);
+          }
+          target[prop] = item as any;
+        }
+
+        return target[prop];
+      },
+      set(_, prop) {
+        throw new Error(
+          `Cannot assign to read only context property '${prop.toString()}'`
+        );
+      },
+    });
+
+    (Object.keys(ctxFactory || {}) as Array<CtxProp>).forEach((key) => {
+      // configureRuntime context can be initialized with a promise directly. e.g.
+      // configureRuntime: { context: { example: new Promise(...) }}
+      // we need to handle these promises eagerly unlike the ones executed lazily in the context Proxy
+      const item = ctxFactory?.[key];
+
+      if (isPromise(item)) {
+        ctxPromises.set(key, item);
+        item.catch(log);
+      }
+    });
 
     const booted = async () => {
       try {

@@ -100,10 +100,47 @@ The `runtime` makes any asynchronous code internally look synchronous externally
 
 ##### context - optional object
 
-Similarly to `defaultState` each property in this context object argument is used to validate access at runtime to the shared context. Context is read-only. If you use TypeScript, since context can't change, the types of the context values will be inferred by TypeScript as follows:
+Similarly to `defaultState` each property in this context object argument is used to validate access to the shared context at runtime. In the following example reading a context prop different from `serviceX` will throw a runtime error.
 
 ```ts
-configureRuntime(defaultState)({
+cosnst { createRuntime } = configureRuntime(defaultState)({
+  onError,
+  context: {
+    serviceX: new ServiceX(),
+  },
+});
+
+const runtime = createRuntime()
+
+
+// ✅ reading the following property doesn't throw an error
+runtime.context.serviceX
+
+// ❌ reading the following property will throw an error
+runtime.context.serviceNameNotValid
+```
+
+Context is read-only. You can't re-assign values. Example:
+
+```ts
+cosnst { createRuntime } = configureRuntime(defaultState)({
+  onError,
+  context: {
+    serviceX: new ServiceX(),
+  },
+});
+
+const runtime = createRuntime()
+
+
+// ❌ assigning a new value to a context property will throw an error
+runtime.context.serviceX = new ServiceX()
+```
+
+If you use TypeScript, since context can't change, the types of the context values will be inferred by TypeScript as follows:
+
+```ts
+cosnst { createRuntime } = configureRuntime(defaultState)({
   onError,
   context: {
     // wsClient1 type is WsClient
@@ -114,6 +151,35 @@ configureRuntime(defaultState)({
     wsClient3: async () => new WsClient()),
   },
 });
+```
+
+When initialising a context property using a function, e.g. `wsClient3: async () => new WsClient()),` the function is executed lazily when the property is read. Context properties that are not a function are executed eagerly, e.g. `wsClient1: new WsClient(),`.
+
+In the example above calling `createRuntime()` will return the following runtime:
+
+```ts
+const runtime = createRuntime();
+
+// runtime.context.wsClient1 has been initialised and it's value is `new WsClient()`
+
+// runtime.context.wsClient2 has not been initialised and it's value is undefined
+
+runtime.context.wsClient2; // this initialises wsClient2 with new WsClient()
+```
+
+You can also lazy load code. In the following example, when a micro-frontend reads `runtime.context.wsClient`, the JavaScript required to execute `wsClient` will be downloaded and executed.
+
+```ts
+cosnst { createRuntime } = configureRuntime(defaultState)({
+  onError,
+  context: {
+    wsClient: () => import('./path-to-my-code'),
+  },
+});
+
+const runtime = createRuntime();
+
+const wsClient = await runtime.context.wsClient // ./path-to-my-code.js is downloaded
 ```
 
 #### `createRuntime`

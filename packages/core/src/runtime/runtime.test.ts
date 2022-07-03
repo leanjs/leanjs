@@ -80,15 +80,18 @@ describe("configureRuntime", () => {
     const runtime = configureRuntime(defaultState)({
       onError,
       context: {
-        eventEmitter: () => {
-          throw randomError;
-        },
+        eventEmitter: Promise.reject(randomError),
+        firebase: () => Promise.reject(randomError),
       },
     }).createRuntime();
+
+    // firebase is lazy loaded when we read it
+    runtime.context.firebase;
 
     await runtime.booted();
 
     expect(onError).toHaveBeenCalledWith(randomError);
+    expect(onError).toHaveBeenCalledTimes(2);
   });
 
   it(`doesn't call onError if it can create the context`, async () => {
@@ -126,7 +129,6 @@ describe("createRuntime", () => {
     expect(runtime.state.locale).toEqual(defaultState.locale);
     expect(runtime.state.user).toEqual(defaultState.user);
     expect(runtime.state.token).toEqual(defaultState.token);
-    expect(runtime.context).toEqual(context);
     expect(runtime.loader.locale).toEqual(defaultLoader);
     expect(runtime.loader.user).toEqual(defaultLoader);
     expect(runtime.loader.token).toEqual(defaultLoader);
@@ -166,7 +168,7 @@ describe("createRuntime", () => {
 });
 
 describe("booted", () => {
-  it(`resolves when all the async context is ready`, async () => {
+  it(`resolves when all the eager async context is ready`, async () => {
     let isGqlResolved = false;
     let isFirebaseResolved = false;
     const runtime = configureRuntime<SharedState>(defaultState)({
@@ -190,8 +192,57 @@ describe("booted", () => {
 
     await runtime.booted();
 
-    expect(isFirebaseResolved).toBe(true);
     expect(isGqlResolved).toBe(true);
+    expect(isFirebaseResolved).toBe(false);
+  });
+
+  it(`resolves after all the read lazy async context is ready`, async () => {
+    let isFirebaseResolved = false;
+    const runtime = configureRuntime<SharedState>(defaultState)({
+      onError: () => {
+        // empty
+      },
+      context: {
+        firebase: ({ load }) =>
+          new Promise<FakeFirebase>((resolve) => {
+            load("token", fetchToken).then((token) => {
+              isFirebaseResolved = true;
+              if (token) resolve(new FakeFirebase(token));
+            });
+          }),
+      },
+    }).createRuntime();
+
+    // reading firebase from context which triggers firebase initialization
+    runtime.context.firebase;
+
+    await runtime.booted();
+
+    expect(isFirebaseResolved).toBe(true);
+  });
+
+  it(`resolves before all the lazy async context if the lazy context is not read`, async () => {
+    let isFirebaseResolved = false;
+    const runtime = configureRuntime<SharedState>(defaultState)({
+      onError: () => {
+        // empty
+      },
+      context: {
+        firebase: ({ load }) =>
+          new Promise<FakeFirebase>((resolve) => {
+            load("token", fetchToken).then((token) => {
+              isFirebaseResolved = true;
+              if (token) resolve(new FakeFirebase(token));
+            });
+          }),
+      },
+    }).createRuntime();
+
+    // we don't read firebase from context before calling booted
+
+    await runtime.booted();
+
+    expect(isFirebaseResolved).toBe(false);
   });
 
   it(`returns false if it can't resolve all the async context`, async () => {
@@ -387,6 +438,18 @@ describe("context", () => {
     expect(runtime.context.eventEmitter).toBe(eventEmitter);
   });
 
+  it(`lazy initializes a value from the context when it's read`, async () => {
+    const runtime = createRuntime();
+
+    expect(Object.keys(runtime.context).length).toEqual(0);
+
+    await runtime.context.firebase;
+    expect(Object.keys(runtime.context).length).toEqual(1);
+
+    runtime.context.eventEmitter;
+    expect(Object.keys(runtime.context).length).toEqual(2);
+  });
+
   it(`throws an error if a context prop is set with a new value`, async () => {
     const runtime = createRuntime();
 
@@ -398,8 +461,34 @@ describe("context", () => {
     }
 
     expect(errorMessage).toBe(
-      `Cannot assign to read only property 'eventEmitter' of object '#<Object>'`
+      `Cannot assign to read only context property 'eventEmitter'`
     );
+  });
+
+  it(`doesn't initialise a context property more than once`, async () => {
+    let firebaseResolvedCounter = 0;
+    const runtime = configureRuntime<SharedState>(defaultState)({
+      onError: () => {
+        // empty
+      },
+      context: {
+        firebase: ({ load }) =>
+          new Promise<FakeFirebase>((resolve) => {
+            load("token", fetchToken).then((token) => {
+              firebaseResolvedCounter++;
+              if (token) resolve(new FakeFirebase(token));
+            });
+          }),
+      },
+    }).createRuntime();
+
+    // reading firebase from context which triggers firebase initialization
+    await runtime.context.firebase;
+    await runtime.context.firebase;
+    await runtime.context.firebase;
+    await runtime.context.firebase;
+
+    expect(firebaseResolvedCounter).toBe(1);
   });
 });
 
