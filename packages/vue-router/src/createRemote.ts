@@ -45,8 +45,6 @@ interface CreateRemoteVueConfig extends CreateRemoteConfig {
   router: VueRouterConfig;
 }
 
-let semaphore = true;
-
 export const createRemote =
   <MyCreateRuntime extends CreateRuntime = CreateRuntime>(
     App: Component,
@@ -70,6 +68,7 @@ export const createRemote =
       } = {}
     ) => {
       let app: App;
+      let semaphore = true;
       const history = isSelfHosted
         ? createWebHistory(basename)
         : createMemoryHistory(basename);
