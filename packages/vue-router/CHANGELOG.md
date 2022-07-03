@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.1.14](https://github.com/leanjs/leanjs/compare/@leanjs/vue-router@0.1.13...@leanjs/vue-router@0.1.14) (2022-07-03)
+
+
+### Bug Fixes
+
+* **vue-router:** fix path on host navigate ([a8195e1](https://github.com/leanjs/leanjs/commit/a8195e1ad0dff36a047f82828e34c1c803386098))
+
+
+
+
+
 ## [0.1.13](https://github.com/leanjs/leanjs/compare/@leanjs/vue-router@0.1.12...@leanjs/vue-router@0.1.13) (2022-07-03)
 
 **Note:** Version bump only for package @leanjs/vue-router

@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.5.1](https://github.com/leanjs/leanjs/compare/@leanjs/core@0.5.0...@leanjs/core@0.5.1) (2022-07-03)
+
+
+### Bug Fixes
+
+* **vue-router:** fix path on host navigate ([a8195e1](https://github.com/leanjs/leanjs/commit/a8195e1ad0dff36a047f82828e34c1c803386098))
+
+
+
+
+
 # [0.5.0](https://github.com/leanjs/leanjs/compare/@leanjs/core@0.4.8...@leanjs/core@0.5.0) (2022-07-03)
 
 

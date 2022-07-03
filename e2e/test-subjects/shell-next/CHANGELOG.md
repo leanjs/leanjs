@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.3.19](https://github.com/leanjs/leanjs/compare/@leanjs/e2e-test-subjects-shell-next@0.3.18...@leanjs/e2e-test-subjects-shell-next@0.3.19) (2022-07-03)
+
+
+### Bug Fixes
+
+* **vue-router:** fix path on host navigate ([a8195e1](https://github.com/leanjs/leanjs/commit/a8195e1ad0dff36a047f82828e34c1c803386098))
+
+
+
+
+
 ## [0.3.18](https://github.com/leanjs/leanjs/compare/@leanjs/e2e-test-subjects-shell-next@0.3.17...@leanjs/e2e-test-subjects-shell-next@0.3.18) (2022-07-03)
 
 
