@@ -5,12 +5,14 @@
   "description": "",
   "scripts": {
     "start:e2e": "NODE_ENV=development node ../../../packages/cli/dist/bin/lean-cli dev --config=react",
-    "build:e2e": "NODE_ENV=production node ../../../packages/cli/dist/bin/lean-cli build --config=react"
+    "build:e2e": "NODE_ENV=production node ../../../packages/cli/dist/bin/lean-cli build --config=react",
+    "deploy": "node ../../../packages/cli/dist/bin/lean-cli deploy"
   },
   "author": "Alex Lobera <alex@leanjs.com>",
   "license": "MIT",
   "dependencies": {
-    "@leanjs/react-router": "^0.3.7",
+    "@leanjs/react-router": "*",
+    "@leanjs/aws": "*",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "react-router-dom": "^6.3.0"

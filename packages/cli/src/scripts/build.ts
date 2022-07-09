@@ -4,19 +4,18 @@ import chalk from "chalk";
 import { emptyDirSync } from "fs-extra";
 import createCompiler from "webpack";
 
-import { getPackageName } from "../utils/packageJson";
+import { getPackageInfo } from "../utils/packageJson";
 import { findLeanConfigSync, getWebpackConfig } from "../utils/leanConfig";
-import { createCommand } from "../utils/command";
+import { createBundlerCommand, exitError } from "../utils/command";
 import { getOutputPath } from "../utils/path";
 
-const command = createCommand();
+const command = createBundlerCommand();
 command.parse(process.argv);
 
-const packageName = getPackageName();
+const { packageName } = getPackageInfo();
 const leanConfig = findLeanConfigSync();
 if (!leanConfig) {
-  console.log(chalk.red(`No lean.config.js found.`));
-  process.exit(1);
+  exitError(chalk.red(`No lean.config.js found.`));
 }
 
 console.log(`Building ${chalk.cyan(packageName)}`);
@@ -32,8 +31,7 @@ const webpackConfig = getWebpackConfig({
 });
 createCompiler(webpackConfig).run((err) => {
   if (err) {
-    console.log(`🔥 ${packageName} build failed`, err);
-    process.exit(1);
+    exitError(`${packageName} build failed`, err);
   } else {
     console.log(`${packageName} was built successfully`);
   }

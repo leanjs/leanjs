@@ -1,3 +1,5 @@
+import { RemoteTarget } from "../types";
+
 export * from "./loadScript";
 export * from "./loadModule";
 export * from "./configureMount";
@@ -9,6 +11,7 @@ interface GetRemoteUrl {
   origin: string;
   packageName: string;
   version?: string;
+  target?: RemoteTarget;
 }
 
 export const deleteTrailingSlash = (str: string) => str.replace(/\/+$/g, "");
@@ -19,16 +22,18 @@ export const getRemoteUrl = ({
   origin,
   packageName,
   version = "latest",
+  target = "browser",
 }: GetRemoteUrl) =>
-  `${deleteTrailingSlash(origin)}${getRemotePath({
+  `${deleteTrailingSlash(origin)}${gerVersionFolder({
     packageName,
     version,
-  })}/remoteEntry.js`;
+  })}/${target}/remoteEntry.js`;
 
 export interface GetRemotePathArgs {
   packageName: string;
   version: string;
 }
-export function getRemotePath({ packageName, version }: GetRemotePathArgs) {
-  return `/${createRemoteName(packageName)}/${version}/web`;
+
+export function gerVersionFolder({ packageName, version }: GetRemotePathArgs) {
+  return `/${createRemoteName(packageName)}/${version}`;
 }
