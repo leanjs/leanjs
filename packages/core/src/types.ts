@@ -5,6 +5,7 @@ export interface CreateRemoteOutput {
   createRuntime: CreateRuntime;
 }
 
+export type RemoteTarget = "browser" | "node";
 export interface BasePath {
   pathname?: string;
   basename?: string;

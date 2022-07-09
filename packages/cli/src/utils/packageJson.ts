@@ -1,7 +1,9 @@
 import chalk from "chalk";
 import * as fs from "fs";
 
-export function getPackageName(fullpath = process.cwd()) {
+import { exitError } from "./command";
+
+export function getPackageInfo(fullpath = process.cwd()) {
   const packageJsonFullPath = `${fullpath}/package.json`;
   if (!fs.existsSync(packageJsonFullPath)) {
     console.error(
@@ -11,15 +13,15 @@ export function getPackageName(fullpath = process.cwd()) {
   }
   // eslint-disable-next-line @typescript-eslint/no-var-requires
   const packageJson = require(packageJsonFullPath);
-  const packageName = packageJson.name as string | undefined;
+  const packageName = packageJson.name as string;
   if (!packageName) {
-    console.error(
-      chalk.red(
-        `No package name found in package.json. Path: ${fullpath}/package.json`
-      )
+    exitError(
+      `No package name found in package.json. Path: ${fullpath}/package.json`
     );
-    process.exit(1);
   }
 
-  return packageName;
+  return {
+    packageName,
+    packageVersion: packageJson.version as string | undefined,
+  };
 }

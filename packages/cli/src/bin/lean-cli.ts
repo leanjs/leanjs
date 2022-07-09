@@ -21,7 +21,7 @@ const scriptIndex = args.findIndex((x) => x === "build" || x === "dev");
 const script = scriptIndex === -1 ? args[0] : args[scriptIndex];
 const nodeArgs = scriptIndex > 0 ? args.slice(0, scriptIndex) : [];
 
-if (["build", "dev"].includes(script)) {
+if (["build", "dev", "deploy"].includes(script)) {
   const result = sync(
     process.execPath,
     nodeArgs

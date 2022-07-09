@@ -3,14 +3,13 @@ process.env.NODE_ENV = "development";
 import createCompiler from "webpack";
 import WebpackDevServer from "webpack-dev-server";
 import chalk from "chalk";
-import * as os from "os";
 
-import { getPackageName } from "../utils/packageJson";
+import { getPackageInfo } from "../utils/packageJson";
 import { startDevProxyServer } from "../utils/devProxyServer";
 import { findLeanConfigSync, getWebpackConfig } from "../utils/leanConfig";
-import { createCommand } from "../utils/command";
+import { createBundlerCommand, exitError } from "../utils/command";
 
-const program = createCommand().option(
+const program = createBundlerCommand().option(
   "-p, --port <type>",
   "Port to run locally a given micro-frontend"
 );
@@ -18,11 +17,10 @@ const program = createCommand().option(
 program.parse(process.argv);
 
 async function dev() {
-  const packageName = getPackageName();
+  const { packageName } = getPackageInfo();
   const leanConfig = findLeanConfigSync();
   if (!leanConfig) {
-    console.log(chalk.red(`No lean.config.js found.`));
-    process.exit(1);
+    exitError(chalk.red(`No lean.config.js found.`));
   }
   try {
     console.log(
@@ -66,14 +64,11 @@ async function dev() {
         process.exit();
       });
     }
-  } catch (error: any) {
-    console.log(
-      `🔥 dev command failed for ${chalk.cyan(packageName)}:${os.EOL}${
-        error?.message || error
-      }`
+  } catch (error: unknown) {
+    exitError(
+      `dev command failed for ${chalk.cyan(packageName)}`,
+      error as Error
     );
-
-    process.exit(1);
   }
 }
 

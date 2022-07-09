@@ -10,4 +10,9 @@ module.exports = {
     react: getDefaultReactWebpack(),
     vue: getDefaultVueWebpack(),
   },
+  command: {
+    deploy: {
+      use: "@leanjs/aws",
+    },
+  },
 };

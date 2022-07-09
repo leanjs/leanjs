@@ -105,8 +105,11 @@ export class RemoteWebpackPlugin implements WebpackPluginInstance {
       ],
     };
 
+    const publicPath =
+      process.env.PUBLIC_PATH ?? compiler.options.output.publicPath;
     compiler.options.output = {
       ...compiler.options.output,
+      ...(isEnvProduction && publicPath ? { publicPath } : {}),
       assetModuleFilename:
         compiler.options.output.assetModuleFilename ??
         "static/media/[name].[hash][ext]",
