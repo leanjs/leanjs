@@ -1,5 +1,9 @@
 import { exitError } from "@leanjs/cli";
 import { uploadFolder } from "./upload-to-s3";
+import { deployFunction } from "./deploy-cloud-function";
+import { _ as CoreUtils } from "@leanjs/core";
+
+const { createRemoteName } = CoreUtils;
 
 export const createValidateEnvVariable =
   ({ packageName }: { packageName: string }) =>
@@ -30,10 +34,12 @@ export const deploy = async ({
   distFolder,
   versionFolder,
   packageName,
+  version,
 }: {
   distFolder: string;
   versionFolder: string;
   packageName: string;
+  version: string;
 }) => {
   const validateEnvVariable = createValidateEnvVariable({ packageName });
   const validateRequiredArgument = createValidateRequiredArgument({
@@ -50,6 +56,7 @@ export const deploy = async ({
   const bucket = validateEnvVariable("AWS_S3_BUCKET");
   const region = validateEnvVariable("AWS_REGION");
 
+  const cloudFrontDistributionId = process.env.CLOUDFRONT_DISTRIBUTION_ID;
   const batchLimit = Number(process.env.BATCH_LIMIT) || 25;
 
   await uploadFolder({
@@ -60,5 +67,25 @@ export const deploy = async ({
     batchLimit,
   });
 
-  // TODO deploy CloudFront Function for "latest" version
+  if (cloudFrontDistributionId) {
+    await deployFunction({
+      comment: `mapping latest to version ${version}`,
+      name: `${createRemoteName(packageName)}_latest`,
+      region,
+      functionCode: `
+      function handler(event) {
+        const request = event.request
+        const regex = /^\/[^\/]+\/latest\/+/;
+        const matches = request.uri.match(regex);
+        if (matches.length) {
+          const basename = matches[0].replace("/latest/", "");
+          request.uri = request.uri.replace(regex, basename + "/" + version + "/");
+        }
+      
+        return request;
+      }
+      `,
+      cloudFrontDistributionId,
+    });
+  }
 };
