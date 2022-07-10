@@ -8,9 +8,6 @@
   
   export interface HostProviderProps<BaseRuntime extends Runtime = Runtime> {
     origin: string;
-    // TODO - error and loading
-    // errorComponent?: ErrorComponent;
-    // loadingComponent?: LoadingComponent;
     runtime: BaseRuntime;
   }
 

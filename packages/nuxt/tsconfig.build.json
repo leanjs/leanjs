@@ -13,4 +13,7 @@
     "moduleResolution": "node",
     "baseUrl": "./src",
   },
+  "vueCompilerOptions": {
+    "experimentalDisableTemplateSupport": true
+  }
 }

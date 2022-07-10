@@ -5,7 +5,6 @@ import VueMount from "./Mount.vue";
 export * as types from "./types";
 
 // We have to do this because webpack can't properly handle re-exports
-// @see <find the webpack issue I read about this>
 export const Mount = VueMount;
 
 export const createRuntime = runtimeBindings.createRuntimeBindings;
