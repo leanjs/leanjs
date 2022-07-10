@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.6.1](https://github.com/leanjs/leanjs/compare/@leanjs/core@0.6.0...@leanjs/core@0.6.1) (2022-07-10)
+
+
+### Bug Fixes
+
+* **typo:** gerVersionFolder in cli and core ([a335103](https://github.com/leanjs/leanjs/commit/a335103e7308404f48e33475b97cd18fd536463e))
+
+
+
+
+
 # [0.6.0](https://github.com/leanjs/leanjs/compare/@leanjs/core@0.5.1...@leanjs/core@0.6.0) (2022-07-09)
 
 
