@@ -1,8 +1,9 @@
 <template>
   <div>
-    <h2>Index (React)</h2>
+    <h2>Vue</h2>
         <Host
-          :remote="{ packageName: '@leanjs/e2e-test-subjects-remote-react-1' }"
+          :remote="{ packageName: '@leanjs/e2e-test-subjects-remote-vue-1' }"
+          pathname="nested"
         />
   </div>
 </template>

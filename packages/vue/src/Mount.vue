@@ -33,13 +33,10 @@
   watchEffect((): void => {
     const myRoot = root.value;
     const mountRes = mount(myRoot ?? null, {
-      onRemoteNavigate: (nextPathname, { hash, search } = {}): void => {
+      onRemoteNavigate: (location): void => {
         const { pathname } = window.location;
-        if (pathname !== nextPathname) {
-          navigate?.({
-            action: "PUSH",
-            location: { pathname: nextPathname, search, hash },
-          });
+        if (pathname !== location.pathname) {
+          navigate?.(location);
         }
       },
       basename,
@@ -50,8 +47,8 @@
     unmount = mountRes.unmount;
     const { onHostNavigate } = mountRes;
     removeListener = onHostNavigate
-      ? listen?.(({ location: { pathname: nextPathname, ...rest } }) => {
-          onHostNavigate(nextPathname, rest);
+      ? listen?.((navigationUpdate) => {
+          onHostNavigate(navigationUpdate.location);
         })
       : null;
   });
