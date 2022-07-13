@@ -3,7 +3,7 @@
 With NPM:
 
 ```
-npm create micro-frontends
+npm create micro-frontends@latest
 ```
 
 With Yarn:
