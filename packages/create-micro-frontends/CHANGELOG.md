@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.0.12](https://github.com/leanjs/leanjs/compare/create-micro-frontends@0.0.11...create-micro-frontends@0.0.12) (2022-07-13)
+
+
+### Bug Fixes
+
+* **create-micro-frontends:** update package.json leanjs versions ([ca25726](https://github.com/leanjs/leanjs/commit/ca257268392891acfdb2281915a6aa3970a91bd0))
+
+
+
+
+
 ## [0.0.11](https://github.com/leanjs/leanjs/compare/create-micro-frontends@0.0.10...create-micro-frontends@0.0.11) (2022-06-28)
 
 
