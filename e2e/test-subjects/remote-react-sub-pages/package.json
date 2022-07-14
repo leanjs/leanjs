@@ -1,7 +1,7 @@
 {
   "name": "@leanjs/e2e-test-subjects-remote-react-sub-pages",
   "private": true,
-  "version": "1.1.23",
+  "version": "1.1.24",
   "description": "",
   "scripts": {
     "start:e2e": "NODE_ENV=development webpack serve"

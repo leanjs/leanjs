@@ -1,7 +1,7 @@
 {
   "name": "@leanjs/e2e-test-subjects-remote-vue-sub-pages",
   "private": true,
-  "version": "1.0.9",
+  "version": "1.0.10",
   "scripts": {
     "start:e2e": "NODE_ENV=development node ../../../packages/cli/dist/bin/lean-cli dev --config=vue --port=44445"
   },

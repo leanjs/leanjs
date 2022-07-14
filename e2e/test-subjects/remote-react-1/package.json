@@ -1,7 +1,7 @@
 {
   "name": "@leanjs/e2e-test-subjects-remote-react-1",
   "private": true,
-  "version": "1.3.23",
+  "version": "1.3.24",
   "description": "",
   "scripts": {
     "start:e2e": "NODE_ENV=development webpack serve"

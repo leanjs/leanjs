@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.0.13](https://github.com/leanjs/leanjs/compare/create-micro-frontends@0.0.12...create-micro-frontends@0.0.13) (2022-07-14)
+
+
+### Bug Fixes
+
+* **create-micro-frontends:** add npm create micro-frontends@latest ([cb5610a](https://github.com/leanjs/leanjs/commit/cb5610ab9729b4b15baab43c2e36495a631b2598))
+
+
+
+
+
 ## [0.0.12](https://github.com/leanjs/leanjs/compare/create-micro-frontends@0.0.11...create-micro-frontends@0.0.12) (2022-07-13)
 
 

@@ -1,6 +1,6 @@
 {
   "name": "@leanjs/e2e-test-subjects-shell-next",
-  "version": "0.3.21",
+  "version": "0.3.22",
   "private": true,
   "scripts": {
     "start:e2e": "next dev -p 44440",
