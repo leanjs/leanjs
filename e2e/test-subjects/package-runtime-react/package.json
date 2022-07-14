@@ -1,6 +1,7 @@
 {
   "name": "@leanjs/e2e-test-subjects-package-runtime-react",
   "version": "1.0.11",
+  "private": true,
   "description": "",
   "main": "./src/index.ts",
   "types": "./src/index.ts",
