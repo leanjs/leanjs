@@ -79,6 +79,7 @@ provider
     distFolder,
     versionFolder: getVersionFolder({ packageName, version }),
     packageName,
+    version,
   })
   .then(() => {
     console.log(
