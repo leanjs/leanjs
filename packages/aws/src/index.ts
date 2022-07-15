@@ -1,7 +1,10 @@
 import { exitError } from "@leanjs/cli";
-import { uploadFolder } from "./upload-to-s3";
-import { deployFunction } from "./deploy-cloud-function";
 import { _ as CoreUtils } from "@leanjs/core";
+import fs from "fs";
+
+import { uploadFolder } from "./upload-to-s3";
+import { deployFunction } from "./cloudfront-functions/deploy";
+import chalk from "chalk";
 
 const { createRemoteName } = CoreUtils;
 
@@ -59,6 +62,17 @@ export const deploy = async ({
   const cloudFrontDistributionId = process.env.CLOUDFRONT_DISTRIBUTION_ID;
   const batchLimit = Number(process.env.BATCH_LIMIT) || 25;
 
+  const functionPath = `${__dirname}/cloudfront-functions/latest.js`;
+  let functionCode: string;
+
+  try {
+    functionCode = fs
+      .readFileSync(functionPath, "utf8")
+      ?.replace("__replace_with_version__", version);
+  } catch (error: unknown) {
+    exitError(`Failed to read ${functionPath}`, error as Error);
+  }
+
   await uploadFolder({
     versionFolder: removeFirstSlash(versionFolder),
     region,
@@ -69,23 +83,13 @@ export const deploy = async ({
 
   if (cloudFrontDistributionId) {
     await deployFunction({
-      comment: `mapping latest to version ${version}`,
+      comment: `It maps latest version to ${version}`,
       name: `${createRemoteName(packageName)}_latest`,
       region,
-      functionCode: `
-      function handler(event) {
-        const request = event.request
-        const regex = /^\/[^\/]+\/latest\/+/;
-        const matches = request.uri.match(regex);
-        if (matches.length) {
-          const basename = matches[0].replace("/latest/", "");
-          request.uri = request.uri.replace(regex, basename + "/" + version + "/");
-        }
-      
-        return request;
-      }
-      `,
+      functionCode,
       cloudFrontDistributionId,
     });
+
+    console.log(`Latest version is now ${chalk.cyan(version)}`);
   }
 };

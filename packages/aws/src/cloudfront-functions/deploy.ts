@@ -30,10 +30,9 @@ export async function deployFunction({
   const FunctionCode = new TextEncoder().encode(functionCode);
 
   try {
-    console.log(`Getting CloufFront Function ${Name}`);
     const fnResponse = await getFunction({ Name, client });
     if (fnResponse?.ETag) {
-      await client.send(
+      const updatedFunctonResp = await client.send(
         new UpdateFunctionCommand({
           Name,
           IfMatch: fnResponse.ETag,
@@ -44,6 +43,11 @@ export async function deployFunction({
           FunctionCode,
         })
       );
+
+      if (!updatedFunctonResp?.ETag) {
+        throw new Error(`Updating function ${Name} returned undefined ETag`);
+      }
+      await publishFunction({ ETag: updatedFunctonResp?.ETag, Name, client });
       console.log(`Function found and updated`);
     } else {
       console.log(`Function not found, creating it`);
@@ -162,8 +166,8 @@ async function getFunction({
         Name,
       })
     );
-  } catch (error: any) {
-    const message = error.toString();
+  } catch (error: unknown) {
+    const message = (error as Error).toString();
     if (!message.includes("NoSuchFunctionExists")) {
       throw error;
     }
