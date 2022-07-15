@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.5.0](https://github.com/leanjs/leanjs/compare/@leanjs/cli@0.4.1...@leanjs/cli@0.5.0) (2022-07-15)
+
+
+### Features
+
+* **aws:** deploy CloudFront Function ([05f9342](https://github.com/leanjs/leanjs/commit/05f93427d5ef3ea1466f4094438002aea1b06ce9))
+
+
+
+
+
 ## [0.4.1](https://github.com/leanjs/leanjs/compare/@leanjs/cli@0.4.0...@leanjs/cli@0.4.1) (2022-07-10)
 
 

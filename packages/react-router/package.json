@@ -1,6 +1,6 @@
 {
   "name": "@leanjs/react-router",
-  "version": "0.3.9",
+  "version": "0.3.10",
   "author": "Alex Lobera <alex@leanjs.com>",
   "description": "Micro-frontends for React Router micro-apps",
   "types": "./dist/index.d.ts",
@@ -31,8 +31,8 @@
     "react-router-dom": "^6.3.0"
   },
   "dependencies": {
-    "@leanjs/core": "^0.6.1",
-    "@leanjs/react": "^0.2.13"
+    "@leanjs/core": "^0.7.0",
+    "@leanjs/react": "^0.2.14"
   },
   "scripts": {
     "prebuild": "del-cli dist",
