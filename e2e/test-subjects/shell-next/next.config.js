@@ -6,7 +6,6 @@ const packageJsonDeps = require("./package.json").dependencies;
 const withTM = require("next-transpile-modules")([
   "@leanjs/e2e-test-subjects-package-runtime-react",
   "@leanjs/e2e-test-subjects-package-runtime-shared",
-  "@leanjs/core",
 ]);
 
 /** @type {import('next').NextConfig} */

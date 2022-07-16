@@ -7,5 +7,5 @@ export * as types from "./types";
 // We have to do this because webpack can't properly handle re-exports
 export const Mount = VueMount;
 
-export const createRuntime = runtimeBindings.createRuntimeBindings;
+export const createRuntimeBindings = runtimeBindings.createRuntimeBindings;
 export const isPropObj = runtimeBindings.isPropObj;

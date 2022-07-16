@@ -12,16 +12,8 @@
 </template>
 
 <script setup lang="ts">
-  import { configureRuntime } from '@leanjs/core';
   import { HostProvider } from "@leanjs/nuxt";
-  const defaultState = {
-    locale: "en",
-  };
-
-  const { createRuntime } =  configureRuntime(defaultState)({
-    onError: (error) =>
-      console.log(`🚨 log this properly 🔥! e.g. Sentry`, error),
-  });
+  import { createRuntime }from "@leanjs/e2e-test-subjects-package-runtime-shared";
 
   const runtime = createRuntime();
 </script>

@@ -132,5 +132,3 @@ export type CreateRuntime<MyRuntime extends Runtime = Runtime> = {
 
 export type GetRuntime<MyCreateRuntime extends CreateRuntime> =
   ReturnType<MyCreateRuntime>;
-
-export const myVal = "abc";
