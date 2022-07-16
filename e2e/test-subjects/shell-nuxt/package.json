@@ -1,0 +1,21 @@
+{
+  "name": "@leanjs/e2e-test-subjects-shell-nuxt",
+  "version": "0.0.1",
+  "private": true,
+  "scripts": {
+    "start:e2e": "nuxt build && PORT=44447 node ./.output/server/index.mjs ",
+    "build": "nuxt build",
+    "dev": "nuxt dev",
+    "generate": "nuxt generate",
+    "preview": "nuxt preview"
+  },
+  "devDependencies": {
+    "nuxt3": "3.0.0-27313139.1c88580"
+  },
+  "dependencies": {
+    "@leanjs/core": "*",
+    "@leanjs/vue": "*",
+    "@leanjs/nuxt": "*",
+    "@leanjs/e2e-test-subjects-package-runtime-react": "*"
+  }
+}

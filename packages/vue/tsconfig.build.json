@@ -7,6 +7,12 @@
       "**/*.test.ts",
       "**/*.test.tsx",
       "**/dist/**/*"
-    ]
+    ],
+    "compilerOptions": {
+      "jsx": "preserve",
+      "moduleResolution": "node",
+      "baseUrl": "./src",
+    },
+    "files": ["src/index.ts"]
   }
   

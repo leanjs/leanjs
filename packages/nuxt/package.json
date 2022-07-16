@@ -1,0 +1,42 @@
+{
+  "name": "@leanjs/nuxt",
+  "version": "0.0.1",
+  "description": "Micro-frontend tools for Nuxtjs",
+  "main": "dist/index.js",
+  "module": "dist/index.js",
+  "type": "module",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "test": "echo TODO",
+    "prebuild": "del-cli dist",
+    "build": "webpack && vue-tsc --outDir dist --emitDeclarationOnly --project ./tsconfig.build.json"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/leanjs/leanjs.git",
+    "directory": "packages/nuxt"
+  },
+  "author": "Alex Traher <alex.traher@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/leanjs/leanjs/issues"
+  },
+  "homepage": "https://github.com/leanjs/leanjs#readme",
+  "devDependencies": {
+    "@leanjs/vue": "^0.2.6",
+    "@vue/compiler-sfc": "^3.2.37",
+    "ts-loader": "^9.3.1",
+    "vue": "^3.0.0",
+    "vue-loader": "^17.0.0",
+    "vue-template-babel-compiler": "^1.2.0",
+    "vue-tsc": "^0.38.2",
+    "wait-for-expect": "^3.0.2",
+    "webpack": "^5.73.0",
+    "nuxt3": "3.0.0-27313139.1c88580"
+  },
+  "peerDependencies": {
+    "@leanjs/vue": "^0.2.6",
+    "vue": "^3.0.0",
+    "nuxt3": "3.0.0-27313139.1c88580"
+  }
+}

@@ -3,6 +3,7 @@
     "strict": true,
     "target": "es5",
     "moduleResolution": "node",
+    "module": "commonjs",
     "skipLibCheck": true,
     "strictNullChecks": true,
     "resolveJsonModule": true,

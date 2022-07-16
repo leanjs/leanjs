@@ -13,6 +13,7 @@ export const createRuntimeBindings = <
   MyRuntime extends ReturnType<MyCreateRuntime> = ReturnType<MyCreateRuntime>,
   State extends MyRuntime["state"] = MyRuntime["state"]
 >(
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   _createRuntime: MyCreateRuntime // arg only used to infer Runtime type
 ) => {
   const useSharedState = <Prop extends KeyOf<State> = KeyOf<State>>(

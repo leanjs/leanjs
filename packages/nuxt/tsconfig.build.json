@@ -1,0 +1,19 @@
+{
+  "extends": "../../tsconfig.json",
+  "exclude": [
+    "**/test",
+    "*.js",
+    "**/__tests__/",
+    "**/*.test.ts",
+    "**/*.test.tsx",
+    "**/dist/**/*"
+  ],
+  "compilerOptions": {
+    "jsx": "preserve",
+    "moduleResolution": "node",
+    "baseUrl": "./src",
+  },
+  "vueCompilerOptions": {
+    "experimentalDisableTemplateSupport": true
+  }
+}
