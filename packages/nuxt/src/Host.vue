@@ -36,9 +36,14 @@
     getRemoteUrl,
   } = CoreUtils;
   const runtime = inject<Runtime>('runtime');
+  const injectedOrigin = inject<string>('origin')
+  if (!injectedOrigin) {
+    throw new Error(`you must provide an origin prop in HostProvider`);
+  }
+
   const props = defineProps<HostProps>();
   const { packageName } = props.remote;
-  const origin = deleteTrailingSlash(inject<string>('origin') ?? '');
+  const origin = deleteTrailingSlash(injectedOrigin);
 
   const name = createRemoteName(packageName);
 
@@ -52,15 +57,13 @@
 
   const error = ref<Error | null>(null);
 
-  let route;
-  if (useRoute) {
-    route = useRoute();
-  }
+  const route = useRoute?.();
 
   const basename = route?.path;
 
   const router = useRouter();
 
+  // TODO - confirm whether hash or search include # and ? respectively when fixing nested routing
   const navigate: NavigateFunc = ({ pathname, hash, search = '' }) => {
     router.push({ path: `${pathname}${hash}${search}` });
   }
