@@ -25,7 +25,8 @@
   "workspaces": [
     "packages/*",
     "e2e/test-subjects/*",
-    "e2e/tests"
+    "e2e/tests",
+    "website"
   ],
   "devDependencies": {
     "@commitlint/cli": "^16.2.3",
