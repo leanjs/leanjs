@@ -2,12 +2,14 @@ import {
   CloudFrontClient,
   CreateFunctionCommand,
   FunctionRuntime,
-  GetFunctionCommand,
-  PublishFunctionCommand,
-  UpdateDistributionCommand,
-  GetDistributionCommand,
   UpdateFunctionCommand,
 } from "@aws-sdk/client-cloudfront";
+
+import {
+  getFunction,
+  attachFunctionToDistribution,
+  publishFunction,
+} from "./utils";
 
 interface DeployFunctionArgs {
   runtime?: FunctionRuntime;
@@ -31,6 +33,7 @@ export async function deployFunction({
 
   try {
     const fnResponse = await getFunction({ Name, client });
+
     if (fnResponse?.ETag) {
       const updatedFunctonResp = await client.send(
         new UpdateFunctionCommand({
@@ -47,8 +50,9 @@ export async function deployFunction({
       if (!updatedFunctonResp?.ETag) {
         throw new Error(`Updating function ${Name} returned undefined ETag`);
       }
-      await publishFunction({ ETag: updatedFunctonResp?.ETag, Name, client });
       console.log(`Function found and updated`);
+
+      await publishFunction({ ETag: updatedFunctonResp?.ETag, Name, client });
     } else {
       console.log(`Function not found, creating it`);
       const { ETag, FunctionSummary } = await client.send(
@@ -85,93 +89,4 @@ export async function deployFunction({
   } finally {
     client.destroy();
   }
-}
-
-async function attachFunctionToDistribution({
-  FunctionARN,
-  cloudFrontDistributionId,
-  client,
-}: {
-  cloudFrontDistributionId: string;
-  FunctionARN: string;
-  client: CloudFrontClient;
-}) {
-  const { Distribution, ETag } = await client.send(
-    new GetDistributionCommand({
-      Id: cloudFrontDistributionId,
-    })
-  );
-
-  if (!Distribution) {
-    throw new Error(
-      `Failed to get distribution id ${cloudFrontDistributionId}`
-    );
-  }
-
-  Distribution.DistributionConfig?.DefaultCacheBehavior?.FunctionAssociations?.Items?.push(
-    {
-      FunctionARN,
-      EventType: "viewer-request",
-    }
-  );
-
-  const { $metadata } = await client.send(
-    new UpdateDistributionCommand({
-      ...Distribution,
-      IfMatch: ETag,
-    })
-  );
-
-  if ($metadata.httpStatusCode !== 200) {
-    throw new Error(
-      `Failed to update CloudFront distribution id: ${cloudFrontDistributionId}`
-    );
-  }
-}
-
-async function publishFunction({
-  ETag,
-  Name,
-  client,
-}: {
-  ETag: string;
-  Name: string;
-  client: CloudFrontClient;
-}) {
-  const { $metadata } = await client.send(
-    new PublishFunctionCommand({
-      Name,
-      IfMatch: ETag,
-    })
-  );
-
-  if ($metadata.httpStatusCode !== 200) {
-    throw new Error(
-      `Failed to publish function. HTTP status code: ${$metadata.httpStatusCode}`
-    );
-  }
-}
-
-async function getFunction({
-  Name,
-  client,
-}: {
-  Name: string;
-  client: CloudFrontClient;
-}) {
-  let fnResponse;
-  try {
-    fnResponse = await client.send(
-      new GetFunctionCommand({
-        Name,
-      })
-    );
-  } catch (error: unknown) {
-    const message = (error as Error).toString();
-    if (!message.includes("NoSuchFunctionExists")) {
-      throw error;
-    }
-  }
-
-  return fnResponse;
 }

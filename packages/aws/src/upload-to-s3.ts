@@ -10,7 +10,7 @@ import { lookup } from "mime-types";
 import { join } from "path";
 
 interface UploadFolderToS3Args {
-  versionFolder: string;
+  remoteBasename: string;
   distFolder: string;
   bucket: string;
   region: string;
@@ -18,7 +18,7 @@ interface UploadFolderToS3Args {
 }
 
 export async function uploadFolder({
-  versionFolder,
+  remoteBasename,
   distFolder,
   bucket: Bucket,
   region,
@@ -36,7 +36,7 @@ export async function uploadFolder({
     for await (const filePath of filePaths) {
       const filename = filePath.split(`${distFolder}/`).pop() || "";
       const Body = await readFile(filePath);
-      const Key = `${versionFolder}/${filename}`;
+      const Key = `${remoteBasename}/${filename}`;
 
       console.log(`Uploading ${Key}`);
 

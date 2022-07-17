@@ -9,7 +9,7 @@ import { createCommand, exitError } from "../utils/command";
 import { getOutputPath } from "../utils/path";
 import { findLeanConfigSync } from "../utils/leanConfig";
 
-const { getVersionFolder } = CoreUtils;
+const { getRemoteBasename } = CoreUtils;
 
 const command = createCommand();
 command
@@ -77,7 +77,7 @@ console.log(
 provider
   .deploy({
     distFolder,
-    versionFolder: getVersionFolder({ packageName, version }),
+    basename: getRemoteBasename({ packageName, version }),
     packageName,
     version,
   })
