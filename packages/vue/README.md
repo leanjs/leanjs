@@ -1,6 +1,6 @@
 # @leanjs/vue
 
-This package contains Vue bindings for [@leanjs/core](/leanjs/leanjs/tree/main/packages/core). You can learn more about the rationale behind a shared runtime in the following links:
+This package contains Vue bindings for [@leanjs/core](https://github.com/leanjs/leanjs/tree/main/packages/core). You can learn more about the rationale behind a shared runtime in the following links:
 
 - 🍿 [Video of talk at CityJS London](https://www.youtube.com/watch?v=pKiZI9meWw8)
 - 📖 [Article in Alex Lobera's blog](https://alexlobera.com/sharing-state-in-micro-frontends-at-runtime/)
@@ -101,4 +101,4 @@ Do you have any issues with this package? Please file an [issue](https://github.
 
 ## Feedback or questions
 
-Send me a tweet at [@alex_lobera](twitter.com/alex_lobera/) with any feedback or questions 🙏.
+Send me a tweet at [@alex_lobera](https://twitter.com/alex_lobera/) with any feedback or questions 🙏.

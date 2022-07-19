@@ -16,7 +16,8 @@
   ],
   "scripts": {
     "prebuild": "del-cli dist",
-    "build": "tsc --outDir dist --project ./tsconfig.build.json"
+    "build": "tsc --outDir dist --project ./tsconfig.build.json",
+    "test": "jest"
   },
   "publishConfig": {
     "access": "public"

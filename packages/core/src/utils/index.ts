@@ -24,7 +24,7 @@ export const getRemoteUrl = ({
   version = "latest",
   target = "browser",
 }: GetRemoteUrl) =>
-  `${deleteTrailingSlash(origin)}${getVersionFolder({
+  `${deleteTrailingSlash(origin)}${getRemoteBasename({
     packageName,
     version,
   })}/${target}/remoteEntry.js`;
@@ -34,6 +34,6 @@ export interface GetRemotePathArgs {
   version: string;
 }
 
-export function getVersionFolder({ packageName, version }: GetRemotePathArgs) {
+export function getRemoteBasename({ packageName, version }: GetRemotePathArgs) {
   return `/${createRemoteName(packageName)}/${version}`;
 }

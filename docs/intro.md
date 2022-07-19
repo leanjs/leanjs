@@ -1,1 +1,5 @@
+---
+slug: /
+---
+
 hello docs
