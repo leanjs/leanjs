@@ -30,10 +30,10 @@ test/**/out*
 .eslintcache
 .turbo
 
-
 # misc
 .DS_Store
 *.pem
+*.docusaurus
 
 # debug
 npm-debug.log*
