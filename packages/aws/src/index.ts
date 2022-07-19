@@ -42,15 +42,10 @@ export const deploy = async ({
   const batchLimit = Number(process.env.BATCH_LIMIT) || 25;
 
   const functionPath = `${__dirname}/cloudfront-functions/latest.js`;
-  let functionCode: string;
 
-  try {
-    functionCode = fs
-      .readFileSync(functionPath, "utf8")
-      ?.replace("__replace_with_version__", version);
-  } catch (error: unknown) {
-    exitError(`Failed to read ${functionPath}`, error as Error);
-  }
+  const functionCode = fs
+    .readFileSync(functionPath, "utf8")
+    ?.replace("__replace_with_version__", version);
 
   await uploadFolder({
     remoteBasename: removeFirstSlash(remoteBasename),

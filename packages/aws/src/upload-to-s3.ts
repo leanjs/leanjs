@@ -26,6 +26,7 @@ export async function uploadFolder({
 }: UploadFolderToS3Args) {
   const distFolderPath = join(process.cwd(), distFolder);
   const filePaths = readFilePaths(distFolderPath);
+  let batches = 0;
 
   try {
     const s3Client = new S3Client({ region });
@@ -52,13 +53,19 @@ export async function uploadFolder({
       );
 
       if (batch.length === batchLimit) {
+        batches++;
         await Promise.all(batch);
         batch = [];
       }
     }
 
-    if (batch.length) await Promise.all(batch);
+    if (batch.length) {
+      batches++;
+      await Promise.all(batch);
+    }
   } catch (error: unknown) {
     exitError(`Error uploading ${chalk.cyan(distFolder)}`, error as Error);
   }
+
+  return batches;
 }
