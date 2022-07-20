@@ -38,5 +38,8 @@
     "@leanjs/vue": "^0.2.6",
     "nuxt3": "3.0.0-27313139.1c88580",
     "vue": "^3.0.0"
+  },
+  "publishConfig": {
+    "access": "public"
   }
 }
