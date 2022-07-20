@@ -58,7 +58,7 @@ export async function attachFunctionToDistribution({
     }
   );
 
-  const { $metadata } = await client.send(
+  const { $metadata, ETag: UpdatedETag } = await client.send(
     new UpdateDistributionCommand({
       ...Distribution,
       IfMatch: ETag,
@@ -70,6 +70,8 @@ export async function attachFunctionToDistribution({
       `Failed to update CloudFront distribution id: ${cloudFrontDistributionId}`
     );
   }
+
+  return UpdatedETag;
 }
 
 export async function publishFunction({
