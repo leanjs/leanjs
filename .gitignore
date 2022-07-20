@@ -19,6 +19,7 @@ pids
 # coverage
 .nyc_output
 coverage
+e2e/tests/cypress/screenshots/
 
 # test output
 test/**/out*

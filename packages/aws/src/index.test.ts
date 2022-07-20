@@ -27,9 +27,32 @@ describe("deploy micro-frontend", () => {
   afterEach(() => {
     jest.resetModules();
     jest.unmock("./cloudfront-functions/deploy");
+    jest.unmock("./upload-to-s3");
   });
 
   describe("if no CloudFront Id", () => {
+    it("uses dist as default value of distFolder", async () => {
+      const remoteBasename = `/${packageName}/${version}`;
+      const uploadFolder = jest.fn();
+      jest.doMock("./upload-to-s3", () => ({
+        uploadFolder,
+      }));
+      // eslint-disable-next-line @typescript-eslint/no-var-requires
+      const { deploy } = require("./index");
+
+      await deploy({
+        remoteBasename,
+        packageName,
+        version,
+      });
+
+      expect(uploadFolder).toHaveBeenCalledWith(
+        expect.objectContaining({
+          distFolder: "dist",
+        })
+      );
+    });
+
     it("uploads build to an S3 bucket without deploying a CloudFront Function", async () => {
       const remoteBasename = `/${packageName}/${version}`;
       const deployFunction = jest.fn();
