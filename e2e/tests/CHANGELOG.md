@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.1.1](https://github.com/leanjs/leanjs/compare/@leanjs/e2e-tests@0.1.0...@leanjs/e2e-tests@0.1.1) (2022-07-20)
+
+
+### Bug Fixes
+
+* **e2e:** disable Nuxt shell ([798a937](https://github.com/leanjs/leanjs/commit/798a9372f6d1649cf8b293e02b0f60a633dd40f7))
+
+
+
+
+
 # 0.1.0 (2022-07-16)
 
 

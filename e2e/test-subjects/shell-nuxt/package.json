@@ -1,6 +1,6 @@
 {
   "name": "@leanjs/e2e-test-subjects-shell-nuxt",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "private": true,
   "scripts": {
     "start:e2e_DISABLED": "nuxt build && PORT=44447 node ./.output/server/index.mjs ",
