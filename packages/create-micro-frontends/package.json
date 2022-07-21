@@ -1,7 +1,7 @@
 {
   "name": "create-micro-frontends",
   "version": "0.0.13",
-  "description": "Cli for creating a LEAN micro-frontends project",
+  "description": "Cli for creating a LeanJS micro-frontends project",
   "types": "./dist/index.d.ts",
   "main": "./dist/index.js",
   "author": "Alex Lobera <alex@leanjs.com>",
@@ -22,6 +22,17 @@
   },
   "files": [
     "dist"
+  ],
+  "keywords": [
+    "create",
+    "micro-frontends",
+    "microfrontends",
+    "monorepo",
+    "next",
+    "nuxt",
+    "react",
+    "vue",
+    "turborepo"
   ],
   "dependencies": {
     "copyfiles": "^2.4.1",
