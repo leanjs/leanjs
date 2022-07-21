@@ -1,7 +1,7 @@
 {
   "name": "@leanjs/cli",
   "version": "0.5.2",
-  "description": "Cli for LEAN micro-frontends",
+  "description": "Cli for LeanJS micro-frontends",
   "types": "./dist/index.d.ts",
   "main": "./dist/index.js",
   "author": "Alex Lobera <alex@leanjs.com>",
@@ -21,6 +21,14 @@
   "bin": {
     "lean": "./dist/bin/lean-cli.js"
   },
+  "keywords": [
+    "cli",
+    "micro-frontends",
+    "microfrontends",
+    "deploy",
+    "build",
+    "dev"
+  ],
   "dependencies": {
     "@leanjs/core": "^0.8.1",
     "async-sema": "^3.1.1",

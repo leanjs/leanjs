@@ -1,7 +1,7 @@
 {
   "name": "@leanjs/nuxt",
   "version": "0.1.2",
-  "description": "Micro-frontend tools for Nuxtjs",
+  "description": "Lean micro-frontend tools for Nuxtjs",
   "main": "dist/index.js",
   "module": "dist/index.js",
   "type": "module",
@@ -39,6 +39,11 @@
     "nuxt3": "3.0.0-27313139.1c88580",
     "vue": "^3.0.0"
   },
+  "keywords": [
+    "nuxt",
+    "microfrontends",
+    "micro-frontends"
+  ],
   "publishConfig": {
     "access": "public"
   }
