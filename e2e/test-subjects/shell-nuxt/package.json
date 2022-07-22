@@ -3,8 +3,7 @@
   "version": "0.1.4",
   "private": true,
   "scripts": {
-    "start:e2e_DISABLED": "nuxt build && PORT=44447 node ./.output/server/index.mjs ",
-    "build": "nuxt build",
+    "start:e2e": "nuxt dev --port=44447",
     "dev": "nuxt dev",
     "generate": "nuxt generate",
     "preview": "nuxt preview"

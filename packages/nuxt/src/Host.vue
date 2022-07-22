@@ -23,6 +23,7 @@ import { _ as CoreUtils } from "@leanjs/core";
 import { Mount } from "@leanjs/vue";
 import "./types";
 import mountCache from "./mountCache";
+import { RouteLocationNormalizedLoaded, Router } from "vue-router";
 
 export interface HostProps {
   remote: {
@@ -58,12 +59,16 @@ const cachedMount = mountCache.get(mountKey);
 const mount = ref(cachedMount);
 
 const error = ref<Error | null>(null);
-
-const route = useRoute?.();
-
-const basename = route?.path;
-
-const router = useRouter();
+let route: RouteLocationNormalizedLoaded;
+let router: Router;
+let basename: string;
+try {
+  route = useRoute?.();
+  router = useRouter?.();
+  basename = route?.path;
+} catch (e) {
+  // stops nuxt from crashing when it can't find these on the server
+}
 
 // TODO - confirm whether hash or search include # and ? respectively when fixing nested routing
 const navigate: NavigateFunc = ({ pathname, hash, search = "" }) => {
