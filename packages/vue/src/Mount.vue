@@ -17,6 +17,7 @@
   export interface MountProps extends BasePath {
     mount: MountFunc;
     runtime: Runtime;
+    basename?: string;
     navigate?: NavigateFunc;
     listen?: ListenFunc;
   }
