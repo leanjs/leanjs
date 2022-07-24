@@ -23,7 +23,7 @@ export interface ContextRuntime<State, Prop extends KeyOf<State>> {
   load: <P extends Prop>(
     prop: P,
     loader: () => Promise<State[P]> | State[P]
-  ) => Promise<State[P]>;
+  ) => void;
   loaded: <P extends Prop>(prop: P) => Promise<State[P]>;
   state: State;
   request: Request;

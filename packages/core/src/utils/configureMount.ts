@@ -1,4 +1,5 @@
 import type { ConfigureMount, Cleanup } from "../types";
+import { isObject } from "./index";
 
 const appInitialState = new Map<string, any>();
 const initializedInitialState = new Set<string>();
@@ -47,6 +48,10 @@ export const configureMount: ConfigureMount = ({
           onUnmountedCallbacks.push(callback);
         },
       });
+
+      if (appProps && !isObject(appProps)) {
+        throw new Error(`onBeforeMount must return an object or void`);
+      }
 
       render({ appProps });
 

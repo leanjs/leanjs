@@ -1,6 +1,7 @@
 import waitForExpect from "wait-for-expect";
 
-import { configureRuntime, isPromise } from "./runtime";
+import { configureRuntime } from "./runtime";
+import { isPromise } from "../utils";
 
 interface SharedState {
   locale: string;
@@ -49,9 +50,10 @@ const { createRuntime } = configureRuntime<SharedState>(defaultState)({
   context: {
     eventEmitter,
     gql: new Promise((resolve) => resolve(new FakeGQLClient())),
-    firebase: ({ load }) =>
+    firebase: ({ load, loaded }) =>
       new Promise<FakeFirebase>((resolve) => {
-        load("token", fetchToken).then((token) => {
+        load("token", fetchToken);
+        loaded("token").then((token) => {
           if (token) resolve(new FakeFirebase(token));
         });
       }),
@@ -180,9 +182,10 @@ describe("booted", () => {
           isGqlResolved = true;
           resolve(new FakeGQLClient());
         }),
-        firebase: ({ load }) =>
+        firebase: ({ load, loaded }) =>
           new Promise<FakeFirebase>((resolve) => {
-            load("token", fetchToken).then((token) => {
+            load("token", fetchToken);
+            loaded("token").then((token) => {
               isFirebaseResolved = true;
               if (token) resolve(new FakeFirebase(token));
             });
@@ -203,9 +206,10 @@ describe("booted", () => {
         // empty
       },
       context: {
-        firebase: ({ load }) =>
+        firebase: ({ load, loaded }) =>
           new Promise<FakeFirebase>((resolve) => {
-            load("token", fetchToken).then((token) => {
+            load("token", fetchToken);
+            loaded("token").then((token) => {
               isFirebaseResolved = true;
               if (token) resolve(new FakeFirebase(token));
             });
@@ -228,9 +232,10 @@ describe("booted", () => {
         // empty
       },
       context: {
-        firebase: ({ load }) =>
+        firebase: ({ load, loaded }) =>
           new Promise<FakeFirebase>((resolve) => {
-            load("token", fetchToken).then((token) => {
+            load("token", fetchToken);
+            loaded("token").then((token) => {
               isFirebaseResolved = true;
               if (token) resolve(new FakeFirebase(token));
             });
@@ -472,9 +477,10 @@ describe("context", () => {
         // empty
       },
       context: {
-        firebase: ({ load }) =>
+        firebase: ({ load, loaded }) =>
           new Promise<FakeFirebase>((resolve) => {
-            load("token", fetchToken).then((token) => {
+            load("token", fetchToken);
+            loaded("token").then((token) => {
               firebaseResolvedCounter++;
               if (token) resolve(new FakeFirebase(token));
             });

@@ -37,3 +37,9 @@ export interface GetRemotePathArgs {
 export function getRemoteBasename({ packageName, version }: GetRemotePathArgs) {
   return `/${createRemoteName(packageName)}/${version}`;
 }
+
+export const isPromise = (arg?: any): arg is Promise<any> =>
+  ({}.toString.call(arg) === "[object Promise]");
+
+export const isObject = (data: any) =>
+  ({}.toString.call(data) === "[object Object]");
