@@ -2,11 +2,10 @@
   <Mount
     v-if="mount && runtime && !error"
     :mount="mount"
-    :navigate="navigate"
     :listen="listen"
     :basename="basename"
     :pathname="props.pathname"
-    :runtime="runtime"
+  :runtime="runtime"
   />
   <div v-if="error">
     <slot name="error" :error="error">Error: {{ error }}</slot>
@@ -69,11 +68,6 @@ try {
 } catch (e) {
   // stops nuxt from crashing when it can't find these on the server
 }
-
-// TODO - confirm whether hash or search include # and ? respectively when fixing nested routing
-const navigate: NavigateFunc = ({ pathname, hash, search = "" }) => {
-  router.push({ path: `${pathname}${hash}${search}` });
-};
 
 const listen: ListenFunc = (listener) => {
   const routeAfterEachOff = router.afterEach((to) => {
