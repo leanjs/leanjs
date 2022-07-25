@@ -11,21 +11,21 @@ describe("Nuxtjs shell: loading", () => {
     }).as("remoteEntry");
   });
 
-  it.skip("displays a default loading component", () => {
+  it("displays a default loading component", () => {
     cy.contains("Loading...").should("not.exist");
     cy.visit("http://localhost:44447");
     cy.contains("Vue page").click();
     cy.contains("Loading...").should("be.visible");
   });
 
-  it.skip("displays a custom loading component", () => {
+  it("displays a custom loading component", () => {
     cy.visit("http://localhost:44447");
     cy.contains("Custom page").click();
     cy.contains("Loading...").should("not.exist");
     cy.contains("Loading Micro-frontend").should("be.visible");
   });
 
-  it.skip("doesn't display a loading component the second time the remote app is displayed", () => {
+  it("doesn't display a loading component the second time the remote app is displayed", () => {
     cy.visit("http://localhost:44447");
     cy.contains("Vue page").click();
     cy.contains("Loading...").should("be.visible");
