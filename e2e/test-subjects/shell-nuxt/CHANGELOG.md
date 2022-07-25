@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.1.5](https://github.com/leanjs/leanjs/compare/@leanjs/e2e-test-subjects-shell-nuxt@0.1.4...@leanjs/e2e-test-subjects-shell-nuxt@0.1.5) (2022-07-25)
+
+
+### Bug Fixes
+
+* **nuxt-build:** make some changes to improve nuxt e2e tests to make them less flaky ([d42fa71](https://github.com/leanjs/leanjs/commit/d42fa71229fb0e1b0195f4bc21ba54c88220acaf))
+
+
+
+
+
 ## [0.1.4](https://github.com/leanjs/leanjs/compare/@leanjs/e2e-test-subjects-shell-nuxt@0.1.3...@leanjs/e2e-test-subjects-shell-nuxt@0.1.4) (2022-07-21)
 
 **Note:** Version bump only for package @leanjs/e2e-test-subjects-shell-nuxt

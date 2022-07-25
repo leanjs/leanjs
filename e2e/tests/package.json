@@ -1,7 +1,7 @@
 {
   "name": "@leanjs/e2e-tests",
   "private": true,
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "End-to-end tests for LeanJS",
   "license": "MIT",
   "scripts": {
