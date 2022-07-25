@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.4.0](https://github.com/leanjs/leanjs/compare/@leanjs/vue@0.3.2...@leanjs/vue@0.4.0) (2022-07-25)
+
+
+### Features
+
+* **nuxt-routing:** pass basename correctly and add readme on limitations of nuxt routing ([d958c2c](https://github.com/leanjs/leanjs/commit/d958c2c5c8dd6cd2c439e206211c5f24cd35f08e))
+
+
+
+
+
 ## [0.3.2](https://github.com/leanjs/leanjs/compare/@leanjs/vue@0.3.1...@leanjs/vue@0.3.2) (2022-07-21)
 
 **Note:** Version bump only for package @leanjs/vue

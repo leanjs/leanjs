@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.2.0](https://github.com/leanjs/leanjs/compare/@leanjs/e2e-test-subjects-shell-nuxt@0.1.5...@leanjs/e2e-test-subjects-shell-nuxt@0.2.0) (2022-07-25)
+
+
+### Features
+
+* **nuxt-routing:** pass basename correctly and add readme on limitations of nuxt routing ([d958c2c](https://github.com/leanjs/leanjs/commit/d958c2c5c8dd6cd2c439e206211c5f24cd35f08e))
+
+
+
+
+
 ## [0.1.5](https://github.com/leanjs/leanjs/compare/@leanjs/e2e-test-subjects-shell-nuxt@0.1.4...@leanjs/e2e-test-subjects-shell-nuxt@0.1.5) (2022-07-25)
 
 
