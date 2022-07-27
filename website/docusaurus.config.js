@@ -36,6 +36,7 @@ const config = {
           editUrl: "https://github.com/leanjs/leanjs/edit/main/docs/",
           path: "../docs",
           routeBasePath: "/",
+          sidebarPath: "sidebars.js",
         },
         theme: {
           customCss: require.resolve("./src/css/custom.css"),
@@ -65,7 +66,6 @@ const config = {
           /** @type {{ docs: { id: string; sourceDirName: string; }[]; }} */ items
         ) => {
           return items.docs
-            .filter((a) => a.id !== "runtime/README")
             .sort((a, b) =>
               a.sourceDirName < b.sourceDirName
                 ? -1
@@ -73,11 +73,20 @@ const config = {
                 ? 1
                 : 0
             )
-            .map(({ id, sourceDirName }) => ({
-              label: sourceDirName,
-              id,
-              type: "doc",
-            }));
+            .reduce((acc, { id, sourceDirName }) => {
+              const item = {
+                label: sourceDirName,
+                id,
+                type: "doc",
+              };
+              if (id === "runtime/README") {
+                return acc;
+              } else if (id === "create-micro-frontends/README") {
+                return [item, ...acc];
+              } else {
+                return [...acc, item];
+              }
+            }, []);
         },
       },
     ],
@@ -95,7 +104,7 @@ const config = {
         items: [
           {
             type: "doc",
-            docId: "intro",
+            docId: "introduction",
             position: "left",
             label: "Docs",
           },
