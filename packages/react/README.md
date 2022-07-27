@@ -1,6 +1,6 @@
 # @leanjs/react
 
-This package contains React bindings for the shared `runtime`.
+This package contains React bindings for a `runtime`. These React bindings provide idiomatic type-safe access to your LeanJS `runtime`.
 
 # Installation
 
@@ -8,20 +8,24 @@ This package contains React bindings for the shared `runtime`.
 
 # Usage
 
-First, you must create custom bindings for your LeanJS `runtime`. This will add type-safety to your React hooks and components based on your LeanJS `runtime`.
+First, you must create your custom React bindings for your `runtime`.
 
 ```ts
 // shared-runtime.ts
+
+// 1. Configure your runtime
 
 const defaultState = {
   locale: "en", // define your default state accordingly, this is just an example
 };
 
-// configureRuntime is a generic function (if you use TypeScript),
-// handy if the state types that you want don't match the inferred types from defaultState
+// configureRuntime is a generic TypeScript function. You can pass a type to it
+// if the types of your shared state don't match the inferred types from defaultState
 export const { createRuntime } = configureRuntime(defaultState)({
   onError: () => {}, // add a proper logger here
 });
+
+// 2. Create bindings for your runtime
 
 export const {
   useGetter,
@@ -29,20 +33,29 @@ export const {
   useLoading,
   useError,
   useRuntime,
-  RuntimeProvider,
+  HostProvider,
 } = createRuntimeBindings(createRuntime);
+
+// ⚠️ We recommend to split in two different packages the logic of
+// configuring your runtime and creating its React bindings.
+// For sake of simplicity it's in one file shared-runtime.ts in this example.
 ```
 
-Add a `RuntimeProvider` at the root of your component tree, e.g.
+Add a `HostProvider` at the root of your component tree, e.g.
 
 ```tsx
 // It's recommended to move your ./shared-runtime file to its own package
-import { createRuntime, RuntimeProvider } from "./shared-runtime";
+import { createRuntime, HostProvider } from "./shared-runtime";
 
 const runtime = createRuntime();
+const origin = process.env.LEAN_ORIGIN; // e.g. http://localhost:55555
 
 export function App({ children }) {
-  return <RuntimeProvider runtime={runtime}>{children}</RuntimeProvider>;
+  return (
+    <HostProvider origin={origin} runtime={runtime}>
+      {children}
+    </HostProvider>
+  );
 }
 ```
 
@@ -181,20 +194,30 @@ export function ThemeSelector() {
 }
 ```
 
-### `RuntimeProvider`
+### `HostProvider`
 
-Component to set a `runtime` in the context. It has one required property `runtime`.
+It sets in the React context values that are shared across micro-frontends in the same component tree. Props:
+
+- `runtime: Runtime`, required. Your LeanJS `runtime`.
+- `origin: string`, required. [Origin](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Origin) where your micro-frontends are. For development, use the address where you run your Lean [centralized dev server](/packages/cli#centralized-dev-server), e.g. `http://localhost:55555`. Use the address of your CDN in production, e.g. `https://cdn.my-product.com`.
+- `errorComponent`, optional.
+- `loadingComponent`, optional.
 
 Example:
 
 ```tsx
 // where does shared-runtime come from? Read the "Usage" section at the top
-import { createRuntime, RuntimeProvider } from "./shared-runtime";
+import { createRuntime, HostProvider } from "./shared-runtime";
 
 const runtime = createRuntime();
+const origin = process.env.LEAN_ORIGIN; // e.g. http://localhost:55555
 
 export function App({ children }) {
-  return <RuntimeProvider runtime={runtime}>{children}</RuntimeProvider>;
+  return (
+    <HostProvider origin={LEAN_ORIGIN} runtime={runtime}>
+      {children}
+    </HostProvider>
+  );
 }
 ```
 
@@ -208,7 +231,7 @@ Example:
 // where does shared-runtime come from? Read the "Usage" section at the top
 import { useRuntime } from "./shared-runtime";
 
-// RuntimeProvider must be an ancestor of the following component
+// HostProvider must be an ancestor of the following component
 export function Component() {
   const runtime = useRuntime(); // do something with runtime
 
