@@ -3,7 +3,7 @@ slug: /
 title: Introduction
 ---
 
-LeanJS is a **stack of solutions for adopting and scaling micro-frontends**. These solutions integrate with existing technology, and they are grouped in the following 6 layers:
+LeanJS is a **stack of solutions for adopting and scaling micro-frontends**. These solutions integrate with existing technology, and they are grouped in the following six layers:
 
 ```
 ┌────────────────────┐
