@@ -12,7 +12,7 @@ to: <%= h.inflection.dasherize(projectName) %>/shell/package.json
     "@leanjs/next": "*",
     "@<%=h.inflection.dasherize(projectName)%>/runtime-react": "*",
     "cors": "^2.8.5",
-    "next": "12.1.1",
+    "next": "12.2.0",
     "react": "*",
     "react-dom": "*"
   },
