@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.0.4](https://github.com/leanjs/leanjs/compare/@leanjs/website@0.0.3...@leanjs/website@0.0.4) (2022-07-28)
+
+
+### Bug Fixes
+
+* **website:** build folder ([0061040](https://github.com/leanjs/leanjs/commit/00610400c97b02e6b110fb9088dc5abf818a6994))
+
+
+
+
+
 ## [0.0.3](https://github.com/leanjs/leanjs/compare/@leanjs/website@0.0.2...@leanjs/website@0.0.3) (2022-07-27)
 
 
