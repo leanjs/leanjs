@@ -34,7 +34,7 @@ to: <%= h.inflection.dasherize(projectName) %>/package.json
     "@leanjs/core": "0.6.1",
     "@leanjs/next": "0.1.17",
     "@leanjs/react": "0.2.13",
-    "@leanjs/react-router": "0.3.9",
+    "@leanjs/react-router": "0.3.15",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "react-router-dom": "^6.3.0"
