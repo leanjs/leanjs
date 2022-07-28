@@ -47,7 +47,7 @@ Micro-frontends don't solve technical problems, they solve people problems.
 
 ## You may not need LeanJS
 
-Micro-frontends help break up Web-based products into smaller independent ones that can be developed, built, and run by small independent groups of people.
+Micro-frontends help break up Web-based products into smaller independent ones that can be developed, deployed, and run by small independent groups of people.
 
 That's typically a requirement when an organisation wants to develop more features faster but incrementing the number of engineers contributing to a product doesn't increment the output proportionally. In other words, they fail to scale people.
 
