@@ -17,7 +17,7 @@ to: <%= h.inflection.dasherize(projectName) %>/shell/package.json
     "react-dom": "*"
   },
   "peerDependencies": {
-    "@leanjs/webpack": "*",
+    "@leanjs/webpack": "*"
   },
   "devDependencies": {
     "@types/cors": "^2.8.12",
