@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.2.8](https://github.com/leanjs/leanjs/compare/@leanjs/aws@0.2.7...@leanjs/aws@0.2.8) (2022-07-28)
+
+
+### Bug Fixes
+
+* **create-micro-frontend:** update versions ([1418732](https://github.com/leanjs/leanjs/commit/141873236e8209a5272604814562f054c9e99ece))
+
+
+
+
+
 ## [0.2.7](https://github.com/leanjs/leanjs/compare/@leanjs/aws@0.2.6...@leanjs/aws@0.2.7) (2022-07-28)
 
 **Note:** Version bump only for package @leanjs/aws
