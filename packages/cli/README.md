@@ -85,7 +85,7 @@ This argument is **optional**. It will run a development server for your micro-f
 lean dev --port 56567 --config react
 ```
 
-### `build`
+### `lean build`
 
 It builds the micro-frontend where the `package.json` that ran `build` is.
 
@@ -99,7 +99,7 @@ This argument is **requried**. The NAME passed to config must match a config nam
 lean dev --config reactConfig1
 ```
 
-### `deploy`
+### `lean deploy`
 
 It deploys the micro-frontend where the `package.json` that ran `deploy` is.
 

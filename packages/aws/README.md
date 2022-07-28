@@ -49,4 +49,4 @@ You must define the following environment variables in your CI/CD:
 - `AWS_SECRET_ACCESS_KEY`, required
 - `AWS_S3_BUCKET`, required
 - `AWS_REGION`, required
-- `CLOUDFRONT_DISTRIBUTION_ID`, recommended
+- `CLOUDFRONT_DISTRIBUTION_ID`, optional

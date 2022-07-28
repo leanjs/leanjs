@@ -1,6 +1,6 @@
 # @leanjs/react
 
-This package contains React bindings for a `runtime`. These React bindings provide idiomatic type-safe access to your LeanJS `runtime`.
+This package contains React bindings for [@leanjs/core](https://github.com/leanjs/leanjs/tree/main/packages/core) `runtime`. These React bindings provide idiomatic type-safe access to your LeanJS `runtime`.
 
 # Installation
 
