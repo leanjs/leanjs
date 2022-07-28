@@ -7,10 +7,11 @@ to: <%= h.inflection.dasherize(projectName) %>/packages/runtime-react/package.js
   "description": "",
   "main": "./src/index.ts",
   "types": "./src/index.ts",
-  "author": "",
   "license": "MIT",
+  "peerDependencies": {
+    "@leanjs/react": "*"
+  },
   "dependencies": {
-    "@leanjs/react": "*",
     "@<%=h.inflection.dasherize(projectName)%>/runtime-shared": "*"
   }
 }

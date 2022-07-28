@@ -10,12 +10,14 @@ to: <%= h.inflection.dasherize(projectName) %>/micro-frontends/<%= h.inflection.
   },
   "author": "",
   "license": "MIT",
-  "dependencies": {
+  "peerDependencies": {
     "@leanjs/react-router": "*",
-    "@<%=h.inflection.dasherize(projectName)%>/runtime-react": "*",
     "react": "*",
     "react-dom": "*",
     "react-router-dom": "*"
+  },
+  "dependencies": {
+    "@<%=h.inflection.dasherize(projectName)%>/runtime-react": "*"
   },
   "devDependencies": {
     "@leanjs/cli": "*"

@@ -7,9 +7,8 @@ to: <%= h.inflection.dasherize(projectName) %>/packages/runtime-shared/package.j
   "description": "",
   "main": "./src/index.ts",
   "types": "./src/index.ts",
-  "author": "",
   "license": "MIT",
-  "dependencies": {
+  "peerDependencies": {
     "@leanjs/core": "*"
   }
 }
