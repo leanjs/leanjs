@@ -1,6 +1,6 @@
 {
   "name": "@leanjs/react",
-  "version": "0.2.18",
+  "version": "0.2.19",
   "author": "Alex Lobera <alex@leanjs.com>",
   "description": "Create your own React bindings for LeanJS Runtime",
   "types": "./dist/index.d.ts",
@@ -26,7 +26,7 @@
     "react": "^17.0.2"
   },
   "dependencies": {
-    "@leanjs/core": "^0.8.1"
+    "@leanjs/core": "^0.8.2"
   },
   "scripts": {
     "test": "jest",
