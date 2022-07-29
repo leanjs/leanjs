@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.1.0](https://github.com/leanjs/leanjs/compare/@leanjs/e2e-test-subjects-remote-react-redux@1.0.21...@leanjs/e2e-test-subjects-remote-react-redux@1.1.0) (2022-07-29)
+
+
+### Features
+
+* **react:** add createRemote ([69c27b8](https://github.com/leanjs/leanjs/commit/69c27b80d5e4faa7fdb7dbed29c9b315676a46f2))
+
+
+
+
+
 ## [1.0.21](https://github.com/leanjs/leanjs/compare/@leanjs/e2e-test-subjects-remote-react-redux@1.0.20...@leanjs/e2e-test-subjects-remote-react-redux@1.0.21) (2022-07-28)
 
 **Note:** Version bump only for package @leanjs/e2e-test-subjects-remote-react-redux

@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.3.16](https://github.com/leanjs/leanjs/compare/@leanjs/react-router@0.3.15...@leanjs/react-router@0.3.16) (2022-07-29)
+
+**Note:** Version bump only for package @leanjs/react-router
+
+
+
+
+
 ## [0.3.15](https://github.com/leanjs/leanjs/compare/@leanjs/react-router@0.3.14...@leanjs/react-router@0.3.15) (2022-07-28)
 
 **Note:** Version bump only for package @leanjs/react-router

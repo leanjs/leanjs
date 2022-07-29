@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.4.0](https://github.com/leanjs/leanjs/compare/@leanjs/e2e-test-subjects-cli-react@1.3.12...@leanjs/e2e-test-subjects-cli-react@1.4.0) (2022-07-29)
+
+
+### Features
+
+* **react:** add createRemote ([69c27b8](https://github.com/leanjs/leanjs/commit/69c27b80d5e4faa7fdb7dbed29c9b315676a46f2))
+
+
+
+
+
 ## [1.3.12](https://github.com/leanjs/leanjs/compare/@leanjs/e2e-test-subjects-cli-react@1.3.11...@leanjs/e2e-test-subjects-cli-react@1.3.12) (2022-07-28)
 
 **Note:** Version bump only for package @leanjs/e2e-test-subjects-cli-react

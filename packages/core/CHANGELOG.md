@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.9.0](https://github.com/leanjs/leanjs/compare/@leanjs/core@0.8.2...@leanjs/core@0.9.0) (2022-07-29)
+
+
+### Features
+
+* **react:** add createRemote ([69c27b8](https://github.com/leanjs/leanjs/commit/69c27b80d5e4faa7fdb7dbed29c9b315676a46f2))
+
+
+
+
+
 ## [0.8.2](https://github.com/leanjs/leanjs/compare/@leanjs/core@0.8.1...@leanjs/core@0.8.2) (2022-07-28)
 
 **Note:** Version bump only for package @leanjs/core

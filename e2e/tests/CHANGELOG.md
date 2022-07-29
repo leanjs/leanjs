@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.2.0](https://github.com/leanjs/leanjs/compare/@leanjs/e2e-tests@0.1.2...@leanjs/e2e-tests@0.2.0) (2022-07-29)
+
+
+### Features
+
+* **react:** add createRemote ([69c27b8](https://github.com/leanjs/leanjs/commit/69c27b80d5e4faa7fdb7dbed29c9b315676a46f2))
+
+
+
+
+
 ## [0.1.2](https://github.com/leanjs/leanjs/compare/@leanjs/e2e-tests@0.1.1...@leanjs/e2e-tests@0.1.2) (2022-07-25)
 
 

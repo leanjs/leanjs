@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.11.8](https://github.com/leanjs/leanjs/compare/@leanjs/webpack@0.11.7...@leanjs/webpack@0.11.8) (2022-07-29)
+
+**Note:** Version bump only for package @leanjs/webpack
+
+
+
+
+
 ## [0.11.7](https://github.com/leanjs/leanjs/compare/@leanjs/webpack@0.11.6...@leanjs/webpack@0.11.7) (2022-07-28)
 
 **Note:** Version bump only for package @leanjs/webpack
