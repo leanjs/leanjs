@@ -42,7 +42,7 @@ interface VueRouterConfig {
   linkExactActiveClass?: string;
 }
 interface CreateRemoteVueConfig extends CreateRemoteConfig {
-  router: VueRouterConfig;
+  router?: VueRouterConfig;
 }
 
 export const createRemote =
