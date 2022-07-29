@@ -15,8 +15,7 @@ import type {
   Unsubscribe,
 } from "./types";
 
-export const isPromise = (arg?: any): arg is Promise<any> =>
-  typeof arg?.then === "function";
+import { isPromise } from "../utils";
 
 const createRuntime =
   <

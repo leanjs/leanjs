@@ -1,5 +1,6 @@
-export const isObject = (data: any) =>
-  ({}.toString.call(data) === "[object Object]" && data !== null);
+import { _ as CoreUtils } from "@leanjs/core";
+
+const { isObject } = CoreUtils;
 
 export function shallowCopy(data: any) {
   if (Array.isArray(data)) {
