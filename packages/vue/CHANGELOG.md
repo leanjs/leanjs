@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.4.3](https://github.com/leanjs/leanjs/compare/@leanjs/vue@0.4.2...@leanjs/vue@0.4.3) (2022-07-29)
+
+
+### Bug Fixes
+
+* **core:** runtime.load should return void ([d77154e](https://github.com/leanjs/leanjs/commit/d77154e1442189113af2c48423e7b19235e2fe09))
+
+
+
+
+
 ## [0.4.2](https://github.com/leanjs/leanjs/compare/@leanjs/vue@0.4.1...@leanjs/vue@0.4.2) (2022-07-29)
 
 **Note:** Version bump only for package @leanjs/vue

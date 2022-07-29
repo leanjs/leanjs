@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.9.1](https://github.com/leanjs/leanjs/compare/@leanjs/core@0.9.0...@leanjs/core@0.9.1) (2022-07-29)
+
+
+### Bug Fixes
+
+* **core:** runtime.load should return void ([d77154e](https://github.com/leanjs/leanjs/commit/d77154e1442189113af2c48423e7b19235e2fe09))
+
+
+
+
+
 # [0.9.0](https://github.com/leanjs/leanjs/compare/@leanjs/core@0.8.2...@leanjs/core@0.9.0) (2022-07-29)
 
 
