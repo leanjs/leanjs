@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.2.25](https://github.com/leanjs/leanjs/compare/@leanjs/e2e-test-subjects-remote-vue-1@1.2.24...@leanjs/e2e-test-subjects-remote-vue-1@1.2.25) (2022-07-29)
+
+**Note:** Version bump only for package @leanjs/e2e-test-subjects-remote-vue-1
+
+
+
+
+
 ## [1.2.24](https://github.com/leanjs/leanjs/compare/@leanjs/e2e-test-subjects-remote-vue-1@1.2.23...@leanjs/e2e-test-subjects-remote-vue-1@1.2.24) (2022-07-29)
 
 **Note:** Version bump only for package @leanjs/e2e-test-subjects-remote-vue-1

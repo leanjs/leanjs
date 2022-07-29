@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.1.26](https://github.com/leanjs/leanjs/compare/@leanjs/vue-router@0.1.25...@leanjs/vue-router@0.1.26) (2022-07-29)
+
+
+### Bug Fixes
+
+* **vue-router:** make router optional in createRemote ([0fb690a](https://github.com/leanjs/leanjs/commit/0fb690ac4942aa89f02d3d6c521cb43238a76ebd))
+
+
+
+
+
 ## [0.1.25](https://github.com/leanjs/leanjs/compare/@leanjs/vue-router@0.1.24...@leanjs/vue-router@0.1.25) (2022-07-29)
 
 **Note:** Version bump only for package @leanjs/vue-router
