@@ -118,7 +118,7 @@ export interface ConfigureMountArgs<
   isSelfHosted: boolean;
   onBeforeMount?: (args: OnBeforeMountArgs<MyRuntime>) => MyAppProps;
   initialState?: any;
-  cleanups: Cleanup[];
+  cleanups?: Cleanup[];
   log?: (error: any) => void;
 }
 
