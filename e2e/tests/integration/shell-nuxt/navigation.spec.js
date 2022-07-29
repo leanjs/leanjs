@@ -8,7 +8,7 @@ describe("Nextjs shell: navigation", () => {
     cy.contains("h1", "React micro-app 1").should("be.visible");
   });
 
-  it("navigates from a remote React app to another page in the shell and back", () => {
+  it.skip("navigates from a remote React app to another page in the shell and back", () => {
     cy.visit("http://localhost:44447");
     cy.contains("a", "Vue page").click();
 

@@ -1,4 +1,4 @@
-import { createRemote } from "@leanjs/react-router";
+import { createRemote } from "@leanjs/react";
 
 import { App } from "./components/App";
 

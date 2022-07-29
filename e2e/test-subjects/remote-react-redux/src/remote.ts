@@ -1,4 +1,4 @@
-import { createRemote } from "@leanjs/react-router";
+import { createRemote } from "@leanjs/react";
 import { createRuntime } from "@leanjs/e2e-test-subjects-package-runtime-shared";
 import { configureStore } from "./store";
 import { App } from "./App";
