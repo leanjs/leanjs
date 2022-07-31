@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.13.1](https://github.com/leanjs/leanjs/compare/@leanjs/webpack@0.13.0...@leanjs/webpack@0.13.1) (2022-07-31)
+
+
+### Bug Fixes
+
+* **webpack:** host shared version merges implicit shared versions ([443102a](https://github.com/leanjs/leanjs/commit/443102a75e35c71bfce299bca0fe61cdbd79d238))
+
+
+
+
+
 # [0.13.0](https://github.com/leanjs/leanjs/compare/@leanjs/webpack@0.12.0...@leanjs/webpack@0.13.0) (2022-07-31)
 
 
