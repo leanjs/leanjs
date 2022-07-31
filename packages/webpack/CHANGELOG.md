@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.13.0](https://github.com/leanjs/leanjs/compare/@leanjs/webpack@0.12.0...@leanjs/webpack@0.13.0) (2022-07-31)
+
+
+### Features
+
+* **webpack:** add shared deps automatically to host plugin ([b76f4d0](https://github.com/leanjs/leanjs/commit/b76f4d0f840246af05996c90799595c34f27643a))
+
+
+
+
+
 # [0.12.0](https://github.com/leanjs/leanjs/compare/@leanjs/webpack@0.11.9...@leanjs/webpack@0.12.0) (2022-07-31)
 
 
