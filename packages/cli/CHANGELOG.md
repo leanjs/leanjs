@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.6.0](https://github.com/leanjs/leanjs/compare/@leanjs/cli@0.5.7...@leanjs/cli@0.6.0) (2022-07-31)
+
+
+### Features
+
+* **webpack:** generate shared deps based on monorepo ([31976ab](https://github.com/leanjs/leanjs/commit/31976abbdb01fafa45471a517ffff8e4e4761aa4))
+
+
+
+
+
 ## [0.5.7](https://github.com/leanjs/leanjs/compare/@leanjs/cli@0.5.6...@leanjs/cli@0.5.7) (2022-07-29)
 
 **Note:** Version bump only for package @leanjs/cli

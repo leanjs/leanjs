@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.1.0](https://github.com/leanjs/leanjs/compare/@leanjs/e2e-test-subjects-package-runtime-react@1.0.18...@leanjs/e2e-test-subjects-package-runtime-react@1.1.0) (2022-07-31)
+
+
+### Features
+
+* **webpack:** generate shared deps based on monorepo ([31976ab](https://github.com/leanjs/leanjs/commit/31976abbdb01fafa45471a517ffff8e4e4761aa4))
+
+
+
+
+
 ## [1.0.18](https://github.com/leanjs/leanjs/compare/@leanjs/e2e-test-subjects-package-runtime-react@1.0.17...@leanjs/e2e-test-subjects-package-runtime-react@1.0.18) (2022-07-29)
 
 **Note:** Version bump only for package @leanjs/e2e-test-subjects-package-runtime-react

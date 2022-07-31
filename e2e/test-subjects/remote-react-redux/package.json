@@ -1,7 +1,7 @@
 {
   "name": "@leanjs/e2e-test-subjects-remote-react-redux",
   "private": true,
-  "version": "1.1.1",
+  "version": "1.1.2",
   "description": "",
   "scripts": {
     "start:e2e": "NODE_ENV=development node ../../../packages/cli/dist/bin/lean-cli dev --config=react --port=44448"
@@ -10,7 +10,7 @@
   "license": "MIT",
   "dependencies": {
     "@leanjs/e2e-test-subjects-package-runtime-shared": "^1.0.18",
-    "@leanjs/react": "^0.3.1",
+    "@leanjs/react": "^0.4.0",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "react-redux": "^8.0.2",
