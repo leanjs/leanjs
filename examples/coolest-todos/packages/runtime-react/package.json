@@ -6,8 +6,10 @@
   "types": "./src/index.ts",
   "author": "",
   "license": "MIT",
+  "peerDependencies": {
+    "@leanjs/react": "*"
+  },
   "dependencies": {
-    "@leanjs/react": "*",
     "@my-org/runtime-shared": "*"
   }
 }

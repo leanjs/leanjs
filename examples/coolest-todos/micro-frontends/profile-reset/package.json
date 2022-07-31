@@ -5,11 +5,13 @@
     "dev": "lean dev --config=vue",
     "build": "lean build --config=vue"
   },
-  "dependencies": {
+  "peerDependencies": {
     "@leanjs/vue-router": "*",
-    "@my-org/user": "*",
+    "vue": "*"
+  },
+  "dependencies": {
     "@my-org/runtime-vue": "*",
-    "vue": "^3.0.0"
+    "@my-org/user": "*"
   },
   "author": "Alex Lobera <alex@leanjs.com>",
   "license": "MIT",

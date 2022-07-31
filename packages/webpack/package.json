@@ -15,7 +15,8 @@
     "prebuild": "del-cli dist",
     "copy:assets": "copyfiles src/index.html dist",
     "transpile": "tsc --outDir dist --project ./tsconfig.json",
-    "build": "yarn transpile && yarn copy:assets"
+    "build": "yarn transpile && yarn copy:assets",
+    "test": "jest"
   },
   "files": [
     "dist"
@@ -36,7 +37,8 @@
     "webpack-virtual-modules": "^0.4.3"
   },
   "devDependencies": {
-    "copyfiles": "^2.4.1"
+    "copyfiles": "^2.4.1",
+    "fast-glob": "^3.2.11"
   },
   "keywords": [
     "webpack",
