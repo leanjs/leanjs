@@ -5,14 +5,16 @@
   "scripts": {
     "dev": "NODE_OPTIONS='--inspect' next dev -p 3001"
   },
-  "dependencies": {
+  "peerDependencies": {
     "@leanjs/next": "*",
+    "cors": "*",
+    "next": "*",
+    "react": "*",
+    "react-dom": "*"
+  },
+  "dependencies": {
     "@my-org/runtime-react": "*",
-    "@my-org/user": "*",
-    "cors": "^2.8.5",
-    "next": "12.1.1",
-    "react": "17.0.2",
-    "react-dom": "17.0.2"
+    "@my-org/user": "*"
   },
   "devDependencies": {
     "@leanjs/webpack": "*",
@@ -20,7 +22,6 @@
     "@types/node": "^17.0.23",
     "@types/react": "^17.0.30",
     "next-transpile-modules": "^9.0.0",
-    "typescript": "^4.4.4",
-    "webpack": "^5.58.2"
+    "typescript": "^4.4.4"
   }
 }

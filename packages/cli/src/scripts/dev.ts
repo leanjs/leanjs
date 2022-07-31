@@ -6,7 +6,7 @@ import chalk from "chalk";
 
 import { getPackageInfo } from "../utils/packageJson";
 import { startDevProxyServer } from "../utils/devProxyServer";
-import { findLeanConfigSync, getWebpackConfig } from "../utils/leanConfig";
+import { findRootConfigSync, getWebpackConfig } from "../utils/leanConfig";
 import { createBundlerCommand, exitError } from "../utils/command";
 
 const program = createBundlerCommand().option(
@@ -18,7 +18,7 @@ program.parse(process.argv);
 
 async function dev() {
   const { packageName } = getPackageInfo();
-  const leanConfig = findLeanConfigSync();
+  const { leanConfig } = findRootConfigSync();
   if (!leanConfig) {
     exitError(chalk.red(`No lean.config.js found.`));
   }

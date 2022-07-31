@@ -5,7 +5,7 @@ import { emptyDirSync } from "fs-extra";
 import createCompiler from "webpack";
 
 import { getPackageInfo } from "../utils/packageJson";
-import { findLeanConfigSync, getWebpackConfig } from "../utils/leanConfig";
+import { findRootConfigSync, getWebpackConfig } from "../utils/leanConfig";
 import { createBundlerCommand, exitError } from "../utils/command";
 import { getOutputPath } from "../utils/path";
 
@@ -13,7 +13,7 @@ const command = createBundlerCommand();
 command.parse(process.argv);
 
 const { packageName } = getPackageInfo();
-const leanConfig = findLeanConfigSync();
+const { leanConfig } = findRootConfigSync();
 if (!leanConfig) {
   exitError(chalk.red(`No lean.config.js found.`));
 }

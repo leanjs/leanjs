@@ -6,8 +6,8 @@
   "types": "./src/index.ts",
   "author": "",
   "license": "MIT",
-  "dependencies": {
+  "peerDependencies": {
     "@leanjs/core": "*",
-    "pusher-js": "^7.0.6"
+    "pusher-js": "*"
   }
 }

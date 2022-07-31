@@ -9,5 +9,8 @@
   "license": "MIT",
   "dependencies": {
     "@leanjs/e2e-test-subjects-package-runtime-shared": "^1.0.18"
+  },
+  "devDependencies": {
+    "@types/react": "^17.0.41"
   }
 }

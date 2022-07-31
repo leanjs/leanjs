@@ -7,7 +7,7 @@ import { _ as CoreUtils } from "@leanjs/core";
 import { getPackageInfo } from "../utils/packageJson";
 import { createCommand, exitError } from "../utils/command";
 import { getOutputPath } from "../utils/path";
-import { findLeanConfigSync } from "../utils/leanConfig";
+import { findRootConfigSync } from "../utils/leanConfig";
 
 const { getRemoteBasename } = CoreUtils;
 
@@ -25,7 +25,7 @@ command
 command.parse(process.argv);
 
 const { packageName, packageVersion } = getPackageInfo();
-const leanConfig = findLeanConfigSync();
+const { leanConfig } = findRootConfigSync();
 const outputPath = getOutputPath();
 
 if (!(readdirSync(outputPath)?.length > 0)) {

@@ -4,6 +4,7 @@ build
 
 # dependencies
 node_modules
+!packages/webpack/mocks/monorepo/**/node_modules
 package-lock.json
 test/node_modules
 /.pnp

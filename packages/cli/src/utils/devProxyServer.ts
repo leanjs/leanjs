@@ -9,7 +9,7 @@ import { Sema } from "async-sema";
 import chalk from "chalk";
 import type { Server } from "http";
 
-import { findLeanConfigSync } from "./leanConfig";
+import { findRootConfigSync } from "./leanConfig";
 
 const { createRemoteName } = CoreUtils;
 const hashtable = new Map();
@@ -25,8 +25,8 @@ export function startDevProxyServer(): Promise<{
   };
 }> {
   let devServer: Server | undefined;
-  const config = findLeanConfigSync();
-  const configDevServerPort = config?.devServer?.port;
+  const { leanConfig } = findRootConfigSync();
+  const configDevServerPort = leanConfig?.devServer?.port;
   if (!configDevServerPort) {
     console.warn(
       `No devServer port found in lean.config.js. Using default value ${defaultDevServerPort}`

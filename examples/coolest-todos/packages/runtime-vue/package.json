@@ -6,8 +6,10 @@
   "types": "./src/index.ts",
   "author": "",
   "license": "MIT",
+  "peerDependencies": {
+    "@leanjs/vue": "*"
+  },
   "dependencies": {
-    "@leanjs/vue": "*",
     "@my-org/runtime-shared": "*"
   }
 }

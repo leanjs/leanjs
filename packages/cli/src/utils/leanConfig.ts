@@ -4,34 +4,67 @@ import chalk from "chalk";
 
 import type { LeanConfig, LeanWebpackConfig } from "../types";
 
+interface CreateFindRootConfigSyncArgs {
+  maxRecursion?: number;
+  currentWorkingDir?: string;
+}
+interface RootConfig {
+  leanConfig?: LeanConfig;
+  packageJson?: {
+    dependencies?: Record<string, string>;
+    workspaces?: string[] | { packages: string[] };
+  };
+  absolutePath?: string;
+}
+
 const filename = "lean.config.js";
-const currentWorkingDir = process.cwd();
-let maxRecursion = 4;
-let config: LeanConfig;
 
-export function findLeanConfigSync(relativePath = "."): LeanConfig | undefined {
-  // TODO check that this cached config works with Turborepo. Does Turbo run each script in a separate process?
-  if (config) {
-    return config;
-  } else if (
-    maxRecursion === 0 ||
-    path.resolve(currentWorkingDir, relativePath) === "/"
-  ) {
-    return undefined;
+export function findRootConfigSync({
+  maxRecursion = 4,
+  currentWorkingDir = process.cwd(),
+}: CreateFindRootConfigSyncArgs = {}) {
+  let file: RootConfig;
+  function findParentFileSync(relativePath = "."): RootConfig {
+    if (file) {
+      return file;
+    } else if (
+      maxRecursion === 0 ||
+      path.resolve(currentWorkingDir, relativePath) === "/"
+    ) {
+      return {};
+    }
+
+    maxRecursion--;
+    const fullpathLeanConfig = path.join(
+      currentWorkingDir,
+      relativePath,
+      filename
+    );
+    const exists = fs.existsSync(fullpathLeanConfig);
+
+    if (exists) {
+      const rootPackageJsonPath = path.join(
+        currentWorkingDir,
+        relativePath,
+        "package.json"
+      );
+      const rootPackageJsonExists = fs.existsSync(rootPackageJsonPath);
+      file = {
+        // eslint-disable-next-line @typescript-eslint/no-var-requires
+        leanConfig: require(fullpathLeanConfig),
+        packageJson: rootPackageJsonExists
+          ? // eslint-disable-next-line @typescript-eslint/no-var-requires
+            require(rootPackageJsonPath)
+          : undefined,
+        absolutePath: path.join(currentWorkingDir, relativePath),
+      };
+      return file;
+    } else {
+      return findParentFileSync(path.join("..", relativePath));
+    }
   }
 
-  maxRecursion--;
-  const fullpath = path.join(currentWorkingDir, relativePath, filename);
-  const exists = fs.existsSync(fullpath);
-
-  if (exists) {
-    // eslint-disable-next-line @typescript-eslint/no-var-requires
-    config = require(fullpath);
-    // TODO validate config, maybe https://www.npmjs.com/package/max-validator ?
-    return config;
-  } else {
-    return findLeanConfigSync(path.join("..", relativePath));
-  }
+  return findParentFileSync();
 }
 
 interface GetWebpackConfigArgs {

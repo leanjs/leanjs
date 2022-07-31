@@ -1,4 +1,5 @@
-import { useCallback, useEffect, useState, ReactElement } from "react";
+import { useCallback, useEffect, useState } from "react";
+import type { ReactElement } from "react";
 import type { KeyOf, CreateRuntime } from "@leanjs/core";
 
 import { HostProvider } from "../private/HostProvider";

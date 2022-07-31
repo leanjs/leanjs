@@ -6,13 +6,15 @@
     "build": "NODE_ENV=production webpack build --config webpack.prod.js"
   },
   "license": "MIT",
-  "dependencies": {
+  "peerDependencies": {
     "@leanjs/react-router": "*",
+    "react": "*",
+    "react-dom": "*",
+    "react-router-dom": "*"
+  },
+  "dependencies": {
     "@my-org/runtime-react": "*",
-    "@my-org/user": "*",
-    "react": "^17.0.2",
-    "react-dom": "^17.0.2",
-    "react-router-dom": "^6.3.0"
+    "@my-org/user": "*"
   },
   "devDependencies": {
     "@leanjs/webpack": "*",
