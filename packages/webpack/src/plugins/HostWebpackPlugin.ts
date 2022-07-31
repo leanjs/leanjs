@@ -18,17 +18,30 @@ export class HostWebpackPlugin implements WebpackPluginInstance {
   apply(compiler: Compiler) {
     // eslint-disable-next-line @typescript-eslint/no-var-requires
     const packageJson = require(`${process.cwd()}/package.json`);
-
-    const shared = getSharedDependencies({
+    const explicitlyShared = this.options.shared || {};
+    const implicitlyShared = getSharedDependencies({
       packageName: packageJson.name,
       dependencies: packageJson.dependencies,
       peerDependencies: packageJson.peerDependencies,
     });
 
+    Object.keys(explicitlyShared).forEach((name) => {
+      // update explicit dependency version with implicit dependency version if no explicit dependency
+      const expValue = explicitlyShared[name];
+      if (
+        typeof expValue === "object" &&
+        !expValue.version &&
+        !expValue.requiredVersion
+      ) {
+        expValue.version = implicitlyShared[name];
+      }
+      explicitlyShared[name] = expValue;
+    });
+
     new ModuleFederationPlugin({
       shared: {
-        ...shared,
-        ...this.options.shared,
+        ...implicitlyShared,
+        ...explicitlyShared,
       },
     }).apply(compiler);
   }

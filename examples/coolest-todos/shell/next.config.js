@@ -15,11 +15,9 @@ module.exports = withTM({
         shared: {
           react: {
             eager: true,
-            requiredVersion: packageJsonDeps.react,
           },
           "react-dom": {
             eager: true,
-            requiredVersion: packageJsonDeps["react-dom"],
           },
         },
       })

@@ -8,17 +8,17 @@ describe("dependencies:", () => {
         name_b: "*",
         name_c: "*",
       };
-      const sharedDependencies = {
+      const monorepoDependencies = {
         name_b: Math.random().toString(),
       };
 
       const actual = versionDependencies({
         dependencies,
         peerDependencies,
-        sharedDependencies,
+        monorepoDependencies,
       });
 
-      expect(actual).toEqual({ name_b: sharedDependencies.name_b });
+      expect(actual).toEqual({ name_b: monorepoDependencies.name_b });
     });
 
     it("uses a peerDependency version of a given name if the peerDependency version is different than * and the name is a shared dependency", () => {
@@ -28,14 +28,14 @@ describe("dependencies:", () => {
       const peerDependencies = {
         name_b: Math.random().toString(),
       };
-      const sharedDependencies = {
+      const monorepoDependencies = {
         name_b: Math.random().toString(),
       };
 
       const actual = versionDependencies({
         dependencies,
         peerDependencies,
-        sharedDependencies,
+        monorepoDependencies,
       });
 
       expect(actual).toEqual({ name_b: peerDependencies.name_b });
@@ -48,12 +48,12 @@ describe("dependencies:", () => {
       const peerDependencies = {
         name_b: Math.random().toString(),
       };
-      const sharedDependencies = {};
+      const monorepoDependencies = {};
 
       const actual = versionDependencies({
         dependencies,
         peerDependencies,
-        sharedDependencies,
+        monorepoDependencies,
       });
 
       expect(actual).toEqual({});

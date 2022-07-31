@@ -16,12 +16,12 @@ export function mergeDependencyVersions(
 interface SharedDependenciesArgs {
   dependencies?: DependencyVersion;
   peerDependencies?: DependencyVersion;
-  sharedDependencies?: DependencyVersion;
+  monorepoDependencies?: DependencyVersion;
 }
 export function versionDependencies({
   dependencies = {},
   peerDependencies,
-  sharedDependencies = {},
+  monorepoDependencies = {},
 }: SharedDependenciesArgs) {
   const packageDependencies = mergeDependencyVersions(
     peerDependencies,
@@ -30,9 +30,9 @@ export function versionDependencies({
 
   const shared: DependencyVersion = {};
   Object.keys(packageDependencies).forEach((name) => {
-    if (sharedDependencies[name]) {
+    if (monorepoDependencies[name]) {
       if (packageDependencies[name] === "*") {
-        shared[name] = sharedDependencies[name];
+        shared[name] = monorepoDependencies[name];
       } else {
         shared[name] = packageDependencies[name];
       }
