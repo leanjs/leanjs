@@ -1,9 +1,9 @@
 import { Compiler, WebpackPluginInstance, container } from "webpack";
 import type { SharedDependencies } from "../types";
+import { getSharedDependencies } from "../utils/getSharedDependencies";
 
 export interface HostWebpackOptions {
   shared: Record<string, string | SharedDependencies>;
-  shareAll?: boolean;
 }
 
 const { ModuleFederationPlugin } = container;
@@ -16,14 +16,19 @@ export class HostWebpackPlugin implements WebpackPluginInstance {
   }
 
   apply(compiler: Compiler) {
-    const { shared = {}, shareAll = false } = this.options;
     // eslint-disable-next-line @typescript-eslint/no-var-requires
     const packageJson = require(`${process.cwd()}/package.json`);
 
+    const shared = getSharedDependencies({
+      packageName: packageJson.name,
+      dependencies: packageJson.dependencies,
+      peerDependencies: packageJson.peerDependencies,
+    });
+
     new ModuleFederationPlugin({
       shared: {
-        ...(shareAll ? packageJson.dependencies : {}),
         ...shared,
+        ...this.options.shared,
       },
     }).apply(compiler);
   }

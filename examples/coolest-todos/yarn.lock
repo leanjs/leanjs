@@ -1179,10 +1179,10 @@
     "@jridgewell/resolve-uri" "^3.0.3"
     "@jridgewell/sourcemap-codec" "^1.4.10"
 
-"@leanjs/cli@*", "@leanjs/cli@^0.5.7":
-  version "0.5.7"
-  resolved "https://registry.yarnpkg.com/@leanjs/cli/-/cli-0.5.7.tgz#05a42fd47eb501462169deaf050ebe78466618fb"
-  integrity sha512-8yOOt8fvpGY/HT8Dr81Uu7cEykQ+h7PYeI1qVbJGocSr5ySFwTuqo9iQnD4iAEMaAB/f5/GHGJ7Z1zKT6oqWOg==
+"@leanjs/cli@*", "@leanjs/cli@^0.6.0":
+  version "0.6.0"
+  resolved "https://registry.yarnpkg.com/@leanjs/cli/-/cli-0.6.0.tgz#27decc5e2d5248b7b56d9af5111b14f53ffe5460"
+  integrity sha512-fX/v7hcB1IefrlhvmnMdt5RCPMCRs9aFFMpsoYB/EfShhIGOVQ7oiTAxrVvLh72Z1yWD8GprRH9xwLlkCAE03w==
   dependencies:
     "@leanjs/core" "^0.9.1"
     async-sema "^3.1.1"
@@ -1203,22 +1203,22 @@
   resolved "https://registry.yarnpkg.com/@leanjs/core/-/core-0.9.1.tgz#94d34b85dd7d84bf0e7df4f3a59f5c25a699ab91"
   integrity sha512-3ONCrscjl6KNKfYSRKSgt0ntXUDGOPX0HJNSyaIilGNewmDQi8UazwKijSeOBgPEkAC7QAOKyP3IxKjM3V+W7g==
 
-"@leanjs/next@^0.1.3":
-  version "0.1.25"
-  resolved "https://registry.yarnpkg.com/@leanjs/next/-/next-0.1.25.tgz#d88628851fef5b4b05fea10803836878df1c54de"
-  integrity sha512-aK0U029W7ZYZRzAE1IODhrbP8w9Yo4iqjvMjUdLgFxetZAzCcVVeS99zvkT4oXDKLUf1FknRqigkuHxPkFz4/w==
+"@leanjs/next@^0.1.26":
+  version "0.1.26"
+  resolved "https://registry.yarnpkg.com/@leanjs/next/-/next-0.1.26.tgz#c64dcdbfccee404107b3c30db329d1254189751f"
+  integrity sha512-6eWqUMCcONnkaGdZRlmoE5JQV87progIipWdugG8fJNik4zni5DXmn8xjAZpWxIgsuU2ZFV8vYz6L482wPu7fg==
 
-"@leanjs/react-router@^0.3.17":
-  version "0.3.17"
-  resolved "https://registry.yarnpkg.com/@leanjs/react-router/-/react-router-0.3.17.tgz#0f21b5d4adfcaf6d022f74a2dfe17ca65046c52b"
-  integrity sha512-t8qY17F9KUrEdr67kRYN9ZBwD0O8D6+kIpMMi0zMCCi+c/ncLW/86+y6gaZeADZnxzmwNtZEhgauRS+iBBGXDg==
+"@leanjs/react-router@^0.3.18":
+  version "0.3.18"
+  resolved "https://registry.yarnpkg.com/@leanjs/react-router/-/react-router-0.3.18.tgz#f09a1135a2e892aa4ffcb1bec460c097adf5676e"
+  integrity sha512-Z/gwWc5ya5sMfdBQQJ5EsTI/py5vHjzzkAYeW6Lqc2u1Go6BGU8oONQYsi2CL7kbnUTUoQ0dvsD9gDBRTEyUwQ==
   dependencies:
     "@leanjs/core" "^0.9.1"
 
-"@leanjs/react@^0.3.1":
-  version "0.3.1"
-  resolved "https://registry.yarnpkg.com/@leanjs/react/-/react-0.3.1.tgz#ad2ab1cce57bbe3d7c8ff4eb393f9abcce6628de"
-  integrity sha512-jDq2VuotUdZiAT46y/3lje5X4D0V9Cq0wa2JTb0vT8AoP71bBf/75gR5VOJCvLrOnU/zw5zzegWq87ljFuRcJw==
+"@leanjs/react@^0.4.0":
+  version "0.4.0"
+  resolved "https://registry.yarnpkg.com/@leanjs/react/-/react-0.4.0.tgz#bd5685f171bc1fd7da2808d7cb000352b62b2be4"
+  integrity sha512-fDHz2beQkyvv76Gg8IO007H3wQQMF8nXBdUrakMzYJN5Ct9I5XOoklN6QnxuzYJedB+mqUUCgfZ519HcrH+IPw==
   dependencies:
     "@leanjs/core" "^0.9.1"
 
@@ -1236,15 +1236,15 @@
   dependencies:
     "@leanjs/core" "^0.9.1"
 
-"@leanjs/webpack@*", "@leanjs/webpack@^0.11.9":
-  version "0.11.9"
-  resolved "https://registry.yarnpkg.com/@leanjs/webpack/-/webpack-0.11.9.tgz#0eebb0fed3077b06bb290b24aa539cdcfdda3215"
-  integrity sha512-3iL0q3YEE9Nph5eGig3EOkeffFkRyt6xGudOEbmMpMggNGTtes46MYbVsBRdHWHUmugTTCAO3eNo0lPAc+1IHw==
+"@leanjs/webpack@*", "@leanjs/webpack@^0.12.0":
+  version "0.12.0"
+  resolved "https://registry.yarnpkg.com/@leanjs/webpack/-/webpack-0.12.0.tgz#f03a446a72155d6f6c602dd874565f8c9785277f"
+  integrity sha512-0xz1PA5Gb86J9Ven1rgmpkxQwtuZyX84D8fWd3AlXRFSvmr0O6OZTD/MnYk5zs1xueFCn4u8esRVSZqHxBFc/Q==
   dependencies:
     "@babel/core" "^7.12.3"
     "@babel/plugin-transform-runtime" "^7.12.1"
     "@babel/preset-env" "^7.12.1"
-    "@leanjs/cli" "^0.5.7"
+    "@leanjs/cli" "^0.6.0"
     "@leanjs/core" "^0.9.1"
     chalk "^4.1.2"
     html-webpack-plugin "^5.4.0"
@@ -1632,10 +1632,10 @@
   resolved "https://registry.yarnpkg.com/@types/json-schema/-/json-schema-7.0.11.tgz#d421b6c527a3037f7c84433fd2c4229e016863d3"
   integrity sha512-wOuvG1SN4Us4rez+tylwwwCV1psiNVOkJeM3AUWUNWg/jDQY2+HE/444y5gc+jBmRqASOm2Oeh5c1axHobwRKQ==
 
-"@types/mime@^1":
-  version "1.3.2"
-  resolved "https://registry.yarnpkg.com/@types/mime/-/mime-1.3.2.tgz#93e25bf9ee75fe0fd80b594bc4feb0e862111b5a"
-  integrity sha512-YATxVxgRqNH6nHEIsvg6k2Boc1JHI9ZbH5iWFFv/MTkchz3b1ieGDa5T0a9RznNdI0KhVbdbWSN+KWWrQZRxTw==
+"@types/mime@*":
+  version "3.0.0"
+  resolved "https://registry.yarnpkg.com/@types/mime/-/mime-3.0.0.tgz#e9a9903894405c6a6551f1774df4e64d9804d69c"
+  integrity sha512-fccbsHKqFDXClBZTDLA43zl0+TbxyIwyzIzwwhvoJvhNjOErCdeX2xJbURimv2EbSVUGav001PaCJg4mZxMl4w==
 
 "@types/minimist@^1.2.2":
   version "1.2.2"
@@ -1643,9 +1643,9 @@
   integrity sha512-jhuKLIRrhvCPLqwPcx6INqmKeiA5EWrsCOPhrlFSrbrmU4ZMPjj5Ul/oLCMDO98XRUIwVm78xICz4EPCektzeQ==
 
 "@types/node@*":
-  version "18.6.2"
-  resolved "https://registry.yarnpkg.com/@types/node/-/node-18.6.2.tgz#ffc5f0f099d27887c8d9067b54e55090fcd54126"
-  integrity sha512-KcfkBq9H4PI6Vpu5B/KoPeuVDAbmi+2mDBqGPGUgoL7yXQtcWGu2vJWmmRkneWK3Rh0nIAX192Aa87AqKHYChQ==
+  version "18.6.3"
+  resolved "https://registry.yarnpkg.com/@types/node/-/node-18.6.3.tgz#4e4a95b6fe44014563ceb514b2598b3e623d1c98"
+  integrity sha512-6qKpDtoaYLM+5+AFChLhHermMQxc3TOEFIDzrZLPRGHPrLEwqFkkT5Kx3ju05g6X7uDPazz3jHbKPX0KzCjntg==
 
 "@types/node@^17.0.23":
   version "17.0.45"
@@ -1716,11 +1716,11 @@
     "@types/express" "*"
 
 "@types/serve-static@*", "@types/serve-static@^1.13.10":
-  version "1.13.10"
-  resolved "https://registry.yarnpkg.com/@types/serve-static/-/serve-static-1.13.10.tgz#f5e0ce8797d2d7cc5ebeda48a52c96c4fa47a8d9"
-  integrity sha512-nCkHGI4w7ZgAdNkrEu0bv+4xNV/XDqW+DydknebMOQwkpDGx8G+HTlj7R7ABI8i8nKxVw0wtKPi1D+lPOkh4YQ==
+  version "1.15.0"
+  resolved "https://registry.yarnpkg.com/@types/serve-static/-/serve-static-1.15.0.tgz#c7930ff61afb334e121a9da780aac0d9b8f34155"
+  integrity sha512-z5xyF6uh8CbjAu9760KDKsH2FcDxZ2tFCsA4HIMWE6IkiYMXfVoa+4f9KX+FN0ZLsaMw1WNG2ETLA6N+/YA+cg==
   dependencies:
-    "@types/mime" "^1"
+    "@types/mime" "*"
     "@types/node" "*"
 
 "@types/sockjs@^0.3.33":
