@@ -2,7 +2,7 @@ import React from "react";
 import { useGetter } from "@my-org/runtime-react";
 import { fetchUsername } from "@my-org/user";
 
-export function App() {
+export function FeedApp() {
   const username = useGetter("username", fetchUsername);
 
   return (

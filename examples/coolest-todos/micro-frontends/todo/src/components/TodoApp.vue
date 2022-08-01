@@ -18,7 +18,7 @@ import { useSharedState } from "@my-org/runtime-vue";
 import { fetchUsername } from "@my-org/user";
 
 export default {
-  name: "App",
+  name: "TodoApp",
   data(props) {
     return {
       todos: [],

@@ -1,6 +1,6 @@
 import { createRemote } from "@leanjs/vue-router";
 import { createRuntime } from "@my-org/runtime-shared";
 
-import App from "./components/App.vue";
+import ProfileResetApp from "./components/ProfileResetApp.vue";
 
-export default createRemote(App, { createRuntime });
+export default createRemote(ProfileResetApp, { createRuntime });

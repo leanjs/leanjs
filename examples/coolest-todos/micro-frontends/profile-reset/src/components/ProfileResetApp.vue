@@ -15,7 +15,7 @@ import { useSharedState } from "@my-org/runtime-vue";
 import { fetchUsername } from "@my-org/user";
 
 export default {
-  name: "App",
+  name: "ProfileResetApp",
   methods: {
     reset() {
       // This code mutates username (it doesn't change this.username reference)

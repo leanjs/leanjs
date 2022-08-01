@@ -5,7 +5,7 @@ import { fetchUsername } from "@my-org/user";
 import { Input } from "./Input";
 import { Button } from "./Button";
 
-export function App() {
+export function ProfileApp() {
   const shareUsername = useSetter("username");
   // TODO replace useEffect and useState with a useWatchState hook from @leanjs/react
   const sharedUsername = useGetter("username", fetchUsername);
