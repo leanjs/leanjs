@@ -20,10 +20,13 @@ export async function findMonorepoVersions() {
 
   let workspacesFilter = "";
   if (workspaces?.length) {
+    const workspaceNames = workspaces.map((workspace) =>
+      workspace.replace("/*", "")
+    );
     workspacesFilter =
       workspaces.length > 1
-        ? `/(${workspaces?.join("|")})`
-        : `/${workspaces[0]}`;
+        ? `/(${workspaceNames?.join("|")})`
+        : `/${workspaceNames[0]}`;
   }
 
   if (absolutePath) {

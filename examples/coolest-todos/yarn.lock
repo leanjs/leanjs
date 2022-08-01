@@ -1236,29 +1236,10 @@
   dependencies:
     "@leanjs/core" "^0.9.1"
 
-"@leanjs/webpack@*":
-  version "0.12.0"
-  resolved "https://registry.yarnpkg.com/@leanjs/webpack/-/webpack-0.12.0.tgz#f03a446a72155d6f6c602dd874565f8c9785277f"
-  integrity sha512-0xz1PA5Gb86J9Ven1rgmpkxQwtuZyX84D8fWd3AlXRFSvmr0O6OZTD/MnYk5zs1xueFCn4u8esRVSZqHxBFc/Q==
-  dependencies:
-    "@babel/core" "^7.12.3"
-    "@babel/plugin-transform-runtime" "^7.12.1"
-    "@babel/preset-env" "^7.12.1"
-    "@leanjs/cli" "^0.6.0"
-    "@leanjs/core" "^0.9.1"
-    chalk "^4.1.2"
-    html-webpack-plugin "^5.4.0"
-    swc-loader "^0.2.1"
-    ts-loader "^9.2.8"
-    vue-loader "^17.0.0"
-    vue-template-compiler "^2.6.14"
-    webpack "^5.72.0"
-    webpack-virtual-modules "^0.4.3"
-
-"@leanjs/webpack@^0.13.0":
-  version "0.13.0"
-  resolved "https://registry.yarnpkg.com/@leanjs/webpack/-/webpack-0.13.0.tgz#c643e094c558d873ccd53593868536773ba8621d"
-  integrity sha512-iAhbzvX3CaIRsNPoqnv1dev8WHPcnYgYl0aVR1sJ5BtxnTY7kOmoK2p+Q2NbPXKCZjtp1BRbpXWxsE9BACfMMA==
+"@leanjs/webpack@*", "@leanjs/webpack@^0.13.1":
+  version "0.13.1"
+  resolved "https://registry.yarnpkg.com/@leanjs/webpack/-/webpack-0.13.1.tgz#c3dbe9f004d605cf234f0694f78864a26fabc50f"
+  integrity sha512-HRCtF8bqg6paii6CN++zAgDX0Vq71C1skdlTLjubVGa7iWkqx71mmJjKcG+UlCddpSIjE/RlsUDv+xEg9rebMg==
   dependencies:
     "@babel/core" "^7.12.3"
     "@babel/plugin-transform-runtime" "^7.12.1"

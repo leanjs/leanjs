@@ -33,9 +33,12 @@ export function getSharedDependencies({
     );
   }
 
-  return versionDependencies({
-    dependencies,
-    peerDependencies,
+  return {
     monorepoDependencies,
-  });
+    packageDependencies: versionDependencies({
+      dependencies,
+      peerDependencies,
+      monorepoDependencies,
+    }),
+  };
 }
