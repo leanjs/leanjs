@@ -1,6 +1,6 @@
 import { createRemote } from "@leanjs/react-router";
 import { createRuntime } from "@my-org/runtime-shared";
 
-import { App } from "./components/App";
+import { ProfileApp } from "./components/ProfileApp";
 
-export default createRemote(App, { createRuntime });
+export default createRemote(ProfileApp, { createRuntime });

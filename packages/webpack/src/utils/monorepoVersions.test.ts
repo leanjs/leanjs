@@ -15,7 +15,7 @@ describe("monorepoVersions", () => {
         react,
         vue,
       },
-      workspaces: ["packages", "I-dont-exist"],
+      workspaces: ["packages/*", "I-dont-exist"],
     };
 
     jest.doMock("@leanjs/cli", () => ({
