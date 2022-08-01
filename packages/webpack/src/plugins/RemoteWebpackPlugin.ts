@@ -113,11 +113,13 @@ export class RemoteWebpackPlugin implements WebpackPluginInstance {
         "static/media/[name].[hash][ext]",
     };
 
-    const shared = getSharedDependencies({
-      packageName,
-      dependencies: packageJson.dependencies,
-      peerDependencies: packageJson.peerDependencies,
-    });
+    const { packageDependencies, monorepoDependencies } = getSharedDependencies(
+      {
+        packageName,
+        dependencies: packageJson.dependencies,
+        peerDependencies: packageJson.peerDependencies,
+      }
+    );
 
     new ModuleFederationPlugin({
       name: moduleName,
@@ -126,7 +128,9 @@ export class RemoteWebpackPlugin implements WebpackPluginInstance {
         ".": "./src/remote",
       },
       shared: {
-        ...shared, // TODO write test to assert shared were added to the output of the build
+        // TODO write test to assert shared were added to the output of the build
+        ...monorepoDependencies,
+        ...packageDependencies,
         ...(this.options.shared || {}),
       },
     }).apply(compiler);

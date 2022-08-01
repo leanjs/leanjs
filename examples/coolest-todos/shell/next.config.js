@@ -1,6 +1,5 @@
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const { HostWebpackPlugin } = require("@leanjs/webpack");
-const packageJsonDeps = require("./package.json").dependencies;
 const withTM = require("next-transpile-modules")([
   "@leanjs/core",
   "@leanjs/react",
@@ -12,14 +11,7 @@ module.exports = withTM({
   webpack: (config) => {
     config.plugins.push(
       new HostWebpackPlugin({
-        shared: {
-          react: {
-            eager: true,
-          },
-          "react-dom": {
-            eager: true,
-          },
-        },
+        eager: true,
       })
     );
 
