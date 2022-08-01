@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.1.27](https://github.com/leanjs/leanjs/compare/@leanjs/next@0.1.26...@leanjs/next@0.1.27) (2022-08-01)
+
+
+### Bug Fixes
+
+* **webpack:** module federation shared packages ([c40a47e](https://github.com/leanjs/leanjs/commit/c40a47ea7c435b99cb0c368a0057fe6a7d40546d))
+
+
+
+
+
 ## [0.1.26](https://github.com/leanjs/leanjs/compare/@leanjs/next@0.1.25...@leanjs/next@0.1.26) (2022-07-31)
 
 **Note:** Version bump only for package @leanjs/next

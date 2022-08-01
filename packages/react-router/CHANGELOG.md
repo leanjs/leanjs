@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.3.19](https://github.com/leanjs/leanjs/compare/@leanjs/react-router@0.3.18...@leanjs/react-router@0.3.19) (2022-08-01)
+
+
+### Bug Fixes
+
+* **webpack:** module federation shared packages ([c40a47e](https://github.com/leanjs/leanjs/commit/c40a47ea7c435b99cb0c368a0057fe6a7d40546d))
+
+
+
+
+
 ## [0.3.18](https://github.com/leanjs/leanjs/compare/@leanjs/react-router@0.3.17...@leanjs/react-router@0.3.18) (2022-07-31)
 
 **Note:** Version bump only for package @leanjs/react-router
