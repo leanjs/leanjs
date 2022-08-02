@@ -28,7 +28,7 @@ my-monorepo/
 ├─ package.json
 ```
 
-add the following `dependencies`:
+add the following `peerDependencies`:
 
 ```
 "dependencies": {
@@ -36,6 +36,14 @@ add the following `dependencies`:
   "vue-router": "*",
   "vue": "*"
 }
+```
+
+and also the following `devDependencies`:
+
+```
+  "devDependencies": {
+    "@leanjs/cli": "*"
+  }
 ```
 
 ## Usage
@@ -48,22 +56,34 @@ my-monorepo/
 │  ├─ vue-router-micro-frontend-example/
 │  │  ├─ package.json
 │  │  ├─ src/
-│  │  │  ├─ App.vue
+│  │  │  ├─ VueApp.vue
 │  │  │  ├─ remote.ts 👈
 ├─ package.json
 ```
 
-Call `createRemote` with the root component of your App and your `createRuntime` function:
+> **Note**
+> Read the recommended setup in our [getting started page](../../docs/getting-started.md#recommended-setup) if you want to create a similar monorepo structure
 
-```tsx
+Call `createRemote` with the root component of your VueApp and your `createRuntime` function:
+
+```ts
 import { createRemote } from "@leanjs/vue-router";
 // shared runtime example package created by your org
 import { createRuntime } from "@my-org/runtime-shared";
 
-import { App } from "./App.vue";
+import VueApp from "./VueApp.vue";
 
 // 👇  you must `export default createRemote(`
-export default createRemote(App, { createRuntime });
+export default createRemote(VueApp, { createRuntime });
 ```
 
-⚠️ How do I create my `createRuntime` function? Read [@leanjs/core](/packages/core#runtime).
+> **Note**
+> Read [@leanjs/core](/packages/core#runtime) if you have not already created your own `createRuntime` function
+
+Create `VueApp.vue` component, for example:
+
+```vue
+<template>
+  <h1>Hello Vue micro-frontend</h1>
+</template>
+```
