@@ -12,7 +12,7 @@ See our getting started page in [leanjs.com/getting-started](https://leanjs.com/
 
 ## Contributing
 
-If you're interested in contributing code and/or documentation, please see our guide to [contributing](docs/contributing).
+If you're interested in contributing code and/or documentation, please see our guide to [contributing](docs/contributing.md).
 
 ## License
 
