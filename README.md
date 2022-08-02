@@ -1,26 +1,18 @@
-# LeanJS
+# Welcome to LeanJS!
 
 Tools for building maintainable and performant micro-frontends.
 
-## Scaffolding Your First Lean Project
+## Documentation
 
-With NPM:
+For documentation, please visit our website [leanjs.com](https://leanjs.com).
 
-```
-npm create micro-frontends@latest
-```
+## Getting started
 
-With Yarn:
+See our getting started page in [leanjs.com/getting-started](https://leanjs.com/getting-started).
 
-```
-yarn create micro-frontends
-```
+## Contributing
 
-With PNPM:
-
-```
-pnpm create micro-frontends
-```
+If you're interested in contributing code and/or documentation, please see our guide to [contributing](/docs/contributing).
 
 ## License
 

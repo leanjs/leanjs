@@ -28,7 +28,7 @@ You will want to manually start a micro-frontends project when you have an exist
   ```
 
 - Make all the `dependencies` in the package.json in `my-monorepo/apps/my-monolith` point to version `*`. We are enabling a single-version policy for the entire monorepo.
-- Add the following field `workspaces: ["apps/*"]` in the root package.json.
+- Add the following field `workspaces: ["apps/*"]` in the root package.json:
 
   ```
   my-monorepo/
@@ -81,6 +81,38 @@ Use the same scope in all the `package.json`s of your monorepo, e.g. **@my-org**
 
 :::
 
+### Add the `lean` cli
+
+Create a `lean.config.js` file at the root of your monorepo:
+
+```
+my-monorepo/
+├─ apps/
+├─ packages/
+├─ lean.config.js  👈 here
+├─ package.json
+```
+
+Add some config, for example:
+
+```js
+const { getDefaultReactWebpack } = require("@leanjs/webpack");
+
+module.exports = {
+  devServer: { port: 43210 },
+  webpack: {
+    // replace the following config with your custom Webpack config
+    react: getDefaultReactWebpack(),
+  },
+};
+```
+
+Execute the following command at the root directory of your monorepo:
+
+```sh
+yarn add -W -D @leanjs/cli @leanjs/webpack
+```
+
 ### Create a `micro-frontends` workspace
 
 - Add _"micro-frontends/\*"_ to the following field `workspaces: ["apps/*", "packages/*", "micro-frontends/*"]` in the root package.json.
@@ -117,5 +149,5 @@ Use the same scope in all the `package.json`s of your monorepo, e.g. **@my-org**
   ```
 
 - Create a micro-frontend based on your UI library:
-  - [React](../packages/react-router/)
-  - [Vue](../packages/vue-router/)
+  - [React Router](../packages/react-router/)
+  - [Vue Router](../packages/vue-router/)
