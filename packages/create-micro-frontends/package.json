@@ -1,6 +1,6 @@
 {
   "name": "create-micro-frontends",
-  "version": "0.0.17",
+  "version": "0.0.18",
   "description": "Cli for creating a LeanJS micro-frontends project",
   "types": "./dist/index.d.ts",
   "main": "./dist/index.js",
