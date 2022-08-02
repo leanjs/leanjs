@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.13.3](https://github.com/leanjs/leanjs/compare/@leanjs/webpack@0.13.2...@leanjs/webpack@0.13.3) (2022-08-01)
+
+
+### Bug Fixes
+
+* **examples:** add name to each app ([7990d43](https://github.com/leanjs/leanjs/commit/7990d43cf0ee12c051e31adadcd803226a265c70))
+
+
+
+
+
 ## [0.13.2](https://github.com/leanjs/leanjs/compare/@leanjs/webpack@0.13.1...@leanjs/webpack@0.13.2) (2022-08-01)
 
 

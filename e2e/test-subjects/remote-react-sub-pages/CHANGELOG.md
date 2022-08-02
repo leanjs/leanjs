@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.1.37](https://github.com/leanjs/leanjs/compare/@leanjs/e2e-test-subjects-remote-react-sub-pages@1.1.36...@leanjs/e2e-test-subjects-remote-react-sub-pages@1.1.37) (2022-08-01)
+
+**Note:** Version bump only for package @leanjs/e2e-test-subjects-remote-react-sub-pages
+
+
+
+
+
 ## [1.1.36](https://github.com/leanjs/leanjs/compare/@leanjs/e2e-test-subjects-remote-react-sub-pages@1.1.35...@leanjs/e2e-test-subjects-remote-react-sub-pages@1.1.36) (2022-08-01)
 
 **Note:** Version bump only for package @leanjs/e2e-test-subjects-remote-react-sub-pages
