@@ -5,9 +5,9 @@
   "private": true,
   "description": "Coolest todo example for building maintainable and performant micro-frontends.",
   "workspaces": [
-    "shell",
-    "micro-frontends/*",
-    "packages/*"
+    "apps/*",
+    "packages/*",
+    "micro-frontends/*"
   ],
   "scripts": {
     "dev": "turbo run dev --parallel --no-cache",
