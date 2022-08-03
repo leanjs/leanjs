@@ -8,7 +8,7 @@ to: <%= h.inflection.dasherize(projectName) %>/package.json
   "private": true,
   "description": "Lean micro-frontends project created with create-micro-frontends",
   "workspaces": [
-    "shell",
+    "apps/*",
     "micro-frontends/*",
     "packages/*"
   ],
