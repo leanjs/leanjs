@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.6.1](https://github.com/leanjs/leanjs/compare/@leanjs/cli@0.6.0...@leanjs/cli@0.6.1) (2022-08-04)
+
+
+### Bug Fixes
+
+* **cli:** lock express version ([3c3c80d](https://github.com/leanjs/leanjs/commit/3c3c80d2eb41c380ba3a31ae0629cccd202db289))
+
+
+
+
+
 # [0.6.0](https://github.com/leanjs/leanjs/compare/@leanjs/cli@0.5.7...@leanjs/cli@0.6.0) (2022-07-31)
 
 

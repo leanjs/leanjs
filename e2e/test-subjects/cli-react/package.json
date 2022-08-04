@@ -1,7 +1,7 @@
 {
   "name": "@leanjs/e2e-test-subjects-cli-react",
   "private": true,
-  "version": "1.4.2",
+  "version": "1.4.3",
   "description": "",
   "scripts": {
     "start:e2e": "NODE_ENV=development node ../../../packages/cli/dist/bin/lean-cli dev --config=react",
@@ -16,7 +16,7 @@
     "react-dom": "^17.0.2"
   },
   "devDependencies": {
-    "@leanjs/aws": "^0.2.11",
+    "@leanjs/aws": "^0.2.12",
     "@types/react": "^17.0.43",
     "@types/react-dom": "^17.0.14"
   }
