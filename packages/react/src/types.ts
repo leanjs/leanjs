@@ -20,7 +20,6 @@ export interface HostProps {
   errorComponent?: ErrorComponent;
   loadingComponent?: LoadingComponent;
   className?: string;
-  pathname?: string;
 }
 
 export type ErrorComponent = (props: { error: Error }) => React.ReactElement;

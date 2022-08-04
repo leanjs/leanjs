@@ -8,6 +8,7 @@ const { useHost, Mount, DefaultLoading, DefaultError } = ReactUtils;
 
 interface ReactRouterHostProps extends HostProps {
   basename?: string;
+  pathname?: string;
 }
 
 export function Host({
