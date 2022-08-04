@@ -6,7 +6,7 @@ import { _ as CoreUtils } from "@leanjs/core";
 import { useRouter } from "next/router";
 import Head from "next/head";
 
-const { useHost, Mount, DefaultLoading, DefaultError } = ReactUtils;
+const { useHost, Mount, DefaultError } = ReactUtils;
 const { dedupeSlash } = CoreUtils;
 
 interface NextHostProps extends HostProps {
@@ -17,7 +17,7 @@ export function Host({
   remote,
   pathname,
   className,
-  loadingComponent: LoadingComponent = DefaultLoading,
+  loadingComponent: LoadingComponent = () => <>...</>,
   errorComponent: ErrorComponent = DefaultError,
 }: NextHostProps) {
   const router = useRouter();

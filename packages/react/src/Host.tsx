@@ -1,11 +1,11 @@
 import React from "react";
 
 import type { HostProps } from "./types";
-import { useHost, Mount, DefaultLoading, DefaultError } from "./utils";
+import { useHost, Mount, DefaultError } from "./utils";
 
 export function Host({
   remote,
-  loadingComponent: LoadingComponent = DefaultLoading,
+  loadingComponent: LoadingComponent = () => <>...</>,
   errorComponent: ErrorComponent = DefaultError,
   ...rest
 }: HostProps) {

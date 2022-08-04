@@ -4,7 +4,7 @@ import type { HostProps } from "@leanjs/react";
 import { useNavigate } from "react-router-dom";
 import { useListen } from "./UniversalRouter";
 
-const { useHost, Mount, DefaultLoading, DefaultError } = ReactUtils;
+const { useHost, Mount, DefaultError } = ReactUtils;
 
 interface ReactRouterHostProps extends HostProps {
   basename?: string;
@@ -14,7 +14,7 @@ interface ReactRouterHostProps extends HostProps {
 export function Host({
   remote,
   basename = "/",
-  loadingComponent: LoadingComponent = DefaultLoading,
+  loadingComponent: LoadingComponent = () => <>...</>,
   errorComponent: ErrorComponent = DefaultError,
   ...rest
 }: ReactRouterHostProps) {
