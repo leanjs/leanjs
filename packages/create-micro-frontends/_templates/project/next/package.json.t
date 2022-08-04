@@ -17,8 +17,8 @@ to: <%= h.inflection.dasherize(projectName) %>/package.json
     "build": "turbo run build"
   },
   "devDependencies": {
-    "@leanjs/cli": "^0.6.0",
-    "@leanjs/webpack": "^0.13.3",
+    "@leanjs/cli": "^0.6.1",
+    "@leanjs/webpack": "^0.13.4",
     "@swc/core": "^1.2.142",
     "@swc/jest": "^0.2.17",
     "@types/jest": "^27.4.0",
@@ -33,9 +33,9 @@ to: <%= h.inflection.dasherize(projectName) %>/package.json
   },
   "dependencies": {
     "@leanjs/core": "^0.9.1",
-    "@leanjs/next": "^0.1.23",
-    "@leanjs/react": "^0.4.0",
-    "@leanjs/react-router": "^0.3.15",
+    "@leanjs/next": "^0.2.0",
+    "@leanjs/react": "^0.5.1",
+    "@leanjs/react-router": "^0.4.0",
     "cors": "^2.8.5",
     "next": "12.2.0",
     "next-transpile-modules": "^9.0.0",
