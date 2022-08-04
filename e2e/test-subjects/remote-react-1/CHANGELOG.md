@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.4.11](https://github.com/leanjs/leanjs/compare/@leanjs/e2e-test-subjects-remote-react-1@1.4.10...@leanjs/e2e-test-subjects-remote-react-1@1.4.11) (2022-08-04)
+
+**Note:** Version bump only for package @leanjs/e2e-test-subjects-remote-react-1
+
+
+
+
+
 ## [1.4.10](https://github.com/leanjs/leanjs/compare/@leanjs/e2e-test-subjects-remote-react-1@1.4.9...@leanjs/e2e-test-subjects-remote-react-1@1.4.10) (2022-08-04)
 
 **Note:** Version bump only for package @leanjs/e2e-test-subjects-remote-react-1
