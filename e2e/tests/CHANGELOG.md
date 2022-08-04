@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.2.1](https://github.com/leanjs/leanjs/compare/@leanjs/e2e-tests@0.2.0...@leanjs/e2e-tests@0.2.1) (2022-08-04)
+
+
+### Bug Fixes
+
+* **nuxt-test:** fix failing nuxt test that was pointing to wrong link + add nvmrc ([47a347f](https://github.com/leanjs/leanjs/commit/47a347f1be8f45962a9ba131d70e38b32bb2eadc))
+
+
+
+
+
 # [0.2.0](https://github.com/leanjs/leanjs/compare/@leanjs/e2e-tests@0.1.2...@leanjs/e2e-tests@0.2.0) (2022-07-29)
 
 
