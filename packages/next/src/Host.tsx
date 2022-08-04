@@ -9,13 +9,17 @@ import Head from "next/head";
 const { useHost, Mount, DefaultLoading, DefaultError } = ReactUtils;
 const { dedupeSlash } = CoreUtils;
 
+interface NextHostProps extends HostProps {
+  pathname?: string;
+}
+
 export function Host({
   remote,
   pathname,
   className,
   loadingComponent: LoadingComponent = DefaultLoading,
   errorComponent: ErrorComponent = DefaultError,
-}: HostProps) {
+}: NextHostProps) {
   const router = useRouter();
   const basename = dedupeSlash(`${router.basePath}/${router.pathname}`);
   const { mount, error, url, runtime } = useHost({ remote });
