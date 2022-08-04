@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.2.1](https://github.com/leanjs/leanjs/compare/@leanjs/next@0.2.0...@leanjs/next@0.2.1) (2022-08-04)
+
+
+### Bug Fixes
+
+* **react:** delete DefaultLoading component ([1aa8858](https://github.com/leanjs/leanjs/commit/1aa88581a596096a659d5a3f2df03bb3b03ea500))
+
+
+
+
+
 # [0.2.0](https://github.com/leanjs/leanjs/compare/@leanjs/next@0.1.27...@leanjs/next@0.2.0) (2022-08-04)
 
 

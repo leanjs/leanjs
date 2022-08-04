@@ -1,6 +1,6 @@
 {
   "name": "@leanjs/react-router",
-  "version": "0.4.0",
+  "version": "0.4.1",
   "author": "Alex Lobera <alex@leanjs.com>",
   "description": "Lean micro-frontends for React Router",
   "types": "./dist/index.d.ts",
@@ -15,7 +15,7 @@
     "dist"
   ],
   "devDependencies": {
-    "@leanjs/react": "^0.5.0",
+    "@leanjs/react": "^0.5.1",
     "@testing-library/react": "^12.1.4",
     "@testing-library/react-hooks": "^7.0.2",
     "@types/react": "^17.0.41",
