@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.2.0](https://github.com/leanjs/leanjs/compare/@leanjs/next@0.1.27...@leanjs/next@0.2.0) (2022-08-04)
+
+
+### Features
+
+* **react:** add Host ([ae52897](https://github.com/leanjs/leanjs/commit/ae52897a99bd9d90993031c68a864b964de0737a))
+
+
+
+
+
 ## [0.1.27](https://github.com/leanjs/leanjs/compare/@leanjs/next@0.1.26...@leanjs/next@0.1.27) (2022-08-01)
 
 

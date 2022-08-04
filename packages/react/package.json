@@ -1,6 +1,6 @@
 {
   "name": "@leanjs/react",
-  "version": "0.4.0",
+  "version": "0.5.0",
   "author": "Alex Lobera <alex@leanjs.com>",
   "description": "Create your own React bindings for LeanJS Runtime",
   "types": "./dist/index.d.ts",
