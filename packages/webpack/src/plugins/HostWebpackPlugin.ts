@@ -3,7 +3,8 @@ import type { DependencyVersion, SharedDependencies } from "../types";
 import { getSharedDependencies } from "../utils/getSharedDependencies";
 
 export interface HostWebpackOptions {
-  shared: Record<string, string | SharedDependencies>;
+  shared?: Record<string, string | SharedDependencies>;
+  sharedExcludeFolders?: string;
   eager?: boolean;
 }
 
@@ -20,12 +21,13 @@ export class HostWebpackPlugin implements WebpackPluginInstance {
     // eslint-disable-next-line @typescript-eslint/no-var-requires
     const packageJson = require(`${process.cwd()}/package.json`);
     const explicitlyShared = this.options.shared || {};
-    const { eager } = this.options;
+    const { eager, sharedExcludeFolders } = this.options;
     const { packageDependencies, monorepoDependencies } = getSharedDependencies(
       {
         packageName: packageJson.name,
         dependencies: packageJson.dependencies,
         peerDependencies: packageJson.peerDependencies,
+        sharedExcludeFolders,
       }
     );
 
