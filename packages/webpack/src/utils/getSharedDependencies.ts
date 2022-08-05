@@ -7,11 +7,13 @@ interface GetSharedDependencies {
   packageName: string;
   dependencies: DependencyVersion;
   peerDependencies: DependencyVersion;
+  sharedExcludeFolders?: string;
 }
 export function getSharedDependencies({
   packageName,
   dependencies,
   peerDependencies,
+  sharedExcludeFolders = "",
 }: GetSharedDependencies) {
   let monorepoDependencies: DependencyVersion = {};
   try {
@@ -24,6 +26,7 @@ export function getSharedDependencies({
       // We need to synchronously wait for the end of the execution of the script because of this sync `apply` method
       execFileSync("node", [
         `${__dirname}/../scripts/stdoutWriteMonorepoVersions.js`,
+        sharedExcludeFolders,
       ]).toString()
     );
   } catch (error) {

@@ -7,7 +7,12 @@ import { mergeDependencyVersions } from "./dependencies";
 
 const maxRecursion = 4;
 
-export async function findMonorepoVersions() {
+interface FindMonorepoVersionsArgs {
+  sharedExcludeFolders?: string;
+}
+export async function findMonorepoVersions({
+  sharedExcludeFolders,
+}: FindMonorepoVersionsArgs = {}) {
   let monororepoVersions = {};
 
   const { packageJson: rootPackageJson, absolutePath } = findRootConfigSync({
@@ -18,26 +23,30 @@ export async function findMonorepoVersions() {
     ? rootPackageJson?.workspaces
     : rootPackageJson?.workspaces?.packages;
 
-  let workspacesFilter = "";
-  if (workspaces?.length) {
-    const workspaceNames = workspaces.map((workspace) =>
-      workspace.replace("/*", "")
-    );
-    workspacesFilter =
-      workspaces.length > 1
-        ? `/(${workspaceNames?.join("|")})`
-        : `/${workspaceNames[0]}`;
-  }
-
   if (absolutePath) {
-    const monorepoPackagePaths = fg.sync(
-      `${absolutePath}${workspacesFilter}/**/package.json`,
-      {
-        absolute: true,
-        ignore: [`**/node_modules/**`],
-        deep: maxRecursion,
-      }
-    );
+    let filters: string[] | string;
+    if (workspaces?.length) {
+      filters = workspaces.reduce((acc, workspace) => {
+        acc.push(
+          `${absolutePath}/${workspace.replace("/*", "")}/**/package.json`
+        );
+
+        return acc;
+      }, [] as string[]);
+    } else {
+      filters = `${absolutePath}/**/package.json`;
+    }
+
+    const ignore = [`**/node_modules/**`];
+    if (sharedExcludeFolders) {
+      ignore.push(sharedExcludeFolders);
+    }
+
+    const monorepoPackagePaths = fg.sync(filters, {
+      absolute: true,
+      ignore,
+      deep: maxRecursion,
+    });
 
     const monorepoPackageVersions = await readPackageVersions(
       monorepoPackagePaths
