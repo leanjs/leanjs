@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.14.0](https://github.com/leanjs/leanjs/compare/@leanjs/webpack@0.13.5...@leanjs/webpack@0.14.0) (2022-08-05)
+
+
+### Features
+
+* **webpack:** add sharedExcludeFolders ([bcde8f1](https://github.com/leanjs/leanjs/commit/bcde8f17599ff9d30ce47d90fcd93cd0e54f4b69))
+
+
+
+
+
 ## [0.13.5](https://github.com/leanjs/leanjs/compare/@leanjs/webpack@0.13.4...@leanjs/webpack@0.13.5) (2022-08-05)
 
 **Note:** Version bump only for package @leanjs/webpack
