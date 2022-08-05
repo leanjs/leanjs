@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.9.2](https://github.com/leanjs/leanjs/compare/@leanjs/core@0.9.1...@leanjs/core@0.9.2) (2022-08-05)
+
+
+### Bug Fixes
+
+* **runtime:** createRuntime types ([10fc541](https://github.com/leanjs/leanjs/commit/10fc541cfe0e03a96eecd7adca1b35ff7ff0657c))
+
+
+
+
+
 ## [0.9.1](https://github.com/leanjs/leanjs/compare/@leanjs/core@0.9.0...@leanjs/core@0.9.1) (2022-07-29)
 
 

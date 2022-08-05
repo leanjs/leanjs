@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.2.27](https://github.com/leanjs/leanjs/compare/@leanjs/e2e-test-subjects-cli-vue@1.2.26...@leanjs/e2e-test-subjects-cli-vue@1.2.27) (2022-08-05)
+
+**Note:** Version bump only for package @leanjs/e2e-test-subjects-cli-vue
+
+
+
+
+
 ## [1.2.26](https://github.com/leanjs/leanjs/compare/@leanjs/e2e-test-subjects-cli-vue@1.2.25...@leanjs/e2e-test-subjects-cli-vue@1.2.26) (2022-08-02)
 
 **Note:** Version bump only for package @leanjs/e2e-test-subjects-cli-vue

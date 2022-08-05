@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.1.1](https://github.com/leanjs/leanjs/compare/@leanjs/e2e-test-subjects-package-runtime-react@1.1.0...@leanjs/e2e-test-subjects-package-runtime-react@1.1.1) (2022-08-05)
+
+**Note:** Version bump only for package @leanjs/e2e-test-subjects-package-runtime-react
+
+
+
+
+
 # [1.1.0](https://github.com/leanjs/leanjs/compare/@leanjs/e2e-test-subjects-package-runtime-react@1.0.18...@leanjs/e2e-test-subjects-package-runtime-react@1.1.0) (2022-07-31)
 
 

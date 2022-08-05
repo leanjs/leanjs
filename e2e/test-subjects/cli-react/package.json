@@ -1,7 +1,7 @@
 {
   "name": "@leanjs/e2e-test-subjects-cli-react",
   "private": true,
-  "version": "1.4.5",
+  "version": "1.4.6",
   "description": "",
   "scripts": {
     "start:e2e": "NODE_ENV=development node ../../../packages/cli/dist/bin/lean-cli dev --config=react",
@@ -11,12 +11,12 @@
   "author": "Alex Lobera <alex@leanjs.com>",
   "license": "MIT",
   "dependencies": {
-    "@leanjs/react": "^0.5.1",
+    "@leanjs/react": "^0.5.2",
     "react": "^17.0.2",
     "react-dom": "^17.0.2"
   },
   "devDependencies": {
-    "@leanjs/aws": "^0.2.12",
+    "@leanjs/aws": "^0.2.13",
     "@types/react": "^17.0.43",
     "@types/react-dom": "^17.0.14"
   }
