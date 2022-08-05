@@ -9,7 +9,10 @@ import chalk from "chalk";
 
 import { ModuleScopePlugin } from "./ModuleScopePlugin";
 import type { SharedDependencies } from "../types";
-import { getSharedDependencies } from "../utils/getSharedDependencies";
+import {
+  getImplicitlySharedDependencies,
+  formatSharedDependencies,
+} from "../utils/dependencies";
 
 const { createRemoteName } = CoreUtils;
 export interface RemoteWebpackOptions {
@@ -113,26 +116,18 @@ export class RemoteWebpackPlugin implements WebpackPluginInstance {
         "static/media/[name].[hash][ext]",
     };
 
-    const { packageDependencies, monorepoDependencies } = getSharedDependencies(
-      {
-        packageName,
-        dependencies: packageJson.dependencies,
-        peerDependencies: packageJson.peerDependencies,
-      }
-    );
-
     new ModuleFederationPlugin({
       name: moduleName,
       filename: "remoteEntry.js",
       exposes: {
         ".": "./src/remote",
       },
-      shared: {
-        // TODO write test to assert shared were added to the output of the build
-        ...monorepoDependencies,
-        ...packageDependencies,
-        ...(this.options.shared || {}),
-      },
+      shared: formatSharedDependencies({
+        explicitDependencies: this.options.shared || {},
+        implicitDependencies: getImplicitlySharedDependencies({
+          packageJson,
+        }),
+      }),
     }).apply(compiler);
 
     new VirtualModulesPlugin({
