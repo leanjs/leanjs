@@ -296,7 +296,7 @@ export const configureRuntime = <
       initialState,
       request,
     }: CreateRuntimeArgs<State> = {}) =>
-      createRuntime<State>(initialState ?? defaultState)({
+      createRuntime<State, Prop>(initialState ?? defaultState)({
         context,
         onError,
         request,
