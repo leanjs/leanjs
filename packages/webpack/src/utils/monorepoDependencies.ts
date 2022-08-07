@@ -2,18 +2,18 @@ import fg from "fast-glob";
 import { readFile } from "fs/promises";
 import { findRootConfigSync } from "@leanjs/cli";
 
-import type { DependencyVersion } from "../types";
-import { mergeDependencyVersions } from "./dependencies";
+import type { Dependencies } from "../types";
+import { mergeDependencies } from "./dependencies";
 
 const maxRecursion = 4;
 
 interface FindMonorepoVersionsArgs {
-  sharedExcludeFolders?: string;
+  excludeDirPattern?: string;
 }
-export async function findMonorepoVersions({
-  sharedExcludeFolders,
+export async function findMonorepoDependencies({
+  excludeDirPattern,
 }: FindMonorepoVersionsArgs = {}) {
-  let monororepoVersions = {};
+  let monororepoDependencies: Dependencies = {};
 
   const { packageJson: rootPackageJson, absolutePath } = findRootConfigSync({
     maxRecursion,
@@ -38,8 +38,8 @@ export async function findMonorepoVersions({
     }
 
     const ignore = [`**/node_modules/**`];
-    if (sharedExcludeFolders) {
-      ignore.push(sharedExcludeFolders);
+    if (excludeDirPattern) {
+      ignore.push(excludeDirPattern);
     }
 
     const monorepoPackagePaths = fg.sync(filters, {
@@ -52,17 +52,17 @@ export async function findMonorepoVersions({
       monorepoPackagePaths
     );
 
-    monororepoVersions = mergeDependencyVersions(
+    monororepoDependencies = mergeDependencies(
       rootPackageJson?.dependencies,
       monorepoPackageVersions
     );
   }
 
-  return monororepoVersions;
+  return monororepoDependencies;
 }
 
 export async function readPackageVersions(packagePaths: string[]) {
-  let depVersions: DependencyVersion = {};
+  let depVersions: Dependencies = {};
   try {
     const fileContents = await Promise.all(
       packagePaths.map((packagePath) => readFile(packagePath, "utf8"))

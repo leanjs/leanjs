@@ -1,8 +1,9 @@
 import { Configuration } from "webpack";
 
-export type DependencyVersion = Record<string, string>;
+export type Dependencies = Record<string, string>;
 
-export interface SharedDependencies {
+export type SharedDependencies = Record<string, SharedDependency | string>;
+export interface SharedDependency {
   /**
    * Include the provided and fallback module directly instead behind an async request. This allows to use this shared module in initial load too. All possible shared modules need to be eager too.
    */
@@ -39,4 +40,9 @@ export interface LeanConfig {
     port: number;
   };
   webpack: Record<string, Configuration | WebpackConfigFn> | undefined;
+}
+
+export interface AutoShared {
+  excludePackages?: string[];
+  excludeDirPattern?: string;
 }

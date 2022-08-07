@@ -1,7 +1,13 @@
-import { versionDependencies, mergeDependencyVersions } from "./dependencies";
+import {
+  versionSharedDependencies,
+  mergeDependencies,
+  filterDependencies,
+  formatSharedDependencies,
+  getImplicitlySharedDependencies,
+} from "./dependencies";
 
 describe("dependencies:", () => {
-  describe("versionDependencies:", () => {
+  describe("versionSharedDependencies:", () => {
     it("uses a shared version if the version of a given name is * in peerDependencies and the name is a shared dependency", () => {
       const dependencies = {};
       const peerDependencies = {
@@ -12,7 +18,7 @@ describe("dependencies:", () => {
         name_b: Math.random().toString(),
       };
 
-      const actual = versionDependencies({
+      const actual = versionSharedDependencies({
         dependencies,
         peerDependencies,
         monorepoDependencies,
@@ -32,7 +38,7 @@ describe("dependencies:", () => {
         name_b: Math.random().toString(),
       };
 
-      const actual = versionDependencies({
+      const actual = versionSharedDependencies({
         dependencies,
         peerDependencies,
         monorepoDependencies,
@@ -50,7 +56,7 @@ describe("dependencies:", () => {
       };
       const monorepoDependencies = {};
 
-      const actual = versionDependencies({
+      const actual = versionSharedDependencies({
         dependencies,
         peerDependencies,
         monorepoDependencies,
@@ -60,11 +66,11 @@ describe("dependencies:", () => {
     });
   });
 
-  describe("mergeDependencyVersions:", () => {
+  describe("mergeDependencies:", () => {
     it("merges empty objects into an empty object", () => {
       const overridable = {};
       const nonoverridable = {};
-      const actual = mergeDependencyVersions(overridable, nonoverridable);
+      const actual = mergeDependencies(overridable, nonoverridable);
 
       expect(actual).toEqual({});
     });
@@ -78,7 +84,7 @@ describe("dependencies:", () => {
       const nonoverridable = {
         name_b: version_b,
       };
-      const actual = mergeDependencyVersions(overridable, nonoverridable);
+      const actual = mergeDependencies(overridable, nonoverridable);
 
       expect(actual).toEqual({
         name_a: version_a,
@@ -96,11 +102,146 @@ describe("dependencies:", () => {
       const nonoverridable = {
         name_b: version_b,
       };
-      const actual = mergeDependencyVersions(overridable, nonoverridable);
+      const actual = mergeDependencies(overridable, nonoverridable);
 
       expect(actual).toEqual({
         name_a: version_a,
         name_b: version_b,
+      });
+    });
+  });
+
+  describe("filterDependencies:", () => {
+    it("removes dependencies from the dependencies argument given the filterDependencies argument", () => {
+      const version_a = Math.random().toString();
+      const version_b = Math.random().toString();
+      const version_c = Math.random().toString();
+      const dependencies = {
+        name_a: version_a,
+        [version_b]: Math.random().toString(),
+        name_c: version_c,
+      };
+      const excludeDependencies = [version_b];
+      const actual = filterDependencies({ dependencies, excludeDependencies });
+
+      expect(actual).toEqual({
+        name_a: version_a,
+        name_c: version_c,
+      });
+    });
+
+    it("doesn't remove any dependencies from the dependencies argument if the filterDependencies is not passed", () => {
+      const version_a = Math.random().toString();
+      const version_b = Math.random().toString();
+      const version_c = Math.random().toString();
+      const dependencies = {
+        name_a: version_a,
+        [version_b]: Math.random().toString(),
+        name_c: version_c,
+      };
+      const actual = filterDependencies({ dependencies });
+
+      expect(actual).toEqual(dependencies);
+    });
+  });
+
+  describe("getImplicitlySharedDependencies:", () => {
+    it("returns undefined if autoShared is false", () => {
+      const actual = getImplicitlySharedDependencies({
+        autoShared: false,
+        packageJson: {},
+      });
+
+      expect(actual).toEqual(undefined);
+    });
+  });
+
+  describe("formatSharedDependencies:", () => {
+    it("adds eager to each dependency if eager is passed as an argument", () => {
+      const eager = Math.random() < 0.5;
+      const explicitDependencies = {
+        react: Math.random().toString(),
+      };
+      const implicitDependencies = {
+        lodash: Math.random().toString(),
+      };
+
+      const actual = formatSharedDependencies({
+        eager,
+        explicitDependencies,
+        implicitDependencies,
+      });
+
+      expect(actual).toEqual({
+        react: { eager, requiredVersion: explicitDependencies.react },
+        lodash: { eager, requiredVersion: implicitDependencies.lodash },
+      });
+    });
+
+    it("doesn't override eager in an explicit dependency if eager is defined in the explicit dependency", () => {
+      const eager = Math.random() < 0.5;
+      const explicitDependencies = {
+        react: { eager: !eager },
+      };
+      const implicitDependencies = {
+        lodash: Math.random().toString(),
+      };
+
+      const actual = formatSharedDependencies({
+        eager,
+        explicitDependencies,
+        implicitDependencies,
+      });
+
+      expect(actual).toEqual({
+        react: { eager: !eager },
+        lodash: { eager, requiredVersion: implicitDependencies.lodash },
+      });
+    });
+
+    it("overrides requiredVersion in explicitDependencies with version from implicitDependencies if no requiredVersion is defined", () => {
+      const explicitDependencies = {
+        react: {
+          eager: false,
+        },
+      };
+      const implicitDependencies = {
+        lodash: Math.random().toString(),
+        react: Math.random().toString(),
+      };
+
+      const actual = formatSharedDependencies({
+        explicitDependencies,
+        implicitDependencies,
+      });
+
+      expect(actual).toEqual({
+        react: { eager: false, requiredVersion: implicitDependencies.react },
+        lodash: implicitDependencies.lodash,
+      });
+    });
+
+    it("overrides requiredVersion in explicitDependencies with version from implicitDependencies if no requiredVersion is defined", () => {
+      const eager = false;
+      const explicitDependencies = {
+        react: {
+          eager: false,
+        },
+      };
+      const implicitDependencies = {
+        lodash: Math.random().toString(),
+        react: Math.random().toString(),
+      };
+
+      const actual = formatSharedDependencies({
+        eager,
+        explicitDependencies,
+        implicitDependencies,
+      });
+
+      expect(actual).toEqual({
+        react: { eager: false, requiredVersion: implicitDependencies.react },
+        lodash: { eager, requiredVersion: implicitDependencies.lodash },
       });
     });
   });

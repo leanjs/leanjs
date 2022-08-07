@@ -1,21 +1,16 @@
 import { execFileSync } from "child_process";
 
-import type { DependencyVersion } from "../types";
-import { versionDependencies } from "./dependencies";
+import type { Dependencies } from "../types";
 
-interface GetSharedDependencies {
+interface GetMonorepoDependencies {
   packageName: string;
-  dependencies: DependencyVersion;
-  peerDependencies: DependencyVersion;
-  sharedExcludeFolders?: string;
+  excludeDirPattern?: string;
 }
-export function getSharedDependencies({
+export function getMonorepoDependencies({
   packageName,
-  dependencies,
-  peerDependencies,
-  sharedExcludeFolders = "",
-}: GetSharedDependencies) {
-  let monorepoDependencies: DependencyVersion = {};
+  excludeDirPattern = "",
+}: GetMonorepoDependencies) {
+  let monorepoDependencies: Dependencies = {};
   try {
     monorepoDependencies = JSON.parse(
       // We run execFileSync because we use this function inside Webpack `apply` method which is synchronous,
@@ -25,8 +20,8 @@ export function getSharedDependencies({
       // To improve performance, we asynchronously read files in the repo inside the following script.
       // We need to synchronously wait for the end of the execution of the script because of this sync `apply` method
       execFileSync("node", [
-        `${__dirname}/../scripts/stdoutWriteMonorepoVersions.js`,
-        sharedExcludeFolders,
+        `${__dirname}/../scripts/stdoutWriteMonorepoDependencies.js`,
+        excludeDirPattern,
       ]).toString()
     );
   } catch (error) {
@@ -36,12 +31,5 @@ export function getSharedDependencies({
     );
   }
 
-  return {
-    monorepoDependencies,
-    packageDependencies: versionDependencies({
-      dependencies,
-      peerDependencies,
-      monorepoDependencies,
-    }),
-  };
+  return monorepoDependencies;
 }

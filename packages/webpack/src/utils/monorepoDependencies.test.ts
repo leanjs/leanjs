@@ -5,7 +5,7 @@ afterEach(() => {
 
 const mocksMonorepoPath = `${__dirname}/../../mocks/monorepo`;
 
-describe("monorepoVersions", () => {
+describe("monorepoDependencies", () => {
   it("finds versions in the monorepo only using workspaces and root package.json if workspaces is defined", async () => {
     const react = Math.random().toString();
     const vue = Math.random().toString();
@@ -27,9 +27,9 @@ describe("monorepoVersions", () => {
     }));
 
     // eslint-disable-next-line @typescript-eslint/no-var-requires
-    const { findMonorepoVersions } = require("./monorepoVersions");
+    const { findMonorepoDependencies } = require("./monorepoDependencies");
 
-    const versions = await findMonorepoVersions();
+    const versions = await findMonorepoDependencies();
 
     expect(versions).toEqual({
       "package-a": "1.2.3",
@@ -59,9 +59,9 @@ describe("monorepoVersions", () => {
     }));
 
     // eslint-disable-next-line @typescript-eslint/no-var-requires
-    const { findMonorepoVersions } = require("./monorepoVersions");
+    const { findMonorepoDependencies } = require("./monorepoDependencies");
 
-    const versions = await findMonorepoVersions();
+    const versions = await findMonorepoDependencies();
 
     expect(versions).toEqual({
       "package-a": "1.2.3",
@@ -80,9 +80,9 @@ describe("monorepoVersions", () => {
     }));
 
     // eslint-disable-next-line @typescript-eslint/no-var-requires
-    const { findMonorepoVersions } = require("./monorepoVersions");
+    const { findMonorepoDependencies } = require("./monorepoDependencies");
 
-    const versions = await findMonorepoVersions();
+    const versions = await findMonorepoDependencies();
 
     expect(versions).toEqual({});
   });
@@ -96,9 +96,9 @@ describe("monorepoVersions", () => {
     }));
 
     // eslint-disable-next-line @typescript-eslint/no-var-requires
-    const { findMonorepoVersions } = require("./monorepoVersions");
+    const { findMonorepoDependencies } = require("./monorepoDependencies");
 
-    const versions = await findMonorepoVersions();
+    const versions = await findMonorepoDependencies();
 
     expect(versions).toEqual({
       "package-a": "1.2.3",
