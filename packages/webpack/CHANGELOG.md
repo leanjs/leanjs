@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.15.0](https://github.com/leanjs/leanjs/compare/@leanjs/webpack@0.14.0...@leanjs/webpack@0.15.0) (2022-08-07)
+
+
+### Features
+
+* **wepack:** improve shared dependencies ([60b8fef](https://github.com/leanjs/leanjs/commit/60b8fef9403d452283d02b844378689e68072641))
+
+
+
+
+
 # [0.14.0](https://github.com/leanjs/leanjs/compare/@leanjs/webpack@0.13.5...@leanjs/webpack@0.14.0) (2022-08-05)
 
 ### Features
