@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.15.1](https://github.com/leanjs/leanjs/compare/@leanjs/webpack@0.15.0...@leanjs/webpack@0.15.1) (2022-08-09)
+
+
+### Bug Fixes
+
+* **webpack:** move webapck to peerDependencies ([5d4c37b](https://github.com/leanjs/leanjs/commit/5d4c37bde96240a8056c9fb6dfafb9d4f082eb3b))
+
+
+
+
+
 # [0.15.0](https://github.com/leanjs/leanjs/compare/@leanjs/webpack@0.14.0...@leanjs/webpack@0.15.0) (2022-08-07)
 
 

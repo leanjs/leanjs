@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.4.7](https://github.com/leanjs/leanjs/compare/@leanjs/e2e-test-subjects-cli-react@1.4.6...@leanjs/e2e-test-subjects-cli-react@1.4.7) (2022-08-09)
+
+
+### Bug Fixes
+
+* **webpack:** move webapck to peerDependencies ([5d4c37b](https://github.com/leanjs/leanjs/commit/5d4c37bde96240a8056c9fb6dfafb9d4f082eb3b))
+
+
+
+
+
 ## [1.4.6](https://github.com/leanjs/leanjs/compare/@leanjs/e2e-test-subjects-cli-react@1.4.5...@leanjs/e2e-test-subjects-cli-react@1.4.6) (2022-08-05)
 
 **Note:** Version bump only for package @leanjs/e2e-test-subjects-cli-react

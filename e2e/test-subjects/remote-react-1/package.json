@@ -1,7 +1,7 @@
 {
   "name": "@leanjs/e2e-test-subjects-remote-react-1",
   "private": true,
-  "version": "1.4.14",
+  "version": "1.4.15",
   "description": "",
   "scripts": {
     "start:e2e": "NODE_ENV=development webpack serve"
@@ -15,7 +15,7 @@
     "react-router-dom": "^6.3.0"
   },
   "devDependencies": {
-    "@leanjs/webpack": "^0.15.0",
+    "@leanjs/webpack": "^0.15.1",
     "@swc/core": "^1.2.160",
     "@types/react": "^17.0.43",
     "@types/react-dom": "^17.0.14",

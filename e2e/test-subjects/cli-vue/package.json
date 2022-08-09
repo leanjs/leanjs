@@ -1,7 +1,7 @@
 {
   "name": "@leanjs/e2e-test-subjects-cli-vue",
   "private": true,
-  "version": "1.2.27",
+  "version": "1.2.28",
   "scripts": {
     "start:e2e": "NODE_ENV=development node ../../../packages/cli/dist/bin/lean-cli dev --config=vue --port=44444"
   },
