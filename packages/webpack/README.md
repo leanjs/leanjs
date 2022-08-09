@@ -2,7 +2,7 @@
 
 # Installation
 
-`yarn add -D @leanjs/webpack`
+`yarn add -D @leanjs/webpack webpack`
 
 It exports Webpack plugins to implement LeanJS micro-frontends.
 

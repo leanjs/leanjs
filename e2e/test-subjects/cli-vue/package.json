@@ -10,6 +10,9 @@
     "vue": "^3.0.0",
     "vue-router": "^4.0.0"
   },
+  "devDependencies": {
+    "webpack": "^5.72.0"
+  },
   "author": "Alex Lobera <alex@leanjs.com>",
   "license": "MIT"
 }
