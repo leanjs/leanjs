@@ -1,12 +1,11 @@
 import type { Configuration } from "webpack";
 import { getOutputPath } from "@leanjs/cli";
-
-import { RemoteWebpackPlugin } from "../plugins/RemoteWebpackPlugin";
+import { RemoteWebpackPlugin } from "@leanjs/webpack";
 
 const isEnvDevelopment = process.env.NODE_ENV === "development";
 const isEnvProduction = process.env.NODE_ENV === "production";
 
-export const getDefaultVueWebpack = (): Configuration => {
+export const createVueWebpackConfig = (): Configuration => {
   /* eslint-disable @typescript-eslint/no-var-requires */
   const { VueLoaderPlugin } = require("vue-loader");
 

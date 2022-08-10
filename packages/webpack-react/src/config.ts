@@ -1,7 +1,6 @@
 import type { Configuration } from "webpack";
 import { getOutputPath } from "@leanjs/cli";
-
-import { RemoteWebpackPlugin } from "../plugins/RemoteWebpackPlugin";
+import { RemoteWebpackPlugin } from "@leanjs/webpack";
 
 const imageInlineSizeLimit = parseInt(
   process.env.IMAGE_INLINE_SIZE_LIMIT || "10000"
@@ -10,7 +9,7 @@ const imageInlineSizeLimit = parseInt(
 const isEnvDevelopment = process.env.NODE_ENV === "development";
 const isEnvProduction = process.env.NODE_ENV === "production";
 
-export const getDefaultReactWebpack = (): Configuration => {
+export const createReactWebpackConfig = (): Configuration => {
   return {
     mode: isEnvDevelopment ? "development" : "production",
     plugins: [new RemoteWebpackPlugin()],

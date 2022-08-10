@@ -1,5 +1,5 @@
 import { Compiler, WebpackPluginInstance, container } from "webpack";
-import type { SharedDependencies, AutoShared, Dependencies } from "../types";
+import type { SharedDependencies, AutoShared } from "../types";
 import {
   getImplicitlySharedDependencies,
   formatSharedDependencies,
