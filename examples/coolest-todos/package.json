@@ -14,8 +14,10 @@
     "build": "turbo run build"
   },
   "devDependencies": {
-    "@leanjs/cli": "^0.6.0",
-    "@leanjs/webpack": "^0.13.2",
+    "@leanjs/cli": "^0.6.2",
+    "@leanjs/webpack": "^0.16.0",
+    "@leanjs/webpack-react": "^0.1.0",
+    "@leanjs/webpack-vue": "^0.1.0",
     "@swc/core": "^1.2.142",
     "@swc/jest": "^0.2.17",
     "@types/jest": "^27.4.0",
