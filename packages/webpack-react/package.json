@@ -1,0 +1,42 @@
+{
+  "name": "@leanjs/webpack-react",
+  "version": "0.0.0",
+  "description": "Default Webpack configuration for LeanJS React micro-frontends",
+  "main": "./dist/index.js",
+  "author": "Alex Lobera <alex@leanjs.com>",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/leanjs/leanjs.git",
+    "directory": "packages/webpack-react"
+  },
+  "license": "MIT",
+  "scripts": {
+    "prebuild": "del-cli dist",
+    "build": "tsc --outDir dist --project ./tsconfig.json"
+  },
+  "files": [
+    "dist"
+  ],
+  "dependencies": {
+    "@leanjs/cli": "^0.6.2",
+    "swc-loader": "^0.2.1"
+  },
+  "devDependencies": {
+    "@leanjs/webpack": "*"
+  },
+  "peerDependencies": {
+    "@leanjs/webpack": "*",
+    "webpack": "^5.72.0"
+  },
+  "keywords": [
+    "webpack",
+    "config",
+    "react",
+    "microfrontends",
+    "micro-frontends",
+    "module federation"
+  ],
+  "publishConfig": {
+    "access": "public"
+  }
+}

@@ -1,0 +1,27 @@
+{
+  "compilerOptions": {
+    "strict": true,
+    "target": "es6",
+    "skipLibCheck": true,
+    "strictNullChecks": true,
+    "allowSyntheticDefaultImports": true,
+    "sourceMap": false,
+    "moduleResolution": "node",
+    "resolveJsonModule": true,
+    "declaration": true,
+    "importHelpers": true,
+    "pretty": true,
+    "esModuleInterop": true,
+    "module": "CommonJS"
+  },
+  "include": ["./src"],
+  "exclude": [
+    "**/node_modules",
+    "**/test",
+    "*.js",
+    "**/__tests__/",
+    "**/*.test.ts",
+    "**/*.test.tsx",
+    "**/dist/**/*"
+  ]
+}

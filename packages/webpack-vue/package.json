@@ -1,0 +1,47 @@
+{
+  "name": "@leanjs/webpack-vue",
+  "version": "0.0.0",
+  "description": "Default Webpack configuration for LeanJS Vue micro-frontends",
+  "main": "./dist/index.js",
+  "author": "Alex Lobera <alex@leanjs.com>",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/leanjs/leanjs.git",
+    "directory": "packages/webpack-vue"
+  },
+  "license": "MIT",
+  "scripts": {
+    "prebuild": "del-cli dist",
+    "build": "tsc --outDir dist --project ./tsconfig.json"
+  },
+  "files": [
+    "dist"
+  ],
+  "dependencies": {
+    "@babel/core": "^7.12.3",
+    "@babel/plugin-transform-runtime": "^7.12.1",
+    "@babel/preset-env": "^7.12.1",
+    "@leanjs/cli": "^0.6.2",
+    "ts-loader": "^9.2.8",
+    "vue-loader": "^17.0.0",
+    "vue-template-compiler": "^2.6.14"
+  },
+  "devDependencies": {
+    "@leanjs/webpack": "*"
+  },
+  "peerDependencies": {
+    "@leanjs/webpack": "*",
+    "webpack": "^5.72.0"
+  },
+  "keywords": [
+    "webpack",
+    "config",
+    "vue",
+    "microfrontends",
+    "micro-frontends",
+    "module federation"
+  ],
+  "publishConfig": {
+    "access": "public"
+  }
+}
