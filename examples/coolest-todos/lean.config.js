@@ -1,13 +1,12 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
-const {
-  getDefaultReactWebpack,
-  getDefaultVueWebpack,
-} = require("@leanjs/webpack");
+const { createReactWebpackConfig } = require("@leanjs/webpack-react");
+/* eslint-disable @typescript-eslint/no-var-requires */
+const { createVueWebpackConfig } = require("@leanjs/webpack-vue");
 
 module.exports = {
   devServer: { port: 56600 },
   webpack: {
-    react: getDefaultReactWebpack(),
-    vue: getDefaultVueWebpack(),
+    react: createReactWebpackConfig(),
+    vue: createVueWebpackConfig(),
   },
 };

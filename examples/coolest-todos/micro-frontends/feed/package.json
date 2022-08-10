@@ -8,6 +8,7 @@
   "license": "MIT",
   "peerDependencies": {
     "@leanjs/react-router": "*",
+    "@leanjs/webpack": "*",
     "react": "*",
     "react-dom": "*",
     "react-router-dom": "*"
@@ -17,7 +18,6 @@
     "@my-org/user": "*"
   },
   "devDependencies": {
-    "@leanjs/webpack": "*",
     "@swc/core": "^1.2.160",
     "@types/react": "^17.0.43",
     "@types/react-dom": "^17.0.14",
