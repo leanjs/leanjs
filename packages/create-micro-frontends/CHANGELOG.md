@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.2.0](https://github.com/leanjs/leanjs/compare/create-micro-frontends@0.1.0...create-micro-frontends@0.2.0) (2022-08-10)
+
+
+### Features
+
+* **create-micro-frontends:** remove react-router-dom ([78ec9fc](https://github.com/leanjs/leanjs/commit/78ec9fc742debb6e2a181726dd593b037a53b95a))
+
+
+
+
+
 # [0.1.0](https://github.com/leanjs/leanjs/compare/create-micro-frontends@0.0.20...create-micro-frontends@0.1.0) (2022-08-10)
 
 
