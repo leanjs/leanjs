@@ -11,7 +11,6 @@ to: <%= h.inflection.dasherize(projectName) %>/micro-frontends/<%= h.inflection.
   "author": "",
   "license": "MIT",
   "peerDependencies": {
-    "@leanjs/react-router": "*",
     "@leanjs/react": "*",
     "react": "*",
     "react-dom": "*",
