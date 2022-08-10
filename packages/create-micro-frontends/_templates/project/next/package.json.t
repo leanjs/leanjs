@@ -40,8 +40,7 @@ to: <%= h.inflection.dasherize(projectName) %>/package.json
     "next": "12.2.0",
     "next-transpile-modules": "^9.0.0",
     "react": "^17.0.2",
-    "react-dom": "^17.0.2",
-    "react-router-dom": "^6.3.0"
+    "react-dom": "^17.0.2"
   },
   "engines": {
     "npm": ">=7.0.0",

@@ -13,8 +13,7 @@ to: <%= h.inflection.dasherize(projectName) %>/micro-frontends/<%= h.inflection.
   "peerDependencies": {
     "@leanjs/react": "*",
     "react": "*",
-    "react-dom": "*",
-    "react-router-dom": "*"
+    "react-dom": "*"
   },
   "dependencies": {
     "@<%=h.inflection.dasherize(projectName)%>/runtime-react": "*"
