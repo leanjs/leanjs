@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.16.0](https://github.com/leanjs/leanjs/compare/@leanjs/webpack@0.15.1...@leanjs/webpack@0.16.0) (2022-08-10)
+
+
+### Features
+
+* **wepack:** extract configs to its own packages ([e79c859](https://github.com/leanjs/leanjs/commit/e79c859371cb3bfe779eef21bbe3d55874dc2098))
+
+
+
+
+
 ## [0.15.1](https://github.com/leanjs/leanjs/compare/@leanjs/webpack@0.15.0...@leanjs/webpack@0.15.1) (2022-08-09)
 
 
