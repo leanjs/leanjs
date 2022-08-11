@@ -26,7 +26,7 @@
     "@leanjs/core": "^0.9.2",
     "chalk": "^4.1.2",
     "fast-glob": "^3.2.11",
-    "html-webpack-plugin": "^5.4.0",
+    "html-webpack-plugin": "^5.5.0",
     "webpack-virtual-modules": "^0.4.3"
   },
   "devDependencies": {
