@@ -1,6 +1,6 @@
 {
   "name": "@leanjs/webpack-vue",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Default Webpack configuration for LeanJS Vue micro-frontends",
   "main": "./dist/index.js",
   "author": "Alex Lobera <alex@leanjs.com>",
@@ -27,7 +27,7 @@
     "vue-template-compiler": "^2.6.14"
   },
   "devDependencies": {
-    "@leanjs/webpack": "^0.16.0"
+    "@leanjs/webpack": "^0.16.1"
   },
   "peerDependencies": {
     "@leanjs/webpack": "*",

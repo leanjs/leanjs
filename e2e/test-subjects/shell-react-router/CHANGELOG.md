@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.1.34](https://github.com/leanjs/leanjs/compare/@leanjs/e2e-test-subjects-shell-react-router@1.1.33...@leanjs/e2e-test-subjects-shell-react-router@1.1.34) (2022-08-11)
+
+**Note:** Version bump only for package @leanjs/e2e-test-subjects-shell-react-router
+
+
+
+
+
 ## [1.1.33](https://github.com/leanjs/leanjs/compare/@leanjs/e2e-test-subjects-shell-react-router@1.1.32...@leanjs/e2e-test-subjects-shell-react-router@1.1.33) (2022-08-10)
 
 **Note:** Version bump only for package @leanjs/e2e-test-subjects-shell-react-router
