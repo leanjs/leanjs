@@ -4,7 +4,7 @@ to: <%= h.inflection.dasherize(projectName) %>/apps/shell/pages/index.tsx
 import { Host } from "@leanjs/next";
 import React from "react";
 import Head from "next/head";
-import { useGetter, useSetter } from "@my-lean-project/runtime-react";
+import { useGetter, useSetter } from "<%=h.inflection.dasherize(projectName)%>/runtime-react";
 
 const Home = () => {
   const locale = useGetter("locale");
