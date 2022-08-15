@@ -28,7 +28,7 @@ const React: NextPage = () => {
       <Host
         pathname={pathname}
         loadingComponent={CustomLoader}
-        remote={{
+        app={{
           packageName: "@leanjs/e2e-test-subjects-remote-react-sub-pages",
         }}
       />

@@ -1,1 +1,1 @@
-export * from "./createRemote";
+export * from "./createApp";

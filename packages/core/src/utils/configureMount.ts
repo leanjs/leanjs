@@ -4,25 +4,25 @@ import { isObject } from "./index";
 const appInitialState = new Map<string, any>();
 const initializedInitialState = new Set<string>();
 
-export const getDefaultPathname = (isSelfHosted: boolean) =>
+export const getDefaultPathname = (isSelfHosted?: boolean) =>
   isSelfHosted && typeof window !== "undefined"
     ? window.location.pathname
     : "/";
 
 export const configureMount: ConfigureMount = ({
   el,
-  appName,
+  packageName,
   unmount,
   runtime,
   render,
-  isSelfHosted,
+  isSelfHosted = false,
   onBeforeMount,
   initialState,
   cleanups = [],
   log,
 }) => {
   function updateInitialState(newInitialState: any) {
-    appInitialState.set(appName, newInitialState);
+    appInitialState.set(packageName, newInitialState);
   }
   if (el) {
     try {
@@ -30,16 +30,16 @@ export const configureMount: ConfigureMount = ({
       const onUnmountedCallbacks: Cleanup[] = [];
 
       // initialize appInitialState if it's the first time this app runs
-      if (!initializedInitialState.has(appName)) {
+      if (!initializedInitialState.has(packageName)) {
         updateInitialState(initialState);
-        initializedInitialState.add(appName);
+        initializedInitialState.add(packageName);
       }
 
       // call beforeMount hooks
       const appProps = onBeforeMount?.({
         runtime,
         isSelfHosted,
-        initialState: appInitialState.get(appName),
+        initialState: appInitialState.get(packageName),
         updateInitialState,
         onBeforeUnmount: (callback: Cleanup) => {
           onBeforeUnmountCallbacks.push(callback);

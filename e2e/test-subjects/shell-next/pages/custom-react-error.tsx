@@ -8,7 +8,7 @@ const CustomReactError: NextPage = () => {
       <h1>React Error page</h1>
       <Host
         errorComponent={CustomError}
-        remote={{ packageName: "i-dont-exist-and-have-a-custom-error" }}
+        app={{ packageName: "i-dont-exist-and-have-a-custom-error" }}
       />
     </>
   );

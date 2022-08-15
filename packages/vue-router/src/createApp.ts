@@ -1,13 +1,13 @@
 import type {
   CreateRemoteConfig,
-  RunRemoteOptions,
+  BootstrapOptions,
   MountOptions,
   Cleanup,
   CreateRuntime,
   GetRuntime,
   MountFunc,
 } from "@leanjs/core";
-import { createApp } from "vue";
+import { createApp as createVueApp } from "vue";
 import type { Component, App } from "vue";
 import {
   createRouter,
@@ -27,7 +27,7 @@ const { configureMount, getDefaultPathname, dedupeSlash } = CoreUtils;
 
 export {
   CreateRemoteConfig,
-  RunRemoteOptions,
+  BootstrapOptions,
   MountOptions,
   Cleanup,
   CreateRuntime,
@@ -41,27 +41,28 @@ interface VueRouterConfig {
   linkActiveClass?: string;
   linkExactActiveClass?: string;
 }
-interface CreateRemoteVueConfig extends CreateRemoteConfig {
+interface CreateRemoteVueConfig<MyCreateRuntime extends CreateRuntime>
+  extends CreateRemoteConfig<MyCreateRuntime> {
   router?: VueRouterConfig;
 }
 
-export const createRemote =
-  <MyCreateRuntime extends CreateRuntime = CreateRuntime>(
-    App: Component,
-    config?: CreateRemoteVueConfig
-  ) =>
-  (options: RunRemoteOptions) => {
+export const createApp = <
+  MyCreateRuntime extends CreateRuntime = CreateRuntime
+>(
+  App: Component,
+  {
+    createRuntime,
+    onBeforeMount,
+    packageName,
+    router: { routes = [], ...routerConfig } = {},
+  }: CreateRemoteVueConfig<MyCreateRuntime>
+) => {
+  const bootstrap = (options: BootstrapOptions = {}) => {
     const { isSelfHosted } = options;
-    const {
-      createRuntime,
-      onBeforeMount,
-      router: { routes = [], ...routerConfig } = {},
-    } = config || {};
-
     const mount: MountFunc<GetRuntime<MyCreateRuntime>> = (
       el,
       {
-        runtime = createRuntime?.(),
+        runtime = createRuntime?.() as GetRuntime<MyCreateRuntime>,
         onRemoteNavigate,
         basename,
         pathname = getDefaultPathname(isSelfHosted),
@@ -84,6 +85,7 @@ export const createRemote =
         ...configureMount({
           el,
           ...options,
+          packageName,
           log: createRuntime?.log,
           runtime,
           onBeforeMount,
@@ -103,7 +105,7 @@ export const createRemote =
               ]
             : [],
           render: ({ appProps }) => {
-            app = createApp(App, { ...appProps, isSelfHosted })
+            app = createVueApp(App, { ...appProps, isSelfHosted })
               .provide("runtime", runtime)
               .use(router);
             app.mount(el);
@@ -130,5 +132,10 @@ export const createRemote =
       };
     };
 
-    return { mount, createRuntime };
+    return { mount, packageName, createRuntime };
   };
+
+  bootstrap.packageName = packageName;
+
+  return bootstrap;
+};

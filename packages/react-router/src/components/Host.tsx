@@ -12,14 +12,14 @@ interface ReactRouterHostProps extends HostProps {
 }
 
 export function Host({
-  remote,
+  app,
   basename = "/",
   loadingComponent: LoadingComponent = () => <>...</>,
   errorComponent: ErrorComponent = DefaultError,
   ...rest
 }: ReactRouterHostProps) {
   const navigate = useNavigate();
-  const { mount, error, runtime } = useHost({ remote });
+  const { mount, error, runtime } = useHost({ app });
   const listen = useListen();
 
   return mount ? (

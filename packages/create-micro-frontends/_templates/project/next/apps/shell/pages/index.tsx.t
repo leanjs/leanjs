@@ -21,7 +21,7 @@ const Home = () => {
         <option value="es">Spanish</option>
       </select>
       <hr />
-      <Host remote={{ packageName: "@<%=h.inflection.dasherize(projectName)%>/<%= h.inflection.dasherize(microFrontendName) %>" }} />
+      <Host app={{ packageName: "@<%=h.inflection.dasherize(projectName)%>/<%= h.inflection.dasherize(microFrontendName) %>" }} />
     </>
   );
 };

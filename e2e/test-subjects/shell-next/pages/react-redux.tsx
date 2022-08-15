@@ -6,7 +6,7 @@ const ReactRedux: NextPage = () => {
     <>
       <h1>React Redux page</h1>
       <Host
-        remote={{ packageName: "@leanjs/e2e-test-subjects-remote-react-redux" }}
+        app={{ packageName: "@leanjs/e2e-test-subjects-remote-react-redux" }}
       />
     </>
   );

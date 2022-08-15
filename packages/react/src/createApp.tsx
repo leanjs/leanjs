@@ -1,6 +1,6 @@
 import type {
   CreateRemoteConfig,
-  RunRemoteOptions,
+  BootstrapOptions,
   CreateRuntime,
   GetRuntime,
   AppProps,
@@ -14,17 +14,19 @@ import { ErrorBoundary } from "./utils";
 import { RuntimeProvider } from "./runtime";
 const { configureMount } = CoreUtils;
 
-export const createRemote =
-  <
-    MyCreateRuntime extends CreateRuntime = CreateRuntime,
-    MyAppProps extends AppProps = AppProps
-  >(
-    App: (props: MyAppProps) => ReactElement,
-    config?: CreateRemoteConfig<MyCreateRuntime, MyAppProps>
-  ) =>
-  (options: RunRemoteOptions) => {
+export const createApp = <
+  MyCreateRuntime extends CreateRuntime = CreateRuntime,
+  MyAppProps extends AppProps = AppProps
+>(
+  App: (props: MyAppProps) => ReactElement,
+  {
+    createRuntime,
+    onBeforeMount,
+    packageName,
+  }: CreateRemoteConfig<MyCreateRuntime, MyAppProps>
+) => {
+  const bootstrap = (options: BootstrapOptions = {}) => {
     const { isSelfHosted } = options;
-    const { createRuntime, onBeforeMount } = config || {};
     const mount: MountFunc<GetRuntime<MyCreateRuntime>> = (
       el,
       { runtime = createRuntime?.() as GetRuntime<MyCreateRuntime> } = {}
@@ -32,6 +34,7 @@ export const createRemote =
       configureMount({
         el,
         ...options,
+        packageName,
         log: createRuntime?.log,
         runtime,
         onBeforeMount,
@@ -55,5 +58,10 @@ export const createRemote =
         },
       });
 
-    return { mount, createRuntime };
+    return { mount, packageName, createRuntime };
   };
+
+  bootstrap.packageName = packageName;
+
+  return bootstrap;
+};

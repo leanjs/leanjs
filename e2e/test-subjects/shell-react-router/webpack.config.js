@@ -2,8 +2,6 @@
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const { HostWebpackPlugin } = require("@leanjs/webpack");
-// eslint-disable-next-line @typescript-eslint/no-var-requires
-const packageJsonDeps = require("./package.json").dependencies;
 
 const port = 44446;
 
@@ -17,22 +15,7 @@ module.exports = {
     publicPath: "/",
   },
   plugins: [
-    new HostWebpackPlugin({
-      shared: {
-        react: {
-          eager: true,
-          requiredVersion: packageJsonDeps.react,
-        },
-        "react-dom": {
-          eager: true,
-          requiredVersion: packageJsonDeps["react-dom"],
-        },
-        "react-router-dom": {
-          eager: true,
-          requiredVersion: packageJsonDeps["react-router-dom"],
-        },
-      },
-    }),
+    // new HostWebpackPlugin(),
     new HtmlWebpackPlugin({
       template: "./public/index.html",
     }),

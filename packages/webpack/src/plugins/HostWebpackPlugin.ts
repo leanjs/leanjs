@@ -8,6 +8,9 @@ export interface HostWebpackOptions {
   shared?: SharedDependencies;
   autoShared?: AutoShared | boolean;
   eager?: boolean;
+  remotes?: {
+    packages: string[];
+  };
 }
 
 const { ModuleFederationPlugin } = container;
@@ -22,12 +25,20 @@ export class HostWebpackPlugin implements WebpackPluginInstance {
   apply(compiler: Compiler) {
     const explicitDependencies = this.options.shared || {};
     const { eager, autoShared } = this.options;
+    const remotePackages = this.options.remotes?.packages;
     // eslint-disable-next-line @typescript-eslint/no-var-requires
     const packageJson = require(`${process.cwd()}/package.json`);
     const implicitDependencies = getImplicitlySharedDependencies({
       autoShared,
       packageJson,
     });
+    const remotes = remotePackages?.reduce((acc, remote) => {
+      acc[
+        remote
+      ] = `promise new Promise((resolve) => resolve({ packageName: "${remote}" }))`;
+
+      return acc;
+    }, {} as Record<string, string>);
 
     new ModuleFederationPlugin({
       shared: formatSharedDependencies({
@@ -35,6 +46,7 @@ export class HostWebpackPlugin implements WebpackPluginInstance {
         explicitDependencies,
         implicitDependencies,
       }),
+      remotes,
     }).apply(compiler);
   }
 }

@@ -14,7 +14,7 @@ interface NextHostProps extends HostProps {
 }
 
 export function Host({
-  remote,
+  app,
   pathname,
   className,
   loadingComponent: LoadingComponent = () => <>...</>,
@@ -22,7 +22,7 @@ export function Host({
 }: NextHostProps) {
   const router = useRouter();
   const basename = dedupeSlash(`${router.basePath}/${router.pathname}`);
-  const { mount, error, url, runtime } = useHost({ remote });
+  const { mount, error, url, runtime } = useHost({ app });
 
   const navigate = useCallback(({ pathname, hash, search }: Location) => {
     router.push(
@@ -72,7 +72,9 @@ export function Host({
 
   return (
     <>
-      {process.env.NODE_ENV === "development" ? null : (
+      {process.env.NODE_ENV === "development" ? (
+        null && url
+      ) : (
         <Head>
           <link rel="preload" as="script" href={url} />
         </Head>

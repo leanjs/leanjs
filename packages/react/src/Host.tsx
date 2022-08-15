@@ -4,12 +4,12 @@ import type { HostProps } from "./types";
 import { useHost, Mount, DefaultError } from "./utils";
 
 export function Host({
-  remote,
+  app,
   loadingComponent: LoadingComponent = () => <>...</>,
   errorComponent: ErrorComponent = DefaultError,
   ...rest
 }: HostProps) {
-  const { mount, error, runtime } = useHost({ remote });
+  const { mount, error, runtime } = useHost({ app });
 
   return mount ? (
     <Mount {...rest} mount={mount} runtime={runtime} />

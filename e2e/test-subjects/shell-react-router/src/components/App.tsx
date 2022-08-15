@@ -6,6 +6,7 @@ import {
 } from "@leanjs/e2e-test-subjects-package-runtime-react";
 import { Link, Route, Routes } from "react-router-dom";
 import SubPages from "./SubPages";
+import reactApp from "@leanjs/e2e-test-subjects-remote-react-1";
 
 const runtime = createRuntime();
 
@@ -24,10 +25,11 @@ export function App() {
                 <h2>🏠 Home page</h2>
                 <Link to="/micro">Visit micro-frontend on another page</Link>
                 <Host
-                  remote={{
-                    packageName:
-                      "@leanjs/e2e-test-subjects-remote-react-sub-pages",
-                  }}
+                  app={reactApp}
+                  // app={{
+                  //   packageName:
+                  //     "@leanjs/e2e-test-subjects-remote-react-sub-pages",
+                  // }}
                 />
               </>
             }
