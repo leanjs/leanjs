@@ -1,6 +1,6 @@
 {
   "name": "@leanjs/e2e-test-subjects-package-runtime-shared",
-  "version": "1.0.20",
+  "version": "1.0.21",
   "private": true,
   "description": "",
   "main": "./src/index.ts",
@@ -8,6 +8,6 @@
   "author": "",
   "license": "MIT",
   "dependencies": {
-    "@leanjs/core": "^0.10.0"
+    "@leanjs/core": "^0.10.1"
   }
 }
