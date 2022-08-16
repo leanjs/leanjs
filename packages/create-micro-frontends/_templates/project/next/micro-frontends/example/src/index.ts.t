@@ -7,4 +7,7 @@ import { createRuntime } from "@<%=h.inflection.dasherize(projectName)%>/runtime
 import { App } from "./App";
 import packageJson from "../package.json";
 
-export default createApp(App, { packageName: packageJson.name });
+export default createApp(App, { 
+    packageName: packageJson.name, 
+    createRuntime
+});
