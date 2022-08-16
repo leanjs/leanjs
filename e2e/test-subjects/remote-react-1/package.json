@@ -6,6 +6,7 @@
   "scripts": {
     "start:e2e": "NODE_ENV=development webpack serve"
   },
+  "main": "./src/index.ts",
   "author": "Alex Lobera <alex@leanjs.com>",
   "license": "MIT",
   "dependencies": {

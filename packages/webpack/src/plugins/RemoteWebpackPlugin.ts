@@ -32,10 +32,10 @@ export class RemoteWebpackPlugin implements WebpackPluginInstance {
     const isEnvDevelopment = process.env.NODE_ENV === "development";
     const isEnvProduction = process.env.NODE_ENV === "production";
     const { extensions } = compiler.options.resolve;
-    const remoteExists = (
+    const indexExists = (
       extensions?.length ? extensions : [".ts", ".js"]
     ).reduce(
-      (acc, ext) => acc || fs.existsSync(`${process.cwd()}/src/remote${ext}`),
+      (acc, ext) => acc || fs.existsSync(`${process.cwd()}/src/index${ext}`),
       false
     );
     // eslint-disable-next-line @typescript-eslint/no-var-requires
@@ -50,15 +50,21 @@ export class RemoteWebpackPlugin implements WebpackPluginInstance {
     if (!packageName) {
       throw new Error(`No package name found in package.json`);
     }
-    if (!remoteExists) {
+    if (!indexExists) {
       console.log(
-        `⚠️ No src/remote.ts|js found. Exiting RemoteWebpackPlugin for ${chalk.cyan(
+        `⚠️ No src/index.ts|js found. Exiting RemoteWebpackPlugin for ${chalk.cyan(
           packageName
         )}`
       );
 
       process.exit(1);
     }
+
+    compiler.options.entry = {
+      remote: {
+        import: ["./src/remote.js"],
+      },
+    };
 
     if (isEnvDevelopment) {
       compiler.options.devServer = {
@@ -120,7 +126,7 @@ export class RemoteWebpackPlugin implements WebpackPluginInstance {
       name: moduleName,
       filename: "remoteEntry.js",
       exposes: {
-        ".": "./src/remote",
+        ".": "./src/index",
       },
       shared: formatSharedDependencies({
         explicitDependencies: this.options.shared || {},
@@ -131,7 +137,7 @@ export class RemoteWebpackPlugin implements WebpackPluginInstance {
     }).apply(compiler);
 
     new VirtualModulesPlugin({
-      "./src/index.js": `import("./bootstrap");`,
+      "./src/remote.js": `import("./bootstrap");`,
       "./src/bootstrap": fs.readFileSync(
         path.resolve(__dirname, "../bootstrap.js"),
         "utf8"

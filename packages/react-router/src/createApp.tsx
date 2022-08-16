@@ -1,11 +1,11 @@
 import { RuntimeProvider, _ as ReactUtils } from "@leanjs/react";
 import type {
   CreateRemoteConfig,
-  RunRemoteOptions,
   CreateRuntime,
   GetRuntime,
   AppProps,
   MountFunc,
+  BootstrapOptions,
 } from "@leanjs/core";
 import { _ as CoreUtils } from "@leanjs/core";
 import React, { ReactElement } from "react";
@@ -17,17 +17,19 @@ import { UniversalRouter } from "./components/UniversalRouter";
 const { ErrorBoundary } = ReactUtils;
 const { configureMount, getDefaultPathname } = CoreUtils;
 
-export const createRemote =
-  <
-    MyCreateRuntime extends CreateRuntime = CreateRuntime,
-    MyAppProps extends AppProps = AppProps
-  >(
-    App: (props: MyAppProps) => ReactElement,
-    config?: CreateRemoteConfig<MyCreateRuntime, MyAppProps>
-  ) =>
-  (options: RunRemoteOptions) => {
+export const createApp = <
+  MyCreateRuntime extends CreateRuntime = CreateRuntime,
+  MyAppProps extends AppProps = AppProps
+>(
+  App: (props: MyAppProps) => ReactElement,
+  {
+    createRuntime,
+    onBeforeMount,
+    packageName,
+  }: CreateRemoteConfig<MyCreateRuntime, MyAppProps>
+) => {
+  const bootstrap = (options: BootstrapOptions = {}) => {
     const { isSelfHosted } = options;
-    const { createRuntime, onBeforeMount } = config || {};
     const history = isSelfHosted
       ? createBrowserHistory()
       : createMemoryHistory();
@@ -50,6 +52,7 @@ export const createRemote =
         ...configureMount({
           el,
           ...options,
+          packageName,
           log: createRuntime?.log,
           runtime,
           onBeforeMount,
@@ -85,5 +88,14 @@ export const createRemote =
       };
     };
 
-    return { mount, createRuntime };
+    return {
+      mount,
+      packageName,
+      createRuntime,
+    };
   };
+
+  bootstrap.packageName = packageName;
+
+  return bootstrap;
+};

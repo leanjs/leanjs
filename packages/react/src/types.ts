@@ -4,6 +4,7 @@ import type {
   NavigateFunc,
   ListenFunc,
   BasePath,
+  ComposableApp,
 } from "@leanjs/core";
 import type { ReactElement } from "react";
 
@@ -16,7 +17,7 @@ export interface MountProps extends BasePath {
 }
 
 export interface HostProps {
-  remote: { packageName: string };
+  app: ComposableApp;
   errorComponent?: ErrorComponent;
   loadingComponent?: LoadingComponent;
   className?: string;
@@ -25,12 +26,8 @@ export interface HostProps {
 export type ErrorComponent = (props: { error: Error }) => React.ReactElement;
 export type LoadingComponent = () => React.ReactElement;
 
-export interface Remote {
-  packageName: string;
-}
-
 export interface UseHostArgs {
-  remote: Remote;
+  app: ComposableApp;
 }
 
 export interface HostContextValues {

@@ -5,9 +5,7 @@ const Vue: NextPage = () => {
   return (
     <>
       <h1>Vue page</h1>
-      <Host
-        remote={{ packageName: "@leanjs/e2e-test-subjects-remote-vue-1" }}
-      />
+      <Host app={{ packageName: "@leanjs/e2e-test-subjects-remote-vue-1" }} />
     </>
   );
 };

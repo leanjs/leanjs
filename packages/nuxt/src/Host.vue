@@ -5,7 +5,7 @@
     :listen="listen"
     :basename="basename"
     :pathname="props.pathname"
-  :runtime="runtime"
+    :runtime="runtime"
   />
   <div v-if="error">
     <slot name="error" :error="error">Error: {{ error }}</slot>
@@ -17,7 +17,12 @@
 
 <script setup lang="ts">
 import { inject, defineProps, watchEffect, ref, onBeforeMount } from "vue";
-import type { Runtime, NavigateFunc, ListenFunc } from "@leanjs/core";
+import type {
+  Runtime,
+  NavigateFunc,
+  ListenFunc,
+  ComposableApp,
+} from "@leanjs/core";
 import { _ as CoreUtils } from "@leanjs/core";
 import { Mount } from "@leanjs/vue";
 import "./types";
@@ -25,9 +30,7 @@ import mountCache from "./mountCache";
 import { RouteLocationNormalizedLoaded, Router } from "vue-router";
 
 export interface HostProps {
-  remote: {
-    packageName: string;
-  };
+  app: ComposableApp;
   pathname?: string;
 }
 
@@ -45,7 +48,7 @@ if (!injectedOrigin) {
 }
 
 const props = defineProps<HostProps>();
-const { packageName } = props.remote;
+const { packageName } = props.app;
 const origin = deleteTrailingSlash(injectedOrigin);
 
 const name = createRemoteName(packageName);

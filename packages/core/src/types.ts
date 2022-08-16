@@ -54,16 +54,35 @@ export interface MountOutput {
   onHostNavigate?: OnNavigate;
 }
 
-export type MountFunc<MyRuntime extends Runtime = Runtime> = (
-  element: HTMLElement | null,
-  options: MountOptions<MyRuntime>
-) => MountOutput;
+export interface CreateComposableApp<MyCreateRuntime extends CreateRuntime> {
+  (options?: BootstrapOptions): CreateBootstrapOutput<MyCreateRuntime>;
+  packageName: string;
+}
+
+export type ComposableAppInstance<MyRuntime extends Runtime> = {
+  packageName: string;
+  mount?: MountFunc<MyRuntime>;
+};
+
+export type ComposableApp<
+  MyCreateRuntime extends CreateRuntime = CreateRuntime
+> =
+  | ComposableAppInstance<GetRuntime<MyCreateRuntime>>
+  | CreateComposableApp<MyCreateRuntime>;
+
+export type CreateBootstrapOutput<MyCreateRuntime extends CreateRuntime> =
+  ComposableAppInstance<GetRuntime<MyCreateRuntime>> & {
+    createRuntime?: MyCreateRuntime;
+  };
+
+export interface MountFunc<MyRuntime extends Runtime = Runtime> {
+  (element: HTMLElement | null, options: MountOptions<MyRuntime>): MountOutput;
+}
 
 type UdpateInitialState = (state: any) => void;
-export interface RunRemoteOptions {
-  isSelfHosted: boolean;
+export interface BootstrapOptions {
+  isSelfHosted?: boolean;
   initialState?: any;
-  appName: string;
 }
 
 export interface OnBeforeMountArgs<MyRuntime extends Runtime> {
@@ -81,6 +100,7 @@ export interface CreateRemoteConfig<
   MyCreateRuntime extends CreateRuntime = CreateRuntime,
   MyAppProps extends AppProps = AppProps
 > {
+  packageName: string;
   createRuntime?: MyCreateRuntime;
   onBeforeMount?: (
     args: OnBeforeMountArgs<GetRuntime<MyCreateRuntime>>
@@ -111,11 +131,11 @@ export interface ConfigureMountArgs<
   MyAppProps extends AppProps
 > {
   el: HTMLElement | null;
-  appName: string;
+  packageName: string;
   unmount: () => void;
   runtime?: MyRuntime;
   render: ({ appProps }: { appProps?: MyAppProps }) => void;
-  isSelfHosted: boolean;
+  isSelfHosted?: boolean;
   onBeforeMount?: (args: OnBeforeMountArgs<MyRuntime>) => MyAppProps;
   initialState?: any;
   cleanups?: Cleanup[];
