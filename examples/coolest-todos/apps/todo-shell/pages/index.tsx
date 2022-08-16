@@ -8,7 +8,7 @@ const Home = () => {
       <Head>
         <title>Home</title>
       </Head>
-      <Host remote={{ packageName: "@my-org/micro-feed" }} />
+      <Host app={{ packageName: "@my-org/micro-feed" }} />
     </>
   );
 };

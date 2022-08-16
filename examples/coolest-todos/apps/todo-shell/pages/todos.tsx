@@ -8,7 +8,7 @@ const Todo = () => {
       <Head>
         <title>Host & Chat</title>
       </Head>
-      <Host remote={{ packageName: "@my-org/micro-todo" }} />
+      <Host app={{ packageName: "@my-org/micro-todo" }} />
     </>
   );
 };
