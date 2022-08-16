@@ -1,6 +1,6 @@
 import { createApp } from "@leanjs/vue-router";
-import { routes } from "./routes";
 
+import { routes } from "./routes";
 import App from "./App.vue";
 import packageJson from "../package.json";
 

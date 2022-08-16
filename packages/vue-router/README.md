@@ -48,7 +48,7 @@ and also the following `devDependencies`:
 
 ## Usage
 
-Create a file called `remote.ts` in the `src` directory where your micro-frontend is.
+Create a file called `index.ts` in the `src` directory where your micro-frontend is.
 
 ```
 my-monorepo/
@@ -57,24 +57,28 @@ my-monorepo/
 │  │  ├─ package.json
 │  │  ├─ src/
 │  │  │  ├─ VueApp.vue
-│  │  │  ├─ remote.ts 👈
+│  │  │  ├─ index.ts 👈
 ├─ package.json
 ```
 
 > **Note**
 > Read the recommended setup in our [getting started page](../../docs/getting-started.md#recommended-setup) if you want to create a similar monorepo structure
 
-Call `createRemote` with the root component of your VueApp and your `createRuntime` function:
+Call `createApp` with the root component of your VueApp and your `createRuntime` function:
 
 ```ts
-import { createRemote } from "@leanjs/vue-router";
+import { createApp } from "@leanjs/vue-router";
 // shared runtime example package created by your org
 import { createRuntime } from "@my-org/runtime-shared";
 
+import packageJson from "../package.json";
 import VueApp from "./VueApp.vue";
 
-// 👇  you must `export default createRemote(`
-export default createRemote(VueApp, { createRuntime });
+// 👇  you must `export default createApp(`
+export default createApp(VueApp, {
+  createRuntime,
+  packageName: packageJson.name,
+});
 ```
 
 > **Note**
