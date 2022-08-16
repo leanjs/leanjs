@@ -1,6 +1,6 @@
 import type { CreateRuntime, Runtime, GetRuntime } from "./runtime";
 
-export interface CreateRemoteOutput {
+export interface BootstrapOutput {
   mount: MountFunc;
   createRuntime: CreateRuntime;
 }
