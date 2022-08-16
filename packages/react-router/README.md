@@ -50,7 +50,7 @@ and also the following `devDependencies`:
 
 ## Usage
 
-Create a file called `remote.ts` in the `src` directory where your micro-frontend is.
+Create a file called `index.ts` in the `src` directory where your micro-frontend is.
 
 ```
 my-monorepo/
@@ -59,24 +59,28 @@ my-monorepo/
 │  │  ├─ package.json
 │  │  ├─ src/
 │  │  │  ├─ ReactApp.tsx
-│  │  │  ├─ remote.ts 👈
+│  │  │  ├─ index.ts 👈
 ├─ package.json
 ```
 
 > **Note**
 > Read the recommended setup in our [getting started page](../../docs/getting-started.md#recommended-setup) if you want to create a similar monorepo structure
 
-Call `createRemote` with the root component of your App and your `createRuntime` function and:
+Call `createApp` with the root component of your App and your `createRuntime` function and:
 
 ```ts
-import { createRemote } from "@leanjs/react-router";
+import { createApp } from "@leanjs/react-router";
 // shared runtime example package created by your org
 import { createRuntime } from "@my-org/runtime-shared";
 
+import packageJson from "../package.json";
 import { ReactApp } from "./ReactApp";
 
-// 👇  you must `export default createRemote(`
-export default createRemote(ReactApp, { createRuntime });
+// 👇  you must `export default createApp(`
+export default createApp(ReactApp, {
+  createRuntime,
+  packageName: packageJson.name,
+});
 ```
 
 > **Note**
