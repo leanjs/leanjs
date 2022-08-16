@@ -1,14 +1,14 @@
-import type { BootstrapOptions, CreateRemoteOutput } from "@leanjs/core";
+import type { BootstrapOptions, BootstrapOutput } from "@leanjs/core";
 import packageJson from "../package.json";
 
 const packageName = packageJson.name;
 const indexError = new Error(
-  `🔥🔥🔥 src/index file in ${packageName} doesn't export default createRemote(app, options) 🔥🔥🔥`
+  `🔥🔥🔥 src/index file in ${packageName} doesn't export default createApp(app, options) 🔥🔥🔥`
 );
 
 (
   import("./index") as unknown as Promise<{
-    default: (options?: BootstrapOptions) => CreateRemoteOutput;
+    default: (options?: BootstrapOptions) => BootstrapOutput;
   }>
 ).then((index) => {
   const config = index?.default;
