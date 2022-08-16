@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.5.0](https://github.com/leanjs/leanjs/compare/@leanjs/e2e-test-subjects-remote-react-1@1.4.17...@leanjs/e2e-test-subjects-remote-react-1@1.5.0) (2022-08-16)
+
+
+### Features
+
+* enable build-time integration ([df93a43](https://github.com/leanjs/leanjs/commit/df93a433f869a659ace4fb1388608fdd415071b0))
+
+
+
+
+
 ## [1.4.17](https://github.com/leanjs/leanjs/compare/@leanjs/e2e-test-subjects-remote-react-1@1.4.16...@leanjs/e2e-test-subjects-remote-react-1@1.4.17) (2022-08-11)
 
 **Note:** Version bump only for package @leanjs/e2e-test-subjects-remote-react-1

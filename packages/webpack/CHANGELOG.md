@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.17.0](https://github.com/leanjs/leanjs/compare/@leanjs/webpack@0.16.1...@leanjs/webpack@0.17.0) (2022-08-16)
+
+
+### Features
+
+* enable build-time integration ([df93a43](https://github.com/leanjs/leanjs/commit/df93a433f869a659ace4fb1388608fdd415071b0))
+
+
+
+
+
 ## [0.16.1](https://github.com/leanjs/leanjs/compare/@leanjs/webpack@0.16.0...@leanjs/webpack@0.16.1) (2022-08-11)
 
 **Note:** Version bump only for package @leanjs/webpack

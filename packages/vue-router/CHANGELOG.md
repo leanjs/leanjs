@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.2.0](https://github.com/leanjs/leanjs/compare/@leanjs/vue-router@0.1.28...@leanjs/vue-router@0.2.0) (2022-08-16)
+
+
+### Features
+
+* enable build-time integration ([df93a43](https://github.com/leanjs/leanjs/commit/df93a433f869a659ace4fb1388608fdd415071b0))
+
+
+
+
+
 ## [0.1.28](https://github.com/leanjs/leanjs/compare/@leanjs/vue-router@0.1.27...@leanjs/vue-router@0.1.28) (2022-08-05)
 
 **Note:** Version bump only for package @leanjs/vue-router

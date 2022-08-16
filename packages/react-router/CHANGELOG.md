@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.5.0](https://github.com/leanjs/leanjs/compare/@leanjs/react-router@0.4.3...@leanjs/react-router@0.5.0) (2022-08-16)
+
+
+### Features
+
+* enable build-time integration ([df93a43](https://github.com/leanjs/leanjs/commit/df93a433f869a659ace4fb1388608fdd415071b0))
+
+
+
+
+
 ## [0.4.3](https://github.com/leanjs/leanjs/compare/@leanjs/react-router@0.4.2...@leanjs/react-router@0.4.3) (2022-08-05)
 
 **Note:** Version bump only for package @leanjs/react-router

@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.3.0](https://github.com/leanjs/leanjs/compare/create-micro-frontends@0.2.2...create-micro-frontends@0.3.0) (2022-08-16)
+
+
+### Features
+
+* enable build-time integration ([df93a43](https://github.com/leanjs/leanjs/commit/df93a433f869a659ace4fb1388608fdd415071b0))
+
+
+
+
+
 ## [0.2.2](https://github.com/leanjs/leanjs/compare/create-micro-frontends@0.2.1...create-micro-frontends@0.2.2) (2022-08-14)
 
 
