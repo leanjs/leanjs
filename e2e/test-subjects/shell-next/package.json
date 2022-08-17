@@ -4,7 +4,6 @@
   "private": true,
   "scripts": {
     "start:e2e": "next dev -p 44440",
-    "build": "next build",
     "start": "next start",
     "lint": "next lint"
   },

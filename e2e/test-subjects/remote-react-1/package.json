@@ -4,6 +4,7 @@
   "version": "1.5.3",
   "description": "",
   "scripts": {
+    "build:e2e": "NODE_ENV=production node ../../../packages/cli/dist/bin/lean-cli build --config=react",
     "start:e2e": "NODE_ENV=development webpack serve"
   },
   "main": "./src/index.ts",

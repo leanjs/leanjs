@@ -9,11 +9,14 @@ const maxRecursion = 4;
 
 interface FindMonorepoVersionsArgs {
   excludeDirPattern?: string;
+  enabledRemotePackages?: Set<string>;
 }
 export async function findMonorepoDependencies({
   excludeDirPattern,
+  enabledRemotePackages,
 }: FindMonorepoVersionsArgs = {}) {
-  let monororepoDependencies: Dependencies = {};
+  let rootAndPackagesDependencies: Dependencies = {};
+  let dependenciesOfRemotes: Dependencies = {};
 
   const { packageJson: rootPackageJson, absolutePath } = findRootConfigSync({
     maxRecursion,
@@ -48,34 +51,65 @@ export async function findMonorepoDependencies({
       deep: maxRecursion,
     });
 
-    const monorepoPackageVersions = await readPackageVersions(
-      monorepoPackagePaths
+    const packages = await readPackages(
+      monorepoPackagePaths,
+      enabledRemotePackages
     );
 
-    monororepoDependencies = mergeDependencies(
+    dependenciesOfRemotes = packages.dependenciesOfRemotes;
+    rootAndPackagesDependencies = mergeDependencies(
       rootPackageJson?.dependencies,
-      monorepoPackageVersions
+      packages.localDependencies
     );
   }
 
-  return monororepoDependencies;
+  return { rootAndPackagesDependencies, dependenciesOfRemotes };
 }
 
-export async function readPackageVersions(packagePaths: string[]) {
-  let depVersions: Dependencies = {};
+export async function readPackages(
+  packagePaths: string[],
+  enabledRemotePackages?: Set<string>
+) {
+  let localDependencies: Dependencies = {};
+  let dependenciesOfRemotes: Dependencies = {};
+
   try {
     const fileContents = await Promise.all(
-      packagePaths.map((packagePath) => readFile(packagePath, "utf8"))
+      packagePaths.map(async (packagePath) => ({
+        packagePath,
+        content: await readFile(packagePath, "utf8"),
+      }))
     );
 
-    depVersions = fileContents.reduce((accDeps, content) => {
-      const jsonContent = JSON.parse(content);
-      if (jsonContent?.name) {
-        accDeps[jsonContent?.name] = jsonContent?.version;
-      }
+    localDependencies = fileContents.reduce(
+      (accDeps, { content, packagePath }) => {
+        let jsonContent;
+        try {
+          jsonContent = JSON.parse(content);
+        } catch (error) {
+          console.log(`failed to read JSON file ${packagePath}`);
+        }
 
-      return accDeps;
-    }, depVersions);
+        if (!jsonContent) {
+          return accDeps;
+        }
+
+        if (jsonContent.name) {
+          accDeps[jsonContent.name] = jsonContent.version;
+        }
+
+        if (enabledRemotePackages?.has(jsonContent.name)) {
+          dependenciesOfRemotes = {
+            ...dependenciesOfRemotes,
+            ...jsonContent.peerDependencies,
+            ...jsonContent.dependencies,
+          };
+        }
+
+        return accDeps;
+      },
+      localDependencies
+    );
   } catch (error) {
     console.log(
       `🔥 Failed to read package versions of the following files`,
@@ -84,5 +118,5 @@ export async function readPackageVersions(packagePaths: string[]) {
     );
   }
 
-  return depVersions;
+  return { localDependencies, dependenciesOfRemotes };
 }

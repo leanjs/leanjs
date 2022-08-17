@@ -15,7 +15,11 @@ module.exports = {
     publicPath: "/",
   },
   plugins: [
-    // new HostWebpackPlugin(),
+    new HostWebpackPlugin({
+      remotes: {
+        packages: ["@leanjs/e2e-test-subjects-remote-react-1"],
+      },
+    }),
     new HtmlWebpackPlugin({
       template: "./public/index.html",
     }),

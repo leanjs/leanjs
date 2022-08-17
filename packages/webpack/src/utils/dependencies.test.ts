@@ -1,5 +1,5 @@
 import {
-  versionSharedDependencies,
+  filterAndVersionDependencies,
   mergeDependencies,
   filterDependencies,
   formatSharedDependencies,
@@ -7,10 +7,9 @@ import {
 } from "./dependencies";
 
 describe("dependencies:", () => {
-  describe("versionSharedDependencies:", () => {
+  describe("filterAndVersionDependencies:", () => {
     it("uses a shared version if the version of a given name is * in peerDependencies and the name is a shared dependency", () => {
-      const dependencies = {};
-      const peerDependencies = {
+      const dependencies = {
         name_b: "*",
         name_c: "*",
       };
@@ -18,10 +17,9 @@ describe("dependencies:", () => {
         name_b: Math.random().toString(),
       };
 
-      const actual = versionSharedDependencies({
+      const actual = filterAndVersionDependencies({
         dependencies,
-        peerDependencies,
-        monorepoDependencies,
+        filterAndVersionBy: monorepoDependencies,
       });
 
       expect(actual).toEqual({ name_b: monorepoDependencies.name_b });
@@ -30,36 +28,30 @@ describe("dependencies:", () => {
     it("uses a peerDependency version of a given name if the peerDependency version is different than * and the name is a shared dependency", () => {
       const dependencies = {
         name_a: Math.random().toString(),
-      };
-      const peerDependencies = {
         name_b: Math.random().toString(),
       };
       const monorepoDependencies = {
         name_b: Math.random().toString(),
       };
 
-      const actual = versionSharedDependencies({
+      const actual = filterAndVersionDependencies({
         dependencies,
-        peerDependencies,
-        monorepoDependencies,
+        filterAndVersionBy: monorepoDependencies,
       });
 
-      expect(actual).toEqual({ name_b: peerDependencies.name_b });
+      expect(actual).toEqual({ name_b: dependencies.name_b });
     });
 
     it("doesn't use any version if a name is not defined in the shared dependencies", () => {
       const dependencies = {
         name_a: Math.random().toString(),
-      };
-      const peerDependencies = {
         name_b: Math.random().toString(),
       };
       const monorepoDependencies = {};
 
-      const actual = versionSharedDependencies({
+      const actual = filterAndVersionDependencies({
         dependencies,
-        peerDependencies,
-        monorepoDependencies,
+        filterAndVersionBy: monorepoDependencies,
       });
 
       expect(actual).toEqual({});
@@ -149,7 +141,7 @@ describe("dependencies:", () => {
     it("returns undefined if autoShared is false", () => {
       const actual = getImplicitlySharedDependencies({
         autoShared: false,
-        packageJson: {},
+        packageName: "somePackage",
       });
 
       expect(actual).toEqual(undefined);

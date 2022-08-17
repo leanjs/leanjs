@@ -22,7 +22,7 @@
     "swc-loader": "^0.2.1"
   },
   "devDependencies": {
-    "@leanjs/webpack": "^0.17.1"
+    "@leanjs/webpack": "*"
   },
   "peerDependencies": {
     "@leanjs/webpack": "*",
