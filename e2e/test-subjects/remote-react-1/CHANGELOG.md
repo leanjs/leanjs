@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.6.0](https://github.com/leanjs/leanjs/compare/@leanjs/e2e-test-subjects-remote-react-1@1.5.3...@leanjs/e2e-test-subjects-remote-react-1@1.6.0) (2022-08-17)
+
+
+### Features
+
+* **webpack:** more efficient auto shared dependencies ([2d2c2c2](https://github.com/leanjs/leanjs/commit/2d2c2c2f6e83431fc010d19c51ca6cf9c1e8e0fe))
+
+
+
+
+
 ## [1.5.3](https://github.com/leanjs/leanjs/compare/@leanjs/e2e-test-subjects-remote-react-1@1.5.2...@leanjs/e2e-test-subjects-remote-react-1@1.5.3) (2022-08-16)
 
 **Note:** Version bump only for package @leanjs/e2e-test-subjects-remote-react-1

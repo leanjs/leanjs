@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.2.0](https://github.com/leanjs/leanjs/compare/@leanjs/webpack-react@0.1.3...@leanjs/webpack-react@0.2.0) (2022-08-17)
+
+
+### Features
+
+* **webpack:** more efficient auto shared dependencies ([2d2c2c2](https://github.com/leanjs/leanjs/commit/2d2c2c2f6e83431fc010d19c51ca6cf9c1e8e0fe))
+
+
+
+
+
 ## [0.1.3](https://github.com/leanjs/leanjs/compare/@leanjs/webpack-react@0.1.2...@leanjs/webpack-react@0.1.3) (2022-08-16)
 
 **Note:** Version bump only for package @leanjs/webpack-react
