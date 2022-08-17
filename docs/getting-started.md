@@ -136,7 +136,7 @@ yarn add -W -D @leanjs/cli @leanjs/webpack
   ├─ package.json
   ```
 
-- Create a micro-frontend inside the `micro-frontends` folder. You must include a `package.json` in your new micro-frontend.
+- Create a micro-frontend inside the `micro-frontends` folder. You must include a `package.json` in your new micro-frontend:
 
   ```
   my-monorepo/
