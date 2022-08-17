@@ -1,9 +1,7 @@
 import type { BootstrapOptions, BootstrapOutput } from "@leanjs/core";
-import packageJson from "../package.json";
 
-const packageName = packageJson.name;
 const indexError = new Error(
-  `🔥🔥🔥 src/index file in ${packageName} doesn't export default createApp(app, options) 🔥🔥🔥`
+  `🔥🔥🔥 src/index file or it doesn't export default createApp(app, options) 🔥🔥🔥`
 );
 
 (
@@ -15,7 +13,8 @@ const indexError = new Error(
   if (!config || typeof config !== "function") {
     throw indexError;
   }
-  const el = document.getElementById(packageName);
+  const el = document.createElement("div");
+  document.body.appendChild(el);
   const isSelfHosted = true;
   const { mount, createRuntime } = config({
     isSelfHosted,

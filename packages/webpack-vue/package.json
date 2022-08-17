@@ -27,7 +27,7 @@
     "vue-template-compiler": "^2.6.14"
   },
   "devDependencies": {
-    "@leanjs/webpack": "^0.17.1"
+    "@leanjs/webpack": "*"
   },
   "peerDependencies": {
     "@leanjs/webpack": "*",

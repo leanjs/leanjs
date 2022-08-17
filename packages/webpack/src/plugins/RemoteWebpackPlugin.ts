@@ -100,9 +100,10 @@ export class RemoteWebpackPlugin implements WebpackPluginInstance {
         : path.resolve(__dirname, "../index.html"),
       "utf8"
     );
-    const html = indexHtml
-      .replace(`<body>`, `<body><div id="${packageName}"></div>`)
-      .replace(`<title></title>`, `<title>${packageName}</title>`);
+    const html = indexHtml.replace(
+      `<title></title>`,
+      `<title>${packageName}</title>`
+    );
 
     compiler.options.resolve = {
       ...compiler.options.resolve,
@@ -131,7 +132,9 @@ export class RemoteWebpackPlugin implements WebpackPluginInstance {
       shared: formatSharedDependencies({
         explicitDependencies: this.options.shared || {},
         implicitDependencies: getImplicitlySharedDependencies({
-          packageJson,
+          packageName: packageJson.name,
+          dependencies: packageJson.dependencies,
+          peerDependencies: packageJson.peerDependencies,
         }),
       }),
     }).apply(compiler);

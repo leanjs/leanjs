@@ -6,6 +6,9 @@ const withTM = require("next-transpile-modules")([
   "@leanjs/e2e-test-subjects-package-runtime-shared",
 ]);
 
+// eslint-disable-next-line @typescript-eslint/no-var-requires
+const packageJson = require("./package.json");
+
 /** @type {import('next').NextConfig} */
 const nextConfig = withTM({
   reactStrictMode: true,
@@ -25,6 +28,10 @@ const nextConfig = withTM({
     config.plugins.push(
       new HostWebpackPlugin({
         eager: true,
+        shared: {
+          react: packageJson.dependencies.react,
+          ["react-dom"]: packageJson.dependencies["react-dom"],
+        },
       })
     );
 

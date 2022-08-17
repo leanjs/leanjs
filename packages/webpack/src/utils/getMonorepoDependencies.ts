@@ -5,12 +5,18 @@ import type { Dependencies } from "../types";
 interface GetMonorepoDependencies {
   packageName: string;
   excludeDirPattern?: string;
+  enabledRemotePackages?: string[];
 }
 export function getMonorepoDependencies({
   packageName,
   excludeDirPattern = "",
+  enabledRemotePackages,
 }: GetMonorepoDependencies) {
-  let monorepoDependencies: Dependencies = {};
+  let monorepoDependencies: {
+    rootAndPackagesDependencies?: Dependencies;
+    dependenciesOfRemotes?: Dependencies;
+  } = {};
+
   try {
     monorepoDependencies = JSON.parse(
       // We run execFileSync because we use this function inside Webpack `apply` method which is synchronous,
@@ -21,7 +27,8 @@ export function getMonorepoDependencies({
       // We need to synchronously wait for the end of the execution of the script because of this sync `apply` method
       execFileSync("node", [
         `${__dirname}/../scripts/stdoutWriteMonorepoDependencies.js`,
-        excludeDirPattern,
+        `--excludeDirPattern=${excludeDirPattern}`,
+        `--enabledRemotePackages=${enabledRemotePackages?.join(",")}`,
       ]).toString()
     );
   } catch (error) {

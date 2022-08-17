@@ -21,23 +21,19 @@ export function mergeDependencies(
 
 interface SharedDependenciesArgs {
   dependencies?: Dependencies;
-  peerDependencies?: Dependencies;
-  monorepoDependencies?: Dependencies;
+  filterAndVersionBy?: Dependencies;
 }
-export function versionSharedDependencies({
+export function filterAndVersionDependencies({
   dependencies = {},
-  peerDependencies,
-  monorepoDependencies = {},
+  filterAndVersionBy = {},
 }: SharedDependenciesArgs) {
-  const packageDependencies = mergeDependencies(peerDependencies, dependencies);
-
   const shared: Dependencies = {};
-  Object.keys(packageDependencies).forEach((name) => {
-    if (monorepoDependencies[name]) {
-      if (packageDependencies[name] === "*") {
-        shared[name] = monorepoDependencies[name];
+  Object.keys(dependencies).forEach((name) => {
+    if (filterAndVersionBy[name]) {
+      if (dependencies[name] === "*") {
+        shared[name] = filterAndVersionBy[name];
       } else {
-        shared[name] = packageDependencies[name];
+        shared[name] = dependencies[name];
       }
     }
   });
@@ -46,11 +42,11 @@ export function versionSharedDependencies({
 }
 
 interface FilterDependenciesArgs {
-  dependencies: Dependencies;
+  dependencies?: Dependencies;
   excludeDependencies?: string[];
 }
 export function filterDependencies({
-  dependencies,
+  dependencies = {},
   excludeDependencies,
 }: FilterDependenciesArgs) {
   if (excludeDependencies?.length) {
@@ -70,17 +66,22 @@ export function filterDependencies({
 // getImplicitlySharedDependencies is for monorepos setups
 interface GetImplicitlySharedDependenciesArgs {
   autoShared?: AutoShared | boolean;
-  packageJson: Record<string, any>;
+  packageName: string;
+  dependencies?: Dependencies;
+  peerDependencies?: Dependencies;
+  enabledRemotePackages?: string[];
 }
 export function getImplicitlySharedDependencies({
   autoShared,
-  packageJson,
+  packageName,
+  dependencies = {},
+  peerDependencies = {},
+  enabledRemotePackages,
 }: GetImplicitlySharedDependenciesArgs) {
   if (autoShared === false) {
     return undefined;
   }
-  // eslint-disable-next-line @typescript-eslint/no-var-requires
-  // const packageJson = require(`${process.cwd()}/package.json`);
+
   let excludeDirPattern: string | undefined,
     excludePackages: string[] | undefined;
   if (typeof autoShared === "object") {
@@ -88,26 +89,25 @@ export function getImplicitlySharedDependencies({
     excludePackages = autoShared?.excludePackages;
   }
 
-  const monorepoDependencies = getMonorepoDependencies({
-    packageName: packageJson.name,
-    excludeDirPattern,
-  });
+  const { rootAndPackagesDependencies, dependenciesOfRemotes } =
+    getMonorepoDependencies({
+      packageName,
+      excludeDirPattern,
+      enabledRemotePackages,
+    });
 
   const filteredMonorepoDependencies = filterDependencies({
-    dependencies: monorepoDependencies,
+    dependencies: rootAndPackagesDependencies,
     excludeDependencies: excludePackages,
   });
 
-  const packageSharedDependencies = versionSharedDependencies({
-    dependencies: packageJson.dependencies,
-    peerDependencies: packageJson.peerDependencies,
-    monorepoDependencies: filteredMonorepoDependencies,
+  return filterAndVersionDependencies({
+    dependencies: mergeDependencies(
+      peerDependencies,
+      mergeDependencies(dependenciesOfRemotes, dependencies)
+    ),
+    filterAndVersionBy: filteredMonorepoDependencies,
   });
-
-  return {
-    ...filteredMonorepoDependencies,
-    ...packageSharedDependencies,
-  };
 }
 
 interface FormatSharedDependenciesArgs {

@@ -1,0 +1,10 @@
+{
+  "name": "mfe-1",
+  "version": "3.3.3",
+  "dependencies": {
+    "package-c": "*"
+  },
+  "peerDependencies": {
+    "package-d": "1.2.7"
+  }
+}

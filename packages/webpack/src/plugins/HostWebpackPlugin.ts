@@ -25,17 +25,21 @@ export class HostWebpackPlugin implements WebpackPluginInstance {
   apply(compiler: Compiler) {
     const explicitDependencies = this.options.shared || {};
     const { eager, autoShared } = this.options;
-    const remotePackages = this.options.remotes?.packages;
+    const enabledRemotePackages = this.options.remotes?.packages;
     // eslint-disable-next-line @typescript-eslint/no-var-requires
     const packageJson = require(`${process.cwd()}/package.json`);
     const implicitDependencies = getImplicitlySharedDependencies({
       autoShared,
-      packageJson,
+      packageName: packageJson.name,
+      enabledRemotePackages,
     });
-    const remotes = remotePackages?.reduce((acc, remote) => {
-      acc[
-        remote
-      ] = `promise new Promise((resolve) => resolve({ packageName: "${remote}" }))`;
+
+    const remotes = enabledRemotePackages?.reduce((acc, remote) => {
+      acc[remote] = `promise new Promise((resolve) => {
+        resolve({
+            get: () => () => ({ packageName: "${remote}" }),
+        });
+      })`;
 
       return acc;
     }, {} as Record<string, string>);
