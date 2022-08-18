@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.6.0](https://github.com/leanjs/leanjs/compare/@leanjs/react-router@0.5.4...@leanjs/react-router@0.6.0) (2022-08-18)
+
+
+### Features
+
+* add support for Host app promises in React ([055c77d](https://github.com/leanjs/leanjs/commit/055c77df541f7eb39b66d53e3a2f43c56182945d))
+
+
+
+
+
 ## [0.5.4](https://github.com/leanjs/leanjs/compare/@leanjs/react-router@0.5.3...@leanjs/react-router@0.5.4) (2022-08-18)
 
 

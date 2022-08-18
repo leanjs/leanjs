@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.11.0](https://github.com/leanjs/leanjs/compare/@leanjs/core@0.10.1...@leanjs/core@0.11.0) (2022-08-18)
+
+
+### Features
+
+* add support for Host app promises in React ([055c77d](https://github.com/leanjs/leanjs/commit/055c77df541f7eb39b66d53e3a2f43c56182945d))
+
+
+
+
+
 ## [0.10.1](https://github.com/leanjs/leanjs/compare/@leanjs/core@0.10.0...@leanjs/core@0.10.1) (2022-08-16)
 
 

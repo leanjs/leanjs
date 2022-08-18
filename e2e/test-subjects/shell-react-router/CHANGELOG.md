@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.4.0](https://github.com/leanjs/leanjs/compare/@leanjs/e2e-test-subjects-shell-react-router@1.3.1...@leanjs/e2e-test-subjects-shell-react-router@1.4.0) (2022-08-18)
+
+
+### Features
+
+* add support for Host app promises in React ([055c77d](https://github.com/leanjs/leanjs/commit/055c77df541f7eb39b66d53e3a2f43c56182945d))
+
+
+
+
+
 ## [1.3.1](https://github.com/leanjs/leanjs/compare/@leanjs/e2e-test-subjects-shell-react-router@1.3.0...@leanjs/e2e-test-subjects-shell-react-router@1.3.1) (2022-08-18)
 
 **Note:** Version bump only for package @leanjs/e2e-test-subjects-shell-react-router
