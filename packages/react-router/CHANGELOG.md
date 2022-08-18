@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.5.4](https://github.com/leanjs/leanjs/compare/@leanjs/react-router@0.5.3...@leanjs/react-router@0.5.4) (2022-08-18)
+
+
+### Bug Fixes
+
+* replace loadingComponent with fallback element ([bc9b34f](https://github.com/leanjs/leanjs/commit/bc9b34f3df7dffca1f13c53b6d96f0eb75fa3bc2))
+
+
+
+
+
 ## [0.5.3](https://github.com/leanjs/leanjs/compare/@leanjs/react-router@0.5.2...@leanjs/react-router@0.5.3) (2022-08-16)
 
 **Note:** Version bump only for package @leanjs/react-router

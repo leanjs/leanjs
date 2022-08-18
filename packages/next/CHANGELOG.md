@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.3.3](https://github.com/leanjs/leanjs/compare/@leanjs/next@0.3.2...@leanjs/next@0.3.3) (2022-08-18)
+
+
+### Bug Fixes
+
+* replace loadingComponent with fallback element ([bc9b34f](https://github.com/leanjs/leanjs/commit/bc9b34f3df7dffca1f13c53b6d96f0eb75fa3bc2))
+
+
+
+
+
 ## [0.3.2](https://github.com/leanjs/leanjs/compare/@leanjs/next@0.3.1...@leanjs/next@0.3.2) (2022-08-16)
 
 **Note:** Version bump only for package @leanjs/next

@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.6.1](https://github.com/leanjs/leanjs/compare/@leanjs/e2e-test-subjects-shell-next@0.6.0...@leanjs/e2e-test-subjects-shell-next@0.6.1) (2022-08-18)
+
+
+### Bug Fixes
+
+* replace loadingComponent with fallback element ([bc9b34f](https://github.com/leanjs/leanjs/commit/bc9b34f3df7dffca1f13c53b6d96f0eb75fa3bc2))
+
+
+
+
+
 # [0.6.0](https://github.com/leanjs/leanjs/compare/@leanjs/e2e-test-subjects-shell-next@0.5.2...@leanjs/e2e-test-subjects-shell-next@0.6.0) (2022-08-17)
 
 
