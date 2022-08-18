@@ -14,7 +14,7 @@ interface ReactRouterHostProps extends HostProps {
 export function Host({
   app,
   basename = "/",
-  loadingComponent: LoadingComponent = () => <>...</>,
+  fallback = "...",
   errorComponent: ErrorComponent = DefaultError,
   ...rest
 }: ReactRouterHostProps) {
@@ -34,6 +34,6 @@ export function Host({
   ) : error ? (
     <ErrorComponent error={error} />
   ) : (
-    <LoadingComponent />
+    fallback
   );
 }

@@ -27,7 +27,7 @@ const React: NextPage = () => {
       <h1>Hosting multiple pages</h1>
       <Host
         pathname={pathname}
-        loadingComponent={CustomLoader}
+        fallback={<CustomLoader />}
         app={{
           packageName: "@leanjs/e2e-test-subjects-remote-vue-sub-pages",
         }}

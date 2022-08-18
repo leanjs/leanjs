@@ -17,7 +17,7 @@ export function Host({
   app,
   pathname,
   className,
-  loadingComponent: LoadingComponent = () => <>...</>,
+  fallback = "...",
   errorComponent: ErrorComponent = DefaultError,
 }: NextHostProps) {
   const router = useRouter();
@@ -67,7 +67,7 @@ export function Host({
   ) : error ? (
     <ErrorComponent error={error} />
   ) : (
-    <LoadingComponent />
+    fallback
   );
 
   return (

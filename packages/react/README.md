@@ -201,7 +201,7 @@ It sets in the React context values that are shared across micro-frontends in th
 - `runtime: Runtime`, required. Your LeanJS `runtime`.
 - `origin: string`, required. [Origin](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Origin) where your micro-frontends are. For development, use the address where you run your Lean [centralized dev server](/packages/cli#centralized-dev-server), e.g. `http://localhost:55555`. Use the address of your CDN in production, e.g. `https://cdn.my-product.com`.
 - `errorComponent`, optional.
-- `loadingComponent`, optional.
+- `fallback`, optional.
 
 Example:
 
