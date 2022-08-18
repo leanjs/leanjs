@@ -6,18 +6,20 @@ import { _ as CoreUtils } from "@leanjs/core";
 import { useRouter } from "next/router";
 import Head from "next/head";
 
-const { useHost, Mount, DefaultError } = ReactUtils;
+const { useHost, Mount, DefaultError, useAppResolver } = ReactUtils;
 const { dedupeSlash } = CoreUtils;
 
 interface NextHostProps extends HostProps {
   pathname?: string;
 }
 
-export function Host({
+export const Host = (props: NextHostProps) => useAppResolver(NextHost, props);
+
+function NextHost({
   app,
   pathname,
   className,
-  fallback = "...",
+  fallback = <>...</>,
   errorComponent: ErrorComponent = DefaultError,
 }: NextHostProps) {
   const router = useRouter();
@@ -72,13 +74,11 @@ export function Host({
 
   return (
     <>
-      {process.env.NODE_ENV === "development" ? (
-        null && url
-      ) : (
+      {url ? (
         <Head>
           <link rel="preload" as="script" href={url} />
         </Head>
-      )}
+      ) : null}
       {children}
     </>
   );

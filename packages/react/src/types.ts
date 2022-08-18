@@ -4,11 +4,10 @@ import type {
   NavigateFunc,
   ListenFunc,
   BasePath,
+  AsyncComposableApp,
   ComposableApp,
 } from "@leanjs/core";
 import type { ReactElement } from "react";
-
-export type Fallback = ReactElement | string;
 export interface MountProps extends BasePath {
   mount: MountFunc;
   runtime: Runtime;
@@ -17,11 +16,18 @@ export interface MountProps extends BasePath {
   className?: string;
 }
 
-export interface HostProps {
-  app: ComposableApp;
+export interface BaseHostProps {
   errorComponent?: ErrorComponent;
-  fallback?: Fallback;
+  fallback?: ReactElement;
   className?: string;
+}
+
+export interface AsyncHostProps extends BaseHostProps {
+  app: AsyncComposableApp;
+}
+
+export interface HostProps extends BaseHostProps {
+  app: ComposableApp;
 }
 
 export type ErrorComponent = (props: { error: Error }) => React.ReactElement;
@@ -33,13 +39,13 @@ export interface UseHostArgs {
 export interface HostContextValues {
   origin: string;
   errorComponent?: ErrorComponent;
-  fallback?: Fallback;
+  fallback?: ReactElement;
 }
 
 export interface HostProviderProps<BaseRuntime extends Runtime = Runtime> {
   origin: string;
   errorComponent?: ErrorComponent;
-  fallback?: Fallback;
+  fallback?: ReactElement;
   runtime: BaseRuntime;
   children: ReactElement | ReactElement[];
 }

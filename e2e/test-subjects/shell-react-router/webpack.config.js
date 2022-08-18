@@ -17,7 +17,7 @@ module.exports = {
   plugins: [
     new HostWebpackPlugin({
       remotes: {
-        packages: ["@leanjs/e2e-test-subjects-remote-react-1"],
+        // packages: ["@leanjs/e2e-test-subjects-remote-react-1"],
       },
     }),
     new HtmlWebpackPlugin({
