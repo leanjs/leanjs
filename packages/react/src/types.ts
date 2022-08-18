@@ -8,6 +8,7 @@ import type {
 } from "@leanjs/core";
 import type { ReactElement } from "react";
 
+export type Fallback = ReactElement | string;
 export interface MountProps extends BasePath {
   mount: MountFunc;
   runtime: Runtime;
@@ -19,12 +20,11 @@ export interface MountProps extends BasePath {
 export interface HostProps {
   app: ComposableApp;
   errorComponent?: ErrorComponent;
-  loadingComponent?: LoadingComponent;
+  fallback?: Fallback;
   className?: string;
 }
 
 export type ErrorComponent = (props: { error: Error }) => React.ReactElement;
-export type LoadingComponent = () => React.ReactElement;
 
 export interface UseHostArgs {
   app: ComposableApp;
@@ -33,13 +33,13 @@ export interface UseHostArgs {
 export interface HostContextValues {
   origin: string;
   errorComponent?: ErrorComponent;
-  loadingComponent?: LoadingComponent;
+  fallback?: Fallback;
 }
 
 export interface HostProviderProps<BaseRuntime extends Runtime = Runtime> {
   origin: string;
   errorComponent?: ErrorComponent;
-  loadingComponent?: LoadingComponent;
+  fallback?: Fallback;
   runtime: BaseRuntime;
   children: ReactElement | ReactElement[];
 }

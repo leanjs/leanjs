@@ -5,7 +5,7 @@ import { useHost, Mount, DefaultError } from "./utils";
 
 export function Host({
   app,
-  loadingComponent: LoadingComponent = () => <>...</>,
+  fallback = "...",
   errorComponent: ErrorComponent = DefaultError,
   ...rest
 }: HostProps) {
@@ -16,6 +16,6 @@ export function Host({
   ) : error ? (
     <ErrorComponent error={error} />
   ) : (
-    <LoadingComponent />
+    fallback
   );
 }

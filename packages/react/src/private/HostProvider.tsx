@@ -11,10 +11,10 @@ export const HostProvider = ({
   children,
   runtime,
   errorComponent,
-  loadingComponent,
+  fallback,
   origin,
 }: HostProviderProps) => (
-  <HostContext.Provider value={{ errorComponent, loadingComponent, origin }}>
+  <HostContext.Provider value={{ errorComponent, fallback, origin }}>
     <RuntimeProvider runtime={runtime}>{children}</RuntimeProvider>
   </HostContext.Provider>
 );
