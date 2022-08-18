@@ -1,20 +1,29 @@
 import React from "react";
 import { _ as ReactUtils } from "@leanjs/react";
-import type { HostProps } from "@leanjs/react";
+import type { HostProps, AsyncHostProps } from "@leanjs/react";
 import { useNavigate } from "react-router-dom";
 import { useListen } from "./UniversalRouter";
 
-const { useHost, Mount, DefaultError } = ReactUtils;
+const { useHost, Mount, DefaultError, useAppResolver } = ReactUtils;
 
-interface ReactRouterHostProps extends HostProps {
+interface BaseReactRouterHostProps {
   basename?: string;
   pathname?: string;
 }
 
-export function Host({
+interface AsyncReactRouterHostProps
+  extends BaseReactRouterHostProps,
+    AsyncHostProps {}
+
+export const Host = (props: AsyncReactRouterHostProps) =>
+  useAppResolver(ReactRouterHost, props);
+
+interface ReactRouterHostProps extends BaseReactRouterHostProps, HostProps {}
+
+function ReactRouterHost({
   app,
   basename = "/",
-  fallback = "...",
+  fallback = <>...</>,
   errorComponent: ErrorComponent = DefaultError,
   ...rest
 }: ReactRouterHostProps) {

@@ -54,7 +54,9 @@ export interface MountOutput {
   onHostNavigate?: OnNavigate;
 }
 
-export interface CreateComposableApp<MyCreateRuntime extends CreateRuntime> {
+export interface CreateComposableApp<
+  MyCreateRuntime extends CreateRuntime = CreateRuntime
+> {
   (options?: BootstrapOptions): CreateBootstrapOutput<MyCreateRuntime>;
   packageName: string;
 }
@@ -69,6 +71,12 @@ export type ComposableApp<
 > =
   | ComposableAppInstance<GetRuntime<MyCreateRuntime>>
   | CreateComposableApp<MyCreateRuntime>;
+
+export type AsyncComposableApp<
+  MyCreateRuntime extends CreateRuntime = CreateRuntime
+> =
+  | ComposableApp<MyCreateRuntime>
+  | Promise<{ default: ComposableApp<MyCreateRuntime> }>;
 
 export type CreateBootstrapOutput<MyCreateRuntime extends CreateRuntime> =
   ComposableAppInstance<GetRuntime<MyCreateRuntime>> & {

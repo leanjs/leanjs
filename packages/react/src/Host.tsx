@@ -1,11 +1,13 @@
 import React from "react";
 
-import type { HostProps } from "./types";
-import { useHost, Mount, DefaultError } from "./utils";
+import type { HostProps, AsyncHostProps } from "./types";
+import { useHost, Mount, DefaultError, useAppResolver } from "./utils";
 
-export function Host({
+export const Host = (props: AsyncHostProps) => useAppResolver(ReactHost, props);
+
+function ReactHost({
   app,
-  fallback = "...",
+  fallback = <>...</>,
   errorComponent: ErrorComponent = DefaultError,
   ...rest
 }: HostProps) {
