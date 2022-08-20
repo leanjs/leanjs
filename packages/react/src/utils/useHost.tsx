@@ -21,27 +21,21 @@ export function useHost({ app }: UseHostArgs) {
   if (!packageName) {
     throw new Error(`Remote with no packageName can't be hosted`);
   }
-
-  const context = useContext(HostContext);
-  if (!context) {
-    throw new Error(
-      `No HostContext found in the component tree. Did you add a HostProvider?`
-    );
-  }
-
   let url = "";
   const name = createRemoteName(packageName);
   const mountKey = url + name;
+  const isAppObject = typeof app === "object";
+  const context = useContext(HostContext);
 
-  if (typeof app === "object") {
+  if (isAppObject && !app.mount) {
     // TODO make origin optional in HostProvider
-    if (!context.origin) {
+    if (!context?.origin) {
       throw new Error(`origin prop is required in HostProvider to host an app`);
     }
     const origin = deleteTrailingSlash(context.origin);
     url = getRemoteUrl({ origin, packageName });
   } else if (!mountCache.get(mountKey)) {
-    mountCache.set(mountKey, app().mount);
+    mountCache.set(mountKey, isAppObject ? app.mount : app().mount);
   }
 
   const cachedMount = mountCache.get(mountKey);

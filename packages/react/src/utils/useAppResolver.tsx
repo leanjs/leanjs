@@ -16,32 +16,29 @@ export const useAppResolver = (
     errorComponent: ErrorComponent = DefaultError,
     fallback = <>...</>,
   } = props;
-  const isAppPromise = isPromise(app);
-  const defaultApp = !isAppPromise ? app : undefined;
-  const [loading, setLoading] = useState(isAppPromise);
+  const myApp = typeof app === "function" ? app() : app;
+  const isMyAppPromise = isPromise(myApp);
+  const noPromiseApp = isMyAppPromise ? undefined : myApp;
+  const [loading, setLoading] = useState(isMyAppPromise);
   const [resolvedApp, setResolvedApp] = useState<ComposableApp>();
   const [error, setError] = useState<Error>();
 
   useEffect(() => {
-    if (isPromise(app)) {
-      app
+    if (isMyAppPromise) {
+      myApp
         .then(({ default: resolvedApp }) => {
           setResolvedApp(() => resolvedApp);
           setLoading(false);
         })
         .catch(setError);
     }
-  }, [app]);
+  }, [myApp, isMyAppPromise]);
 
   return loading ? (
     fallback
-  ) : resolvedApp ? (
-    <Host {...props} app={resolvedApp} />
-  ) : defaultApp ? (
-    <Host {...props} app={defaultApp} />
+  ) : resolvedApp || noPromiseApp ? (
+    <Host {...props} app={resolvedApp! || noPromiseApp!} />
   ) : (
-    <ErrorComponent
-      error={error || new Error("It couldn't resolve app promise")}
-    />
+    <ErrorComponent error={error!} />
   );
 };
