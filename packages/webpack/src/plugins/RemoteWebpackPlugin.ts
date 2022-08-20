@@ -1,5 +1,5 @@
 import { _ as CoreUtils } from "@leanjs/core";
-import { startDevProxyServer } from "@leanjs/cli";
+import { startDevProxyServer, findRootConfigSync } from "@leanjs/cli";
 import { Compiler, WebpackPluginInstance, container } from "webpack";
 import HtmlWebpackPlugin from "html-webpack-plugin";
 import VirtualModulesPlugin from "webpack-virtual-modules";
@@ -139,8 +139,37 @@ export class RemoteWebpackPlugin implements WebpackPluginInstance {
       }),
     }).apply(compiler);
 
+    const { leanConfig } = findRootConfigSync();
+    const localCreateRuntimePath = ["ts", "tsx", "js"].reduce(
+      (accPath, extension) => {
+        if (accPath) return accPath;
+
+        const createRuntimePath = path.resolve(
+          process.cwd(),
+          `./src/createRuntime.${extension}`
+        );
+        if (fs.existsSync(createRuntimePath)) {
+          return createRuntimePath;
+        }
+
+        return accPath;
+      },
+      ""
+    );
+
+    const createRuntimeImport =
+      localCreateRuntimePath || leanConfig?.selfHosted?.createRuntimePackage;
+
+    const remoteJs = createRuntimeImport
+      ? `import("${createRuntimeImport}").then(
+          ({ createRuntime }) => {
+            import("./bootstrap").then(({ bootstrap }) => bootstrap(createRuntime));
+          });
+        `
+      : `import("./bootstrap").then(({ bootstrap }) => bootstrap());`;
+
     new VirtualModulesPlugin({
-      "./src/remote.js": `import("./bootstrap");`,
+      "./src/remote.js": remoteJs,
       "./src/bootstrap": fs.readFileSync(
         path.resolve(__dirname, "../bootstrap.js"),
         "utf8"

@@ -17,7 +17,7 @@ import type {
 
 import { isPromise } from "../utils";
 
-const createRuntime =
+const runCreateRuntime =
   <
     State extends BaseShape = BaseShape,
     Prop extends KeyOf<State> = KeyOf<State>
@@ -292,18 +292,18 @@ export const configureRuntime = <
     context,
     onError,
   }: ConfigureRuntimeOptions<State, Prop, CtxFactory>) => {
-    const internalCreateRuntime = ({
+    const createRuntime = ({
       initialState,
       request,
     }: CreateRuntimeArgs<State> = {}) =>
-      createRuntime<State, Prop>(initialState ?? defaultState)({
+      runCreateRuntime<State, Prop>(initialState ?? defaultState)({
         context,
         onError,
         request,
       });
 
-    internalCreateRuntime.log = onError;
+    createRuntime.log = onError;
 
-    return { createRuntime: internalCreateRuntime };
+    return { createRuntime };
   };
 };

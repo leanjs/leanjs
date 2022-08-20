@@ -9,6 +9,9 @@ module.exports = {
     react: createReactWebpackConfig(),
     vue: createVueWebpackConfig(),
   },
+  selfHosted: {
+    createRuntimePackage: "@leanjs/e2e-test-subjects-package-runtime-shared",
+  },
   command: {
     deploy: {
       use: "@leanjs/aws",

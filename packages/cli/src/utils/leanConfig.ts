@@ -20,7 +20,7 @@ interface RootConfig {
 const filename = "lean.config.js";
 
 export function findRootConfigSync({
-  maxRecursion = 4,
+  maxRecursion = 5,
   currentWorkingDir = process.cwd(),
 }: CreateFindRootConfigSyncArgs = {}) {
   let file: RootConfig;
