@@ -20,13 +20,12 @@ export const createApp = <
 >(
   App: (props: MyAppProps) => ReactElement,
   {
-    createRuntime,
     onBeforeMount,
     packageName,
   }: CreateRemoteConfig<MyCreateRuntime, MyAppProps>
 ) => {
   const bootstrap: CreateComposableApp<MyCreateRuntime> = (options = {}) => {
-    const { isSelfHosted } = options;
+    const { isSelfHosted, createRuntime } = options;
     const mount: MountFunc<GetRuntime<MyCreateRuntime>> = (
       el,
       { runtime = createRuntime?.() as GetRuntime<MyCreateRuntime> } = {}

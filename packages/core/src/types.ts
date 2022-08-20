@@ -57,7 +57,9 @@ export interface MountOutput {
 export interface CreateComposableApp<
   MyCreateRuntime extends CreateRuntime = CreateRuntime
 > {
-  (options?: BootstrapOptions): CreateBootstrapOutput<MyCreateRuntime>;
+  (
+    options?: BootstrapOptions<MyCreateRuntime>
+  ): CreateBootstrapOutput<MyCreateRuntime>;
   packageName: string;
 }
 
@@ -88,9 +90,12 @@ export interface MountFunc<MyRuntime extends Runtime = Runtime> {
 }
 
 type UdpateInitialState = (state: any) => void;
-export interface BootstrapOptions {
+export interface BootstrapOptions<
+  MyCreateRuntime extends CreateRuntime = CreateRuntime
+> {
   isSelfHosted?: boolean;
   initialState?: any;
+  createRuntime?: MyCreateRuntime;
 }
 
 export interface OnBeforeMountArgs<MyRuntime extends Runtime> {
@@ -109,7 +114,6 @@ export interface CreateRemoteConfig<
   MyAppProps extends AppProps = AppProps
 > {
   packageName: string;
-  createRuntime?: MyCreateRuntime;
   onBeforeMount?: (
     args: OnBeforeMountArgs<GetRuntime<MyCreateRuntime>>
   ) => MyAppProps;

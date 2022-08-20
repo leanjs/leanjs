@@ -18,6 +18,9 @@ export interface LeanConfig {
   devServer: {
     port: number;
   };
+  selfHosted: {
+    createRuntimePackage: string;
+  };
   webpack: LeanWebpackConfig;
   command?: LeanCommand;
 }

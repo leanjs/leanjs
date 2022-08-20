@@ -23,13 +23,12 @@ export const createApp = <
 >(
   App: (props: MyAppProps) => ReactElement,
   {
-    createRuntime,
     onBeforeMount,
     packageName,
   }: CreateRemoteConfig<MyCreateRuntime, MyAppProps>
 ) => {
   const bootstrap: CreateComposableApp<MyCreateRuntime> = (options = {}) => {
-    const { isSelfHosted } = options;
+    const { createRuntime, isSelfHosted } = options;
     const history = isSelfHosted
       ? createBrowserHistory()
       : createMemoryHistory();

@@ -81,7 +81,11 @@ export function startDevProxyServer(): Promise<{
           packageName,
         };
         hashtable.set(formattedName, data);
-        console.log(`Hashtable updated with ${formattedName}:`, data);
+        console.log(
+          `🚀 ${chalk.green(data.packageName)} is being served at ${chalk.cyan(
+            data.origin
+          )}`
+        );
         res.json(port);
       })
       .post(GENERATE_PORT_PATH, async (req, res) => {
@@ -100,7 +104,6 @@ export function startDevProxyServer(): Promise<{
           packageName,
         };
         hashtable.set(formattedName, data);
-        console.log(`Hashtable updated with ${formattedName}:`, data);
         res.json(latestUsedPort);
       })
       .all("/:remoteName/*", (req, res) => {

@@ -45,14 +45,13 @@ export const createApp = <
 >(
   App: Component,
   {
-    createRuntime,
     onBeforeMount,
     packageName,
     router: { routes = [], ...routerConfig } = {},
   }: CreateRemoteVueConfig<MyCreateRuntime>
 ) => {
   const bootstrap: CreateComposableApp<MyCreateRuntime> = (options = {}) => {
-    const { isSelfHosted } = options;
+    const { createRuntime, isSelfHosted } = options;
     const mount: MountFunc<GetRuntime<MyCreateRuntime>> = (
       el,
       {
