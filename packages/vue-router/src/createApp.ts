@@ -1,6 +1,6 @@
 import type {
   CreateRemoteConfig,
-  BootstrapOptions,
+  CreateComposableApp,
   MountOptions,
   Cleanup,
   CreateRuntime,
@@ -25,13 +25,7 @@ import { _ as CoreUtils } from "@leanjs/core";
 
 const { configureMount, getDefaultPathname, dedupeSlash } = CoreUtils;
 
-export {
-  CreateRemoteConfig,
-  BootstrapOptions,
-  MountOptions,
-  Cleanup,
-  CreateRuntime,
-};
+export { CreateRemoteConfig, MountOptions, Cleanup, CreateRuntime };
 
 interface VueRouterConfig {
   routes?: RouteRecordRaw[];
@@ -57,7 +51,7 @@ export const createApp = <
     router: { routes = [], ...routerConfig } = {},
   }: CreateRemoteVueConfig<MyCreateRuntime>
 ) => {
-  const bootstrap = (options: BootstrapOptions = {}) => {
+  const bootstrap: CreateComposableApp<MyCreateRuntime> = (options = {}) => {
     const { isSelfHosted } = options;
     const mount: MountFunc<GetRuntime<MyCreateRuntime>> = (
       el,

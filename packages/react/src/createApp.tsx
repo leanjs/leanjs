@@ -1,6 +1,6 @@
 import type {
   CreateRemoteConfig,
-  BootstrapOptions,
+  CreateComposableApp,
   CreateRuntime,
   GetRuntime,
   AppProps,
@@ -25,7 +25,7 @@ export const createApp = <
     packageName,
   }: CreateRemoteConfig<MyCreateRuntime, MyAppProps>
 ) => {
-  const bootstrap = (options: BootstrapOptions = {}) => {
+  const bootstrap: CreateComposableApp<MyCreateRuntime> = (options = {}) => {
     const { isSelfHosted } = options;
     const mount: MountFunc<GetRuntime<MyCreateRuntime>> = (
       el,

@@ -5,7 +5,7 @@ import type {
   GetRuntime,
   AppProps,
   MountFunc,
-  BootstrapOptions,
+  CreateComposableApp,
 } from "@leanjs/core";
 import { _ as CoreUtils } from "@leanjs/core";
 import React, { ReactElement } from "react";
@@ -28,7 +28,7 @@ export const createApp = <
     packageName,
   }: CreateRemoteConfig<MyCreateRuntime, MyAppProps>
 ) => {
-  const bootstrap = (options: BootstrapOptions = {}) => {
+  const bootstrap: CreateComposableApp<MyCreateRuntime> = (options = {}) => {
     const { isSelfHosted } = options;
     const history = isSelfHosted
       ? createBrowserHistory()
