@@ -3,6 +3,22 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.8.0](https://github.com/leanjs/leanjs/compare/@leanjs/react@0.7.0...@leanjs/react@0.8.0) (2022-08-20)
+
+
+### Bug Fixes
+
+* rename useHost and useAppResolver ([2909838](https://github.com/leanjs/leanjs/commit/290983846e77ce657681977b4b5b08bd850f0583))
+
+
+### Features
+
+* **react:** host app prop resolves function that returns promise ([d8dbe4d](https://github.com/leanjs/leanjs/commit/d8dbe4d3ddbde62c4ca92ff81d5fbd4f146ce318))
+
+
+
+
+
 # [0.7.0](https://github.com/leanjs/leanjs/compare/@leanjs/react@0.6.3...@leanjs/react@0.7.0) (2022-08-18)
 
 

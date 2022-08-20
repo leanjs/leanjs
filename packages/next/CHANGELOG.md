@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.4.1](https://github.com/leanjs/leanjs/compare/@leanjs/next@0.4.0...@leanjs/next@0.4.1) (2022-08-20)
+
+
+### Bug Fixes
+
+* rename useHost and useAppResolver ([2909838](https://github.com/leanjs/leanjs/commit/290983846e77ce657681977b4b5b08bd850f0583))
+
+
+
+
+
 # [0.4.0](https://github.com/leanjs/leanjs/compare/@leanjs/next@0.3.3...@leanjs/next@0.4.0) (2022-08-18)
 
 

@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.6.1](https://github.com/leanjs/leanjs/compare/@leanjs/react-router@0.6.0...@leanjs/react-router@0.6.1) (2022-08-20)
+
+
+### Bug Fixes
+
+* rename useHost and useAppResolver ([2909838](https://github.com/leanjs/leanjs/commit/290983846e77ce657681977b4b5b08bd850f0583))
+
+
+
+
+
 # [0.6.0](https://github.com/leanjs/leanjs/compare/@leanjs/react-router@0.5.4...@leanjs/react-router@0.6.0) (2022-08-18)
 
 

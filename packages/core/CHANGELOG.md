@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.12.0](https://github.com/leanjs/leanjs/compare/@leanjs/core@0.11.0...@leanjs/core@0.12.0) (2022-08-20)
+
+
+### Features
+
+* **react:** host app prop resolves function that returns promise ([d8dbe4d](https://github.com/leanjs/leanjs/commit/d8dbe4d3ddbde62c4ca92ff81d5fbd4f146ce318))
+
+
+
+
+
 # [0.11.0](https://github.com/leanjs/leanjs/compare/@leanjs/core@0.10.1...@leanjs/core@0.11.0) (2022-08-18)
 
 
