@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.8.1](https://github.com/leanjs/leanjs/compare/@leanjs/react@0.8.0...@leanjs/react@0.8.1) (2022-08-20)
+
+
+### Bug Fixes
+
+* createApp bootstrap types ([9de3925](https://github.com/leanjs/leanjs/commit/9de39259bffde7f8eaa95f4649efabeccbc0daed))
+
+
+
+
+
 # [0.8.0](https://github.com/leanjs/leanjs/compare/@leanjs/react@0.7.0...@leanjs/react@0.8.0) (2022-08-20)
 
 

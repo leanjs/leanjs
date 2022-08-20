@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.2.5](https://github.com/leanjs/leanjs/compare/@leanjs/vue-router@0.2.4...@leanjs/vue-router@0.2.5) (2022-08-20)
+
+
+### Bug Fixes
+
+* createApp bootstrap types ([9de3925](https://github.com/leanjs/leanjs/commit/9de39259bffde7f8eaa95f4649efabeccbc0daed))
+
+
+
+
+
 ## [0.2.4](https://github.com/leanjs/leanjs/compare/@leanjs/vue-router@0.2.3...@leanjs/vue-router@0.2.4) (2022-08-20)
 
 **Note:** Version bump only for package @leanjs/vue-router
