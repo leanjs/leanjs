@@ -16,7 +16,7 @@ const {
 
 const mountCache = new Map<string, MountFunc | undefined>();
 
-export function useHost({ app }: UseHostArgs) {
+export function useMount({ app }: UseHostArgs) {
   const { packageName } = app;
   if (!packageName) {
     throw new Error(`Remote with no packageName can't be hosted`);
@@ -28,9 +28,10 @@ export function useHost({ app }: UseHostArgs) {
   const context = useContext(HostContext);
 
   if (isAppObject && !app.mount) {
-    // TODO make origin optional in HostProvider
     if (!context?.origin) {
-      throw new Error(`origin prop is required in HostProvider to host an app`);
+      throw new Error(
+        `origin prop is required in HostProvider to host a remote app`
+      );
     }
     const origin = deleteTrailingSlash(context.origin);
     url = getRemoteUrl({ origin, packageName });

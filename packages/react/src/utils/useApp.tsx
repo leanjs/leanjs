@@ -7,7 +7,7 @@ import { DefaultError } from "./DefaultError";
 
 const { isPromise } = CoreUtils;
 
-export const useAppResolver = (
+export const useApp = (
   Host: (props: HostProps) => ReactElement,
   props: AsyncHostProps
 ): ReactElement => {

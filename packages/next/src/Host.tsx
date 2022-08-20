@@ -6,14 +6,14 @@ import { _ as CoreUtils } from "@leanjs/core";
 import { useRouter } from "next/router";
 import Head from "next/head";
 
-const { useHost, Mount, DefaultError, useAppResolver } = ReactUtils;
+const { useMount, Mount, DefaultError, useApp } = ReactUtils;
 const { dedupeSlash } = CoreUtils;
 
 interface NextHostProps extends HostProps {
   pathname?: string;
 }
 
-export const Host = (props: NextHostProps) => useAppResolver(NextHost, props);
+export const Host = (props: NextHostProps) => useApp(NextHost, props);
 
 function NextHost({
   app,
@@ -24,7 +24,7 @@ function NextHost({
 }: NextHostProps) {
   const router = useRouter();
   const basename = dedupeSlash(`${router.basePath}/${router.pathname}`);
-  const { mount, error, url, runtime } = useHost({ app });
+  const { mount, error, url, runtime } = useMount({ app });
 
   const navigate = useCallback(({ pathname, hash, search }: Location) => {
     router.push(

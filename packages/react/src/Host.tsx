@@ -1,9 +1,9 @@
 import React from "react";
 
 import type { HostProps, AsyncHostProps } from "./types";
-import { useHost, Mount, DefaultError, useAppResolver } from "./utils";
+import { useMount, Mount, DefaultError, useApp } from "./utils";
 
-export const Host = (props: AsyncHostProps) => useAppResolver(ReactHost, props);
+export const Host = (props: AsyncHostProps) => useApp(ReactHost, props);
 
 function ReactHost({
   app,
@@ -11,7 +11,7 @@ function ReactHost({
   errorComponent: ErrorComponent = DefaultError,
   ...rest
 }: HostProps) {
-  const { mount, error, runtime } = useHost({ app });
+  const { mount, error, runtime } = useMount({ app });
 
   return mount ? (
     <Mount {...rest} mount={mount} runtime={runtime} />
