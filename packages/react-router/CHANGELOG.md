@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.7.0](https://github.com/leanjs/leanjs/compare/@leanjs/react-router@0.6.2...@leanjs/react-router@0.7.0) (2022-08-20)
+
+
+### Features
+
+* add createRuntime config ([32153d9](https://github.com/leanjs/leanjs/commit/32153d92e4a5ea436f597f3af7a09972d003820b))
+
+
+
+
+
 ## [0.6.2](https://github.com/leanjs/leanjs/compare/@leanjs/react-router@0.6.1...@leanjs/react-router@0.6.2) (2022-08-20)
 
 

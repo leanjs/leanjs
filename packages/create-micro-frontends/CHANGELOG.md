@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.3.3](https://github.com/leanjs/leanjs/compare/create-micro-frontends@0.3.2...create-micro-frontends@0.3.3) (2022-08-20)
+
+
+### Bug Fixes
+
+* **create-micro-frontends:** add selfHosted createRuntimePackage ([de4c233](https://github.com/leanjs/leanjs/commit/de4c233d86a0125c5625c399b4325daf065edd77))
+
+
+
+
+
 ## [0.3.2](https://github.com/leanjs/leanjs/compare/create-micro-frontends@0.3.1...create-micro-frontends@0.3.2) (2022-08-16)
 
 
