@@ -6,6 +6,9 @@ const { createReactWebpackConfig } = require("@leanjs/webpack-react");
 
 module.exports = {
   devServer: { port: <%=devServerPort%> },
+  selfHosted: {
+    createRuntimePackage: "@<%=h.inflection.dasherize(projectName)%>/runtime-shared",
+  },
   webpack: {
     react: createReactWebpackConfig()
   },
