@@ -1185,7 +1185,7 @@
     "@jridgewell/resolve-uri" "^3.0.3"
     "@jridgewell/sourcemap-codec" "^1.4.10"
 
-"@leanjs/cli@*", "@leanjs/cli@^0.6.3", "@leanjs/cli@^0.6.4":
+"@leanjs/cli@*":
   version "0.6.4"
   resolved "https://registry.yarnpkg.com/@leanjs/cli/-/cli-0.6.4.tgz#27733664ebcd96ed9ba82609eb72f24d45d2327b"
   integrity sha512-ip+M1H9wsguCUGSJBJ0sfxHks2Gfob0+2d1t+vDzEf13KD5VU9K4Utv3s71++MColFOHs5kkt6332/ZQzj/y8Q==
@@ -1204,72 +1204,96 @@
     webpack "^5.72.0"
     webpack-dev-server "4.7.4"
 
-"@leanjs/core@^0.10.0", "@leanjs/core@^0.10.1":
+"@leanjs/cli@^0.7.0":
+  version "0.7.0"
+  resolved "https://registry.yarnpkg.com/@leanjs/cli/-/cli-0.7.0.tgz#446f93cabac44ddea6e6dd498f5d5f83b972c437"
+  integrity sha512-MLrmRcsihqGTNfXincveExpdPPrGq8y9W2fjNJUmGW9PcAAqJLOtaiDcH6qyMGmDW9Od2rPMbW/ciiwAwXXQ6g==
+  dependencies:
+    "@leanjs/core" "^0.13.0"
+    async-sema "^3.1.1"
+    axios "^0.27.2"
+    chalk "^4.1.2"
+    commander "^9.3.0"
+    cors "^2.8.5"
+    cross-spawn "^7.0.3"
+    detect-port "^1.3.0"
+    express "4.17.1"
+    fs-extra "^10.1.0"
+    http-proxy "^1.18.1"
+    webpack "^5.72.0"
+    webpack-dev-server "4.7.4"
+
+"@leanjs/core@^0.10.1":
   version "0.10.1"
   resolved "https://registry.yarnpkg.com/@leanjs/core/-/core-0.10.1.tgz#c54168a2550dae6c6fe6e6212c2d2fba4489d0ee"
   integrity sha512-kQpUik32KZWt2DMl1upyY9yAzGVxQFEBdUOdg8AnGkOOkkw8296UpNYbOF3rfS9sh4wU8xFy+Xsx59CRfOd1Qg==
 
-"@leanjs/next@^0.3.0":
-  version "0.3.1"
-  resolved "https://registry.yarnpkg.com/@leanjs/next/-/next-0.3.1.tgz#70e07c4a68d7800accd1d79fce23caee559663b7"
-  integrity sha512-MjbsAoz0daOpE8TQYY6wVe/uuA6HW9Vms2VrSHxY+D3DnvtpFUz3hugyisflC4WgwiUXNavHcykIPEH267Me5Q==
+"@leanjs/core@^0.13.0":
+  version "0.13.0"
+  resolved "https://registry.yarnpkg.com/@leanjs/core/-/core-0.13.0.tgz#ef81bcc57fabe1dd7a7f7f458ad78e76fb5a4465"
+  integrity sha512-5ON/BpS5EyN9tS7uE8xjdQqDsH/q6eJwdYIZqiZM6BRLD2P822VOoohggbZRW/v8hMagTNpje6M61aetuNMW5w==
 
-"@leanjs/react-router@^0.5.1":
-  version "0.5.2"
-  resolved "https://registry.yarnpkg.com/@leanjs/react-router/-/react-router-0.5.2.tgz#fc73cbb5fd06eeb2e71291c1c92033aee54b1199"
-  integrity sha512-LPTb2Fq13Tbtj+v8SCn+zNaNs8k+SA9W4eFJh1N0T8h3/UrDI2nfzXGwCmd2ra2zdyqK2rDjpIKf70qc4dPGCQ==
-  dependencies:
-    "@leanjs/core" "^0.10.1"
+"@leanjs/next@^0.4.3":
+  version "0.4.3"
+  resolved "https://registry.yarnpkg.com/@leanjs/next/-/next-0.4.3.tgz#9f15e1c6e31e59bd30c3d06d07a84dbab2a161b2"
+  integrity sha512-oOhoD+vBqRbU5NWMVLnbukUPOCB463lZRn4tLY+VlTTkalosmhWNuFr3mg0q1NqB2fh4835ajuC7fTJe7MDm+A==
 
-"@leanjs/react@^0.6.0":
-  version "0.6.1"
-  resolved "https://registry.yarnpkg.com/@leanjs/react/-/react-0.6.1.tgz#680310e0ed20d0d0040c1905c9cc024237bd341d"
-  integrity sha512-H6IVI/WQYcXxndCLDKE7lbvRCEvjNFqXFYl0T9RVtxVOoA66LlI/eDzi3FF7vDIAfdjZ24g5OLYzuaUBps1SOQ==
+"@leanjs/react-router@^0.7.0":
+  version "0.7.0"
+  resolved "https://registry.yarnpkg.com/@leanjs/react-router/-/react-router-0.7.0.tgz#d34be1946240ba196e723a42bfd7b197684df4b0"
+  integrity sha512-hSBpZ/Q3oZaGs2fbeDRKYFB/EpnZ0ZxK3HAolG2U1uoy1Kq5d6rR0ETpiqr8+hfo9dSm4QEmzyPEXSuRLeHrpw==
   dependencies:
-    "@leanjs/core" "^0.10.1"
+    "@leanjs/core" "^0.13.0"
 
-"@leanjs/vue-router@^0.2.1":
-  version "0.2.2"
-  resolved "https://registry.yarnpkg.com/@leanjs/vue-router/-/vue-router-0.2.2.tgz#320f49c3c029f198a7677ff5317995b3760c1305"
-  integrity sha512-tOVRo0fmCeWIdZiXJZdW6uOFvr61QvaigHXtsSGF6oa0piWS0P4KyeJgHOmxfsVRXYkP05xJcTykPH+p+4frpg==
+"@leanjs/react@^0.9.0":
+  version "0.9.0"
+  resolved "https://registry.yarnpkg.com/@leanjs/react/-/react-0.9.0.tgz#51d8ebe9052975ab4076b5f2efb0b78c41092815"
+  integrity sha512-wbde8FY+qltoKHUjpJMoVBi1IR3RMaKqs4Mvv6EkPI+Jfd/XTXn2Js8sCbrImENLWCS0dIfLgx2hqpeowseLtg==
   dependencies:
-    "@leanjs/core" "^0.10.1"
+    "@leanjs/core" "^0.13.0"
 
-"@leanjs/vue@^0.4.5":
-  version "0.4.6"
-  resolved "https://registry.yarnpkg.com/@leanjs/vue/-/vue-0.4.6.tgz#ba5112a755f434215c1a3bbb06a80679c0b1d9a0"
-  integrity sha512-1yZ1CjXCvrQFB1XuivWEB//3qbNvsDW/6aXJlD6pttfc3shLYxfSI/+u73ExnRCYyR99N0zHzujLat307TFvUA==
+"@leanjs/vue-router@^0.3.0":
+  version "0.3.0"
+  resolved "https://registry.yarnpkg.com/@leanjs/vue-router/-/vue-router-0.3.0.tgz#0d1ed545d3b7e20159255fd1465e8399cf305dcf"
+  integrity sha512-zzTUovpjvDhku+W6bie7mTDnJSbLBigTAYPe+d9fIYK8ekqASFtrRPoiYTHcjHOyYH7vp3k4awzhmSauIrZQWQ==
   dependencies:
-    "@leanjs/core" "^0.10.1"
+    "@leanjs/core" "^0.13.0"
 
-"@leanjs/webpack-react@^0.1.2":
-  version "0.1.3"
-  resolved "https://registry.yarnpkg.com/@leanjs/webpack-react/-/webpack-react-0.1.3.tgz#26b5af222c19d6977191be16729f83cb9412747f"
-  integrity sha512-bgNVKC0SALhecqHAKyPwsY3HEzFNEwE9LwoI1BjCyOuwj46361uMq71A6Krd3Vesx1cHpa+VansX152Gcj+cLg==
+"@leanjs/vue@^0.4.9":
+  version "0.4.9"
+  resolved "https://registry.yarnpkg.com/@leanjs/vue/-/vue-0.4.9.tgz#dbe0233c01b513e8ffc84660891af5e91eec1554"
+  integrity sha512-GOvvnb2kPFIWYgfmONK/HsmtOLzNg4jazPcelUhkmZTUIMYnDfTovgX4TZGxeCeD+8TbH0opdskxxB35dZQHVQ==
   dependencies:
-    "@leanjs/cli" "^0.6.4"
+    "@leanjs/core" "^0.13.0"
+
+"@leanjs/webpack-react@^0.2.3":
+  version "0.2.3"
+  resolved "https://registry.yarnpkg.com/@leanjs/webpack-react/-/webpack-react-0.2.3.tgz#2cf0907a14d7b68589b79742b973d59cf05eae17"
+  integrity sha512-Xg7cyjP25BXawCQ6lukNM5Nk/WWK5TwKRGrJnsQChLV9V0Fqx1ev+ppO+tVze9UZeXmqA5K41HFU5S6VPm5B2A==
+  dependencies:
+    "@leanjs/cli" "^0.7.0"
     swc-loader "^0.2.1"
 
-"@leanjs/webpack-vue@^0.1.2":
-  version "0.1.3"
-  resolved "https://registry.yarnpkg.com/@leanjs/webpack-vue/-/webpack-vue-0.1.3.tgz#333f8ae54eb97522342072744d7816beba8c93c5"
-  integrity sha512-q0HoHIqFviwJ6p3mqwcXi5FhFJfE2n9DKnSjpsMmZmx4EQ5z899VkgQJOfnTgt1ONaNS/+1IzpATsp6Scb07cQ==
+"@leanjs/webpack-vue@^0.2.3":
+  version "0.2.3"
+  resolved "https://registry.yarnpkg.com/@leanjs/webpack-vue/-/webpack-vue-0.2.3.tgz#833a8d58fadefc8a8df894a71540eb4a74aea4d4"
+  integrity sha512-AD4aiuJpUQliUOD13CZCZDeIIb/LLieUP5ycr4YhgjX4xSyymrNHTbFgBQrfGrqLGlac6zJUF9yB0lCJINC8AQ==
   dependencies:
     "@babel/core" "^7.12.3"
     "@babel/plugin-transform-runtime" "^7.12.1"
     "@babel/preset-env" "^7.12.1"
-    "@leanjs/cli" "^0.6.4"
+    "@leanjs/cli" "^0.7.0"
     ts-loader "^9.2.8"
     vue-loader "^17.0.0"
     vue-template-compiler "^2.6.14"
 
-"@leanjs/webpack@^0.17.0":
-  version "0.17.1"
-  resolved "https://registry.yarnpkg.com/@leanjs/webpack/-/webpack-0.17.1.tgz#27e4231cd9608827a9d8a9fef74a7af9a9159e7f"
-  integrity sha512-sTFU6yrsF+10Bms34+G81i8D8oJMhgr09HqsEfjpwQIMIcYM86JswX6wnbjeZYKrd9HqQDNoRkdWJndjN6LEHg==
+"@leanjs/webpack@^0.19.0":
+  version "0.19.0"
+  resolved "https://registry.yarnpkg.com/@leanjs/webpack/-/webpack-0.19.0.tgz#9115c943cb770e54997522a81cf1c054fe8a9cdd"
+  integrity sha512-v9/bHaHxSUtGpgIGySytsbCOCeVmxpKQcDi6gJWtJ9BEPDdB2vaQLHUyOqQTf+y2g4hIKqFlekQ5qIbBb+kxjQ==
   dependencies:
-    "@leanjs/cli" "^0.6.4"
-    "@leanjs/core" "^0.10.1"
+    "@leanjs/cli" "^0.7.0"
+    "@leanjs/core" "^0.13.0"
     chalk "^4.1.2"
     fast-glob "^3.2.11"
     html-webpack-plugin "^5.5.0"

@@ -5,6 +5,9 @@ const { createVueWebpackConfig } = require("@leanjs/webpack-vue");
 
 module.exports = {
   devServer: { port: 56600 },
+  selfHosted: {
+    createRuntimePackage: "@my-org/runtime-shared",
+  },
   webpack: {
     react: createReactWebpackConfig(),
     vue: createVueWebpackConfig(),
