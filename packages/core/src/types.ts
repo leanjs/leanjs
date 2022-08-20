@@ -76,7 +76,7 @@ export type AsyncComposableApp<
   MyCreateRuntime extends CreateRuntime = CreateRuntime
 > =
   | ComposableApp<MyCreateRuntime>
-  | Promise<{ default: ComposableApp<MyCreateRuntime> }>;
+  | (() => Promise<{ default: ComposableApp<MyCreateRuntime> }>);
 
 export type CreateBootstrapOutput<MyCreateRuntime extends CreateRuntime> =
   ComposableAppInstance<GetRuntime<MyCreateRuntime>> & {

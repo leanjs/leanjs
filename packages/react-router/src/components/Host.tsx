@@ -4,7 +4,7 @@ import type { HostProps, AsyncHostProps } from "@leanjs/react";
 import { useNavigate } from "react-router-dom";
 import { useListen } from "./UniversalRouter";
 
-const { useHost, Mount, DefaultError, useAppResolver } = ReactUtils;
+const { useMount, Mount, DefaultError, useApp } = ReactUtils;
 
 interface BaseReactRouterHostProps {
   basename?: string;
@@ -16,7 +16,7 @@ interface AsyncReactRouterHostProps
     AsyncHostProps {}
 
 export const Host = (props: AsyncReactRouterHostProps) =>
-  useAppResolver(ReactRouterHost, props);
+  useApp(ReactRouterHost, props);
 
 interface ReactRouterHostProps extends BaseReactRouterHostProps, HostProps {}
 
@@ -28,7 +28,7 @@ function ReactRouterHost({
   ...rest
 }: ReactRouterHostProps) {
   const navigate = useNavigate();
-  const { mount, error, runtime } = useHost({ app });
+  const { mount, error, runtime } = useMount({ app });
   const listen = useListen();
 
   return mount ? (

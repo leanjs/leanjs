@@ -6,8 +6,8 @@ import {
 } from "@leanjs/e2e-test-subjects-package-runtime-react";
 import { Link, Route, Routes } from "react-router-dom";
 import SubPages from "./SubPages";
-// import reactApp from "@leanjs/e2e-test-subjects-remote-react-1";
-const reactApp = import("@leanjs/e2e-test-subjects-remote-react-1");
+import reactApp from "@leanjs/e2e-test-subjects-remote-react-1";
+// const reactApp = () => import("@leanjs/e2e-test-subjects-remote-react-1");
 
 const runtime = createRuntime();
 
