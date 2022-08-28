@@ -43,3 +43,5 @@ export const isPromise = (arg?: any): arg is Promise<any> =>
 
 export const isObject = (data: any) =>
   ({}.toString.call(data) === "[object Object]");
+
+export const isPrimitive = (test: any) => test !== Object(test);

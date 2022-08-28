@@ -1,6 +1,6 @@
 import { _ as CoreUtils } from "@leanjs/core";
 
-const { isObject } = CoreUtils;
+const { isObject, isPrimitive } = CoreUtils;
 
 export function shallowCopy(data: any) {
   if (Array.isArray(data)) {
@@ -11,5 +11,3 @@ export function shallowCopy(data: any) {
     return data;
   }
 }
-
-export const isPrimitive = (test: any) => test !== Object(test);
