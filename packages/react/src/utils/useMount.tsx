@@ -48,11 +48,11 @@ export function useMount({ app }: UseHostArgs) {
     if (!cachedMount) {
       loadScript(url)
         .then(() => loadModule(name))
-        .then(({ default: config }) => {
-          if (typeof config !== "function") {
+        .then(({ default: createComposableApp }) => {
+          if (typeof createComposableApp !== "function") {
             setError(new Error("Remote module didn't return a function"));
           } else {
-            const { mount: remoteMount } = config({
+            const { mount: remoteMount } = createComposableApp({
               isSelfHosted: false,
             });
 

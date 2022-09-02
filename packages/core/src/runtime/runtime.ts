@@ -13,6 +13,7 @@ import type {
   ValueFromCtxFactorySync,
   CreateRuntimeArgs,
   Unsubscribe,
+  OnErrorOptions,
 } from "./types";
 
 import { isPromise } from "../utils";
@@ -37,11 +38,12 @@ const runCreateRuntime =
     CtxFactory,
     CtxProp
   > => {
-    function log(error: any) {
+    function logError(error: any, options?: OnErrorOptions) {
       onError(
         error && error.stack && error.message
           ? (error as Error)
-          : new Error(typeof error === "string" ? error : "Unknown error")
+          : new Error(typeof error === "string" ? error : "Unknown error"),
+        options
       );
     }
 
@@ -176,7 +178,7 @@ Current valid props are: ${Object.keys(currentState).join(", ")}`);
             error: (error as Error)?.message ?? error,
           });
           callSubscribers(prop);
-          log(error);
+          logError(error);
         }
       }
 
@@ -203,13 +205,13 @@ Current valid props are: ${Object.keys(currentState).join(", ")}`);
             try {
               item = item(runtime);
             } catch (error) {
-              log(error);
+              logError(error);
             }
           }
 
           if (isPromise(item)) {
             ctxPromises.set(prop, item);
-            item.catch(log);
+            item.catch(logError);
           }
           target[prop] = item as any;
         }
@@ -231,7 +233,7 @@ Current valid props are: ${Object.keys(currentState).join(", ")}`);
 
       if (isPromise(item)) {
         ctxPromises.set(key, item);
-        item.catch(log);
+        item.catch(logError);
       }
     });
 
@@ -260,10 +262,10 @@ Current valid props are: ${Object.keys(currentState).join(", ")}`);
         .then((ctxValue) =>
           callback(ctxValue as ValueFromCtxFactorySync<CtxFactory, P>, state)
         )
-        .catch(log);
+        .catch(logError);
 
       return () => {
-        offPromise.then((off) => off?.()).catch(log);
+        offPromise.then((off) => off?.()).catch(logError);
       };
     };
 
@@ -276,6 +278,7 @@ Current valid props are: ${Object.keys(currentState).join(", ")}`);
       subscribe,
       loaded,
       load,
+      logError,
     };
   };
 
@@ -291,19 +294,12 @@ export const configureRuntime = <
   return <CtxFactory extends BaseCtxFactory<State, Prop>>({
     context,
     onError,
-  }: ConfigureRuntimeOptions<State, Prop, CtxFactory>) => {
-    const createRuntime = ({
-      initialState,
-      request,
-    }: CreateRuntimeArgs<State> = {}) =>
+  }: ConfigureRuntimeOptions<State, Prop, CtxFactory>) => ({
+    createRuntime: ({ initialState, request }: CreateRuntimeArgs<State> = {}) =>
       runCreateRuntime<State, Prop>(initialState ?? defaultState)({
         context,
         onError,
         request,
-      });
-
-    createRuntime.log = onError;
-
-    return { createRuntime };
-  };
+      }),
+  });
 };

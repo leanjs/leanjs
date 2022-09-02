@@ -1,9 +1,7 @@
 import type { Runtime as BaseRuntime } from "@leanjs/core";
 import React, { createContext, useContext, ReactElement } from "react";
 
-const RuntimeContext = createContext<
-  { runtime: BaseRuntime | undefined } | undefined
->(undefined);
+const RuntimeContext = createContext<BaseRuntime | undefined>(undefined);
 
 export const RuntimeProvider = ({
   children,
@@ -12,18 +10,16 @@ export const RuntimeProvider = ({
   children: ReactElement | ReactElement[];
   runtime?: BaseRuntime;
 }) => (
-  <RuntimeContext.Provider value={{ runtime }}>
-    {children}
-  </RuntimeContext.Provider>
+  <RuntimeContext.Provider value={runtime}>{children}</RuntimeContext.Provider>
 );
 
-export function useRuntime() {
-  const runtime = useContext(RuntimeContext)?.runtime;
-  if (!runtime) {
+export function useRuntime<MyRuntime extends BaseRuntime>() {
+  const context = useContext(RuntimeContext);
+  if (!context) {
     throw new Error(
       `No LeanJS runtime instance found in the context. Are you using a HostProvider?`
     );
   }
 
-  return runtime;
+  return context as MyRuntime;
 }

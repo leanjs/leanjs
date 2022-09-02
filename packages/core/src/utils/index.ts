@@ -2,7 +2,7 @@ import { RemoteTarget } from "../types";
 
 export * from "./loadScript";
 export * from "./loadModule";
-export * from "./configureMount";
+export * from "./createMount";
 
 export const createRemoteName = (packageName: string) =>
   `_${packageName.replace(/[^a-z0-9+]+/gi, "_")}`;

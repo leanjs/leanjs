@@ -12,7 +12,7 @@ export const createRuntimeBindings = <
 >(
   _createRuntime: MyCreateRuntime // arg only used to infer Runtime type
 ) => {
-  const useRuntime = () => useBaseRuntime() as MyRuntime;
+  const useRuntime = () => useBaseRuntime<MyRuntime>();
 
   const useGetter = <
     Prop extends KeyOf<MyRuntime["state"]> = KeyOf<MyRuntime["state"]>

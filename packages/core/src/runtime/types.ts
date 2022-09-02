@@ -78,7 +78,7 @@ export interface ConfigureRuntimeOptions<
   Prop extends KeyOf<State>,
   CtxFactory extends BaseCtxFactory<State, Prop>
 > {
-  onError: (error: Error) => void;
+  onError: OnError;
   context?: CtxFactory;
   request?: Request;
 }
@@ -108,7 +108,10 @@ export interface Runtime<
   ): Promise<State[P]>;
   loaded(): Promise<void>;
   loaded<P extends Prop>(prop: P): Promise<State[P]>;
+  logError: LogAnyError;
 }
+
+export type LogAnyError = (error: any, options?: OnErrorOptions) => void;
 
 export interface LoaderState {
   loading: boolean;
@@ -127,8 +130,13 @@ export interface CreateRuntimeArgs<State extends BaseShape> {
 
 export type CreateRuntime<MyRuntime extends Runtime = Runtime> = {
   (args?: CreateRuntimeArgs<any>): MyRuntime;
-  log: (error: Error) => void;
 };
 
 export type GetRuntime<MyCreateRuntime extends CreateRuntime> =
   ReturnType<MyCreateRuntime>;
+
+export interface OnErrorOptions {
+  scope?: string;
+}
+
+export type OnError = (error: Error, options?: OnErrorOptions) => void;

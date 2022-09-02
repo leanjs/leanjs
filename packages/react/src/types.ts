@@ -4,7 +4,8 @@ import type {
   NavigateFunc,
   ListenFunc,
   BasePath,
-  AsyncComposableApp,
+  ComposableAppAsync,
+  ComposableAppSync,
   ComposableApp,
 } from "@leanjs/core";
 import type { ReactElement } from "react";
@@ -23,7 +24,7 @@ export interface BaseHostProps {
 }
 
 export interface AsyncHostProps extends BaseHostProps {
-  app: AsyncComposableApp;
+  app: ComposableAppAsync | ComposableAppSync;
 }
 
 export interface HostProps extends BaseHostProps {
@@ -33,7 +34,7 @@ export interface HostProps extends BaseHostProps {
 export type ErrorComponent = (props: { error: Error }) => React.ReactElement;
 
 export interface UseHostArgs {
-  app: ComposableApp;
+  app: ComposableAppSync;
 }
 
 export interface HostContextValues {

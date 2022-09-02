@@ -19,7 +19,7 @@ export interface LeanConfig {
     port: number;
   };
   selfHosted: {
-    createRuntimePackage: string;
+    createRuntimePath: string;
   };
   webpack: LeanWebpackConfig;
   command?: LeanCommand;

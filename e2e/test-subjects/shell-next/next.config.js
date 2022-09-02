@@ -32,6 +32,9 @@ const nextConfig = withTM({
           react: packageJson.dependencies.react,
           ["react-dom"]: packageJson.dependencies["react-dom"],
         },
+        remotes: {
+          packages: ["@leanjs/e2e-test-subjects-remote-react-1"],
+        },
       })
     );
 
