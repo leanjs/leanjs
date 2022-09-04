@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.9.4](https://github.com/leanjs/leanjs/compare/@leanjs/react@0.9.3...@leanjs/react@0.9.4) (2022-09-04)
+
+
+### Bug Fixes
+
+* e2e tests ([68cdfe7](https://github.com/leanjs/leanjs/commit/68cdfe71a5b0525badc62be1bded4da1b919c513))
+
+
+
+
+
 ## [0.9.3](https://github.com/leanjs/leanjs/compare/@leanjs/react@0.9.2...@leanjs/react@0.9.3) (2022-09-04)
 
 

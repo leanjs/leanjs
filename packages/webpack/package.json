@@ -1,6 +1,6 @@
 {
   "name": "@leanjs/webpack",
-  "version": "0.19.3",
+  "version": "0.19.4",
   "description": "Webpack plugins for LeanJS micro-frontends",
   "types": "./dist/index.d.ts",
   "main": "./dist/index.js",
@@ -22,8 +22,8 @@
     "dist"
   ],
   "dependencies": {
-    "@leanjs/cli": "^0.7.3",
-    "@leanjs/core": "^0.13.3",
+    "@leanjs/cli": "^0.7.4",
+    "@leanjs/core": "^0.13.4",
     "chalk": "^4.1.2",
     "fast-glob": "^3.2.11",
     "html-webpack-plugin": "^5.5.0",
