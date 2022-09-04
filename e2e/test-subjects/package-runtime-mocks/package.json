@@ -1,6 +1,6 @@
 {
   "name": "@leanjs/e2e-test-subjects-package-runtime-mocks",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "private": true,
   "description": "",
   "main": "./src/index.ts",
