@@ -9,6 +9,8 @@ import type {
   ComposableApp,
 } from "@leanjs/core";
 import type { ReactElement } from "react";
+
+export type { AppProps } from "@leanjs/core";
 export interface MountProps extends BasePath {
   mount: MountFunc;
   runtime: Runtime;

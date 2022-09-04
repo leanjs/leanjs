@@ -161,8 +161,10 @@ export class RemoteWebpackPlugin implements WebpackPluginInstance {
       localSelfHostedPath || leanConfig?.selfHosted?.createRuntimePath;
 
     const bootstrapEntryJs = createRuntimePath
-      ? `import { createRuntime } from "${createRuntimePath}";
-         import("./bootstrap").then(({ bootstrap }) => bootstrap(createRuntime));
+      ? `import("${createRuntimePath}").then(
+        ({ createRuntime }) => {
+          import("./bootstrap").then(({ bootstrap }) => bootstrap({ createRuntime }));
+        });
       `
       : `import("./bootstrap").then(({ bootstrap }) => bootstrap());`;
 

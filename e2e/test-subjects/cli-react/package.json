@@ -3,6 +3,7 @@
   "private": true,
   "version": "1.6.3",
   "description": "",
+  "main": "./src/index.ts",
   "scripts": {
     "start:e2e": "NODE_ENV=development node ../../../packages/cli/dist/bin/lean-cli dev --config=react",
     "build:e2e": "NODE_ENV=production node ../../../packages/cli/dist/bin/lean-cli build --config=react",

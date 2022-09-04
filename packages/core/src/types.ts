@@ -109,5 +109,4 @@ export interface AppProps {
   isSelfHosted: boolean;
   initialState: any;
   updateInitialState: UdpateInitialState;
-  [x: string]: any;
 }
