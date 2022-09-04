@@ -1,8 +1,6 @@
 import type {
-  CreateRemoteConfig,
+  CreateAppConfig,
   CreateComposableApp,
-  CreateRuntime,
-  GetRuntime,
   AppProps,
   MountFunc,
 } from "@leanjs/core";
@@ -12,43 +10,29 @@ import ReactDOM from "react-dom";
 
 import { ErrorBoundary } from "./utils";
 import { RuntimeProvider } from "./runtime";
-const { configureMount } = CoreUtils;
+const { createMount } = CoreUtils;
 
-export const createApp = <
-  MyCreateRuntime extends CreateRuntime = CreateRuntime,
-  MyAppProps extends AppProps = AppProps
->(
+export const createApp = <MyAppProps extends AppProps = AppProps>(
   App: (props: MyAppProps) => ReactElement,
-  {
-    onBeforeMount,
-    packageName,
-  }: CreateRemoteConfig<MyCreateRuntime, MyAppProps>
+  { packageName }: CreateAppConfig
 ) => {
-  const bootstrap: CreateComposableApp<MyCreateRuntime> = (options = {}) => {
-    const { isSelfHosted, createRuntime } = options;
-    const mount: MountFunc<GetRuntime<MyCreateRuntime>> = (
-      el,
-      { runtime = createRuntime?.() as GetRuntime<MyCreateRuntime> } = {}
-    ) =>
-      configureMount({
+  const createComposableApp: CreateComposableApp = ({ isSelfHosted } = {}) => {
+    const mount: MountFunc = (el, { runtime, initialState } = {}) =>
+      createMount({
         el,
-        ...options,
+        isSelfHosted,
+        initialState,
         packageName,
-        log: createRuntime?.log,
-        runtime,
-        onBeforeMount,
+        onError: runtime?.logError,
         unmount: () => {
           if (el) ReactDOM.unmountComponentAtNode(el);
         },
-        render: ({ appProps }) => {
+        render: ({ appProps, logScopedError }) => {
           if (el) {
             ReactDOM.render(
-              <ErrorBoundary onError={createRuntime?.log}>
+              <ErrorBoundary onError={logScopedError}>
                 <RuntimeProvider runtime={runtime}>
-                  <App
-                    isSelfHosted={isSelfHosted}
-                    {...(appProps as MyAppProps)}
-                  />
+                  <App {...(appProps as MyAppProps)} />
                 </RuntimeProvider>
               </ErrorBoundary>,
               el
@@ -57,10 +41,10 @@ export const createApp = <
         },
       });
 
-    return { mount, packageName, createRuntime };
+    return { mount, packageName };
   };
 
-  bootstrap.packageName = packageName;
+  createComposableApp.packageName = packageName;
 
-  return bootstrap;
+  return createComposableApp;
 };

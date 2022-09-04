@@ -1,9 +1,4 @@
-import type { CreateRuntime, Runtime, GetRuntime } from "./runtime";
-
-export interface BootstrapOutput {
-  mount: MountFunc;
-  createRuntime: CreateRuntime;
-}
+import type { Runtime, LogAnyError } from "./runtime";
 
 export type RemoteTarget = "browser" | "node";
 export interface BasePath {
@@ -24,6 +19,7 @@ export interface MountOptions<MyRuntime extends Runtime = Runtime>
   extends BasePath {
   runtime?: MyRuntime;
   onRemoteNavigate?: OnNavigate;
+  initialState?: any;
 }
 
 export type NavigateFunc = (location: Location) => void;
@@ -53,72 +49,31 @@ export interface MountOutput {
   unmount: UnmountFunc;
   onHostNavigate?: OnNavigate;
 }
-
-export interface CreateComposableApp<
-  MyCreateRuntime extends CreateRuntime = CreateRuntime
-> {
-  (
-    options?: BootstrapOptions<MyCreateRuntime>
-  ): CreateBootstrapOutput<MyCreateRuntime>;
+export interface CreateComposableApp {
+  (options?: CreateComposableAppOptions): ComposableApp;
   packageName: string;
 }
 
-export type ComposableAppInstance<MyRuntime extends Runtime> = {
+export type ComposableApp = {
   packageName: string;
-  mount?: MountFunc<MyRuntime>;
+  mount?: MountFunc;
 };
 
-export type ComposableApp<
-  MyCreateRuntime extends CreateRuntime = CreateRuntime
-> =
-  | ComposableAppInstance<GetRuntime<MyCreateRuntime>>
-  | CreateComposableApp<MyCreateRuntime>;
+export type ComposableAppSync = ComposableApp | CreateComposableApp;
 
-export type AsyncComposableApp<
-  MyCreateRuntime extends CreateRuntime = CreateRuntime
-> =
-  | ComposableApp<MyCreateRuntime>
-  | (() => Promise<{ default: ComposableApp<MyCreateRuntime> }>);
-
-export type CreateBootstrapOutput<MyCreateRuntime extends CreateRuntime> =
-  ComposableAppInstance<GetRuntime<MyCreateRuntime>> & {
-    createRuntime?: MyCreateRuntime;
-  };
-
+export type ComposableAppAsync = () => Promise<{ default: ComposableAppSync }>;
 export interface MountFunc<MyRuntime extends Runtime = Runtime> {
   (element: HTMLElement | null, options: MountOptions<MyRuntime>): MountOutput;
 }
 
 type UdpateInitialState = (state: any) => void;
-export interface BootstrapOptions<
-  MyCreateRuntime extends CreateRuntime = CreateRuntime
-> {
+
+export interface CreateComposableAppOptions {
   isSelfHosted?: boolean;
-  initialState?: any;
-  createRuntime?: MyCreateRuntime;
 }
-
-export interface OnBeforeMountArgs<MyRuntime extends Runtime> {
-  runtime?: MyRuntime;
-  isSelfHosted: boolean;
-  initialState?: any;
-  updateInitialState: UdpateInitialState;
-  onBeforeUnmount: (callback: Cleanup) => void;
-  onUnmounted: (callback: Cleanup) => void;
-}
-
-export type OnUnmounted = () => void;
-
-export interface CreateRemoteConfig<
-  MyCreateRuntime extends CreateRuntime = CreateRuntime,
-  MyAppProps extends AppProps = AppProps
-> {
+export interface CreateAppConfig {
   packageName: string;
-  onBeforeMount?: (
-    args: OnBeforeMountArgs<GetRuntime<MyCreateRuntime>>
-  ) => MyAppProps;
 }
-
 export interface NavigationOptions {
   hash?: string;
   search?: string;
@@ -131,30 +86,26 @@ export type OnRemoteNavigate = (
 
 export type Cleanup = () => void;
 
-export type ConfigureMount = <
-  MyCreateRuntime extends CreateRuntime,
-  MyAppProps extends AppProps
->(
-  args: ConfigureMountArgs<GetRuntime<MyCreateRuntime>, MyAppProps>
-) => MountOutput;
+export type CreateMount = (args: CreateMountArgs) => MountOutput;
 
-export interface ConfigureMountArgs<
-  MyRuntime extends Runtime,
-  MyAppProps extends AppProps
-> {
+interface CreateMountRenderArgs {
+  appProps?: AppProps;
+  logScopedError: LogAnyError;
+}
+export interface CreateMountArgs {
   el: HTMLElement | null;
   packageName: string;
   unmount: () => void;
-  runtime?: MyRuntime;
-  render: ({ appProps }: { appProps?: MyAppProps }) => void;
-  isSelfHosted?: boolean;
-  onBeforeMount?: (args: OnBeforeMountArgs<MyRuntime>) => MyAppProps;
-  initialState?: any;
+  render: ({ appProps, logScopedError }: CreateMountRenderArgs) => void;
+  isSelfHosted: boolean | undefined;
+  initialState: any;
+  onError: LogAnyError | undefined;
   cleanups?: Cleanup[];
-  log?: (error: any) => void;
 }
 
 export interface AppProps {
-  isSelfHosted?: boolean;
+  isSelfHosted: boolean;
+  initialState: any;
+  updateInitialState: UdpateInitialState;
   [x: string]: any;
 }

@@ -1,11 +1,9 @@
 import { RuntimeProvider, _ as ReactUtils } from "@leanjs/react";
 import type {
-  CreateRemoteConfig,
-  CreateRuntime,
-  GetRuntime,
+  CreateComposableApp,
+  CreateAppConfig,
   AppProps,
   MountFunc,
-  CreateComposableApp,
 } from "@leanjs/core";
 import { _ as CoreUtils } from "@leanjs/core";
 import React, { ReactElement } from "react";
@@ -15,31 +13,25 @@ import { createBrowserHistory, createMemoryHistory } from "history";
 import { UniversalRouter } from "./components/UniversalRouter";
 
 const { ErrorBoundary } = ReactUtils;
-const { configureMount, getDefaultPathname } = CoreUtils;
+const { createMount, getDefaultPathname } = CoreUtils;
 
-export const createApp = <
-  MyCreateRuntime extends CreateRuntime = CreateRuntime,
-  MyAppProps extends AppProps = AppProps
->(
+export const createApp = <MyAppProps extends AppProps = AppProps>(
   App: (props: MyAppProps) => ReactElement,
-  {
-    onBeforeMount,
-    packageName,
-  }: CreateRemoteConfig<MyCreateRuntime, MyAppProps>
+  { packageName }: CreateAppConfig
 ) => {
-  const bootstrap: CreateComposableApp<MyCreateRuntime> = (options = {}) => {
-    const { createRuntime, isSelfHosted } = options;
+  const createComposableApp: CreateComposableApp = ({ isSelfHosted } = {}) => {
     const history = isSelfHosted
       ? createBrowserHistory()
       : createMemoryHistory();
 
-    const mount: MountFunc<GetRuntime<MyCreateRuntime>> = (
+    const mount: MountFunc = (
       el,
       {
-        runtime = createRuntime?.() as GetRuntime<MyCreateRuntime>,
+        runtime,
         onRemoteNavigate,
         basename,
         pathname = getDefaultPathname(isSelfHosted),
+        initialState,
       } = {}
     ) => {
       const initialPath = [basename, pathname]
@@ -48,29 +40,25 @@ export const createApp = <
       history.replace(initialPath);
 
       return {
-        ...configureMount({
+        ...createMount({
           el,
-          ...options,
           packageName,
-          log: createRuntime?.log,
-          runtime,
-          onBeforeMount,
+          isSelfHosted,
+          initialState,
+          onError: runtime?.logError,
           unmount: () => {
             if (el) ReactDOM.unmountComponentAtNode(el);
           },
           cleanups: onRemoteNavigate
             ? [history.listen((e) => onRemoteNavigate(e.location))]
             : [],
-          render: ({ appProps }) => {
+          render: ({ appProps, logScopedError }) => {
             if (el) {
               ReactDOM.render(
-                <ErrorBoundary onError={createRuntime?.log}>
+                <ErrorBoundary onError={logScopedError}>
                   <UniversalRouter history={history} basename={basename}>
                     <RuntimeProvider runtime={runtime}>
-                      <App
-                        isSelfHosted={isSelfHosted}
-                        {...(appProps as MyAppProps)}
-                      />
+                      <App {...(appProps as MyAppProps)} />
                     </RuntimeProvider>
                   </UniversalRouter>
                 </ErrorBoundary>,
@@ -90,11 +78,10 @@ export const createApp = <
     return {
       mount,
       packageName,
-      createRuntime,
     };
   };
 
-  bootstrap.packageName = packageName;
+  createComposableApp.packageName = packageName;
 
-  return bootstrap;
+  return createComposableApp;
 };

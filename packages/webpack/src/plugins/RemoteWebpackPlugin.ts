@@ -61,8 +61,8 @@ export class RemoteWebpackPlugin implements WebpackPluginInstance {
     }
 
     compiler.options.entry = {
-      remote: {
-        import: ["./src/remote.js"],
+      bootstrap_entry: {
+        import: ["./bootstrap_entry.js"],
       },
     };
 
@@ -140,13 +140,13 @@ export class RemoteWebpackPlugin implements WebpackPluginInstance {
     }).apply(compiler);
 
     const { leanConfig } = findRootConfigSync();
-    const localCreateRuntimePath = ["ts", "tsx", "js"].reduce(
+    const localSelfHostedPath = ["ts", "tsx", "js"].reduce(
       (accPath, extension) => {
         if (accPath) return accPath;
 
         const createRuntimePath = path.resolve(
           process.cwd(),
-          `./src/createRuntime.${extension}`
+          `./src/selfHosted.${extension}`
         );
         if (fs.existsSync(createRuntimePath)) {
           return createRuntimePath;
@@ -157,20 +157,18 @@ export class RemoteWebpackPlugin implements WebpackPluginInstance {
       ""
     );
 
-    const createRuntimeImport =
-      localCreateRuntimePath || leanConfig?.selfHosted?.createRuntimePackage;
+    const createRuntimePath =
+      localSelfHostedPath || leanConfig?.selfHosted?.createRuntimePath;
 
-    const remoteJs = createRuntimeImport
-      ? `import("${createRuntimeImport}").then(
-          ({ createRuntime }) => {
-            import("./bootstrap").then(({ bootstrap }) => bootstrap(createRuntime));
-          });
-        `
+    const bootstrapEntryJs = createRuntimePath
+      ? `import { createRuntime } from "${createRuntimePath}";
+         import("./bootstrap").then(({ bootstrap }) => bootstrap(createRuntime));
+      `
       : `import("./bootstrap").then(({ bootstrap }) => bootstrap());`;
 
     new VirtualModulesPlugin({
-      "./src/remote.js": remoteJs,
-      "./src/bootstrap": fs.readFileSync(
+      "./bootstrap_entry.js": bootstrapEntryJs,
+      "./bootstrap": fs.readFileSync(
         path.resolve(__dirname, "../bootstrap.js"),
         "utf8"
       ),

@@ -73,7 +73,7 @@ describe("configureRuntime", () => {
 
     await runtime.booted();
 
-    expect(onError).toHaveBeenCalledWith(randomError);
+    expect(onError).toHaveBeenCalledWith(randomError, undefined);
   });
 
   it(`calls onError if it can't create any sync context`, async () => {
@@ -92,7 +92,7 @@ describe("configureRuntime", () => {
 
     await runtime.booted();
 
-    expect(onError).toHaveBeenCalledWith(randomError);
+    expect(onError).toHaveBeenCalledWith(randomError, undefined);
     expect(onError).toHaveBeenCalledTimes(2);
   });
 
@@ -156,16 +156,17 @@ describe("createRuntime", () => {
     expect(runtime.state.user?.username).toBe(username);
   });
 
-  it(`exposes a log function that accepts an Error argument`, async () => {
+  it(`returns a runtime that exposes a logError function that accepts an Error argument`, async () => {
     const onError = jest.fn();
     const { createRuntime } = configureRuntime<SharedState>(defaultState)({
       onError,
     });
 
+    const runtime = createRuntime();
     const error = new Error(Math.random().toString());
-    createRuntime.log(error);
+    runtime.logError(error);
 
-    expect(onError).toHaveBeenCalledWith(error);
+    expect(onError).toHaveBeenCalledWith(error, undefined);
   });
 });
 

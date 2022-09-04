@@ -1,37 +1,47 @@
 import type {
-  BootstrapOptions,
-  BootstrapOutput,
+  ComposableApp,
   CreateRuntime,
+  MountFunc,
+  Runtime,
 } from "@leanjs/core";
 
 const indexError = new Error(
-  `🔥🔥🔥 src/index file or it doesn't export default createApp(app, options) 🔥🔥🔥`
+  `🔥🔥🔥 src/index file or it doesn't export default createApp(app, { packageName }) 🔥🔥🔥`
 );
 
-export const bootstrap = (createRuntime?: CreateRuntime) => {
-  (
-    import("./index") as unknown as Promise<{
-      default: (options?: BootstrapOptions) => BootstrapOutput;
-    }>
-  ).then((index) => {
-    const config = index?.default;
-    if (!config || typeof config !== "function") {
+interface Host {
+  mount?: MountFunc;
+  runtime?: Runtime;
+}
+
+function host({ mount, runtime }: Host) {
+  const el = document.createElement("div");
+  document.body.appendChild(el);
+
+  if (!mount || typeof mount !== "function") {
+    throw indexError;
+  }
+
+  if (el) {
+    mount(el, { runtime });
+  }
+}
+interface BootstrapOptions {
+  createRuntime?: CreateRuntime;
+}
+export const bootstrap = ({ createRuntime }: BootstrapOptions = {}) => {
+  import("./src/index").then(({ default: createComposableApp }) => {
+    if (!createComposableApp || typeof createComposableApp !== "function") {
       throw indexError;
     }
 
-    const el = document.createElement("div");
-    document.body.appendChild(el);
-    const isSelfHosted = true;
-    const { mount } = config({
-      isSelfHosted,
+    const { mount } = createComposableApp({
+      isSelfHosted: true,
     });
 
-    if (!mount || typeof mount !== "function") {
-      throw indexError;
-    }
-
-    if (el) {
-      mount(el, { runtime: createRuntime?.() });
-    }
+    host({
+      mount,
+      runtime: createRuntime?.(),
+    });
   });
 };
