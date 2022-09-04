@@ -163,6 +163,7 @@ export class RemoteWebpackPlugin implements WebpackPluginInstance {
     const bootstrapEntryJs = createRuntimePath
       ? `import("${createRuntimePath}").then(
         ({ createRuntime }) => {
+          if(typeof createRuntime !== "function") throw new Error("src/selfHosted file in ${packageName} doesn't export a createRuntime function")
           import("./bootstrap").then(({ bootstrap }) => bootstrap({ createRuntime }));
         });
       `
