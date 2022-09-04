@@ -5,7 +5,7 @@ import { _ as CoreUtils } from "@leanjs/core";
 import type { HostProps, AsyncHostProps } from "../types";
 import { DefaultError } from "./DefaultError";
 
-const { isPromise } = CoreUtils;
+const { isPromise, isFunction } = CoreUtils;
 
 export const useApp = (
   Host: (props: HostProps) => ReactElement,
@@ -16,28 +16,28 @@ export const useApp = (
     errorComponent: ErrorComponent = DefaultError,
     fallback = <>...</>,
   } = props;
-  const myApp = typeof app === "function" ? app() : app;
-  const isMyAppPromise = isPromise(myApp);
-  const noPromiseApp = isMyAppPromise ? undefined : myApp;
-  const [loading, setLoading] = useState(isMyAppPromise);
+  const maybeAsyncApp = isFunction(app) ? app({ isSelfHosted: false }) : app;
+  const isAppAsync = isPromise(maybeAsyncApp);
+  const composableApp = isAppAsync ? undefined : maybeAsyncApp;
+  const [loading, setLoading] = useState(isAppAsync);
   const [resolvedApp, setResolvedApp] = useState<ComposableApp>();
   const [error, setError] = useState<Error>();
 
   useEffect(() => {
-    if (isMyAppPromise) {
-      myApp
+    if (isAppAsync) {
+      maybeAsyncApp
         .then(({ default: resolvedApp }) => {
           setResolvedApp(() => resolvedApp);
           setLoading(false);
         })
         .catch(setError);
     }
-  }, [myApp, isMyAppPromise]);
+  }, [maybeAsyncApp, isAppAsync]);
 
   return loading ? (
     fallback
-  ) : resolvedApp || noPromiseApp ? (
-    <Host {...props} app={resolvedApp! || noPromiseApp!} />
+  ) : resolvedApp || composableApp ? (
+    <Host {...props} app={resolvedApp! || composableApp!} />
   ) : (
     <ErrorComponent error={error!} />
   );

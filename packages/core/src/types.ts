@@ -61,7 +61,9 @@ export type ComposableApp = {
 
 export type ComposableAppSync = ComposableApp | CreateComposableApp;
 
-export type ComposableAppAsync = () => Promise<{ default: ComposableAppSync }>;
+export type ComposableAppAsync = (
+  options: CreateComposableAppOptions
+) => Promise<{ default: ComposableApp }>;
 export interface MountFunc<MyRuntime extends Runtime = Runtime> {
   (element: HTMLElement | null, options: MountOptions<MyRuntime>): MountOutput;
 }
