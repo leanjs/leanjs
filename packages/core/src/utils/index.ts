@@ -43,8 +43,3 @@ export const isPromise = (arg?: any): arg is Promise<any> =>
 
 export const isObject = (data: any) =>
   ({}.toString.call(data) === "[object Object]");
-
-type Func = (arg?: any) => any;
-
-export const isFunction = (func: any): func is Func =>
-  typeof func === "function";

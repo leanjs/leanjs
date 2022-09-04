@@ -5,7 +5,7 @@ import { _ as CoreUtils } from "@leanjs/core";
 import type { HostProps, AsyncHostProps } from "../types";
 import { DefaultError } from "./DefaultError";
 
-const { isPromise, isFunction } = CoreUtils;
+const { isPromise } = CoreUtils;
 
 export const useApp = (
   Host: (props: HostProps) => ReactElement,
@@ -16,7 +16,8 @@ export const useApp = (
     errorComponent: ErrorComponent = DefaultError,
     fallback = <>...</>,
   } = props;
-  const maybeAsyncApp = isFunction(app) ? app({ isSelfHosted: false }) : app;
+  const maybeAsyncApp =
+    typeof app === "function" ? app({ isSelfHosted: false }) : app;
   const isAppAsync = isPromise(maybeAsyncApp);
   const composableApp = isAppAsync ? undefined : maybeAsyncApp;
   const [loading, setLoading] = useState(isAppAsync);
