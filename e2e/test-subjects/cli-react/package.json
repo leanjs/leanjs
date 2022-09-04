@@ -13,6 +13,7 @@
   "license": "MIT",
   "dependencies": {
     "@leanjs/react": "^0.9.4",
+    "@leanjs/e2e-test-subjects-package-runtime-mocks": "*",
     "react": "^17.0.2",
     "react-dom": "^17.0.2"
   },
