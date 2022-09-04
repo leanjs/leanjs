@@ -16,7 +16,7 @@ import type {
   OnErrorOptions,
 } from "./types";
 
-import { isPromise } from "../utils";
+import { isPromise, isFunction } from "../utils";
 
 const runCreateRuntime =
   <
@@ -201,7 +201,7 @@ Current valid props are: ${Object.keys(currentState).join(", ")}`);
       get(target, prop: CtxProp) {
         if (target[prop] === undefined) {
           let item = ctxFactory?.[prop];
-          if (typeof item === "function") {
+          if (isFunction(item)) {
             try {
               item = item(runtime);
             } catch (error) {
