@@ -43,8 +43,8 @@ export function Nav() {
       <li>
         Shell locale:{" "}
         <select value={locale} onChange={(e) => setLocale(e.target.value)}>
-          <option>EN</option>
-          <option>ES</option>
+          <option value="en">EN</option>
+          <option value="es">ES</option>
         </select>
       </li>
     </ul>

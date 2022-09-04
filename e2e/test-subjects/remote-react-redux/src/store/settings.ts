@@ -10,7 +10,7 @@ export interface SettingsState {
 }
 
 export function settingsReducer(
-  state: SettingsState = { locale: "EN" },
+  state: SettingsState = { locale: "en" },
   action: SettingsAction
 ) {
   switch (action.type) {

@@ -2,6 +2,7 @@
   "name": "@leanjs/e2e-test-subjects-remote-vue-1",
   "private": true,
   "version": "1.3.9",
+  "main": "./src/index.ts",
   "scripts": {
     "start:e2e": "NODE_ENV=development webpack serve"
   },
