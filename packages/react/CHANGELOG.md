@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.9.3](https://github.com/leanjs/leanjs/compare/@leanjs/react@0.9.2...@leanjs/react@0.9.3) (2022-09-04)
+
+
+### Bug Fixes
+
+* remove isFunction ([8286c6b](https://github.com/leanjs/leanjs/commit/8286c6b0296ce4f0a5f48ee9b4e8e9d146a630d8))
+
+
+
+
+
 ## [0.9.2](https://github.com/leanjs/leanjs/compare/@leanjs/react@0.9.1...@leanjs/react@0.9.2) (2022-09-04)
 
 
