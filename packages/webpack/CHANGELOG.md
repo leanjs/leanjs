@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.19.5](https://github.com/leanjs/leanjs/compare/@leanjs/webpack@0.19.4...@leanjs/webpack@0.19.5) (2022-09-04)
+
+
+### Bug Fixes
+
+* **webpack:** throw error in RemoteWebpackPlugin if createRuntime is not a function ([5cc2053](https://github.com/leanjs/leanjs/commit/5cc2053313657b561c3b1606fd2660d335b53a33))
+
+
+
+
+
 ## [0.19.4](https://github.com/leanjs/leanjs/compare/@leanjs/webpack@0.19.3...@leanjs/webpack@0.19.4) (2022-09-04)
 
 

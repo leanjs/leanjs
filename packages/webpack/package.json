@@ -1,6 +1,6 @@
 {
   "name": "@leanjs/webpack",
-  "version": "0.19.4",
+  "version": "0.19.5",
   "description": "Webpack plugins for LeanJS micro-frontends",
   "types": "./dist/index.d.ts",
   "main": "./dist/index.js",
