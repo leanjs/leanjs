@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <h2>{{ username?.current }}'s ToDos</h2>
+    <h2>{{ username?.current }}'s ToDo</h2>
     <form v-on:submit.prevent="onSubmit">
       <input type="text" v-model="text" placeholder="I have to do..." />
       <button>Add</button>
