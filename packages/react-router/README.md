@@ -15,7 +15,7 @@ my-monorepo/
 execute the following command:
 
 ```sh
-yarn add @leanjs/react-router @leanjs/react react-router-dom@6 react-dom@17 react@17
+yarn add @leanjs/react-router @leanjs/core @leanjs/react react-router-dom@6 react-dom@17 react@17
 ```
 
 Then in the `package.json` of your micro-frontend app

@@ -15,7 +15,7 @@ my-monorepo/
 execute the following command:
 
 ```sh
-yarn add @leanjs/vue-router vue-router@4 vue@3
+yarn add @leanjs/vue-router @leanjs/core vue-router@4 vue@3
 ```
 
 Then in the `package.json` of your micro-frontend app

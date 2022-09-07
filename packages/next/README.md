@@ -7,7 +7,7 @@ This package provides a React `Host` component to
 If you use a monorepo (recommended) execute the following command at the root of your repository:
 
 ```sh
-yarn add @leanjs/next @leanjs/react
+yarn add @leanjs/next @leanjs/react @leanjs/core
 ```
 
 Then in the `package.json` of your Nextjs app add the following `dependencies`:

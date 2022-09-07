@@ -4,7 +4,7 @@ This package contains React bindings for [@leanjs/core](https://github.com/leanj
 
 # Installation
 
-`yarn add @leanjs/react`
+`yarn add @leanjs/react @leanjs/core`
 
 # Usage
 

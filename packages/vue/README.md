@@ -4,7 +4,7 @@ This package contains Vue bindings for [@leanjs/core](https://github.com/leanjs/
 
 # Installation
 
-`yarn add @leanjs/vue`
+`yarn add @leanjs/vue @leanjs/core`
 
 # Usage
 

@@ -7,7 +7,7 @@ The LeanJS Cli provides commands to help you develop, build, and deploy your Lea
 If you use a monorepo (recommended) execute the following command at the root of your repository:
 
 ```sh
-yarn add -D @leanjs/cli
+yarn add -D @leanjs/cli @leanjs/core
 ```
 
 Then in the `package.json` of each micro-frontend add the following `devDependency`:
