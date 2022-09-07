@@ -10,15 +10,12 @@ const port = 8889;
 module.exports = {
   mode: "development",
   devtool: "eval-cheap-source-map",
-  //   optimization: {
-  //     runtimeChunk: "single", // this fixes HMR in http:localhost:8889 when using ErrorOverlayPlugin but breaks Module Federation in the shell
-  //   },
   devServer: {
     port,
   },
   plugins: [
     new RemoteWebpackPlugin(), // 👈 Required to enable Lean Micro-frontends
-    new ErrorOverlayPlugin(), // ❌ this plugin breaks HMR when we run it in http:localhost:8889, but HMT works in the shell
+    // new ErrorOverlayPlugin(), // ❌ this plugin breaks HMR when we run it in http:localhost:8889, but HMT works in the shell
   ],
   module: {
     rules: [
