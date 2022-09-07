@@ -180,6 +180,7 @@ export class RemoteWebpackPlugin implements WebpackPluginInstance {
 
     new HtmlWebpackPlugin({
       template: "./public/index.html",
+      chunks: ["bootstrap_entry"],
     }).apply(compiler);
   }
 }
