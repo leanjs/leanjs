@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.3.9](https://github.com/leanjs/leanjs/compare/@leanjs/nuxt@0.3.8...@leanjs/nuxt@0.3.9) (2022-09-07)
+
+
+### Bug Fixes
+
+* make core package a peerDependency for consitent version ([4a23083](https://github.com/leanjs/leanjs/commit/4a23083060c8305512bb4c18deeb769583fbd328))
+
+
+
+
+
 ## [0.3.8](https://github.com/leanjs/leanjs/compare/@leanjs/nuxt@0.3.7...@leanjs/nuxt@0.3.8) (2022-09-04)
 
 **Note:** Version bump only for package @leanjs/nuxt

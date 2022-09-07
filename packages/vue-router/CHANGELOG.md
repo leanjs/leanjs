@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.3.5](https://github.com/leanjs/leanjs/compare/@leanjs/vue-router@0.3.4...@leanjs/vue-router@0.3.5) (2022-09-07)
+
+
+### Bug Fixes
+
+* make core package a peerDependency for consitent version ([4a23083](https://github.com/leanjs/leanjs/commit/4a23083060c8305512bb4c18deeb769583fbd328))
+
+
+
+
+
 ## [0.3.4](https://github.com/leanjs/leanjs/compare/@leanjs/vue-router@0.3.3...@leanjs/vue-router@0.3.4) (2022-09-04)
 
 **Note:** Version bump only for package @leanjs/vue-router

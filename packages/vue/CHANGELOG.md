@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.4.14](https://github.com/leanjs/leanjs/compare/@leanjs/vue@0.4.13...@leanjs/vue@0.4.14) (2022-09-07)
+
+
+### Bug Fixes
+
+* make core package a peerDependency for consitent version ([4a23083](https://github.com/leanjs/leanjs/commit/4a23083060c8305512bb4c18deeb769583fbd328))
+
+
+
+
+
 ## [0.4.13](https://github.com/leanjs/leanjs/compare/@leanjs/vue@0.4.12...@leanjs/vue@0.4.13) (2022-09-04)
 
 **Note:** Version bump only for package @leanjs/vue
