@@ -21,6 +21,7 @@
     "dist"
   ],
   "devDependencies": {
+    "@leanjs/core": "^0.13.4",
     "ts-loader": "^9.3.1",
     "vue": "^3.0.0",
     "vue-loader": "^17.0.0",
@@ -29,6 +30,7 @@
     "webpack": "^5.73.0"
   },
   "peerDependencies": {
+    "@leanjs/core": "^0.13.4",
     "vue": "^3.0.0"
   },
   "keywords": [

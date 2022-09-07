@@ -15,6 +15,7 @@
     "dist"
   ],
   "devDependencies": {
+    "@leanjs/core": "^0.13.4",
     "@testing-library/react": "^12.1.4",
     "@testing-library/react-hooks": "^7.0.2",
     "@types/react": "^17.0.41",
@@ -23,10 +24,8 @@
     "wait-for-expect": "^3.0.2"
   },
   "peerDependencies": {
+    "@leanjs/core": "^0.13.4",
     "react": "^17.0.2"
-  },
-  "dependencies": {
-    "@leanjs/core": "^0.13.4"
   },
   "scripts": {
     "test": "jest",

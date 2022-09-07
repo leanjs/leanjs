@@ -2,7 +2,7 @@
 
 ## Installation
 
-`yarn add @leanjs/next @leanjs/react`
+`yarn add @leanjs/nuxt @leanjs/vue @leanjs/core`
 
 ## Limitations
 

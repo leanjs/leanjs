@@ -24,6 +24,7 @@
   "homepage": "https://github.com/leanjs/leanjs#readme",
   "devDependencies": {
     "@leanjs/vue": "^0.4.13",
+    "@leanjs/core": "^0.13.4",
     "@vue/compiler-sfc": "^3.2.37",
     "nuxt3": "3.0.0-27313139.1c88580",
     "ts-loader": "^9.3.1",
@@ -35,6 +36,7 @@
     "webpack": "^5.73.0"
   },
   "peerDependencies": {
+    "@leanjs/core": "^0.13.4",
     "@leanjs/vue": "^0.2.6",
     "nuxt3": "3.0.0-27313139.1c88580",
     "vue": "^3.0.0"
