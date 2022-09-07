@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.19.6](https://github.com/leanjs/leanjs/compare/@leanjs/webpack@0.19.5...@leanjs/webpack@0.19.6) (2022-09-07)
+
+
+### Bug Fixes
+
+* **webpack:** hot module replacement in self hosted mode ([c75f8b0](https://github.com/leanjs/leanjs/commit/c75f8b076476c5f9df1fb0b51d77e16a9f3a9be1))
+
+
+
+
+
 ## [0.19.5](https://github.com/leanjs/leanjs/compare/@leanjs/webpack@0.19.4...@leanjs/webpack@0.19.5) (2022-09-04)
 
 
