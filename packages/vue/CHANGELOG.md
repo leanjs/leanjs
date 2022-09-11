@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.5.0](https://github.com/leanjs/leanjs/compare/@leanjs/vue@0.4.14...@leanjs/vue@0.5.0) (2022-09-11)
+
+
+### Features
+
+* change runtime api ([bb6cdb0](https://github.com/leanjs/leanjs/commit/bb6cdb003106272f1695a1db76f437f032e66e91))
+
+
+
+
+
 ## [0.4.14](https://github.com/leanjs/leanjs/compare/@leanjs/vue@0.4.13...@leanjs/vue@0.4.14) (2022-09-07)
 
 

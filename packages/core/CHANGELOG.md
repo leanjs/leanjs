@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.14.0](https://github.com/leanjs/leanjs/compare/@leanjs/core@0.13.4...@leanjs/core@0.14.0) (2022-09-11)
+
+
+### Features
+
+* change runtime api ([bb6cdb0](https://github.com/leanjs/leanjs/commit/bb6cdb003106272f1695a1db76f437f032e66e91))
+
+
+
+
+
 ## [0.13.4](https://github.com/leanjs/leanjs/compare/@leanjs/core@0.13.3...@leanjs/core@0.13.4) (2022-09-04)
 
 

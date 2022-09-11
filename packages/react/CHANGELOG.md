@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.10.0](https://github.com/leanjs/leanjs/compare/@leanjs/react@0.9.5...@leanjs/react@0.10.0) (2022-09-11)
+
+
+### Features
+
+* change runtime api ([bb6cdb0](https://github.com/leanjs/leanjs/commit/bb6cdb003106272f1695a1db76f437f032e66e91))
+
+
+
+
+
 ## [0.9.5](https://github.com/leanjs/leanjs/compare/@leanjs/react@0.9.4...@leanjs/react@0.9.5) (2022-09-07)
 
 
