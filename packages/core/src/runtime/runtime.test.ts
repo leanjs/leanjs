@@ -127,10 +127,9 @@ describe("createRuntime", () => {
     });
 
     const runtime = createRuntime();
-
-    expect(runtime.state.locale).toEqual(defaultState.locale);
-    expect(runtime.state.user).toEqual(defaultState.user);
-    expect(runtime.state.token).toEqual(defaultState.token);
+    expect(runtime.getState("locale")).toEqual(defaultState.locale);
+    expect(runtime.getState("user")).toEqual(defaultState.user);
+    expect(runtime.getState("token")).toEqual(defaultState.token);
     expect(runtime.loader.locale).toEqual(defaultLoader);
     expect(runtime.loader.user).toEqual(defaultLoader);
     expect(runtime.loader.token).toEqual(defaultLoader);
@@ -153,7 +152,7 @@ describe("createRuntime", () => {
       initialState: { ...defaultState, user: { username } },
     });
 
-    expect(runtime.state.user?.username).toBe(username);
+    expect(runtime.getState("user")?.username).toBe(username);
   });
 
   it(`returns a runtime that exposes a logError function that accepts an Error argument`, async () => {
@@ -302,7 +301,7 @@ describe("state", () => {
       const runtime = createRuntime();
       // eslint-disable-next-line @typescript-eslint/ban-ts-comment
       // @ts-ignore
-      runtime.state.invalid_prop;
+      runtime.getState("invalid_prop");
     } catch (error: any) {
       errorMessage = error.message;
     }
@@ -314,18 +313,18 @@ Current valid props are: locale, token, user`);
 
   it("can return state given a state prop", () => {
     const runtime = createRuntime();
-    expect(runtime.state.locale).toBe("en");
+    expect(runtime.getState("locale")).toBe("en");
   });
 
   it("can set new state given a state prop", () => {
     const runtime = createRuntime();
     const random = Math.random().toString();
 
-    runtime.state.locale = "pt";
-    expect(runtime.state.locale).toBe("pt");
+    runtime.setState("locale", "pt");
+    expect(runtime.getState("locale")).toBe("pt");
 
-    runtime.state.locale = random;
-    expect(runtime.state.locale).toBe(random);
+    runtime.setState("locale", random);
+    expect(runtime.getState("locale")).toBe(random);
   });
 });
 
@@ -356,7 +355,7 @@ Current valid props are: locale, token, user`);
     const random = Math.random().toString();
 
     runtime.subscribe("locale", subscriber);
-    runtime.state.locale = random;
+    runtime.setState("locale", random);
 
     expect(subscriber).toHaveBeenCalledTimes(1);
     expect(subscriber).toHaveBeenCalledWith(random, false, undefined);
@@ -367,8 +366,7 @@ Current valid props are: locale, token, user`);
     const subscriber = jest.fn();
 
     runtime.subscribe("locale", subscriber);
-    // eslint-disable-next-line no-self-assign
-    runtime.state.locale = runtime.state.locale;
+    runtime.setState("locale", runtime.getState("locale"));
 
     expect(subscriber).not.toHaveBeenCalled();
   });
@@ -381,7 +379,7 @@ Current valid props are: locale, token, user`);
     runtime.subscribe("locale", subscriber);
     runtime.subscribe("locale", subscriber);
 
-    runtime.state.locale = random;
+    runtime.setState("locale", random);
 
     expect(subscriber).toHaveBeenCalledTimes(1);
     expect(subscriber).toHaveBeenCalledWith(random, false, undefined);
@@ -395,7 +393,7 @@ Current valid props are: locale, token, user`);
     const unsubscribeB = runtime.subscribe("locale", subscriberB);
     const random = Math.random().toString();
 
-    runtime.state.locale = random;
+    runtime.setState("locale", random);
 
     expect(subscriberA).toHaveBeenCalledTimes(1);
     expect(subscriberA).toHaveBeenCalledWith(random, false, undefined);
@@ -407,14 +405,14 @@ Current valid props are: locale, token, user`);
 
     unsubscribeB();
 
-    runtime.state.locale = Math.random().toString();
+    runtime.setState("locale", Math.random().toString());
     expect(subscriberB).toHaveBeenCalledTimes(0);
     expect(subscriberA).toHaveBeenCalledTimes(1);
 
     unsubscribeA();
 
     subscriberA.mockReset();
-    runtime.state.locale = Math.random().toString();
+    runtime.setState("locale", Math.random().toString());
     expect(subscriberA).toHaveBeenCalledTimes(0);
   });
 
@@ -426,8 +424,8 @@ Current valid props are: locale, token, user`);
 
     runtime.subscribe("locale", subscriber);
     runtime.subscribe("user", subscriber);
-    runtime.state.locale = randomA;
-    runtime.state.user = randomB;
+    runtime.setState("locale", randomA);
+    runtime.setState("user", randomB);
 
     expect(subscriber).toHaveBeenCalledTimes(2);
     expect(subscriber).toHaveBeenCalledWith(randomA, false, undefined);
@@ -534,9 +532,9 @@ describe("on", () => {
 
   it("adds remote events to update local state", async () => {
     const runtime = createRuntime();
-    runtime.on("eventEmitter", (eventEmitter, state) => {
+    runtime.on("eventEmitter", (eventEmitter, { setState }) => {
       eventEmitter?.on((value) => {
-        state.locale = value;
+        setState("locale", value);
       });
 
       return () => {
@@ -549,7 +547,7 @@ describe("on", () => {
     const random = Math.random().toString();
     eventEmitter.emit(random);
 
-    expect(runtime.state.locale).toBe(random);
+    expect(runtime.getState("locale")).toBe(random);
   });
 
   it("passes a resolved context value to the callback even if the context prop is async", async () => {
@@ -569,9 +567,9 @@ describe("on", () => {
 
     expect(isPromise(runtime.context.eventEmitter)).toBe(true);
 
-    runtime.on("eventEmitter", (eventEmitter, state) => {
+    runtime.on("eventEmitter", (eventEmitter, { setState }) => {
       eventEmitter.on((value) => {
-        state.locale = value;
+        setState("locale", value);
       });
 
       return () => {
@@ -584,7 +582,7 @@ describe("on", () => {
     const random = Math.random().toString();
     localEventEmitter.emit(random);
 
-    expect(runtime.state.locale).toBe(random);
+    expect(runtime.getState("locale")).toBe(random);
   });
 
   it("returns an 'off' function to remove handlers of remote events", async () => {
@@ -719,7 +717,7 @@ describe("load", () => {
     runtime.load("locale", loader);
     await runtime.load("locale", loader);
 
-    expect(runtime.state.locale).toBe(random);
+    expect(runtime.getState("locale")).toBe(random);
 
     expect(loader).toHaveBeenCalledTimes(1);
   });
@@ -750,21 +748,21 @@ describe("loaded", () => {
     const runtime = createRuntime();
     const random = Math.random().toString();
 
-    expect(runtime.state.locale).toBe("en");
+    expect(runtime.getState("locale")).toBe("en");
 
     runtime.load(
       "locale",
       () => new Promise((resolve) => setTimeout(() => resolve(random), 5))
     );
 
-    expect(runtime.state.locale).toBe("en");
+    expect(runtime.getState("locale")).toBe("en");
     expect(await runtime.loaded("locale")).toBe(random);
   });
 
   it("returns a promise that resolves to the default value of a given state prop if that prop didn't run a load function", async () => {
     const runtime = createRuntime();
 
-    expect(runtime.state.locale).toBe("en");
+    expect(runtime.getState("locale")).toBe("en");
     expect(await runtime.loaded("locale")).toBe("en");
   });
 
@@ -773,7 +771,7 @@ describe("loaded", () => {
     const randomA = Math.random().toString();
     const randomB = { username: Math.random().toString() };
 
-    expect(runtime.state.locale).toBe("en");
+    expect(runtime.getState("locale")).toBe("en");
 
     runtime.load(
       "locale",
@@ -786,9 +784,9 @@ describe("loaded", () => {
 
     const result = await runtime.loaded();
 
-    expect(result).toBe(undefined);
-    expect(runtime.state.locale).toBe(randomA);
-    expect(runtime.state.user).toBe(randomB);
+    expect(result).toEqual({ locale: randomA, user: randomB });
+    expect(runtime.getState("locale")).toBe(randomA);
+    expect(runtime.getState("user")).toBe(randomB);
   });
 
   it("throws an Error if an invalid state prop is used", async () => {

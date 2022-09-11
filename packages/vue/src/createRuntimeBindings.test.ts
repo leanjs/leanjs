@@ -126,7 +126,7 @@ describe("useSharedState:", () => {
       previous: "alejandro",
     });
 
-    if (runtime) runtime.state.theme = "dark";
+    if (runtime) runtime.setState("theme", "dark");
 
     expect(vueState?.theme.value).toEqual("dark");
 
@@ -158,7 +158,7 @@ describe("useSharedState:", () => {
       previous: "alejandro",
     });
 
-    if (runtime) runtime.state.theme = "dark";
+    if (runtime) runtime.setState("theme", "dark");
 
     expect(vueState?.theme.value).toEqual("dark");
 
@@ -295,7 +295,7 @@ describe("useSharedState:", () => {
     vueState.theme.value = random;
 
     expect(vueState?.theme.value).toEqual(random);
-    expect(runtime?.state.theme).toEqual("light");
+    expect(runtime?.getState("theme")).toEqual("light");
 
     app?.unmount();
   });
@@ -317,7 +317,7 @@ describe("useSharedState:", () => {
     await runtime?.loaded("theme");
 
     expect(vueState?.theme.value).toEqual(random);
-    expect(runtime?.state.theme).toEqual(random);
+    expect(runtime?.getState("theme")).toEqual(random);
 
     app?.unmount();
   });

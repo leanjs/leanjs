@@ -1,9 +1,5 @@
 import { inject, onUnmounted, ref, watch, toRaw, Ref } from "vue";
-import type {
-  Runtime as BaseRuntime,
-  KeyOf,
-  CreateRuntime,
-} from "@leanjs/core";
+import type { KeyOf, CreateRuntime, StateType, BaseShape } from "@leanjs/core";
 
 import type { Cleanups, StatePropArgs } from "./types";
 import { isPrimitive, shallowCopy } from "./utils";
@@ -11,7 +7,7 @@ import { isPrimitive, shallowCopy } from "./utils";
 export const createRuntimeBindings = <
   MyCreateRuntime extends CreateRuntime = CreateRuntime,
   MyRuntime extends ReturnType<MyCreateRuntime> = ReturnType<MyCreateRuntime>,
-  State extends MyRuntime["state"] = MyRuntime["state"]
+  State extends StateType<MyRuntime> = StateType<MyRuntime>
 >(
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   _createRuntime: MyCreateRuntime // arg only used to infer Runtime type
@@ -44,11 +40,12 @@ export const createRuntimeBindings = <
         );
       }
       // It uses a `ref` for each state prop instead of `reactive(vueState)` so state can be destructured
-      vueState[propName] = ref(runtime.state[propName]);
-      if (deep || isPrimitive(runtime.state[propName])) {
-        // ref( runtime.state[propName] ) adds a proxy recursively to each property of runtime.state[propName]
-        // so any property in any level of runtime.state[propName] will change when that property changes in vueState[propName].
-        // However, if the change is not at the root of runtime.state[propName] then runtime.state subscribers won't be called
+      const propValue = runtime.getState(propName);
+      vueState[propName] = ref(propValue);
+      if (deep || isPrimitive(propValue)) {
+        // ref( propValue ) adds a proxy recursively to each property of runtime.getState(propName)
+        // so any property in any level of runtime.getState(propName) will change when that property changes in vueState[propName].
+        // However, if the change is not at the root of runtime.getState(propName) then runtime.state subscribers won't be called
         cleanups.push(
           // watch returns an unwatch function
           watch(
@@ -56,7 +53,7 @@ export const createRuntimeBindings = <
             function syncState(newValue) {
               const rawValue = toRaw(newValue);
               // If runtime.state[propName] === rawValue then runtime doesn't calls its subscribers
-              if (rawValue === runtime.state[propName] && deep) {
+              if (rawValue === runtime.getState(propName) && deep) {
                 // newValue was mutated, meaning a deep value changed in newValue but the reference to newValue didn't.
                 // Therefore, we need to change the reference to newValue so that runtime is aware of the change
                 vueState[propName].value = shallowCopy(rawValue);
@@ -64,7 +61,7 @@ export const createRuntimeBindings = <
                 // so we don't set runtime.state in this branch to avoid an infinite loop
               } else {
                 // Update runtime state with the new value so runtime subscribers are called
-                runtime.state[propName] = rawValue;
+                runtime.setState(propName, rawValue);
               }
             },
             { deep }
@@ -72,7 +69,7 @@ export const createRuntimeBindings = <
         );
       }
       cleanups.push(
-        // Runtime returns a unsubscribe function
+        // Runtime returns an unsubscribe function
         runtime.subscribe(propName, (value) => {
           // If vueState[propName].value === toRaw(value) then Vue bails out of setting the value
           vueState[propName].value = value as State[Prop];
@@ -90,6 +87,6 @@ export const createRuntimeBindings = <
   };
 };
 
-export const isPropObj = <Runtime extends BaseRuntime>(
+export const isPropObj = <State extends BaseShape, Prop extends KeyOf<State>>(
   prop: any
-): prop is StatePropArgs<Runtime["state"]> => !!prop.prop;
+): prop is StatePropArgs<State, Prop> => !!prop.prop;

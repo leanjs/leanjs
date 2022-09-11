@@ -25,7 +25,8 @@ export interface ContextRuntime<State, Prop extends KeyOf<State>> {
     loader: () => Promise<State[P]> | State[P]
   ) => void;
   loaded: <P extends Prop>(prop: P) => Promise<State[P]>;
-  state: State;
+  getState: (prop: Prop) => State[Prop];
+  setState: (prop: Prop, state: State[Prop]) => void;
   request: Request;
 }
 
@@ -68,9 +69,20 @@ export type ValueFromCtxFactory<
 
 export type OffCallback = () => void;
 
-export type OnCallback<CtxFactory, Prop extends KeyOf<CtxFactory>, State> = (
-  ctxItem: ValueFromCtxFactorySync<CtxFactory, Prop>,
-  state: State
+export type OnCallback<
+  CtxFactory,
+  CtxProp extends KeyOf<CtxFactory>,
+  State extends BaseShape,
+  Prop extends KeyOf<State>
+> = (
+  ctxItem: ValueFromCtxFactorySync<CtxFactory, CtxProp>,
+  {
+    getState,
+    setState,
+  }: {
+    getState: <P extends Prop>(prop: P) => State[P];
+    setState: <P extends Prop>(prop: P, state: State[P]) => void;
+  }
 ) => OffCallback;
 
 export interface ConfigureRuntimeOptions<
@@ -89,8 +101,8 @@ export interface Runtime<
   CtxFactory extends BaseCtxFactory<State, Prop> = BaseCtxFactory<State, Prop>,
   CtxProp extends KeyOf<CtxFactory> = KeyOf<CtxFactory>
 > {
-  state: State;
-  // subscribe: (prop: Prop, subscriber: Subscriber<State[Prop]>) => Unsubscribe;
+  getState: <P extends Prop>(prop: P) => State[P];
+  setState: <P extends Prop>(prop: P, state: State[P]) => void;
   subscribe: <P extends Prop>(
     prop: P,
     subscriber: Subscriber<State[P]>
@@ -100,16 +112,23 @@ export interface Runtime<
   context: ValuesFromCtxFactory<CtxFactory, CtxProp>;
   on: <P extends CtxProp>(
     key: P,
-    callback: OnCallback<CtxFactory, P, State>
+    callback: OnCallback<CtxFactory, P, State, Prop>
   ) => OffCallback;
   load<P extends Prop>(
     prop: P,
     loader: () => Promise<State[P]> | State[P]
   ): Promise<State[P]>;
-  loaded(): Promise<void>;
+  loaded(): Promise<State>;
   loaded<P extends Prop>(prop: P): Promise<State[P]>;
   logError: LogAnyError;
 }
+
+export type StateType<T extends Runtime> = T extends {
+  loaded(): Promise<infer State>;
+  loaded<P extends string>(prop: P): Promise<any>;
+}
+  ? State
+  : any;
 
 export type LogAnyError = (error: any, options?: OnErrorOptions) => void;
 
