@@ -4,7 +4,7 @@ export type Cleanups = () => void;
 
 export interface StatePropArgs<
   State extends BaseShape,
-  Prop extends KeyOf<State> = KeyOf<State>
+  Prop extends KeyOf<State>
 > {
   prop: Prop;
   loader?: () => State[Prop] | Promise<State[Prop]>;

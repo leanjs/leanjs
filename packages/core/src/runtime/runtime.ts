@@ -61,7 +61,7 @@ const runCreateRuntime =
       subscribers
         .get(prop)
         ?.forEach((subscriber) =>
-          subscriber(state[prop], loader[prop].loading, loader[prop].error)
+          subscriber(getState(prop), loader[prop].loading, loader[prop].error)
         );
     };
 
@@ -75,23 +75,20 @@ Current valid props are: ${Object.keys(currentState).join(", ")}`);
       }
     }
 
-    const state = new Proxy<State>(currentState, {
-      get(target, prop: Prop) {
-        validateProp(prop);
+    const getState = <P extends Prop>(prop: P) => {
+      validateProp(prop);
 
-        return target[prop];
-      },
-      set(target, prop: Prop, value) {
-        validateProp(prop);
-        if (target[prop] !== value) {
-          target[prop] = value;
+      return currentState[prop];
+    };
 
-          callSubscribers(prop);
-        }
+    const setState = <P extends Prop>(prop: P, value: State[P]) => {
+      validateProp(prop);
+      if (currentState[prop] !== value) {
+        currentState[prop] = value;
 
-        return true;
-      },
-    });
+        callSubscribers(prop);
+      }
+    };
 
     const loaded = async <P extends Prop>(prop?: P): Promise<any> => {
       if (prop) {
@@ -104,7 +101,7 @@ Current valid props are: ${Object.keys(currentState).join(", ")}`);
           Array.from(loaders.values()).map((loader) => loader.promise)
         );
 
-        return undefined;
+        return currentState;
       }
     };
 
@@ -159,7 +156,7 @@ Current valid props are: ${Object.keys(currentState).join(", ")}`);
               loading: false,
               done: true,
             });
-            state[prop] = newValue;
+            setState(prop, newValue);
           };
           if (isPromise(promiseOrValue)) {
             loaders.set(prop, {
@@ -194,7 +191,8 @@ Current valid props are: ${Object.keys(currentState).join(", ")}`);
       load,
       loaded,
       loader,
-      state,
+      setState,
+      getState,
     };
 
     const context = new Proxy({} as ValuesFromCtxFactory<CtxFactory, CtxProp>, {
@@ -248,7 +246,7 @@ Current valid props are: ${Object.keys(currentState).join(", ")}`);
 
     const on = <P extends CtxProp>(
       prop: P,
-      callback: OnCallback<CtxFactory, P, State>
+      callback: OnCallback<CtxFactory, P, State, Prop>
     ) => {
       if (!context) {
         throw new Error(`No context found in runtime, "on" is not allowed`);
@@ -260,7 +258,10 @@ Current valid props are: ${Object.keys(currentState).join(", ")}`);
       }
       const offPromise = Promise.resolve(context[prop])
         .then((ctxValue) =>
-          callback(ctxValue as ValueFromCtxFactorySync<CtxFactory, P>, state)
+          callback(ctxValue as ValueFromCtxFactorySync<CtxFactory, P>, {
+            getState,
+            setState,
+          })
         )
         .catch(logError);
 
@@ -270,7 +271,8 @@ Current valid props are: ${Object.keys(currentState).join(", ")}`);
     };
 
     return {
-      state,
+      getState,
+      setState,
       context,
       loader,
       booted,

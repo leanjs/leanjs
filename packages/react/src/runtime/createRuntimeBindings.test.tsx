@@ -58,7 +58,8 @@ describe("useRuntime", () => {
     expect(typeof runtime.load).toBe("function");
     expect(typeof runtime.loaded).toBe("function");
     expect(typeof runtime.loader).toBe("object");
-    expect(typeof runtime.state).toBe("object");
+    expect(typeof runtime.getState).toBe("function");
+    expect(typeof runtime.setState).toBe("function");
     expect(typeof runtime.on).toBe("function");
     expect(typeof runtime.subscribe).toBe("function");
     expect(typeof runtime.booted).toBe("function");
@@ -123,19 +124,20 @@ describe("useSetter", () => {
         });
 
         await waitForExpect(() => {
-          expect(runtime.state.locale).toBe(random);
+          expect(runtime.getState("locale")).toBe(random);
         });
       });
 
       it(`doesn't rerender when that state prop changes`, async () => {
         const runtime = createRuntime();
 
+        await runtime.loaded();
         const { waitForNextUpdate } = renderHook(() => useSetter("locale"), {
           wrapper: createWrapper(runtime),
         });
 
         setTimeout(() => {
-          runtime.state.locale = Math.random().toString();
+          runtime.setState("locale", Math.random().toString());
         }, 1);
 
         let error: Error | undefined = undefined;
@@ -156,6 +158,7 @@ describe("useGetter", () => {
   it("throws an error if there is no Runtime in the context", () => {
     const Component = () => {
       useGetter("locale");
+
       return null;
     };
 
@@ -203,7 +206,7 @@ describe("useGetter", () => {
       expect(result.current).toBe("en");
 
       act(() => {
-        runtime.state.locale = random;
+        runtime.setState("locale", random);
       });
 
       await waitForExpect(() => expect(result.current).toBe(random));
