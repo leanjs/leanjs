@@ -5,12 +5,12 @@ import type {
   Subscriber,
   InternalLoaderState,
   LoaderState,
-  BaseCtxFactory,
+  BaseApiFactory,
   ConfigureRuntimeOptions,
   Runtime,
-  ValuesFromCtxFactory,
+  ValuesFromApiFactory,
   OnCallback,
-  ValueFromCtxFactorySync,
+  ValueFromApiFactorySync,
   CreateRuntimeArgs,
   Unsubscribe,
   OnErrorOptions,
@@ -26,17 +26,17 @@ const runCreateRuntime =
     defaultState: State
   ) =>
   <
-    CtxFactory extends BaseCtxFactory<State, Prop>,
-    CtxProp extends KeyOf<CtxFactory>
+    ApiFactory extends BaseApiFactory<State, Prop>,
+    ApiProp extends KeyOf<ApiFactory>
   >({
-    context: ctxFactory,
+    api: apiFactory,
     onError,
     request,
-  }: ConfigureRuntimeOptions<State, Prop, CtxFactory>): Runtime<
+  }: ConfigureRuntimeOptions<State, Prop, ApiFactory>): Runtime<
     State,
     Prop,
-    CtxFactory,
-    CtxProp
+    ApiFactory,
+    ApiProp
   > => {
     function logError(error: any, options?: OnErrorOptions) {
       onError(
@@ -56,7 +56,7 @@ const runCreateRuntime =
     const currentState = { ...defaultState };
     const subscribers = new Map<Prop, Set<Subscriber<State[Prop]>>>();
     const loaders = new Map<Key | undefined, InternalLoaderState>();
-    const ctxPromises = new Map<CtxProp, Promise<any>>();
+    const apiPromises = new Map<ApiProp, Promise<any>>();
     const callSubscribers = <P extends Prop>(prop: P) => {
       subscribers
         .get(prop)
@@ -195,10 +195,10 @@ Current valid props are: ${Object.keys(currentState).join(", ")}`);
       getState,
     };
 
-    const context = new Proxy({} as ValuesFromCtxFactory<CtxFactory, CtxProp>, {
-      get(target, prop: CtxProp) {
+    const api = new Proxy({} as ValuesFromApiFactory<ApiFactory, ApiProp>, {
+      get(target, prop: ApiProp) {
         if (target[prop] === undefined) {
-          let item = ctxFactory?.[prop];
+          let item = apiFactory?.[prop];
           if (typeof item === "function") {
             try {
               item = item(runtime);
@@ -208,7 +208,7 @@ Current valid props are: ${Object.keys(currentState).join(", ")}`);
           }
 
           if (isPromise(item)) {
-            ctxPromises.set(prop, item);
+            apiPromises.set(prop, item);
             item.catch(logError);
           }
           target[prop] = item as any;
@@ -218,47 +218,45 @@ Current valid props are: ${Object.keys(currentState).join(", ")}`);
       },
       set(_, prop) {
         throw new Error(
-          `Cannot assign to read only context property '${prop.toString()}'`
+          `Cannot assign to read only api property '${prop.toString()}'`
         );
       },
     });
 
-    (Object.keys(ctxFactory || {}) as Array<CtxProp>).forEach((key) => {
-      // configureRuntime context can be initialized with a promise directly. e.g.
-      // configureRuntime: { context: { example: new Promise(...) }}
-      // we need to handle these promises eagerly unlike the ones executed lazily in the context Proxy
-      const item = ctxFactory?.[key];
+    (Object.keys(apiFactory || {}) as Array<ApiProp>).forEach((key) => {
+      // configureRuntime api can be initialized with a promise directly. e.g.
+      // configureRuntime: { api: { example: new Promise(...) }}
+      // we need to handle these promises eagerly unlike the ones executed lazily in the api Proxy
+      const item = apiFactory?.[key];
 
       if (isPromise(item)) {
-        ctxPromises.set(key, item);
+        apiPromises.set(key, item);
         item.catch(logError);
       }
     });
 
     const booted = async () => {
       try {
-        await Promise.all(ctxPromises.values());
+        await Promise.all(apiPromises.values());
         return true;
       } catch (error) {
         return false;
       }
     };
 
-    const on = <P extends CtxProp>(
+    const on = <P extends ApiProp>(
       prop: P,
-      callback: OnCallback<CtxFactory, P, State, Prop>
+      callback: OnCallback<ApiFactory, P, State, Prop>
     ) => {
-      if (!context) {
-        throw new Error(`No context found in runtime, "on" is not allowed`);
+      if (!api) {
+        throw new Error(`No api found in runtime, "on" is not allowed`);
       }
-      if (!context[prop]) {
-        throw new Error(
-          `No context found in runtime for prop ${String(prop)}.`
-        );
+      if (!api[prop]) {
+        throw new Error(`No api found in runtime for prop ${String(prop)}.`);
       }
-      const offPromise = Promise.resolve(context[prop])
-        .then((ctxValue) =>
-          callback(ctxValue as ValueFromCtxFactorySync<CtxFactory, P>, {
+      const offPromise = Promise.resolve(api[prop])
+        .then((apiValue) =>
+          callback(apiValue as ValueFromApiFactorySync<ApiFactory, P>, {
             getState,
             setState,
           })
@@ -273,7 +271,7 @@ Current valid props are: ${Object.keys(currentState).join(", ")}`);
     return {
       getState,
       setState,
-      context,
+      api,
       loader,
       booted,
       on,
@@ -293,13 +291,13 @@ export const configureRuntime = <
   if (!defaultState)
     throw new Error(`default state is required to configure a runtime`);
 
-  return <CtxFactory extends BaseCtxFactory<State, Prop>>({
-    context,
+  return <ApiFactory extends BaseApiFactory<State, Prop>>({
+    api,
     onError,
-  }: ConfigureRuntimeOptions<State, Prop, CtxFactory>) => ({
+  }: ConfigureRuntimeOptions<State, Prop, ApiFactory>) => ({
     createRuntime: ({ initialState, request }: CreateRuntimeArgs<State> = {}) =>
       runCreateRuntime<State, Prop>(initialState ?? defaultState)({
-        context,
+        api,
         onError,
         request,
       }),

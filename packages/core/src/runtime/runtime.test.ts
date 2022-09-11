@@ -47,7 +47,7 @@ const { createRuntime } = configureRuntime<SharedState>(defaultState)({
   onError: () => {
     // empty
   },
-  context: {
+  api: {
     eventEmitter,
     gql: new Promise((resolve) => resolve(new FakeGQLClient())),
     firebase: ({ load, loaded }) =>
@@ -61,12 +61,12 @@ const { createRuntime } = configureRuntime<SharedState>(defaultState)({
 });
 
 describe("configureRuntime", () => {
-  it(`calls onError if it can't create any async context`, async () => {
+  it(`calls onError if it can't create any async api`, async () => {
     const onError = jest.fn();
     const randomError = new Error(Math.random().toString());
     const runtime = configureRuntime(defaultState)({
       onError,
-      context: {
+      api: {
         eventEmitter: Promise.reject(randomError),
       },
     }).createRuntime();
@@ -76,19 +76,19 @@ describe("configureRuntime", () => {
     expect(onError).toHaveBeenCalledWith(randomError, undefined);
   });
 
-  it(`calls onError if it can't create any sync context`, async () => {
+  it(`calls onError if it can't create any sync api`, async () => {
     const onError = jest.fn();
     const randomError = new Error(Math.random().toString());
     const runtime = configureRuntime(defaultState)({
       onError,
-      context: {
+      api: {
         eventEmitter: Promise.reject(randomError),
         firebase: () => Promise.reject(randomError),
       },
     }).createRuntime();
 
     // firebase is lazy loaded when we read it
-    runtime.context.firebase;
+    runtime.api.firebase;
 
     await runtime.booted();
 
@@ -96,12 +96,12 @@ describe("configureRuntime", () => {
     expect(onError).toHaveBeenCalledTimes(2);
   });
 
-  it(`doesn't call onError if it can create the context`, async () => {
+  it(`doesn't call onError if it can create the api`, async () => {
     const onError = jest.fn();
     const randomError = new Error(Math.random().toString());
     const runtime = configureRuntime(defaultState)({
       onError,
-      context: {
+      api: {
         eventEmitter: Promise.resolve(randomError),
       },
     }).createRuntime();
@@ -114,7 +114,7 @@ describe("configureRuntime", () => {
 
 describe("createRuntime", () => {
   it(`returns a runtime when it's invoked`, async () => {
-    const context = { a: Promise.resolve(1) };
+    const api = { a: Promise.resolve(1) };
     const defaultLoader = {
       loading: false,
       error: undefined,
@@ -123,7 +123,7 @@ describe("createRuntime", () => {
       onError: () => {
         // empty
       },
-      context,
+      api,
     });
 
     const runtime = createRuntime();
@@ -170,14 +170,14 @@ describe("createRuntime", () => {
 });
 
 describe("booted", () => {
-  it(`resolves when all the eager async context is ready`, async () => {
+  it(`resolves when all the eager async api is ready`, async () => {
     let isGqlResolved = false;
     let isFirebaseResolved = false;
     const runtime = configureRuntime<SharedState>(defaultState)({
       onError: () => {
         // empty
       },
-      context: {
+      api: {
         gql: new Promise<FakeGQLClient>((resolve) => {
           isGqlResolved = true;
           resolve(new FakeGQLClient());
@@ -199,13 +199,13 @@ describe("booted", () => {
     expect(isFirebaseResolved).toBe(false);
   });
 
-  it(`resolves after all the read lazy async context is ready`, async () => {
+  it(`resolves after all the read lazy async api is ready`, async () => {
     let isFirebaseResolved = false;
     const runtime = configureRuntime<SharedState>(defaultState)({
       onError: () => {
         // empty
       },
-      context: {
+      api: {
         firebase: ({ load, loaded }) =>
           new Promise<FakeFirebase>((resolve) => {
             load("token", fetchToken);
@@ -217,21 +217,21 @@ describe("booted", () => {
       },
     }).createRuntime();
 
-    // reading firebase from context which triggers firebase initialization
-    runtime.context.firebase;
+    // reading firebase from api which triggers firebase initialization
+    runtime.api.firebase;
 
     await runtime.booted();
 
     expect(isFirebaseResolved).toBe(true);
   });
 
-  it(`resolves before all the lazy async context if the lazy context is not read`, async () => {
+  it(`resolves before all the lazy async api if the lazy api is not read`, async () => {
     let isFirebaseResolved = false;
     const runtime = configureRuntime<SharedState>(defaultState)({
       onError: () => {
         // empty
       },
-      context: {
+      api: {
         firebase: ({ load, loaded }) =>
           new Promise<FakeFirebase>((resolve) => {
             load("token", fetchToken);
@@ -243,19 +243,19 @@ describe("booted", () => {
       },
     }).createRuntime();
 
-    // we don't read firebase from context before calling booted
+    // we don't read firebase from api before calling booted
 
     await runtime.booted();
 
     expect(isFirebaseResolved).toBe(false);
   });
 
-  it(`returns false if it can't resolve all the async context`, async () => {
+  it(`returns false if it can't resolve all the async api`, async () => {
     const runtime = configureRuntime(defaultState)({
       onError: () => {
         // empty
       },
-      context: {
+      api: {
         a: Promise.resolve(1),
         b: Promise.resolve(2),
         c: Promise.reject(3),
@@ -267,12 +267,12 @@ describe("booted", () => {
     expect(isBooted).toBe(false);
   });
 
-  it(`returns true if it can resolve all the async context`, async () => {
+  it(`returns true if it can resolve all the async api`, async () => {
     const runtime = configureRuntime(defaultState)({
       onError: () => {
         // empty
       },
-      context: {
+      api: {
         a: Promise.resolve(1),
         b: Promise.resolve(2),
         c: Promise.resolve(3),
@@ -433,49 +433,49 @@ Current valid props are: locale, token, user`);
   });
 });
 
-describe("context", () => {
-  it(`returns a value from the context given a context prop`, async () => {
+describe("api", () => {
+  it(`returns a value from the api given an api prop`, async () => {
     const runtime = createRuntime();
-    const firebase = await runtime.context.firebase;
+    const firebase = await runtime.api.firebase;
 
     expect(firebase.toString()).toBe("FakeFirebase");
-    expect(runtime.context.eventEmitter).toBe(eventEmitter);
+    expect(runtime.api.eventEmitter).toBe(eventEmitter);
   });
 
-  it(`lazy initializes a value from the context when it's read`, async () => {
+  it(`lazy initializes a value from the api when it's read`, async () => {
     const runtime = createRuntime();
 
-    expect(Object.keys(runtime.context).length).toEqual(0);
+    expect(Object.keys(runtime.api).length).toEqual(0);
 
-    await runtime.context.firebase;
-    expect(Object.keys(runtime.context).length).toEqual(1);
+    await runtime.api.firebase;
+    expect(Object.keys(runtime.api).length).toEqual(1);
 
-    runtime.context.eventEmitter;
-    expect(Object.keys(runtime.context).length).toEqual(2);
+    runtime.api.eventEmitter;
+    expect(Object.keys(runtime.api).length).toEqual(2);
   });
 
-  it(`throws an error if a context prop is set with a new value`, async () => {
+  it(`throws an error if an api prop is set with a new value`, async () => {
     const runtime = createRuntime();
 
     let errorMessage;
     try {
-      runtime.context.eventEmitter = eventEmitter;
+      runtime.api.eventEmitter = eventEmitter;
     } catch (error: any) {
       errorMessage = error.message;
     }
 
     expect(errorMessage).toBe(
-      `Cannot assign to read only context property 'eventEmitter'`
+      `Cannot assign to read only api property 'eventEmitter'`
     );
   });
 
-  it(`doesn't initialise a context property more than once`, async () => {
+  it(`doesn't initialise an api property more than once`, async () => {
     let firebaseResolvedCounter = 0;
     const runtime = configureRuntime<SharedState>(defaultState)({
       onError: () => {
         // empty
       },
-      context: {
+      api: {
         firebase: ({ load, loaded }) =>
           new Promise<FakeFirebase>((resolve) => {
             load("token", fetchToken);
@@ -487,18 +487,18 @@ describe("context", () => {
       },
     }).createRuntime();
 
-    // reading firebase from context which triggers firebase initialization
-    await runtime.context.firebase;
-    await runtime.context.firebase;
-    await runtime.context.firebase;
-    await runtime.context.firebase;
+    // reading firebase from api which triggers firebase initialization
+    await runtime.api.firebase;
+    await runtime.api.firebase;
+    await runtime.api.firebase;
+    await runtime.api.firebase;
 
     expect(firebaseResolvedCounter).toBe(1);
   });
 });
 
 describe("on", () => {
-  it("throws an error when using 'on' if there is no context", () => {
+  it("throws an error when using 'on' if there is no api", () => {
     const onError = jest.fn();
     const runtime = configureRuntime(defaultState)({
       onError,
@@ -507,14 +507,14 @@ describe("on", () => {
       runtime.on("this-prop-does-not-exist", () => () => {
         // empty
       });
-    }).toThrow(`No context found in runtime for prop this-prop-does-not-exist`);
+    }).toThrow(`No api found in runtime for prop this-prop-does-not-exist`);
   });
 
-  it("throws an error when using 'on' if there is context but it doesn't have the given context prop", () => {
+  it("throws an error when using 'on' if there is api but it doesn't have the given api prop", () => {
     const onError = jest.fn();
     const runtime = configureRuntime(defaultState)({
       onError,
-      context: {
+      api: {
         counter: () => 0,
       },
     }).createRuntime();
@@ -527,7 +527,7 @@ describe("on", () => {
           // empty
         }
       );
-    }).toThrow(`No context found in runtime for prop this-prop-does-not-exist`);
+    }).toThrow(`No api found in runtime for prop this-prop-does-not-exist`);
   });
 
   it("adds remote events to update local state", async () => {
@@ -550,13 +550,13 @@ describe("on", () => {
     expect(runtime.getState("locale")).toBe(random);
   });
 
-  it("passes a resolved context value to the callback even if the context prop is async", async () => {
+  it("passes a resolved api value to the callback even if the api prop is async", async () => {
     const localEventEmitter = new FakeEventEmitter();
     const { createRuntime } = configureRuntime<SharedState>(defaultState)({
       onError: () => {
         // empty
       },
-      context: {
+      api: {
         eventEmitter: async () =>
           new Promise<FakeEventEmitter>((resolve) => {
             setTimeout(() => resolve(localEventEmitter), 10);
@@ -565,7 +565,7 @@ describe("on", () => {
     });
     const runtime = createRuntime();
 
-    expect(isPromise(runtime.context.eventEmitter)).toBe(true);
+    expect(isPromise(runtime.api.eventEmitter)).toBe(true);
 
     runtime.on("eventEmitter", (eventEmitter, { setState }) => {
       eventEmitter.on((value) => {

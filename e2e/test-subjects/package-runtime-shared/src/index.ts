@@ -9,7 +9,7 @@ export const { createRuntime } = configureRuntime(defaultState)({
   onError: (error) => {
     console.log(`🚨 log this properly 🔥! e.g. Sentry`, error);
   },
-  context: {
+  api: {
     pusher: () => new Pusher("key"),
   },
 });

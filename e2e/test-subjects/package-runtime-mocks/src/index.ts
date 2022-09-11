@@ -7,7 +7,7 @@ import type Pusher from "pusher-js";
 
 export const createRuntime: CreateRuntime = configureRuntime(defaultState)({
   onError: console.log,
-  context: {
+  api: {
     pusher: () => {
       const fakePusher = {
         connect() {
