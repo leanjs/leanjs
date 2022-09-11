@@ -17,7 +17,7 @@ export interface Request {
 
 export type Unsubscribe = () => void;
 
-export interface ContextRuntime<State, Prop extends KeyOf<State>> {
+export interface RuntimeApi<State, Prop extends KeyOf<State>> {
   isBrowser: boolean;
   loader: Record<Prop, LoaderState>;
   load: <P extends Prop>(
@@ -30,52 +30,52 @@ export interface ContextRuntime<State, Prop extends KeyOf<State>> {
   request: Request;
 }
 
-export type BaseCtxFactory<State, Prop extends KeyOf<State>> = Record<
+export type BaseApiFactory<State, Prop extends KeyOf<State>> = Record<
   Key,
-  | ((args: ContextRuntime<State, Prop>) => Promise<any>)
-  | ((args: ContextRuntime<State, Prop>) => any)
+  | ((args: RuntimeApi<State, Prop>) => Promise<any>)
+  | ((args: RuntimeApi<State, Prop>) => any)
   | Promise<any>
   | Record<any, any>
 >;
 
-export type ValuesFromCtxFactory<
-  CtxFactory extends BaseShape,
-  Prop extends KeyOf<CtxFactory>
+export type ValuesFromApiFactory<
+  ApiFactory extends BaseShape,
+  Prop extends KeyOf<ApiFactory>
 > = {
-  [P in Prop]: ValueFromCtxFactory<CtxFactory, P>;
+  [P in Prop]: ValueFromApiFactory<ApiFactory, P>;
 };
 
-export type ValueFromCtxFactorySync<
-  CtxFactory extends BaseShape,
-  Prop extends KeyOf<CtxFactory>
-> = CtxFactory[Prop] extends (...args: never[]) => Promise<infer Return>
+export type ValueFromApiFactorySync<
+  ApiFactory extends BaseShape,
+  Prop extends KeyOf<ApiFactory>
+> = ApiFactory[Prop] extends (...args: never[]) => Promise<infer Return>
   ? Return
-  : CtxFactory[Prop] extends (...args: never[]) => infer Return
+  : ApiFactory[Prop] extends (...args: never[]) => infer Return
   ? Return
-  : CtxFactory[Prop] extends Promise<infer Return>
+  : ApiFactory[Prop] extends Promise<infer Return>
   ? Return
-  : CtxFactory[Prop];
+  : ApiFactory[Prop];
 
-export type ValueFromCtxFactory<
-  CtxFactory extends BaseShape,
-  Prop extends KeyOf<CtxFactory>
-> = CtxFactory[Prop] extends (...args: never[]) => Promise<infer Return>
+export type ValueFromApiFactory<
+  ApiFactory extends BaseShape,
+  Prop extends KeyOf<ApiFactory>
+> = ApiFactory[Prop] extends (...args: never[]) => Promise<infer Return>
   ? Promise<Return>
-  : CtxFactory[Prop] extends (...args: never[]) => infer Return
+  : ApiFactory[Prop] extends (...args: never[]) => infer Return
   ? Return
-  : CtxFactory[Prop] extends Promise<infer Return>
+  : ApiFactory[Prop] extends Promise<infer Return>
   ? Promise<Return>
-  : CtxFactory[Prop];
+  : ApiFactory[Prop];
 
 export type OffCallback = () => void;
 
 export type OnCallback<
-  CtxFactory,
-  CtxProp extends KeyOf<CtxFactory>,
+  ApiFactory,
+  ApiProp extends KeyOf<ApiFactory>,
   State extends BaseShape,
   Prop extends KeyOf<State>
 > = (
-  ctxItem: ValueFromCtxFactorySync<CtxFactory, CtxProp>,
+  apiItem: ValueFromApiFactorySync<ApiFactory, ApiProp>,
   {
     getState,
     setState,
@@ -88,18 +88,18 @@ export type OnCallback<
 export interface ConfigureRuntimeOptions<
   State,
   Prop extends KeyOf<State>,
-  CtxFactory extends BaseCtxFactory<State, Prop>
+  ApiFactory extends BaseApiFactory<State, Prop>
 > {
   onError: OnError;
-  context?: CtxFactory;
+  api?: ApiFactory;
   request?: Request;
 }
 
 export interface Runtime<
   State extends BaseShape = BaseShape,
   Prop extends KeyOf<State> = KeyOf<State>,
-  CtxFactory extends BaseCtxFactory<State, Prop> = BaseCtxFactory<State, Prop>,
-  CtxProp extends KeyOf<CtxFactory> = KeyOf<CtxFactory>
+  ApiFactory extends BaseApiFactory<State, Prop> = BaseApiFactory<State, Prop>,
+  ApiProp extends KeyOf<ApiFactory> = KeyOf<ApiFactory>
 > {
   getState: <P extends Prop>(prop: P) => State[P];
   setState: <P extends Prop>(prop: P, state: State[P]) => void;
@@ -109,10 +109,10 @@ export interface Runtime<
   ) => Unsubscribe;
   loader: Record<Prop, LoaderState>;
   booted: () => Promise<boolean>;
-  context: ValuesFromCtxFactory<CtxFactory, CtxProp>;
-  on: <P extends CtxProp>(
+  api: ValuesFromApiFactory<ApiFactory, ApiProp>;
+  on: <P extends ApiProp>(
     key: P,
-    callback: OnCallback<CtxFactory, P, State, Prop>
+    callback: OnCallback<ApiFactory, P, State, Prop>
   ) => OffCallback;
   load<P extends Prop>(
     prop: P,
