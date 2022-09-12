@@ -14,25 +14,31 @@ import type {
   CreateRuntimeArgs,
   Unsubscribe,
   OnErrorOptions,
+  Request,
 } from "./types";
 
 import { isPromise } from "../utils";
+import { Cleanup } from "..";
 
 const runCreateRuntime =
   <
     State extends BaseShape = BaseShape,
     Prop extends KeyOf<State> = KeyOf<State>
   >(
-    defaultState: State
+    initialState: State
   ) =>
   <
     ApiFactory extends BaseApiFactory<State, Prop>,
     ApiProp extends KeyOf<ApiFactory>
   >({
-    api: apiFactory,
+    apiFactory,
     onError,
     request,
-  }: ConfigureRuntimeOptions<State, Prop, ApiFactory>): Runtime<
+    parent,
+  }: {
+    request?: Request;
+    parent?: Runtime<any, any, any>;
+  } & ConfigureRuntimeOptions<State, Prop, ApiFactory>): Runtime<
     State,
     Prop,
     ApiFactory,
@@ -53,10 +59,15 @@ const runCreateRuntime =
       : isBrowser
       ? window.location.href
       : undefined;
-    const currentState = { ...defaultState };
+    const currentState =
+      typeof structuredClone === "undefined"
+        ? { ...initialState }
+        : structuredClone(initialState);
     const subscribers = new Map<Prop, Set<Subscriber<State[Prop]>>>();
     const loaders = new Map<Key | undefined, InternalLoaderState>();
     const apiPromises = new Map<ApiProp, Promise<any>>();
+    const cleanups = new Set<Cleanup>();
+
     const callSubscribers = <P extends Prop>(prop: P) => {
       subscribers
         .get(prop)
@@ -74,46 +85,74 @@ Did you forget to set "${String(
 Current valid props are: ${Object.keys(currentState).join(", ")}`);
       }
     }
-
-    const getState = <P extends Prop>(prop: P) => {
-      validateProp(prop);
-
-      return currentState[prop];
+    const runOrThrow = (callback?: (...args: any[]) => any, ...args: any[]) => {
+      if (callback) {
+        return callback(...args);
+      } else {
+        throw 1;
+      }
     };
 
-    const setState = <P extends Prop>(prop: P, value: State[P]) => {
-      validateProp(prop);
-      if (currentState[prop] !== value) {
-        currentState[prop] = value;
+    const getState = <P extends Prop>(prop: P) => {
+      try {
+        return runOrThrow(parent?.getState, prop);
+      } catch {
+        validateProp(prop);
 
-        callSubscribers(prop);
+        return currentState[prop];
+      }
+    };
+
+    const setState = <P extends Prop>(prop: P, value: State[P]): void => {
+      try {
+        runOrThrow(parent?.setState, prop, value);
+      } catch (error) {
+        validateProp(prop);
+        if (currentState[prop] !== value) {
+          currentState[prop] = value;
+
+          callSubscribers(prop);
+        }
       }
     };
 
     const loaded = async <P extends Prop>(prop?: P): Promise<any> => {
-      if (prop) {
-        validateProp(prop);
-        await loaders.get(prop)?.promise;
+      try {
+        return runOrThrow(parent?.loaded, prop);
+      } catch {
+        if (prop) {
+          validateProp(prop);
+          await loaders.get(prop)?.promise;
 
-        return currentState[prop];
-      } else {
-        await Promise.all(
-          Array.from(loaders.values()).map((loader) => loader.promise)
-        );
+          return currentState[prop];
+        } else {
+          await Promise.all(
+            Array.from(loaders.values()).map(({ promise }) => promise)
+          );
 
-        return currentState;
+          return currentState;
+        }
       }
     };
 
     const loader = new Proxy({} as Record<Prop, LoaderState>, {
       get: (_, prop: Prop) => {
-        validateProp(prop);
-        const value = loaders.get(prop);
+        try {
+          const loaderItem = parent?.loader[prop];
+          if (loaderItem) {
+            return loaderItem;
+          } else {
+            throw 1;
+          }
+        } catch {
+          validateProp(prop);
+          const value = loaders.get(prop);
 
-        return {
-          error: value?.error,
-          loading: !!value?.loading,
-        };
+          return {
+            error: value?.error,
+            loading: !!value?.loading,
+          };
+        }
       },
     });
 
@@ -121,68 +160,80 @@ Current valid props are: ${Object.keys(currentState).join(", ")}`);
       prop: P,
       subscriber: Subscriber<State[P]>
     ): Unsubscribe => {
-      validateProp(prop);
-      const propSubscribers =
-        subscribers.get(prop) ?? new Set<Subscriber<State[P]>>();
-      propSubscribers.add(subscriber);
-      subscribers.set(
-        prop,
-        propSubscribers as unknown as Set<Subscriber<State[Prop]>>
-      );
+      try {
+        return runOrThrow(parent?.subscribe, prop, subscriber);
+      } catch {
+        validateProp(prop);
+        const propSubscribers =
+          subscribers.get(prop) ?? new Set<Subscriber<State[P]>>();
+        propSubscribers.add(subscriber);
+        subscribers.set(
+          prop,
+          propSubscribers as unknown as Set<Subscriber<State[Prop]>>
+        );
 
-      return () => {
-        propSubscribers.delete(subscriber);
-      };
+        return () => {
+          propSubscribers.delete(subscriber);
+        };
+      }
     };
 
     const load = async <P extends Prop>(
       prop: P,
       loader: () => Promise<State[P]> | State[P]
     ) => {
-      validateProp(prop);
-      const loaderState = loaders.get(prop);
+      try {
+        return runOrThrow(parent?.load, prop, loader);
+      } catch {
+        validateProp(prop);
+        const loaderState = loaders.get(prop);
 
-      if (!isBrowser) {
-        loaders.set(prop, {
-          loading: true,
-        });
-      } else if (loaderState?.done || loaderState?.loading) {
-        // do nothing
-      } else {
-        try {
-          const promiseOrValue = loader();
-          const doneLoading = (newValue: State[P]) => {
+        if (!isBrowser) {
+          loaders.set(prop, {
+            loading: true,
+          });
+        } else if (loaderState?.done || loaderState?.loading) {
+          // do nothing
+        } else {
+          try {
+            const promiseOrValue = loader();
+            const doneLoading = (newValue: State[P]) => {
+              loaders.set(prop, {
+                loading: false,
+                done: true,
+              });
+              setState(prop, newValue);
+            };
+            if (isPromise(promiseOrValue)) {
+              loaders.set(prop, {
+                loading: true,
+                promise: promiseOrValue,
+              });
+              callSubscribers(prop);
+              doneLoading(await promiseOrValue);
+            } else {
+              doneLoading(promiseOrValue);
+            }
+          } catch (error) {
             loaders.set(prop, {
               loading: false,
               done: true,
-            });
-            setState(prop, newValue);
-          };
-          if (isPromise(promiseOrValue)) {
-            loaders.set(prop, {
-              loading: true,
-              promise: promiseOrValue,
+              error: (error as Error)?.message ?? error,
             });
             callSubscribers(prop);
-            doneLoading(await promiseOrValue);
-          } else {
-            doneLoading(promiseOrValue);
+            logError(error);
           }
-        } catch (error) {
-          loaders.set(prop, {
-            loading: false,
-            done: true,
-            error: (error as Error)?.message ?? error,
-          });
-          callSubscribers(prop);
-          logError(error);
         }
-      }
 
-      return currentState[prop];
+        return getState(prop);
+      }
     };
 
-    const runtime = {
+    const onCleanup = (cleanup: Cleanup) => {
+      cleanups.add(cleanup);
+    };
+
+    const apiFactoryArguments = {
       isBrowser,
       request: {
         ...request,
@@ -193,15 +244,19 @@ Current valid props are: ${Object.keys(currentState).join(", ")}`);
       loader,
       setState,
       getState,
+      onCleanup,
     };
 
-    const api = new Proxy({} as ValuesFromApiFactory<ApiFactory, ApiProp>, {
+    const api = new Proxy({} as ValuesFromApiFactory<ApiFactory>, {
       get(target, prop: ApiProp) {
-        if (target[prop] === undefined) {
+        const parentItem = parent?.api?.[prop];
+        if (parentItem) {
+          return parentItem;
+        } else if (target[prop] === undefined) {
           let item = apiFactory?.[prop];
           if (typeof item === "function") {
             try {
-              item = item(runtime);
+              item = item(apiFactoryArguments);
             } catch (error) {
               logError(error);
             }
@@ -223,22 +278,11 @@ Current valid props are: ${Object.keys(currentState).join(", ")}`);
       },
     });
 
-    (Object.keys(apiFactory || {}) as Array<ApiProp>).forEach((key) => {
-      // configureRuntime api can be initialized with a promise directly. e.g.
-      // configureRuntime: { api: { example: new Promise(...) }}
-      // we need to handle these promises eagerly unlike the ones executed lazily in the api Proxy
-      const item = apiFactory?.[key];
-
-      if (isPromise(item)) {
-        apiPromises.set(key, item);
-        item.catch(logError);
-      }
-    });
-
     const booted = async () => {
       try {
         await Promise.all(apiPromises.values());
-        return true;
+
+        return parent?.booted() ?? true;
       } catch (error) {
         return false;
       }
@@ -248,13 +292,11 @@ Current valid props are: ${Object.keys(currentState).join(", ")}`);
       prop: P,
       callback: OnCallback<ApiFactory, P, State, Prop>
     ) => {
-      if (!api) {
-        throw new Error(`No api found in runtime, "on" is not allowed`);
-      }
-      if (!api[prop]) {
+      const apiItem = api[prop];
+      if (!apiItem) {
         throw new Error(`No api found in runtime for prop ${String(prop)}.`);
       }
-      const offPromise = Promise.resolve(api[prop])
+      const offPromise = Promise.resolve(apiItem)
         .then((apiValue) =>
           callback(apiValue as ValueFromApiFactorySync<ApiFactory, P>, {
             getState,
@@ -268,17 +310,23 @@ Current valid props are: ${Object.keys(currentState).join(", ")}`);
       };
     };
 
+    const cleanup = () => {
+      cleanups.forEach((cleanup) => cleanup());
+      cleanups.clear();
+    };
+
     return {
-      getState,
-      setState,
       api,
       loader,
+      getState,
+      setState,
       booted,
       on,
       subscribe,
       loaded,
       load,
       logError,
+      cleanup,
     };
   };
 
@@ -292,14 +340,19 @@ export const configureRuntime = <
     throw new Error(`default state is required to configure a runtime`);
 
   return <ApiFactory extends BaseApiFactory<State, Prop>>({
-    api,
+    apiFactory,
     onError,
   }: ConfigureRuntimeOptions<State, Prop, ApiFactory>) => ({
-    createRuntime: ({ initialState, request }: CreateRuntimeArgs<State> = {}) =>
+    createRuntime: ({
+      initialState,
+      request,
+      runtime,
+    }: CreateRuntimeArgs<State, Prop, ApiFactory> = {}) =>
       runCreateRuntime<State, Prop>(initialState ?? defaultState)({
-        api,
+        apiFactory,
         onError,
         request,
+        parent: runtime,
       }),
   });
 };
