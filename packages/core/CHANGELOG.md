@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.16.0](https://github.com/leanjs/leanjs/compare/@leanjs/core@0.15.0...@leanjs/core@0.16.0) (2022-09-13)
+
+
+### Features
+
+* **runtime:** add parent runtime to createRuntime ([04369f9](https://github.com/leanjs/leanjs/commit/04369f9bb1942018f21976fdbb56600a099f7913))
+
+
+
+
+
 # [0.15.0](https://github.com/leanjs/leanjs/compare/@leanjs/core@0.14.0...@leanjs/core@0.15.0) (2022-09-11)
 
 

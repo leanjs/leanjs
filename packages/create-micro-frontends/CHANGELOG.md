@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.4.0](https://github.com/leanjs/leanjs/compare/create-micro-frontends@0.3.4...create-micro-frontends@0.4.0) (2022-09-13)
+
+
+### Features
+
+* **runtime:** add parent runtime to createRuntime ([04369f9](https://github.com/leanjs/leanjs/commit/04369f9bb1942018f21976fdbb56600a099f7913))
+
+
+
+
+
 ## [0.3.4](https://github.com/leanjs/leanjs/compare/create-micro-frontends@0.3.3...create-micro-frontends@0.3.4) (2022-09-04)
 
 **Note:** Version bump only for package create-micro-frontends

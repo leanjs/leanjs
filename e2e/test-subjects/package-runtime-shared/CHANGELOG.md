@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.2.0](https://github.com/leanjs/leanjs/compare/@leanjs/e2e-test-subjects-package-runtime-shared@1.1.0...@leanjs/e2e-test-subjects-package-runtime-shared@1.2.0) (2022-09-13)
+
+
+### Features
+
+* **runtime:** add parent runtime to createRuntime ([04369f9](https://github.com/leanjs/leanjs/commit/04369f9bb1942018f21976fdbb56600a099f7913))
+
+
+
+
+
 # [1.1.0](https://github.com/leanjs/leanjs/compare/@leanjs/e2e-test-subjects-package-runtime-shared@1.0.30...@leanjs/e2e-test-subjects-package-runtime-shared@1.1.0) (2022-09-11)
 
 
