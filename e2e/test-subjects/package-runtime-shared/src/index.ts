@@ -9,10 +9,10 @@ export const { createRuntime } = configureRuntime(defaultState)({
   onError: (error) => {
     console.log(`🚨 log this properly 🔥! e.g. Sentry`, error);
   },
-  api: {
+  apiFactory: {
     pusher: () => new Pusher("key"),
   },
 });
 
 export type CreateRuntime = typeof createRuntime;
-export type Runtime = GetRuntime<CreateRuntime>;
+// export type Runtime = GetRuntime<CreateRuntime>;

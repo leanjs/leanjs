@@ -22,4 +22,3 @@ export const { createRuntime } = configureRuntime(defaultState)({
     console.log(`🚨 log this properly 🔥! e.g. Sentry`, error),
 });
 
-export type Runtime = GetRuntime<typeof createRuntime>;

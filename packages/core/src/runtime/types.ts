@@ -1,3 +1,5 @@
+import { Cleanup } from "..";
+
 export type Key = string | symbol;
 export type BaseShape = Record<Key, any>;
 export type KeyOf<Shape extends BaseShape> = Exclude<keyof Shape, number>;
@@ -23,26 +25,37 @@ export interface RuntimeApi<State, Prop extends KeyOf<State>> {
   load: <P extends Prop>(
     prop: P,
     loader: () => Promise<State[P]> | State[P]
-  ) => void;
+  ) => Promise<State[P]>;
   loaded: <P extends Prop>(prop: P) => Promise<State[P]>;
   getState: (prop: Prop) => State[Prop];
   setState: (prop: Prop, state: State[Prop]) => void;
   request: Request;
+  onCleanup: (cleanup: Cleanup) => void;
 }
+
+type ApiFactoryFunction<State, Prop extends KeyOf<State>> =
+  | ((args: RuntimeApi<State, Prop>) => Promise<any>)
+  | ((args: RuntimeApi<State, Prop>) => any);
 
 export type BaseApiFactory<State, Prop extends KeyOf<State>> = Record<
   Key,
-  | ((args: RuntimeApi<State, Prop>) => Promise<any>)
-  | ((args: RuntimeApi<State, Prop>) => any)
-  | Promise<any>
-  | Record<any, any>
+  ApiFactoryFunction<State, Prop> | undefined
 >;
 
-export type ValuesFromApiFactory<
-  ApiFactory extends BaseShape,
-  Prop extends KeyOf<ApiFactory>
+export type PartialApiFactory<
+  PartialState,
+  PartialProp extends KeyOf<PartialState>,
+  ApiFactory extends BaseApiFactory<any, any>
 > = {
-  [P in Prop]: ValueFromApiFactory<ApiFactory, P>;
+  [P in keyof ApiFactory]?: (
+    args: RuntimeApi<PartialState, PartialProp>
+  ) => ApiFactory[P] extends ApiFactoryFunction<any, any>
+    ? ReturnType<ApiFactory[P]>
+    : undefined;
+};
+
+export type ValuesFromApiFactory<ApiFactory extends BaseShape> = {
+  [P in KeyOf<ApiFactory>]: ValueFromApiFactory<ApiFactory, P>;
 };
 
 export type ValueFromApiFactorySync<
@@ -52,9 +65,7 @@ export type ValueFromApiFactorySync<
   ? Return
   : ApiFactory[Prop] extends (...args: never[]) => infer Return
   ? Return
-  : ApiFactory[Prop] extends Promise<infer Return>
-  ? Return
-  : ApiFactory[Prop];
+  : never;
 
 export type ValueFromApiFactory<
   ApiFactory extends BaseShape,
@@ -63,9 +74,7 @@ export type ValueFromApiFactory<
   ? Promise<Return>
   : ApiFactory[Prop] extends (...args: never[]) => infer Return
   ? Return
-  : ApiFactory[Prop] extends Promise<infer Return>
-  ? Promise<Return>
-  : ApiFactory[Prop];
+  : never;
 
 export type OffCallback = () => void;
 
@@ -91,8 +100,7 @@ export interface ConfigureRuntimeOptions<
   ApiFactory extends BaseApiFactory<State, Prop>
 > {
   onError: OnError;
-  api?: ApiFactory;
-  request?: Request;
+  apiFactory?: ApiFactory;
 }
 
 export interface Runtime<
@@ -109,7 +117,7 @@ export interface Runtime<
   ) => Unsubscribe;
   loader: Record<Prop, LoaderState>;
   booted: () => Promise<boolean>;
-  api: ValuesFromApiFactory<ApiFactory, ApiProp>;
+  api: ValuesFromApiFactory<ApiFactory>;
   on: <P extends ApiProp>(
     key: P,
     callback: OnCallback<ApiFactory, P, State, Prop>
@@ -121,6 +129,7 @@ export interface Runtime<
   loaded(): Promise<State>;
   loaded<P extends Prop>(prop: P): Promise<State[P]>;
   logError: LogAnyError;
+  cleanup(): void;
 }
 
 export type StateType<T extends Runtime> = T extends {
@@ -142,13 +151,38 @@ export interface InternalLoaderState extends LoaderState {
   done?: boolean;
 }
 
-export interface CreateRuntimeArgs<State extends BaseShape> {
+type PartialApi<
+  ApiFactory extends Record<
+    Key,
+    ApiFactoryFunction<any, any> | undefined
+  > = Record<Key, ApiFactoryFunction<any, any>>
+> = {
+  [Prop in KeyOf<ApiFactory>]?: (
+    arg: any
+  ) => ApiFactory[Prop] extends ApiFactoryFunction<any, any>
+    ? ReturnType<ApiFactory[Prop]>
+    : never;
+};
+
+export interface CreateRuntimeArgs<
+  State extends BaseShape,
+  Prop extends KeyOf<State>,
+  ApiFactory extends BaseApiFactory<State, Prop>,
+  PartialApiFactory extends PartialApi<ApiFactory> = PartialApi<ApiFactory>,
+  PartialState extends Partial<State> = Partial<State>
+> {
   initialState?: State;
   request?: Request;
+  runtime?: Runtime<
+    PartialState,
+    any,
+    PartialApiFactory,
+    KeyOf<PartialApiFactory>
+  >;
 }
 
 export type CreateRuntime<MyRuntime extends Runtime = Runtime> = {
-  (args?: CreateRuntimeArgs<any>): MyRuntime;
+  (args?: CreateRuntimeArgs<any, any, any>): MyRuntime;
 };
 
 export type GetRuntime<MyCreateRuntime extends CreateRuntime> =
