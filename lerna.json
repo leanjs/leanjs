@@ -1,7 +1,8 @@
 {
   "version": "independent",
   "npmClient": "yarn",
-  "useWorkspaces": true,
+  "useWorkspaces": false,
+  "packages": ["packages/*", "website"],
   "command": {
     "version": {
       "ignoreChanges": ["**/*.md", "**/*.test.*", "e2e/**"]
