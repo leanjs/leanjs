@@ -1,7 +1,7 @@
 {
   "name": "@leanjs/e2e-test-subjects-cli-react",
   "private": true,
-  "version": "1.7.1",
+  "version": "1.7.2",
   "description": "",
   "main": "./src/index.ts",
   "scripts": {
@@ -12,13 +12,13 @@
   "author": "Alex Lobera <alex@leanjs.com>",
   "license": "MIT",
   "dependencies": {
-    "@leanjs/e2e-test-subjects-package-runtime-mocks": "^1.2.0",
-    "@leanjs/react": "^0.10.2",
+    "@leanjs/e2e-test-subjects-package-runtime-mocks": "^1.2.1",
+    "@leanjs/react": "^0.10.3",
     "react": "^17.0.2",
     "react-dom": "^17.0.2"
   },
   "devDependencies": {
-    "@leanjs/aws": "^0.2.26",
+    "@leanjs/aws": "^0.2.27",
     "@types/react": "^17.0.43",
     "@types/react-dom": "^17.0.14",
     "webpack": "^5.72.0"
