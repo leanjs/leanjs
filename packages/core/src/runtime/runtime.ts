@@ -13,8 +13,8 @@ import type {
   ValueFromApiFactorySync,
   CreateRuntimeArgs,
   Unsubscribe,
-  OnErrorOptions,
   Request,
+  OnErrorOptions,
 } from "./types";
 
 import { isPromise } from "../utils";
