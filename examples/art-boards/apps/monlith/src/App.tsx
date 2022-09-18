@@ -1,45 +1,46 @@
 import React, { lazy, Suspense } from "react";
-import { UniversalRouter, Host } from "@leanjs/react-router";
+import { Host } from "@leanjs/react";
 import { createRuntime, HostProvider } from "@art-boards/runtime-react";
-import { Route, Routes } from "react-router-dom";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 
 import "./app.css";
 import Home from "./components/Home";
-import routes from "./routes.json";
+import routes from "./routes";
 import Fallback from "./components/Fallback";
 import { Logo } from "./components/Logo";
-
-// import reactApp from "@leanjs/e2e-test-subjects-remote-react-1";
-// const reactApp = () => import("@leanjs/e2e-test-subjects-remote-react-1");
+import { Chat } from "./features/chat";
+// import ZimaBlue from "@art-boards/zima-blue";
+// const zimaBlue = () => import("@art-boards/zima-blue");
 
 const runtime = createRuntime();
 
 export function App() {
   return (
-    <HostProvider origin="http://localhost:56500" runtime={runtime}>
-      <UniversalRouter>
+    <HostProvider origin="http://localhost:33000" runtime={runtime}>
+      <BrowserRouter>
         <Logo />
         <Routes>
-          {routes.map(({ filepath }) => {
-            const Work = lazy(() => import(`./works/${filepath}`));
-
+          {routes.map(({ pathname, dynamicImport }) => {
+            // const Work = lazy(dynamicImport);
             return (
               <Route
-                key={filepath}
-                path={`/${filepath}`}
+                key={pathname}
+                path={pathname}
                 element={
-                  <Suspense fallback={<Fallback />}>
-                    <Work />
-                  </Suspense>
-                  // <Host />
+                  <div className="board-layout">
+                    <Suspense fallback={<Fallback />}>
+                      {/* <Work /> */}
+                      <Host app={{ packageName: "@art-boards/zima-blue" }} />
+                    </Suspense>
+                    <Chat />
+                  </div>
                 }
               />
             );
           })}
-
           <Route path="/" element={<Home />} />
         </Routes>
-      </UniversalRouter>
+      </BrowserRouter>
     </HostProvider>
   );
 }

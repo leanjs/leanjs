@@ -1,5 +1,4 @@
 export * from "./Mount";
-export * from "./useMount";
+export * from "./getMount";
 export * from "./ErrorBoundary";
-export * from "./DefaultError";
-export * from "./useApp";
+export * from "./createHost";

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Suspense } from "react";
 import { UniversalRouter, Host } from "@leanjs/react-router";
 import {
   createRuntime,
@@ -25,14 +25,15 @@ export function App() {
               <>
                 <h2>🏠 Home page</h2>
                 <Link to="/micro">Visit micro-frontend on another page</Link>
-
-                <Host
-                  app={reactApp}
-                  // app={{
-                  //   packageName:
-                  //     "@leanjs/e2e-test-subjects-remote-react-sub-pages",
-                  // }}
-                />
+                <Suspense fallback={() => "..."}>
+                  <Host
+                    app={reactApp}
+                    // app={{
+                    //   packageName:
+                    //     "@leanjs/e2e-test-subjects-remote-react-sub-pages",
+                    // }}
+                  />
+                </Suspense>
               </>
             }
           />

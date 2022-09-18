@@ -1,16 +1,18 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-import routes from "../routes.json";
+import routes from "../routes";
 
 export default function Home() {
   return (
-    <ul>
-      {routes.map(({ title, filepath }) => (
-        <li key={filepath}>
-          <Link to={`/${filepath}`}>{title} </Link>
-        </li>
-      ))}
-    </ul>
+    <div className="page">
+      <ul>
+        {routes.map(({ title, pathname }) => (
+          <li key={pathname}>
+            <Link to={pathname}>{title} </Link>
+          </li>
+        ))}
+      </ul>
+    </div>
   );
 }

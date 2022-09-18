@@ -5,6 +5,7 @@
     "dev": "lean dev --config=react",
     "build": "lean build --config=react"
   },
+  "main": "./src/index.ts",
   "author": "",
   "license": "MIT",
   "peerDependencies": {

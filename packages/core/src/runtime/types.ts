@@ -64,20 +64,20 @@ export type ValuesFromApiFactory<ApiFactory extends BaseShape> = {
 export type ValueFromApiFactorySync<
   ApiFactory extends BaseShape,
   Prop extends KeyOf<ApiFactory>
-> = ApiFactory[Prop] extends (...args: never[]) => Promise<infer Return>
+> = ApiFactory[Prop] extends (...args: any[]) => Promise<infer Return>
   ? Return
-  : ApiFactory[Prop] extends (...args: never[]) => infer Return
+  : ApiFactory[Prop] extends (...args: any[]) => infer Return
   ? Return
-  : never;
+  : unknown;
 
 export type ValueFromApiFactory<
   ApiFactory extends BaseShape,
   Prop extends KeyOf<ApiFactory>
-> = ApiFactory[Prop] extends (...args: never[]) => Promise<infer Return>
+> = ApiFactory[Prop] extends (...args: any[]) => Promise<infer Return>
   ? Promise<Return>
-  : ApiFactory[Prop] extends (...args: never[]) => infer Return
+  : ApiFactory[Prop] extends (...args: any[]) => infer Return
   ? Return
-  : never;
+  : unknown;
 
 export type OffCallback = () => void;
 
