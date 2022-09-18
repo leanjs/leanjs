@@ -10,10 +10,11 @@
   "license": "MIT",
   "dependencies": {
     "@art-boards/runtime-react": "*",
-    "@art-boards/ui-canvas": "*"
+    "@art-boards/ui-canvas": "*",
+    "@art-boards/zima-blue": "*"
   },
   "peerDependencies": {
-    "@leanjs/react-router": "*",
+    "@leanjs/react": "*",
     "react": "*",
     "react-dom": "*",
     "react-router-dom": "*"

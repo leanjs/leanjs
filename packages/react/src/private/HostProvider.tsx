@@ -7,6 +7,8 @@ export const HostContext = createContext<HostContextValues | undefined>(
   undefined
 );
 
+// export type HostContextType = typeof HostCon
+
 export const HostProvider = ({
   children,
   runtime,

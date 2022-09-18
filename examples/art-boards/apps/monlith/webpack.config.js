@@ -25,9 +25,7 @@ module.exports = {
   plugins: [
     new HostWebpackPlugin({
       remotes: {
-        packages: isProduction
-          ? []
-          : ["@leanjs/e2e-test-subjects-remote-react-1"],
+        // packages: isProduction ? [] : ["@art-boards/zima-blue"],
       },
     }),
     new HtmlWebpackPlugin({

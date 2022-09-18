@@ -1,30 +1,33 @@
 import React, { useCallback } from "react";
 import { _ as ReactUtils } from "@leanjs/react";
-import type { HostProps } from "@leanjs/react";
+import type { AsyncHostProps, CreateHostProps } from "@leanjs/react";
 import type { Listener, Location } from "@leanjs/core";
 import { _ as CoreUtils } from "@leanjs/core";
 import { useRouter } from "next/router";
 import Head from "next/head";
 
-const { useMount, Mount, DefaultError, useApp } = ReactUtils;
+const { createHost, Mount } = ReactUtils;
 const { dedupeSlash } = CoreUtils;
 
-interface NextHostProps extends HostProps {
+interface BaseNextHostProps {
   pathname?: string;
 }
 
-export const Host = (props: NextHostProps) => useApp(NextHost, props);
+interface NextHostProps extends BaseNextHostProps, AsyncHostProps {}
+interface CreateNextHostProps extends BaseNextHostProps, CreateHostProps {}
+
+export const Host = createHost<NextHostProps>(NextHost);
 
 function NextHost({
-  app,
-  pathname,
-  className,
-  fallback = <>...</>,
-  errorComponent: ErrorComponent = DefaultError,
-}: NextHostProps) {
+  // pathname,
+  // className,
+  // mount,
+  // runtime,
+  url,
+  ...rest
+}: CreateNextHostProps) {
   const router = useRouter();
   const basename = dedupeSlash(`${router.basePath}/${router.pathname}`);
-  const { mount, error, url, runtime } = useMount({ app });
 
   const navigate = useCallback(({ pathname, hash, search }: Location) => {
     router.push(
@@ -56,22 +59,6 @@ function NextHost({
       router.events.off("routeChangeComplete", onRouteChangeComplete);
   }, []);
 
-  const children = mount ? (
-    <Mount
-      mount={mount}
-      navigate={navigate}
-      listen={listen}
-      basename={basename}
-      className={className}
-      pathname={pathname}
-      runtime={runtime}
-    />
-  ) : error ? (
-    <ErrorComponent error={error} />
-  ) : (
-    fallback
-  );
-
   return (
     <>
       {url ? (
@@ -79,7 +66,16 @@ function NextHost({
           <link rel="preload" as="script" href={url} />
         </Head>
       ) : null}
-      {children}
+      <Mount
+        {...rest}
+        navigate={navigate}
+        listen={listen}
+        basename={basename}
+        // mount={mount}
+        // className={className}
+        // pathname={pathname}
+        // runtime={runtime}
+      />
     </>
   );
 }

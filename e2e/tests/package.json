@@ -5,7 +5,7 @@
   "description": "End-to-end tests for LeanJS",
   "license": "MIT",
   "scripts": {
-    "start:all:e2e": "lerna run start:e2e --parallel",
+    "start:all:e2e": "yarn workspaces run start:e2e",
     "test:e2e": "start-test start:all:e2e \"44440|http-get://localhost:56501|http-get://localhost:44441|http-get://localhost:44442|http-get://localhost:44443|http-get://localhost:44444|http-get://localhost:44447\" 'cypress run'"
   },
   "repository": {

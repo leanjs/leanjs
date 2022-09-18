@@ -21,7 +21,6 @@ export interface MountProps extends BasePath {
 
 export interface BaseHostProps {
   errorComponent?: ErrorComponent;
-  fallback?: ReactElement;
   className?: string;
 }
 
@@ -33,10 +32,18 @@ export interface HostProps extends BaseHostProps {
   app: ComposableApp;
 }
 
-export type ErrorComponent = (props: { error: Error }) => React.ReactElement;
+export interface CreateHostProps {
+  mount: MountFunc;
+  runtime: Runtime;
+  url?: string;
+  className?: string;
+}
+
+export type ErrorComponent = (props: { error?: Error }) => React.ReactElement;
 
 export interface UseHostArgs {
   app: ComposableAppSync;
+  errorComponent?: ErrorComponent;
 }
 
 export interface HostContextValues {
