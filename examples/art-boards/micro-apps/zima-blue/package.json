@@ -1,0 +1,22 @@
+{
+  "name": "@art-boards/zima-blue",
+  "version": "1.0.0",
+  "scripts": {
+    "dev": "lean dev --config=react",
+    "build": "lean build --config=react"
+  },
+  "author": "",
+  "license": "MIT",
+  "peerDependencies": {
+    "@leanjs/react": "*",
+    "react": "*",
+    "react-dom": "*",
+    "pixi.js": "*"
+  },
+  "dependencies": {
+    "@art-boards/ui-canvas": "*"
+  },
+  "devDependencies": {
+    "@leanjs/cli": "*"
+  }
+}
