@@ -1,0 +1,23 @@
+@import url("https://fonts.googleapis.com/css2?family=Barlow:wght@300;800&display=swap");
+
+body {
+  background-color: #202124;
+  color: white;
+  font-family: "Barlow", sans-serif;
+}
+
+a {
+  color: white;
+}
+
+.logo {
+  font-weight: 800;
+  display: inline-block;
+}
+
+.logo a:link,
+.logo a:visited,
+.logo a:hover,
+.logo a:active {
+  text-decoration: none;
+}
