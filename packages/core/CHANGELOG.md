@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.16.3](https://github.com/leanjs/leanjs/compare/@leanjs/core@0.16.2...@leanjs/core@0.16.3) (2022-09-22)
+
+
+### Bug Fixes
+
+* e2e not running and upgrades TS ([c7c432e](https://github.com/leanjs/leanjs/commit/c7c432eff9b64ebaa5bab403df5bda0c8e3b896d))
+
+
+
+
+
 ## [0.16.2](https://github.com/leanjs/leanjs/compare/@leanjs/core@0.16.1...@leanjs/core@0.16.2) (2022-09-14)
 
 **Note:** Version bump only for package @leanjs/core

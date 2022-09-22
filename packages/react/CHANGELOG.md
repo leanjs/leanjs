@@ -3,6 +3,22 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.11.0](https://github.com/leanjs/leanjs/compare/@leanjs/react@0.10.4...@leanjs/react@0.11.0) (2022-09-22)
+
+
+### Bug Fixes
+
+* e2e not running and upgrades TS ([c7c432e](https://github.com/leanjs/leanjs/commit/c7c432eff9b64ebaa5bab403df5bda0c8e3b896d))
+
+
+### Features
+
+* **react:** add support for React 18 ([f618f3f](https://github.com/leanjs/leanjs/commit/f618f3fdb7442bbca23f0d7f7856bc87330d5c4c))
+
+
+
+
+
 ## [0.10.4](https://github.com/leanjs/leanjs/compare/@leanjs/react@0.10.3...@leanjs/react@0.10.4) (2022-09-14)
 
 **Note:** Version bump only for package @leanjs/react

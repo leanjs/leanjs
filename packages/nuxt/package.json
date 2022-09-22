@@ -1,6 +1,6 @@
 {
   "name": "@leanjs/nuxt",
-  "version": "0.3.14",
+  "version": "0.3.15",
   "description": "Lean micro-frontend tools for Nuxtjs",
   "main": "dist/index.js",
   "module": "dist/index.js",
@@ -23,8 +23,8 @@
   },
   "homepage": "https://github.com/leanjs/leanjs#readme",
   "devDependencies": {
-    "@leanjs/core": "^0.16.2",
-    "@leanjs/vue": "^0.5.4",
+    "@leanjs/core": "^0.16.3",
+    "@leanjs/vue": "^0.5.5",
     "@vue/compiler-sfc": "^3.2.37",
     "nuxt3": "3.0.0-27313139.1c88580",
     "ts-loader": "^9.3.1",
