@@ -10,8 +10,8 @@ import React, { ReactElement } from "react";
 // @ts-ignore
 import { createRoot } from "react-dom/client";
 
-import { ErrorBoundary } from "../utils";
-import { RuntimeProvider } from "../runtime";
+import { ErrorBoundary } from "./utils";
+import { RuntimeProvider } from "./runtime";
 const { createMount } = CoreUtils;
 
 export const createApp = <MyAppProps extends AppProps = AppProps>(

@@ -17,8 +17,6 @@ jobs:
         uses: ./.github/install-dependencies
       - name: Build
         run: yarn build
-      - name: Npm version
-        run: npm --version
       - name: Test
         run: yarn test --since
   lint:

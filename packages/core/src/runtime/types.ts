@@ -19,7 +19,10 @@ export interface Request {
 
 export type Unsubscribe = () => void;
 
-export interface RuntimeApi<State, Prop extends KeyOf<State>> {
+export interface RuntimeApi<
+  State extends BaseShape,
+  Prop extends KeyOf<State>
+> {
   isBrowser: boolean;
   loader: Record<Prop, LoaderState>;
   load: <P extends Prop>(
@@ -33,17 +36,17 @@ export interface RuntimeApi<State, Prop extends KeyOf<State>> {
   onCleanup: (cleanup: Cleanup) => void;
 }
 
-type ApiFactoryFunction<State, Prop extends KeyOf<State>> =
+type ApiFactoryFunction<State extends BaseShape, Prop extends KeyOf<State>> =
   | ((args: RuntimeApi<State, Prop>) => Promise<any>)
   | ((args: RuntimeApi<State, Prop>) => any);
 
-export type BaseApiFactory<State, Prop extends KeyOf<State>> = Record<
-  Key,
-  ApiFactoryFunction<State, Prop> | undefined
->;
+export type BaseApiFactory<
+  State extends BaseShape,
+  Prop extends KeyOf<State>
+> = Record<Key, ApiFactoryFunction<State, Prop> | undefined>;
 
 export type PartialApiFactory<
-  PartialState,
+  PartialState extends BaseShape,
   PartialProp extends KeyOf<PartialState>,
   ApiFactory extends BaseApiFactory<any, any>
 > = {
@@ -79,7 +82,7 @@ export type ValueFromApiFactory<
 export type OffCallback = () => void;
 
 export type OnCallback<
-  ApiFactory,
+  ApiFactory extends BaseShape,
   ApiProp extends KeyOf<ApiFactory>,
   State extends BaseShape,
   Prop extends KeyOf<State>
@@ -95,7 +98,7 @@ export type OnCallback<
 ) => OffCallback;
 
 export interface ConfigureRuntimeOptions<
-  State,
+  State extends BaseShape,
   Prop extends KeyOf<State>,
   ApiFactory extends BaseApiFactory<State, Prop>
 > {

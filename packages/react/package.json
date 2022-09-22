@@ -3,6 +3,8 @@
   "version": "0.10.4",
   "author": "Alex Lobera <alex@leanjs.com>",
   "description": "Create your own React bindings for LeanJS Runtime",
+  "types": "./dist/index.d.ts",
+  "main": "./dist/index.js",
   "license": "MIT",
   "repository": {
     "type": "git",
@@ -10,24 +12,16 @@
     "directory": "packages/react"
   },
   "files": [
-    "dist"
+    "dist",
+    "18.d.ts"
   ],
   "exports": {
-    ".": {
-      "types": {
-        "default": "./index.d.ts"
-      },
-      "import": "./dist/index.js"
-    },
+    ".": "./dist/index.js",
     "./18": {
-      "types": {
-        "default": "./dist/18/index.d.ts"
-      },
-      "import": "./dist/18/index.js"
+      "types": "./dist/18.d.ts",
+      "default": "./dist/18.js"
     }
   },
-  "types": "./dist/index.d.ts",
-  "main": "./dist/index.js",
   "devDependencies": {
     "@leanjs/core": "^0.16.2",
     "@testing-library/react": "^12.1.4",
@@ -42,6 +36,7 @@
     "react": "^17.0.2"
   },
   "scripts": {
+    "prepublishOnly": "cp ./dist/18.d.ts .",
     "test": "jest",
     "prebuild": "del-cli dist",
     "build": "tsc --outDir dist --project ./tsconfig.build.json"
