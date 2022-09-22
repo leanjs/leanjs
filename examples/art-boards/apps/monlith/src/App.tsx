@@ -14,6 +14,8 @@ import { Chat } from "./features/chat";
 
 const runtime = createRuntime();
 
+import * as aa from "react-dom";
+
 export function App() {
   return (
     <HostProvider origin="http://localhost:33000" runtime={runtime}>
@@ -30,7 +32,7 @@ export function App() {
                   <div className="board-layout">
                     <Suspense fallback={<Fallback />}>
                       {/* <Work /> */}
-                      <Host app={{ packageName: "@art-boards/zima-blue" }} />
+                      {/* <Host app={dynamicImport} /> */}
                     </Suspense>
                     <Chat />
                   </div>

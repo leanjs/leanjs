@@ -29,7 +29,7 @@ to: <%= h.inflection.dasherize(projectName) %>/package.json
     "prettier": "^2.5.1",
     "ts-jest": "^27.1.3",
     "turbo": "^1.2.14",
-    "typescript": "^4.5.3",
+    "typescript": "^4.8.3",
     "webpack": "^5.58.2"
   },
   "dependencies": {

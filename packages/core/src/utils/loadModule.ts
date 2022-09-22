@@ -1,4 +1,6 @@
 export async function loadModule(scope: string, module = ".") {
+  if (typeof window === "undefined") return Promise.resolve();
+
   const container = (window as Record<string, any>)?.[scope];
   if (container?.init && container?.get) {
     await __webpack_init_sharing__("default");

@@ -1,5 +1,20 @@
 {
-  "extends": "../../tsconfig.json",
   "include": ["."],
-  "exclude": ["dist", "build", "node_modules"]
+  "exclude": ["dist", "build", "node_modules"],
+  "compilerOptions": {
+    "strict": true,
+    "target": "es6",
+    "moduleResolution": "NodeNext", // (B)
+    "module": "ES2020", // (A)
+    "allowSyntheticDefaultImports": true, // (C)
+    "skipLibCheck": true,
+    "strictNullChecks": true,
+    "resolveJsonModule": true,
+    "esModuleInterop": true,
+    "declaration": true,
+    "lib": ["dom", "esnext"],
+    "jsx": "react",
+    "importHelpers": true,
+    "pretty": true
+  }
 }

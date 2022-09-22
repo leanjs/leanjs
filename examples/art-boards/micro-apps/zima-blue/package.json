@@ -3,7 +3,8 @@
   "version": "1.0.0",
   "scripts": {
     "dev": "lean dev --config=react",
-    "build": "lean build --config=react"
+    "build": "lean build --config=react",
+    "lint": "tsc --noEmit"
   },
   "main": "./src/index.ts",
   "author": "",
