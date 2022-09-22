@@ -24,6 +24,6 @@ to: <%= h.inflection.dasherize(projectName) %>/apps/shell/package.json
     "@types/node": "^17.0.23",
     "@types/react": "^17.0.30",
     "next-transpile-modules": "*",
-    "typescript": "*"
+    "typescript": "^4.8.3"
   }
 }

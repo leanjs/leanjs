@@ -26,9 +26,15 @@ export function createHost<HostProps extends AsyncHostProps = AsyncHostProps>(
     const runtime = useRuntime();
     const LazyApp = React.lazy(
       () =>
-        new Promise<any>((resolve) => {
+        new Promise<any>((resolve, reject) => {
+          if (typeof window === "undefined") {
+            return resolve({ default: () => <>...</> });
+          }
+
           async function execute() {
             let resolvedApp: ComposableApp | undefined;
+
+            console.log(`🔥🔥🔥🔥🔥🔥🔥🔥🔥`);
             try {
               const maybeAsyncApp =
                 typeof app === "function" ? app({ isSelfHosted: false }) : app;
@@ -56,8 +62,9 @@ export function createHost<HostProps extends AsyncHostProps = AsyncHostProps>(
                 ),
               });
             } catch (error) {
-              runtime.logError(error, { scope: resolvedApp?.packageName });
-              resolve({
+              console.log(`22222222222`, error);
+              //runtime.logError(error, { scope: resolvedApp?.packageName });
+              reject({
                 default: () => <ErrorComponent error={error as Error} />,
               });
             }
@@ -67,6 +74,10 @@ export function createHost<HostProps extends AsyncHostProps = AsyncHostProps>(
         })
     );
 
-    return <LazyApp />;
+    return (
+      <ErrorBoundary onError={(error) => runtime.logError(error)}>
+        <LazyApp />
+      </ErrorBoundary>
+    );
   };
 }
