@@ -36,7 +36,7 @@
     "react": "^17.0.2"
   },
   "scripts": {
-    "prepublishOnly": "cp ./dist/18.d.ts .",
+    "postbuild": "cp ./dist/18.d.ts .",
     "test": "jest",
     "prebuild": "del-cli dist",
     "build": "tsc --outDir dist --project ./tsconfig.build.json"

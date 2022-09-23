@@ -20,7 +20,7 @@
     "react-router-dom": "*"
   },
   "devDependencies": {
-    "@leanjs/webpack": "^0.19.11",
+    "@leanjs/webpack": "^0.19.13",
     "@swc/core": "^1.2.160",
     "@types/react": "^17.0.43",
     "@types/react-dom": "^17.0.14",

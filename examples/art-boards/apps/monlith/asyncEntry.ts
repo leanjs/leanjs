@@ -1,2 +1,1 @@
-// import("./src");
-import "./src";
+import("./src");

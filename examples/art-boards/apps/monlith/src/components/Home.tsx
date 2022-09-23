@@ -6,6 +6,7 @@ import routes from "../routes";
 export default function Home() {
   return (
     <div className="page">
+      <Link to="/test">test</Link>
       <ul>
         {routes.map(({ title, pathname }) => (
           <li key={pathname}>

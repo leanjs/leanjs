@@ -1,7 +1,7 @@
 import React, { lazy, Suspense } from "react";
 import { Host } from "@leanjs/react";
 import { createRuntime, HostProvider } from "@art-boards/runtime-react";
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { BrowserRouter, Route, Routes, Link } from "react-router-dom";
 
 import "./app.css";
 import Home from "./components/Home";
@@ -13,8 +13,6 @@ import { Chat } from "./features/chat";
 // const zimaBlue = () => import("@art-boards/zima-blue");
 
 const runtime = createRuntime();
-
-import * as aa from "react-dom";
 
 export function App() {
   return (
@@ -32,7 +30,7 @@ export function App() {
                   <div className="board-layout">
                     <Suspense fallback={<Fallback />}>
                       {/* <Work /> */}
-                      {/* <Host app={dynamicImport} /> */}
+                      <Host app={dynamicImport} />
                     </Suspense>
                     <Chat />
                   </div>
@@ -41,6 +39,14 @@ export function App() {
             );
           })}
           <Route path="/" element={<Home />} />
+          <Route
+            path="/test"
+            element={
+              <h1>
+                <Link to="/">home</Link>
+              </h1>
+            }
+          />
         </Routes>
       </BrowserRouter>
     </HostProvider>

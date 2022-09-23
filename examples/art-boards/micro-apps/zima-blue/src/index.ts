@@ -1,5 +1,5 @@
-import * as A from "@leanjs/react/aa";
-import { createApp } from "@leanjs/react";
+//import * as A from "@leanjs/react/aa";
+import { createApp } from "@leanjs/react/18";
 
 import ZimaBlue from "./App";
 

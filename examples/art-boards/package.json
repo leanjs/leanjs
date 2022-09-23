@@ -15,7 +15,7 @@
   },
   "devDependencies": {
     "@leanjs/cli": "^0.7.10",
-    "@leanjs/webpack": "^0.19.12",
+    "@leanjs/webpack": "^0.19.13",
     "@leanjs/webpack-react": "^0.2.15",
     "@swc/core": "^1.2.142",
     "@swc/jest": "^0.2.17",
@@ -33,7 +33,7 @@
   },
   "dependencies": {
     "@leanjs/core": "0.16.2",
-    "@leanjs/react": "0.10.4",
+    "@leanjs/react": "0.11.0",
     "cors": "2.8.5",
     "history": "5.3.0",
     "next": "12.2.0",

@@ -62,11 +62,7 @@ export function createHost<HostProps extends AsyncHostProps = AsyncHostProps>(
                 ),
               });
             } catch (error) {
-              console.log(`22222222222`, error);
-              //runtime.logError(error, { scope: resolvedApp?.packageName });
-              reject({
-                default: () => <ErrorComponent error={error as Error} />,
-              });
+              reject(error);
             }
           }
 
