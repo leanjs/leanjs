@@ -25,6 +25,8 @@ const LazyApp = React.lazy(() => import("./DELETEME.js"));
 export function createHost<HostProps extends AsyncHostProps = AsyncHostProps>(
   Component: (props: CreateHostProps) => ReactElement
 ) {
+
+  
   return function Host({
     app,
     errorComponent: ErrorComponent = DefaultError,

@@ -14,10 +14,24 @@
     "18.d.ts"
   ],
   "exports": {
+<<<<<<< HEAD
     ".": "./dist/index.js",
     "./18": {
       "types": "./dist/18.d.ts",
       "default": "./dist/18.js"
+=======
+    ".": {
+      "types": {
+        "default": "./index.d.ts"
+      },
+      "import": "./dist/index.js"
+    },
+    "./18": {
+      "types": {
+        "default": "./dist/18/index.d.ts"
+      },
+      "import": "./dist/18/index.js"
+>>>>>>> baeda75d291cf532e38a4de9bbbb5aa056d23f3e
     }
   },
   "types": "./dist/index.d.ts",
