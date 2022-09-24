@@ -1,7 +1,7 @@
 {
   "name": "@art-boards/monolithic-app",
   "private": true,
-  "version": "1.5.13",
+  "version": "1.0.0",
   "description": "",
   "scripts": {
     "dev": "NODE_ENV=development webpack serve"
@@ -9,17 +9,19 @@
   "author": "Alex Lobera <alex@leanjs.com>",
   "license": "MIT",
   "dependencies": {
+    "@art-boards/chat": "*",
     "@art-boards/runtime-react": "*",
-    "@art-boards/ui-canvas": "*"
+    "@art-boards/ui-canvas": "*",
+    "@art-boards/zima-blue": "*"
   },
   "peerDependencies": {
-    "@leanjs/react-router": "*",
+    "@leanjs/react": "*",
     "react": "*",
     "react-dom": "*",
     "react-router-dom": "*"
   },
   "devDependencies": {
-    "@leanjs/webpack": "^0.19.11",
+    "@leanjs/webpack": "^0.19.13",
     "@swc/core": "^1.2.160",
     "@types/react": "^17.0.43",
     "@types/react-dom": "^17.0.14",
