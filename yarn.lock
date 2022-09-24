@@ -3087,6 +3087,11 @@
     "@jridgewell/resolve-uri" "^3.0.3"
     "@jridgewell/sourcemap-codec" "^1.4.10"
 
+"@leanjs/react@^0.10.3":
+  version "0.10.4"
+  resolved "https://registry.yarnpkg.com/@leanjs/react/-/react-0.10.4.tgz#1f9852076cb9b67e01f63455014dfb6bf09a8be1"
+  integrity sha512-P5OvyNUBFIltKrs8fQU6w4Ahz/upQcZy+zIPfcnTqYvEzHYi5q4uTq+1XjlOAZuhSmBvE0Gg97rvvC4ybIHt9A==
+
 "@leichtgewicht/ip-codec@^2.0.1":
   version "2.0.4"
   resolved "https://registry.yarnpkg.com/@leichtgewicht/ip-codec/-/ip-codec-2.0.4.tgz#b2ac626d6cb9c8718ab459166d4bb405b8ffa78b"
@@ -18049,9 +18054,9 @@ unctx@^1.0.2:
     unplugin "^0.6.1"
 
 undici@^5.2.0:
-  version "5.8.0"
-  resolved "https://registry.yarnpkg.com/undici/-/undici-5.8.0.tgz#dec9a8ccd90e5a1d81d43c0eab6503146d649a4f"
-  integrity sha512-1F7Vtcez5w/LwH2G2tGnFIihuWUlc58YidwLiCv+jR2Z50x0tNXpRRw7eOIJ+GvqCqIkg9SB7NWAJ/T9TLfv8Q==
+  version "5.10.0"
+  resolved "https://registry.yarnpkg.com/undici/-/undici-5.10.0.tgz#dd9391087a90ccfbd007568db458674232ebf014"
+  integrity sha512-c8HsD3IbwmjjbLvoZuRI26TZic+TSEe8FPMLLOkN1AfYRhdjnKBU6yL+IwcSCbdZiX4e5t0lfMDLDCqj4Sq70g==
 
 unenv@^0.4.1:
   version "0.4.6"
