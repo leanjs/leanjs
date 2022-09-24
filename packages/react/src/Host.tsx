@@ -8,3 +8,13 @@ function ReactHost(props: CreateHostProps) {
 }
 
 export const Host = createHost(ReactHost);
+
+// export const Host = React.lazy(() => {
+//   console.log("aaaaaa dsdfasdfsf");
+//   return new Promise((resolve) => {
+//     //import("./features/chat").then((file) =>
+//     // @ts-ignore
+//     resolve({ default: () => <h1>Test</h1> });
+//     //);
+//   });
+// });

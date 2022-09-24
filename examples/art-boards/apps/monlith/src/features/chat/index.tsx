@@ -1,6 +1,7 @@
 import React from "react";
 
 export function Chat() {
+  console.log("aaaaaa");
   return (
     <div className="chat">
       <h2>Chat app</h2>
@@ -12,3 +13,5 @@ export function Chat() {
     </div>
   );
 }
+
+export default Chat;
