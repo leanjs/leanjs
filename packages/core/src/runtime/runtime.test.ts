@@ -1489,6 +1489,111 @@ describe("cleanup", () => {
     expect(cleanup1).toHaveBeenCalled();
     expect(cleanup2).not.toHaveBeenCalled();
   });
+
+  it(`calls the cleanup function of the parent runtime if a prop is passed and there is a parent runtime`, async () => {
+    const cleanupParent1 = jest.fn();
+    const cleanupParent2 = jest.fn();
+    const cleanupChild1 = jest.fn();
+    const cleanupChild2 = jest.fn();
+    const { createRuntime: createParentRuntime } =
+      configureRuntime<SharedState>(defaultState)({
+        onError: emptyFunction,
+        apiFactory: {
+          eventEmitter1: ({ onCleanup, cleanup }) => {
+            onCleanup(cleanupParent1);
+            cleanup();
+
+            return new FakeEventEmitter();
+          },
+          eventEmitter2: ({ onCleanup }) => {
+            onCleanup(cleanupParent2);
+            return new FakeEventEmitter();
+          },
+        },
+      });
+
+    const { createRuntime: createChildRuntime } = configureRuntime(
+      defaultState
+    )({
+      onError: emptyFunction,
+      apiFactory: {
+        eventEmitter1: ({ onCleanup, cleanup }) => {
+          onCleanup(cleanupChild1);
+          cleanup();
+
+          return new FakeEventEmitter();
+        },
+        eventEmitter2: ({ onCleanup }) => {
+          onCleanup(cleanupChild2);
+          return new FakeEventEmitter();
+        },
+      },
+    });
+
+    const parentRuntime = createParentRuntime();
+    const childRuntime = createChildRuntime({ runtime: parentRuntime });
+
+    childRuntime.api.eventEmitter1;
+    childRuntime.cleanup("eventEmitter1");
+
+    expect(cleanupParent1).toHaveBeenCalled();
+    expect(cleanupParent2).not.toHaveBeenCalled();
+    expect(cleanupChild1).not.toHaveBeenCalled();
+    expect(cleanupChild2).not.toHaveBeenCalled();
+  });
+
+  it(`calls all the cleanup function of the parent runtime if there is a parent runtime`, async () => {
+    const cleanupParent1 = jest.fn();
+    const cleanupParent2 = jest.fn();
+    const cleanupChild1 = jest.fn();
+    const cleanupChild2 = jest.fn();
+    const { createRuntime: createParentRuntime } =
+      configureRuntime<SharedState>(defaultState)({
+        onError: emptyFunction,
+        apiFactory: {
+          eventEmitter1: ({ onCleanup, cleanup }) => {
+            onCleanup(cleanupParent1);
+            cleanup();
+
+            return new FakeEventEmitter();
+          },
+          eventEmitter2: ({ onCleanup }) => {
+            onCleanup(cleanupParent2);
+            return new FakeEventEmitter();
+          },
+        },
+      });
+
+    const { createRuntime: createChildRuntime } = configureRuntime(
+      defaultState
+    )({
+      onError: emptyFunction,
+      apiFactory: {
+        eventEmitter1: ({ onCleanup, cleanup }) => {
+          onCleanup(cleanupChild1);
+          cleanup();
+
+          return new FakeEventEmitter();
+        },
+        eventEmitter2: ({ onCleanup }) => {
+          onCleanup(cleanupChild2);
+          return new FakeEventEmitter();
+        },
+      },
+    });
+
+    const parentRuntime = createParentRuntime();
+    const childRuntime = createChildRuntime({ runtime: parentRuntime });
+
+    childRuntime.api.eventEmitter1;
+    childRuntime.api.eventEmitter2;
+    childRuntime.cleanup();
+
+    expect(cleanupParent1).toHaveBeenCalled();
+    expect(cleanupParent2).toHaveBeenCalled();
+    expect(cleanupChild1).not.toHaveBeenCalled();
+    expect(cleanupChild2).not.toHaveBeenCalled();
+  });
 });
 
 describe("on", () => {
