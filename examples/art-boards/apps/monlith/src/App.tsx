@@ -1,45 +1,43 @@
-import React, { lazy, Suspense } from "react";
-import { UniversalRouter, Host } from "@leanjs/react-router";
+import React, { Suspense } from "react";
+import { Host } from "@leanjs/react";
 import { createRuntime, HostProvider } from "@art-boards/runtime-react";
-import { Route, Routes } from "react-router-dom";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 
-import "./app.css";
 import Home from "./components/Home";
-import routes from "./routes.json";
 import Fallback from "./components/Fallback";
 import { Logo } from "./components/Logo";
 
-// import reactApp from "@leanjs/e2e-test-subjects-remote-react-1";
-// const reactApp = () => import("@leanjs/e2e-test-subjects-remote-react-1");
+import ChatApp from "@art-boards/chat";
+
+const ZimaBlueLazyComponent = React.lazy(
+  () => import("../src/works/zima-blue")
+);
+
+const ZimaBlueLazyApp = () => import("@art-boards/zima-blue");
 
 const runtime = createRuntime();
 
 export function App() {
   return (
-    <HostProvider origin="http://localhost:56500" runtime={runtime}>
-      <UniversalRouter>
+    <HostProvider origin="http://localhost:33000" runtime={runtime}>
+      <BrowserRouter>
         <Logo />
         <Routes>
-          {routes.map(({ filepath }) => {
-            const Work = lazy(() => import(`./works/${filepath}`));
-
-            return (
-              <Route
-                key={filepath}
-                path={`/${filepath}`}
-                element={
-                  <Suspense fallback={<Fallback />}>
-                    <Work />
-                  </Suspense>
-                  // <Host />
-                }
-              />
-            );
-          })}
-
+          <Route
+            path="/zima-blue"
+            element={
+              <div className="board-layout">
+                {/* <Suspense fallback={<Fallback />}>
+                        <ZimaBlueLazyComponent />
+                      </Suspense> */}
+                <Host fallback={<Fallback />} app={ZimaBlueLazyApp} />
+                <Host app={ChatApp} />
+              </div>
+            }
+          />
           <Route path="/" element={<Home />} />
         </Routes>
-      </UniversalRouter>
+      </BrowserRouter>
     </HostProvider>
   );
 }

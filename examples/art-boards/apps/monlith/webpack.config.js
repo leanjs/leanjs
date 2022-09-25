@@ -11,8 +11,8 @@ module.exports = {
   mode: "development",
   devtool: "source-map",
   entry: {
-    async_entry: {
-      import: ["./asyncEntry"],
+    async: {
+      import: ["./src/entry/async"],
     },
   },
   devServer: {
@@ -27,7 +27,7 @@ module.exports = {
       remotes: {
         packages: isProduction
           ? []
-          : ["@leanjs/e2e-test-subjects-remote-react-1"],
+          : ["@art-boards/zima-blue", "@art-boards/chat"],
       },
     }),
     new HtmlWebpackPlugin({

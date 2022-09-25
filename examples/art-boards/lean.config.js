@@ -7,6 +7,6 @@ module.exports = {
     createRuntimePath: "@art-boards/runtime-react",
   },
   webpack: {
-    react: createReactWebpackConfig(),
+    react: { devtool: "source-map", ...createReactWebpackConfig() },
   },
 };

@@ -68,7 +68,7 @@ export type ValueFromApiFactorySync<
   ? Return
   : ApiFactory[Prop] extends (...args: never[]) => infer Return
   ? Return
-  : never;
+  : unknown;
 
 export type ValueFromApiFactory<
   ApiFactory extends BaseShape,
@@ -77,7 +77,7 @@ export type ValueFromApiFactory<
   ? Promise<Return>
   : ApiFactory[Prop] extends (...args: never[]) => infer Return
   ? Return
-  : never;
+  : unknown;
 
 export type OffCallback = () => void;
 
@@ -164,7 +164,7 @@ type PartialApi<
     arg: any
   ) => ApiFactory[Prop] extends ApiFactoryFunction<any, any>
     ? ReturnType<ApiFactory[Prop]>
-    : never;
+    : unknown;
 };
 
 export interface CreateRuntimeArgs<

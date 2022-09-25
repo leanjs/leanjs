@@ -1,15 +1,17 @@
-import React, { useRef, useLayoutEffect } from "react";
+import React, { useRef, useLayoutEffect, CSSProperties } from "react";
 
 type Unmount = () => void;
 
 interface CanvasProps {
   mount: (element: HTMLDivElement | null) => Unmount;
+  style?: CSSProperties;
+  className?: string;
 }
 
-export function Canvas({ mount }: CanvasProps) {
+export function Canvas({ mount, ...rest }: CanvasProps) {
   const ref = useRef<HTMLDivElement>(null);
 
   useLayoutEffect(() => mount(ref.current), [mount]);
 
-  return <div ref={ref} />;
+  return <div {...rest} ref={ref} />;
 }
