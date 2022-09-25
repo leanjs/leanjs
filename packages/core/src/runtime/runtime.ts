@@ -311,10 +311,11 @@ Current valid props are: ${Object.keys(currentState).join(", ")}`);
 
     const cleanup = <P extends ApiProp>(prop?: P) => {
       if (prop) {
+        parent?.cleanup(prop as P);
         cleanups.get(prop)?.();
       } else {
+        parent?.cleanup();
         cleanups.forEach((cleanup) => cleanup());
-        cleanups.clear();
       }
     };
 
