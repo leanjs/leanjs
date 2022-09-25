@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.4.15](https://github.com/leanjs/leanjs/compare/@leanjs/next@0.4.14...@leanjs/next@0.4.15) (2022-09-25)
+
+**Note:** Version bump only for package @leanjs/next
+
+
+
+
+
 ## [0.4.14](https://github.com/leanjs/leanjs/compare/@leanjs/next@0.4.13...@leanjs/next@0.4.14) (2022-09-22)
 
 **Note:** Version bump only for package @leanjs/next

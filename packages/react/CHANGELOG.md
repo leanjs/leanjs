@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.11.1](https://github.com/leanjs/leanjs/compare/@leanjs/react@0.11.0...@leanjs/react@0.11.1) (2022-09-25)
+
+
+### Bug Fixes
+
+* **react:** update example arts-board and add unmount callback for react 18 ([bd331dd](https://github.com/leanjs/leanjs/commit/bd331dde0c90afe24e33bb68622ebcc1a45fc605))
+
+
+
+
+
 # [0.11.0](https://github.com/leanjs/leanjs/compare/@leanjs/react@0.10.4...@leanjs/react@0.11.0) (2022-09-22)
 
 
