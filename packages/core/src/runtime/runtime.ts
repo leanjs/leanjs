@@ -66,7 +66,7 @@ const runCreateRuntime =
     const subscribers = new Map<Prop, Set<Subscriber<State[Prop]>>>();
     const loaders = new Map<Key | undefined, InternalLoaderState>();
     const apiPromises = new Map<ApiProp, Promise<any>>();
-    const cleanups = new Set<Cleanup>();
+    const cleanups = new Map<ApiProp, Cleanup>();
 
     const callSubscribers = <P extends Prop>(prop: P) => {
       subscribers
@@ -229,24 +229,6 @@ Current valid props are: ${Object.keys(currentState).join(", ")}`);
       }
     };
 
-    const onCleanup = (cleanup: Cleanup) => {
-      cleanups.add(cleanup);
-    };
-
-    const apiFactoryArguments = {
-      isBrowser,
-      request: {
-        ...request,
-        url,
-      },
-      load,
-      loaded,
-      loader,
-      setState,
-      getState,
-      onCleanup,
-    };
-
     const api = new Proxy({} as ValuesFromApiFactory<ApiFactory>, {
       get(target, prop: ApiProp) {
         const parentItem = parent?.api?.[prop];
@@ -256,7 +238,24 @@ Current valid props are: ${Object.keys(currentState).join(", ")}`);
           let item = apiFactory?.[prop];
           if (typeof item === "function") {
             try {
-              item = item(apiFactoryArguments);
+              item = item({
+                isBrowser,
+                request: {
+                  ...request,
+                  url,
+                },
+                load,
+                loaded,
+                loader,
+                setState,
+                getState,
+                onCleanup: (cleanup: Cleanup) => {
+                  cleanups.set(prop, cleanup);
+                },
+                cleanup: () => {
+                  cleanups.get(prop)?.();
+                },
+              });
             } catch (error) {
               logError(error);
             }
@@ -310,9 +309,13 @@ Current valid props are: ${Object.keys(currentState).join(", ")}`);
       };
     };
 
-    const cleanup = () => {
-      cleanups.forEach((cleanup) => cleanup());
-      cleanups.clear();
+    const cleanup = <P extends ApiProp>(prop?: P) => {
+      if (prop) {
+        cleanups.get(prop)?.();
+      } else {
+        cleanups.forEach((cleanup) => cleanup());
+        cleanups.clear();
+      }
     };
 
     return {
