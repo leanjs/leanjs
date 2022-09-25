@@ -25,9 +25,9 @@ module.exports = {
   plugins: [
     new HostWebpackPlugin({
       remotes: {
-        packages: isProduction
-          ? []
-          : ["@art-boards/zima-blue", "@art-boards/chat"],
+        // packages: isProduction
+        //   ? []
+        //   : ["@art-boards/zima-blue", "@art-boards/chat"],
       },
     }),
     new HtmlWebpackPlugin({

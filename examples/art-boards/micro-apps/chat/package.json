@@ -14,6 +14,7 @@
     "react-dom": "*"
   },
   "dependencies": {
+    "@art-boards/runtime-react": "*",
     "@art-boards/ui-canvas": "*"
   },
   "devDependencies": {
