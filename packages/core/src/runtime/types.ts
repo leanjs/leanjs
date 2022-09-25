@@ -34,6 +34,7 @@ export interface RuntimeApi<
   setState: (prop: Prop, state: State[Prop]) => void;
   request: Request;
   onCleanup: (cleanup: Cleanup) => void;
+  cleanup: () => void;
 }
 
 type ApiFactoryFunction<State extends BaseShape, Prop extends KeyOf<State>> =
@@ -122,7 +123,7 @@ export interface Runtime<
   booted: () => Promise<boolean>;
   api: ValuesFromApiFactory<ApiFactory>;
   on: <P extends ApiProp>(
-    key: P,
+    prop: P,
     callback: OnCallback<ApiFactory, P, State, Prop>
   ) => OffCallback;
   load<P extends Prop>(
@@ -133,6 +134,7 @@ export interface Runtime<
   loaded<P extends Prop>(prop: P): Promise<State[P]>;
   logError: LogAnyError;
   cleanup(): void;
+  cleanup<P extends ApiProp>(prop: P): void;
 }
 
 export type StateType<T extends Runtime> = T extends {

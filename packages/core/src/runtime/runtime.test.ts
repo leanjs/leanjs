@@ -1399,7 +1399,7 @@ describe("api", () => {
 });
 
 describe("cleanup", () => {
-  it(`calls all the cleanup functions passed to the onCleanup hook of each api factory that was initialised`, async () => {
+  it(`calls all the cleanup functions passed to the onCleanup callback of each api factory that was initialised if no api prop is passed`, async () => {
     const cleanup1 = jest.fn();
     const cleanup2 = jest.fn();
     const runtime = configureRuntime<SharedState>(defaultState)({
@@ -1416,13 +1416,75 @@ describe("cleanup", () => {
       },
     }).createRuntime();
 
-    // reading this api to boot eventEmitter1 api
+    // reading this api to invoke eventEmitter1 factory function
     await runtime.api.eventEmitter1;
 
     expect(cleanup1).not.toHaveBeenCalled();
     expect(cleanup2).not.toHaveBeenCalled();
 
     runtime.cleanup();
+
+    expect(cleanup1).toHaveBeenCalled();
+    expect(cleanup2).not.toHaveBeenCalled();
+  });
+
+  it(`calls the cleanup function of a given api prop if an onCleanup callback was added to the given api prop and the api was initialised`, async () => {
+    const cleanup1 = jest.fn();
+    const cleanup2 = jest.fn();
+    const cleanup3 = jest.fn();
+    const runtime = configureRuntime<SharedState>(defaultState)({
+      onError: emptyFunction,
+      apiFactory: {
+        eventEmitter1: ({ onCleanup }) => {
+          onCleanup(cleanup1);
+          return new FakeEventEmitter();
+        },
+        eventEmitter2: ({ onCleanup }) => {
+          onCleanup(cleanup2);
+          return new FakeEventEmitter();
+        },
+        eventEmitter3: ({ onCleanup }) => {
+          onCleanup(cleanup3);
+          return new FakeEventEmitter();
+        },
+      },
+    }).createRuntime();
+
+    runtime.cleanup("eventEmitter2");
+    expect(cleanup1).not.toHaveBeenCalled();
+
+    // reading these apis to invoke their api factory functions
+    await runtime.api.eventEmitter1;
+    await runtime.api.eventEmitter2;
+
+    runtime.cleanup("eventEmitter1");
+
+    expect(cleanup1).toHaveBeenCalled();
+    expect(cleanup2).not.toHaveBeenCalled();
+    expect(cleanup3).not.toHaveBeenCalled();
+  });
+
+  it(`a cleanup function is passed to the apiFactory function that can call the onCleanup callback of the given api prop`, async () => {
+    const cleanup1 = jest.fn();
+    const cleanup2 = jest.fn();
+    const runtime = configureRuntime<SharedState>(defaultState)({
+      onError: emptyFunction,
+      apiFactory: {
+        eventEmitter1: ({ onCleanup, cleanup }) => {
+          onCleanup(cleanup1);
+          cleanup();
+
+          return new FakeEventEmitter();
+        },
+        eventEmitter2: ({ onCleanup }) => {
+          onCleanup(cleanup2);
+          return new FakeEventEmitter();
+        },
+      },
+    }).createRuntime();
+
+    // reading this api to invoke eventEmitter1 factory function
+    await runtime.api.eventEmitter1;
 
     expect(cleanup1).toHaveBeenCalled();
     expect(cleanup2).not.toHaveBeenCalled();
