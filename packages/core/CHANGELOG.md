@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.17.0](https://github.com/leanjs/leanjs/compare/@leanjs/core@0.16.5...@leanjs/core@0.17.0) (2022-09-25)
+
+
+### Features
+
+* **runtime:** add cleanup to factory api ([8afd559](https://github.com/leanjs/leanjs/commit/8afd55996c8a3a463a3ed97387994c5a28e76fb4))
+
+
+
+
+
 ## [0.16.5](https://github.com/leanjs/leanjs/compare/@leanjs/core@0.16.4...@leanjs/core@0.16.5) (2022-09-25)
 
 **Note:** Version bump only for package @leanjs/core
