@@ -4,7 +4,7 @@ title: Contributing
 
 # Contributing
 
-Developers like you can help by contributing to documentation, issuing pull requests to help us cover new use cases, and to help move the micro-frontends field forward.
+Developers like you can help by contributing to documentation, issuing pull requests to help us cover new use cases, and to help move the modular monoliths & micro-frontends fields forward.
 
 ## How Can I Help?
 

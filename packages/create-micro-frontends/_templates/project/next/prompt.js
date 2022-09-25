@@ -13,7 +13,7 @@ module.exports = [
   },
   {
     type: "input",
-    message: "Pick the name of your micro-frontend:",
+    message: "Pick the name of your micro-app:",
     name: "microFrontendName",
     required: true,
   },

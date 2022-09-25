@@ -1,7 +1,7 @@
 {
   "name": "@leanjs/cli",
   "version": "0.7.12",
-  "description": "Cli for LeanJS micro-frontends",
+  "description": "Cli for LeanJS micro-apps",
   "types": "./dist/index.d.ts",
   "main": "./dist/index.js",
   "author": "Alex Lobera <alex@leanjs.com>",
@@ -24,6 +24,7 @@
   "keywords": [
     "cli",
     "micro-frontends",
+    "modular monolith",
     "microfrontends",
     "deploy",
     "build",

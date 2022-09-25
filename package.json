@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "author": "Alex Lobera <alex@leanjs.com>",
   "private": true,
-  "description": "Tools for building maintainable and performant micro-frontends.",
+  "description": "Tools for breaking up front-end monoliths.",
   "scripts": {
     "----------------------CI TOOLS----------------------": ".",
     "ci": "run-s ci:version ci:publish",

@@ -2,7 +2,7 @@
   "name": "@leanjs/vue-router",
   "version": "0.3.12",
   "author": "Alex Lobera <alex@leanjs.com>",
-  "description": "Lean micro-frontends for Vue Router",
+  "description": "Lean micro-apps for Vue Router",
   "types": "./dist/index.d.ts",
   "main": "./dist/index.js",
   "license": "MIT",
@@ -36,6 +36,7 @@
     "vue-router",
     "vue",
     "microfrontends",
+    "modular monolith",
     "micro-frontends"
   ],
   "publishConfig": {

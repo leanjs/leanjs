@@ -1,1 +1,1 @@
-# LEAN micro-frontends project generated with `create-micro-frontends`
+# Example of front-end modular monolith

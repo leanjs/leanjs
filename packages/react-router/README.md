@@ -6,8 +6,8 @@ If you use a monorepo (recommended), at the root of your repository:
 
 ```
 my-monorepo/
-├─ micro-frontends/
-│  ├─ react-router-micro-frontend-example/
+├─ micro-apps/
+│  ├─ react-router-micro-app-example/
 │  │  ├─ package.json
 ├─ package.json  👈
 ```
@@ -18,12 +18,12 @@ execute the following command:
 yarn add @leanjs/react-router @leanjs/core @leanjs/react react-router-dom@6 react-dom@17 react@17
 ```
 
-Then in the `package.json` of your micro-frontend app
+Then in the `package.json` of your micro-app app
 
 ```
 my-monorepo/
-├─ micro-frontends/
-│  ├─ react-router-micro-frontend-example/
+├─ micro-apps/
+│  ├─ react-router-micro-app-example/
 │  │  ├─ package.json 👈
 ├─ package.json
 ```
@@ -50,12 +50,12 @@ and also the following `devDependencies`:
 
 ## Usage
 
-Create a file called `index.ts` in the `src` directory where your micro-frontend is.
+Create a file called `index.ts` in the `src` directory where your micro-app is.
 
 ```
 my-monorepo/
-├─ micro-frontends/
-│  ├─ react-router-micro-frontend-example/
+├─ micro-apps/
+│  ├─ react-router-micro-app-example/
 │  │  ├─ package.json
 │  │  ├─ src/
 │  │  │  ├─ ReactApp.tsx
@@ -91,5 +91,5 @@ Create `ReactApp.tsx` component, for example:
 ```tsx
 import React from "react";
 
-export const ReactApp = () => <div>Hello React micro-frontend</div>;
+export const ReactApp = () => <div>Hello React micro-app</div>;
 ```

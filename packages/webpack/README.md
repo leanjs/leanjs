@@ -4,7 +4,7 @@
 
 `yarn add -D @leanjs/webpack webpack`
 
-It exports Webpack plugins to implement LeanJS micro-frontends.
+It exports Webpack plugins to implement LeanJS micro-apps.
 
 ## RemoteWebpackPlugin
 

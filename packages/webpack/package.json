@@ -1,7 +1,7 @@
 {
   "name": "@leanjs/webpack",
   "version": "0.19.14",
-  "description": "Webpack plugins for LeanJS micro-frontends",
+  "description": "Webpack plugins for LeanJS micro-apps",
   "types": "./dist/index.d.ts",
   "main": "./dist/index.js",
   "author": "Alex Lobera <alex@leanjs.com>",
@@ -38,6 +38,7 @@
   "keywords": [
     "webpack",
     "microfrontends",
+    "modular monolith",
     "micro-frontends",
     "plugin",
     "host",

@@ -24,7 +24,7 @@ module.exports = {
 };
 ```
 
-Then in each micro-frontend `package.json` in your monorepo you can add the following script:
+Then in each micro-app `package.json` in your monorepo you can add the following script:
 
 ```
   "scripts": {

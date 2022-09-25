@@ -11,7 +11,7 @@ import { createBundlerCommand, exitError } from "../utils/command";
 
 const program = createBundlerCommand().option(
   "-p, --port <type>",
-  "Port to run locally a given micro-frontend"
+  "Port to run locally a given micro-app"
 );
 
 program.parse(process.argv);

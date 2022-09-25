@@ -16,7 +16,7 @@ jest.mock("@aws-sdk/client-s3", () => ({
   S3Client: () => ({ send: sendS3 }),
 }));
 
-describe("deploy micro-frontend", () => {
+describe("deploy micro-app", () => {
   beforeEach(() => {
     jest.spyOn(console, "log").mockImplementation(() => {
       // do nothing

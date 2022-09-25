@@ -1,7 +1,7 @@
 {
   "name": "@leanjs/webpack-vue",
   "version": "0.2.17",
-  "description": "Default Webpack configuration for LeanJS Vue micro-frontends",
+  "description": "Default Webpack configuration for LeanJS Vue micro-apps",
   "main": "./dist/index.js",
   "author": "Alex Lobera <alex@leanjs.com>",
   "repository": {
@@ -38,6 +38,7 @@
     "config",
     "vue",
     "microfrontends",
+    "modular monolith",
     "micro-frontends",
     "module federation"
   ],

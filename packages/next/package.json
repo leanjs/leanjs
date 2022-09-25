@@ -2,7 +2,7 @@
   "name": "@leanjs/next",
   "version": "0.4.15",
   "author": "Alex Lobera <alex@leanjs.com>",
-  "description": "Lean micro-frontend tools for Nextjs",
+  "description": "Lean micro-app tools for Nextjs",
   "types": "./dist/index.d.ts",
   "main": "./dist/index.js",
   "license": "MIT",
@@ -37,6 +37,7 @@
   "keywords": [
     "next",
     "microfrontends",
+    "modular monolith",
     "micro-frontends"
   ],
   "publishConfig": {
