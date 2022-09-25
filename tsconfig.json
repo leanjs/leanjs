@@ -12,6 +12,7 @@
     "lib": ["dom", "esnext"],
     "jsx": "react",
     "importHelpers": true,
-    "pretty": true
+    "pretty": true,
+    "downlevelIteration": true
   }
 }

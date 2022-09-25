@@ -229,7 +229,11 @@ Current valid props are: ${Object.keys(currentState).join(", ")}`);
       }
     };
 
-    const api = new Proxy({} as ValuesFromApiFactory<ApiFactory>, {
+    const _proxiedApi: Record<
+      Key,
+      ValuesFromApiFactory<ApiFactory> | undefined
+    > = {};
+    const api = new Proxy(_proxiedApi as ValuesFromApiFactory<ApiFactory>, {
       get(target, prop: ApiProp) {
         const parentItem = parent?.api?.[prop];
         if (parentItem) {
@@ -313,9 +317,14 @@ Current valid props are: ${Object.keys(currentState).join(", ")}`);
       if (prop) {
         parent?.cleanup(prop as P);
         cleanups.get(prop)?.();
+        _proxiedApi[prop] = undefined;
       } else {
         parent?.cleanup();
         cleanups.forEach((cleanup) => cleanup());
+        for (const [key, cleanup] of cleanups) {
+          cleanup();
+          _proxiedApi[key] = undefined;
+        }
       }
     };
 
