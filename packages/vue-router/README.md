@@ -6,8 +6,8 @@ If you use a monorepo (recommended), at the root of your repository:
 
 ```
 my-monorepo/
-├─ micro-frontends/
-│  ├─ vue-router-micro-frontend-example/
+├─ micro-apps/
+│  ├─ vue-router-micro-app-example/
 │  │  ├─ package.json
 ├─ package.json  👈
 ```
@@ -18,12 +18,12 @@ execute the following command:
 yarn add @leanjs/vue-router @leanjs/core vue-router@4 vue@3
 ```
 
-Then in the `package.json` of your micro-frontend app
+Then in the `package.json` of your micro-app app
 
 ```
 my-monorepo/
-├─ micro-frontends/
-│  ├─ vue-router-micro-frontend-example/
+├─ micro-apps/
+│  ├─ vue-router-micro-app-example/
 │  │  ├─ package.json 👈
 ├─ package.json
 ```
@@ -48,12 +48,12 @@ and also the following `devDependencies`:
 
 ## Usage
 
-Create a file called `index.ts` in the `src` directory where your micro-frontend is.
+Create a file called `index.ts` in the `src` directory where your micro-app is.
 
 ```
 my-monorepo/
-├─ micro-frontends/
-│  ├─ vue-router-micro-frontend-example/
+├─ micro-apps/
+│  ├─ vue-router-micro-app-example/
 │  │  ├─ package.json
 │  │  ├─ src/
 │  │  │  ├─ VueApp.vue
@@ -88,6 +88,6 @@ Create `VueApp.vue` component, for example:
 
 ```vue
 <template>
-  <h1>Hello Vue micro-frontend</h1>
+  <h1>Hello Vue micro-app</h1>
 </template>
 ```

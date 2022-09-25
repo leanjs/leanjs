@@ -8,7 +8,8 @@ const darkCodeTheme = require("prism-react-renderer/themes/dracula");
 /** @type {import('@docusaurus/types').Config} */
 const config = {
   title: "LeanJS",
-  tagline: "Tools for building maintainable and performant micro-frontends ",
+  tagline:
+    "Tools for building maintainable and performant large front-end applications",
   url: "https://leanjs.org",
   baseUrl: "/",
   onBrokenLinks: "throw",

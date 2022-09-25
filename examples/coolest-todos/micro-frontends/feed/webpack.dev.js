@@ -2,7 +2,7 @@
 const { RemoteWebpackPlugin } = require("@leanjs/webpack");
 const ErrorOverlayPlugin = require("error-overlay-webpack-plugin");
 
-// 👋 This is an example of a custom Webpack config for just one micro-frontend
+// 👋 This is an example of a custom Webpack config for just one micro-app
 // This is not recommended. It's better that you share your configs using lean.config.js and use `lean dev --config config_key`
 
 const port = 8889;
@@ -14,7 +14,7 @@ module.exports = {
     port,
   },
   plugins: [
-    new RemoteWebpackPlugin(), // 👈 Required to enable Lean Micro-frontends
+    new RemoteWebpackPlugin(), // 👈 Required to enable micro-apps
     // new ErrorOverlayPlugin(), // ❌ this plugin breaks HMR when we run it in http:localhost:8889, but HMT works in the shell
   ],
   module: {

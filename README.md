@@ -1,6 +1,6 @@
 # Welcome to LeanJS!
 
-Tools for building maintainable and performant micro-frontends.
+Tools for breaking up front-end monoliths.
 
 ## Documentation
 

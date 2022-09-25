@@ -2,13 +2,13 @@
 const { RemoteWebpackPlugin } = require("@leanjs/webpack");
 const { getOutputPath } = require("@leanjs/cli");
 
-// 👋 This is an example of a custom Webpack config for just one micro-frontend
+// 👋 This is an example of a custom Webpack config for just one micro-app
 // This is not recommended. It's better that you share your configs using lean.config.js and use `lean build --config config_key`
 
 module.exports = {
   mode: "production",
   plugins: [
-    new RemoteWebpackPlugin(), // 👈 Required to enable Lean Micro-frontends
+    new RemoteWebpackPlugin(), // 👈 Required to enable micro-apps
   ],
   output: {
     filename: "[name].[contenthash].js",

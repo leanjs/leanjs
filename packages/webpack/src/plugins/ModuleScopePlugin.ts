@@ -89,7 +89,7 @@ export class ModuleScopePlugin implements ResolvePluginInstance {
           const scopeError = new Error(
             `You attempted to import ${chalk.cyan(
               request.__innerRequest_request
-            )} which falls outside of the directory of the micro-frontend. ` +
+            )} which falls outside of the directory of the micro-app. ` +
               `Relative imports outside of ${chalk.cyan(
                 appDirectory
               )} are not supported.` +

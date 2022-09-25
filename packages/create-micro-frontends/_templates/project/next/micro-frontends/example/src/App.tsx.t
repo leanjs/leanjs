@@ -9,7 +9,7 @@ export function App() {
 
   return (
    <h2>
-      {locale === "en" ? `🇬🇧 Hello micro-frontend` : `🇪🇸 Hola  micro-frontend`}{" "}
+      {locale === "en" ? `🇬🇧 Hello micro-app` : `🇪🇸 Hola  micro-app`}{" "}
       <%=microFrontendName%>
     </h2>
   );

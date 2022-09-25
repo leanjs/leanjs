@@ -1,7 +1,7 @@
 {
   "name": "@leanjs/webpack-react",
   "version": "0.2.17",
-  "description": "Default Webpack configuration for LeanJS React micro-frontends",
+  "description": "Default Webpack configuration for LeanJS React micro-apps",
   "main": "./dist/index.js",
   "author": "Alex Lobera <alex@leanjs.com>",
   "repository": {
@@ -33,6 +33,7 @@
     "config",
     "react",
     "microfrontends",
+    "modular monolith",
     "micro-frontends",
     "module federation"
   ],

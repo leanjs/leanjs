@@ -36,6 +36,7 @@
   "keywords": [
     "vue",
     "microfrontends",
+    "modular monolith",
     "micro-frontends"
   ],
   "dependencies": {

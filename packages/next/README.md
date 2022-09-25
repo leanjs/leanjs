@@ -51,11 +51,11 @@ export default App;
 
 ### Host
 
-It hosts a micro-frontend and calls its life cycle functions.
+It hosts a micro-app and calls its life cycle functions.
 
 Props:
 
-- `remote`, required. It's an object with a requried key `packageName: string`. The `packageName` is the `name` field in the `package.json` of a micro-frontend.
+- `remote`, required. It's an object with a requried key `packageName: string`. The `packageName` is the `name` field in the `package.json` of a micro-app.
 
 Example:
 
@@ -67,7 +67,7 @@ const Home: NextPage = () => {
   return (
     <>
       <h1>Nextjs Host</h1>
-      <Host remote={{ packageName: "@my-org/micro-frontend-1" }} />
+      <Host remote={{ packageName: "@my-org/micro-app-1" }} />
     </>
   );
 };

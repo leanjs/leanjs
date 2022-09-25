@@ -1,6 +1,6 @@
 # @leanjs/cli
 
-The LeanJS Cli provides commands to help you develop, build, and deploy your LeanJS micro-frontends. This package also includes the [Centralized Dev Server](#centralized-dev-server).
+The LeanJS Cli provides commands to help you develop, build, and deploy your micro-apps. This package also includes the [Centralized Dev Server](#centralized-dev-server).
 
 ## Installation
 
@@ -10,7 +10,7 @@ If you use a monorepo (recommended) execute the following command at the root of
 yarn add -D @leanjs/cli @leanjs/core
 ```
 
-Then in the `package.json` of each micro-frontend add the following `devDependency`:
+Then in the `package.json` of each micro-app add the following `devDependency`:
 
 ```
 "devDependencies": {
@@ -18,15 +18,15 @@ Then in the `package.json` of each micro-frontend add the following `devDependen
 }
 ```
 
-If you don't use a monoreppo, run `yarn add -D @leanjs/cli` in each micro-frontend repository.
+If you don't use a monoreppo, run `yarn add -D @leanjs/cli` in each micro-app repository.
 
 <!-- ## Usage
 
-Each micro-frontend is defined in a folder that contains a `package.json` file at the root. -->
+Each micro-app is defined in a folder that contains a `package.json` file at the root. -->
 
 ## Configuration
 
-You need to create a `lean.config.js` file at the root of the monorepo. You can also use separate repositories for each micro-frontend with a `lean.config.js` in each micro-frontend repo, but it's not recommended.
+You need to create a `lean.config.js` file at the root of the monorepo. You can also use separate repositories for each micro-app with a `lean.config.js` in each micro-app repo, but it's not recommended.
 
 The minimal `lean.config.js` is the following:
 
@@ -44,9 +44,9 @@ Once you install `@leanjs/cli`, you can execute `lean` commands from your `packa
 
 ### `lean dev`
 
-It starts a development server specific for the micro-frontend defined in the same `package.json` and executes its entry point `src/remote.js|ts`. This development server will either run the micro-frontend at a random available port (recommended) or at a given port (e.g. using `lean dev --port 56567`).
+It starts a development server specific for the micro-app defined in the same `package.json` and executes its entry point `src/remote.js|ts`. This development server will either run the micro-app at a random available port (recommended) or at a given port (e.g. using `lean dev --port 56567`).
 
-This command will also connect to the local [Centralized Dev Server](#centralized-dev-server) and register the micro-frontend with the address it's running at. If the local Centralized Dev Server is not running at the port defined in `lean.config.js`, `devServer` field, then `lean dev` will start a new Centralized Dev Server.
+This command will also connect to the local [Centralized Dev Server](#centralized-dev-server) and register the micro-app with the address it's running at. If the local Centralized Dev Server is not running at the port defined in `lean.config.js`, `devServer` field, then `lean dev` will start a new Centralized Dev Server.
 
 Arguments:
 
@@ -79,7 +79,7 @@ This command will look for a `lean.config.js` in the current directory. If it do
 
 #### --port NUMBER
 
-This argument is **optional**. It will run a development server for your micro-frontend at port NUMBER. If port NUMBER is in use the server won't start and the command will fail. Example:
+This argument is **optional**. It will run a development server for your micro-app at port NUMBER. If port NUMBER is in use the server won't start and the command will fail. Example:
 
 ```
 lean dev --port 56567 --config react
@@ -87,7 +87,7 @@ lean dev --port 56567 --config react
 
 ### `lean build`
 
-It builds the micro-frontend where the `package.json` that ran `build` is.
+It builds the micro-app where the `package.json` that ran `build` is.
 
 Arguments:
 
@@ -101,7 +101,7 @@ lean dev --config reactConfig1
 
 ### `lean deploy`
 
-It deploys the micro-frontend where the `package.json` that ran `deploy` is.
+It deploys the micro-app where the `package.json` that ran `deploy` is.
 
 Arguments:
 
@@ -132,11 +132,11 @@ If no package to `use` is found then `lean deploy` will error and exit with code
 
 ### `package.json`
 
-This is an example of a `package.json` for a micro-frontend with all the LeanJS commands. Notice, this is not the root `package.json` if you use a monorepo.
+This is an example of a `package.json` for a micro-app with all the LeanJS commands. Notice, this is not the root `package.json` if you use a monorepo.
 
 ```json
 {
-  "name": "@my-org/micro-frontend-x",
+  "name": "@my-org/micro-app-x",
   "version": "1.0.0",
   "scripts": {
     "dev": "lean dev --config react",
@@ -152,10 +152,10 @@ This is an example of a `package.json` for a micro-frontend with all the LeanJS 
 
 ### Centralized Dev Server
 
-There are two development servers involved when you run a LeanJS micro-frontend.
+There are two development servers involved when you run a LeanJS micro-app.
 
-1. A dev server that watches your micro-frontend code, builds it, and serves it at a given local address (e.g. http://localhost:55556), e.g. Webpack Dev Server.
-2. A centralized dev server that all micro-frontends connect to to send some information. This centralized dev server runs at the address defined in your `lean.config.js`, `devServer` field:
+1. A dev server that watches your micro-app code, builds it, and serves it at a given local address (e.g. http://localhost:55556), e.g. Webpack Dev Server.
+2. A centralized dev server that all micro-apps connect to to send some information. This centralized dev server runs at the address defined in your `lean.config.js`, `devServer` field:
 
 ```js
 // lean.config.js
@@ -165,4 +165,4 @@ module.exports = {
 };
 ```
 
-The LeanJS Cli `dev` command starts the centralised dev server automatically when you run the first `lean dev`. You can navigate to `http://localhost:{LEAN_CONFIG_JS_DEV_SERVER_PORT}` (e.g. localhost:55555) and see what micro-frontends you are running locally. If you have not run `lean dev` the centralised server won't be running.
+The LeanJS Cli `dev` command starts the centralised dev server automatically when you run the first `lean dev`. You can navigate to `http://localhost:{LEAN_CONFIG_JS_DEV_SERVER_PORT}` (e.g. localhost:55555) and see what micro-apps you are running locally. If you have not run `lean dev` the centralised server won't be running.

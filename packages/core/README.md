@@ -2,11 +2,11 @@
 
 # Runtime
 
-This `runtime` enables micro-frontends to share state or execution context in a controlled manner, keeping your micro-frontends performant and maintainable. By default nothing is shared. You can read more about [the why of this package in this post](https://alexlobera.com/sharing-state-in-micro-frontends-at-runtime/).
+This `runtime` enables micro-apps to share state or execution context in a controlled manner, keeping your micro-apps performant and maintainable. By default nothing is shared. You can read more about [the why of this package in this post](https://alexlobera.com/sharing-state-in-micro-frontends-at-runtime/).
 
 The `runtime` is created in two steps:
 
-1. `configureRuntime`. In a distributed architecture there are many places where a runtime could be created. For instance, each micro-app will create a `runtime` if they run in isolation. However, when micro-apps are composed into a single app, only one `runtime` should be created and shared across all of them. The `runtime` can be created in more than one place but the configuration of it should be the same for all of them. Don't invoke `configureRuntime` more than once in a project. By project I mean in your whole micro-frontends architecture.
+1. `configureRuntime`. In a distributed architecture there are many places where a runtime could be created. For instance, each micro-app will create a `runtime` if they run in isolation. However, when micro-apps are composed into a single app, only one `runtime` should be created and shared across all of them. The `runtime` can be created in more than one place but the configuration of it should be the same for all of them. Don't invoke `configureRuntime` more than once in a project. By project I mean in your whole front-end architecture.
 
 2. `createRuntime`. Invoking `configureRuntime` returns a function called `createRuntime` which creates a `runtime` when invoked. You can use `createRuntime` in each distributed micro-app. Remember, there should be only one shared `runtime` in the runtime program. `createRuntime` is not a singleton so you are responsible for making sure no more than one `runtime` is created.
 
@@ -25,7 +25,7 @@ There are two things that you can share in a `runtime`:
 
 When designing your shared runtime follow these recommendations:
 
-- Less is more. The more things shared between micro-frontends the higher coupling. Use this `runtime` sparingly.
+- Less is more. The more things shared between micro-apps the higher coupling. Use this `runtime` sparingly.
 - Make the `runtime` type-safety. Only types defined in the configuration of the `runtime` are allowed. This way developers in different teams know what can be shared and what can't be shared. Use TypeScript.
 - Centralise the configuration of the `runtime`. Anyone can use the `runtime` but only a few people should be able to change what can be shared. Execute `configureRuntime` in its own repo with restricted access, or use CODEOWNERS if in a monorepo, then export it for anyone to use.
 
@@ -165,7 +165,7 @@ const runtime = createRuntime();
 runtime.context.wsClient2; // this initialises wsClient2 with new WsClient()
 ```
 
-You can also lazy load code. In the following example, when a micro-frontend reads `runtime.context.wsClient`, the JavaScript required to execute `wsClient` will be downloaded and executed.
+You can also lazy load code. In the following example, when a micro-app reads `runtime.context.wsClient`, the JavaScript required to execute `wsClient` will be downloaded and executed.
 
 ```ts
 cosnst { createRuntime } = configureRuntime(defaultState)({

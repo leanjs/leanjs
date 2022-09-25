@@ -3,7 +3,7 @@ slug: /
 title: Introduction
 ---
 
-LeanJS is a **stack of solutions for adopting and scaling micro-frontends**. These solutions integrate with existing technology, and they are grouped in the following six layers:
+LeanJS is a **stack of solutions for building scalable front-end applications**. These solutions integrate with existing technology, and can be grouped in the following six layers to build a full micro-frontends architecture:
 
 ```
 ┌────────────────────┐
@@ -45,7 +45,7 @@ Micro-frontends don't solve technical problems, they solve people problems.
 
 :::
 
-## You may not need LeanJS
+## You may not need micro-frontends
 
 Micro-frontends help break up Web-based products into smaller independent ones that can be developed, deployed, and run by small independent groups of people.
 
@@ -56,6 +56,9 @@ You don't need micro-frontends if:
 - You don't have problems scaling engineers.
 - You have one team or a few small ones.
 - Your lead time, code to market, and mean time to recovery metrics are fine.
+- You want to avoid the increased complexity in observability, releasing, testing, etc of running distributed systems.
+
+The good news is, you can still use LeanJS to build the foundation of a distributed architecture without fully committing to it. You may start using LeanJS app composition layer and shared runtime layer, and never go all the way to independent deployments - also known as micro-frontends. A modular monolith is more scalable than a monolithic big ball of mug.
 
 ## Why another Framework?
 
@@ -65,4 +68,4 @@ Although most micro-frontend architectures will face similar problems, every fro
 
 That's not to say that existing micro-frontend frameworks don't work. Your requirements might be implemented using frameworks such as [single-spa](https://single-spa.js.org/), like [IG](https://www.youtube.com/watch?v=24NxNEy7SaE) did.
 
-We believe that organisations should be able to incrementally integrate and reuse solutions within their unique monoliths without reinventing them. LeanJS is not a single, standalone framework. It's an opinionated stack of solutions that you can reuse to build your own micro-frontend framework.
+We believe that organisations should be able to incrementally integrate and reuse solutions within their unique monoliths without reinventing them. LeanJS is not a single, standalone framework. It's an opinionated stack of solutions that you can reuse to build your own framework.

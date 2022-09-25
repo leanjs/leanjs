@@ -1,7 +1,7 @@
 {
   "name": "@leanjs/nuxt",
   "version": "0.3.16",
-  "description": "Lean micro-frontend tools for Nuxtjs",
+  "description": "Lean micro-app tools for Nuxtjs",
   "main": "dist/index.js",
   "module": "dist/index.js",
   "type": "module",
@@ -44,6 +44,7 @@
   "keywords": [
     "nuxt",
     "microfrontends",
+    "modular monolith",
     "micro-frontends"
   ],
   "publishConfig": {

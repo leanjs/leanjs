@@ -3,7 +3,6 @@
   "version": "0.0.0",
   "author": "",
   "private": true,
-  "description": "Lean micro-frontends project created with create-micro-frontends",
   "workspaces": [
     "apps/*",
     "micro-apps/*",

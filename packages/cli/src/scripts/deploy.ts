@@ -15,7 +15,7 @@ const command = createCommand();
 command
   .option(
     "-u, --use <type>",
-    "Name of the provider where you want to deploy your micro-frontend"
+    "Name of the provider where you want to deploy your micro-app"
   )
   .option(
     "-d, --distFolder <type>",

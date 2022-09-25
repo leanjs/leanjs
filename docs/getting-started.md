@@ -10,7 +10,7 @@ For a quick start, visit [create micro-frontends](../packages/create-micro-front
 
 ## Manual start
 
-You will want to manually start a micro-frontends project when you have an existing monolith. This is the expected path.
+You will want to manually start a micro-apps project when you have an existing monolith. This is the expected path.
 
 ## Recommended setup
 
@@ -40,7 +40,7 @@ You will want to manually start a micro-frontends project when you have an exist
 
 ### Create a `packages` workspace
 
-Packages are used to share code between micro-frontends and/or the monolith.
+Packages are used to share code between micro-apps and/or the monolith.
 
 - Add _"packages/\*"_ to the following field `workspaces: ["apps/*", "packages/*"]` in the root package.json.
 
@@ -113,9 +113,9 @@ Execute the following command at the root directory of your monorepo:
 yarn add -W -D @leanjs/cli @leanjs/webpack
 ```
 
-### Create a `micro-frontends` workspace
+### Create a `micro-apps` workspace
 
-- Add _"micro-frontends/\*"_ to the following field `workspaces: ["apps/*", "packages/*", "micro-frontends/*"]` in the root package.json.
+- Add _"micro-apps/\*"_ to the following field `workspaces: ["apps/*", "packages/*", "micro-apps/*"]` in the root package.json.
 
   ```
   my-monorepo/
@@ -126,28 +126,28 @@ yarn add -W -D @leanjs/cli @leanjs/webpack
   ├─ package.json  👈 here
   ```
 
-- Create a `micro-frontends` folder at the root of your monorepo, e.g.
+- Create a `micro-apps` folder at the root of your monorepo, e.g.
 
   ```
   my-monorepo/
   ├─ apps/
+  ├─ micro-apps/ 👈 here
   ├─ packages/
-  ├─ micro-frontends/ 👈 here
   ├─ package.json
   ```
 
-- Create a micro-frontend inside the `micro-frontends` folder. You must include a `package.json` in your new micro-frontend:
+- Create a micro-app inside the `micro-apps` folder. You must include a `package.json` in your new micro-app:
 
   ```
   my-monorepo/
   ├─ apps/
-  ├─ packages/
-  ├─ micro-frontends/
-  │  ├─ new-micro-frontend/
+  ├─ micro-apps/
+  │  ├─ new-micro-app/
   │  │  ├─ package.json  👈 here
+  ├─ packages/
   ├─ package.json
   ```
 
-- Create a micro-frontend based on your UI library:
+- Create a micro-app based on your UI library:
   - [React Router](../packages/react-router/)
   - [Vue Router](../packages/vue-router/)
