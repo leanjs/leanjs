@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.18.0](https://github.com/leanjs/leanjs/compare/@leanjs/core@0.17.0...@leanjs/core@0.18.0) (2022-09-25)
+
+
+### Features
+
+* **runtime:** call the parent runtime on cleanup ([bf9354c](https://github.com/leanjs/leanjs/commit/bf9354c42975a02854e82a5c316c4ba8dfd470a7))
+
+
+
+
+
 # [0.17.0](https://github.com/leanjs/leanjs/compare/@leanjs/core@0.16.5...@leanjs/core@0.17.0) (2022-09-25)
 
 
