@@ -4,35 +4,43 @@ import {
   Canvas,
   Loader,
   LoaderResource,
-  Application,
+  // Application,
   Sprite,
   Graphics,
   Dict,
   utils,
 } from "@art-boards/ui-canvas";
+import { useRuntime } from "@art-boards/runtime-react";
 
 export default function ZimaBlue() {
   useEffect(() => utils.clearTextureCache);
+
+  const runtime = useRuntime();
 
   return (
     <Canvas
       mount={(element) => {
         if (!element) return () => {};
 
-        const app = new Application({
-          antialias: true,
-          backgroundColor: 0x202124,
-          width: 1024,
-          height: Math.max(
-            document.documentElement.clientHeight || 0,
-            window.innerHeight || 0
-          ),
-        });
+        // const app = new Application({
+        //   antialias: true,
+        //   backgroundColor: 0x202124,
+        //   width: 1024,
+        //   height: Math.max(
+        //     document.documentElement.clientHeight || 0,
+        //     window.innerHeight || 0
+        //   ),
+        // });
+        const app = runtime.api.canvas;
         element.appendChild(app.view);
 
-        app.loader.add("earth", "/earth.png");
-        app.loader.add("robot", "/robot.png");
-        app.loader.load(setup);
+        if (!app.loader.loading) {
+          // if (!app.loader.resources.earth)
+          app.loader.add("earth", "/earth.png");
+          // if (!app.loader.resources.robot)
+          app.loader.add("robot", "/robot.png");
+          app.loader.load(setup);
+        }
 
         function setup(_: Loader, resources: Dict<LoaderResource>) {
           const earth = new Sprite(resources.earth.texture);
@@ -123,7 +131,7 @@ export default function ZimaBlue() {
 
         return () => {
           element.removeChild(app.view);
-          app.destroy();
+          runtime.cleanup("canvas");
         };
       }}
     />

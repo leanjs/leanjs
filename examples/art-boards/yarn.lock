@@ -542,10 +542,10 @@
     "@jridgewell/resolve-uri" "^3.0.3"
     "@jridgewell/sourcemap-codec" "^1.4.10"
 
-"@leanjs/cli@*", "@leanjs/cli@^0.7.10", "@leanjs/cli@^0.7.11":
-  version "0.7.11"
-  resolved "https://registry.yarnpkg.com/@leanjs/cli/-/cli-0.7.11.tgz#675aa24a757316171891f386a82614baa76937e5"
-  integrity sha512-37/59RVLOoRE1nHgzX3su6ZUWxE0yttifis6ModyzF9Y+ZIhaapMu1zxkY6ekQDcidgnIehsOs6LIYh7gG7Yyg==
+"@leanjs/cli@*", "@leanjs/cli@^0.7.16":
+  version "0.7.16"
+  resolved "https://registry.yarnpkg.com/@leanjs/cli/-/cli-0.7.16.tgz#4021fdcd983cd2b399ec98fc68e88f9baf1d780c"
+  integrity sha512-bXwIB3KJeDPqWsJWj8W95G2B6EHqx/fihMPgNStVHQcShhVgmNx822NMf7hiLTlmM5NgLryyyfueyhWiFTB4Vg==
   dependencies:
     async-sema "^3.1.1"
     axios "^0.27.2"
@@ -560,31 +560,31 @@
     webpack "^5.72.0"
     webpack-dev-server "4.7.4"
 
-"@leanjs/core@0.16.3", "@leanjs/core@^0.16.3":
-  version "0.16.3"
-  resolved "https://registry.yarnpkg.com/@leanjs/core/-/core-0.16.3.tgz#169102c9ec519f18b724f4305fe66c821b569196"
-  integrity sha512-JYL/0BF1Dzgb555Xq+gx/rmuOQehDgR3BYOrRQs4UOi05V9IlIDI+tWXLm0KyKQP3jeOUnSW6KRS+ocQhBVs8w==
+"@leanjs/core@0.19.0", "@leanjs/core@^0.19.0":
+  version "0.19.0"
+  resolved "https://registry.yarnpkg.com/@leanjs/core/-/core-0.19.0.tgz#3747c33698b3280db5dbdb43a6c9ab99dcf5c769"
+  integrity sha512-ywlbcfk1wK8xxBV8GanJ1ckW8c6RNY7+9Qn03Xqldu6ZbIWQct4Uc9SfDcfIEOjneQxm7lC0LtHnson2OnSpWg==
 
-"@leanjs/react@0.11.0":
-  version "0.11.0"
-  resolved "https://registry.yarnpkg.com/@leanjs/react/-/react-0.11.0.tgz#c61afbe5def772778e6b11e52d8abe243d20e0c9"
-  integrity sha512-ZvoM1Yxh+3h8YTFkmuzkRl+UIhPL7x2K6GJlgMFqN6b5c3W4bkxWv2SP6KACGXwcstt9qRXA3fA4QLvbvT6dRQ==
+"@leanjs/react@0.11.5":
+  version "0.11.5"
+  resolved "https://registry.yarnpkg.com/@leanjs/react/-/react-0.11.5.tgz#f4fc206265beb9c9301dafd3703f040de15acbee"
+  integrity sha512-YNIqsQOtsD/n55AMorn77sOIF5xjdhqCTSjXyP83IzhjQClKZcHjvNyGepDNTDDRsli7zfQ+zMj35R85qRxXYQ==
 
-"@leanjs/webpack-react@^0.2.15":
-  version "0.2.16"
-  resolved "https://registry.yarnpkg.com/@leanjs/webpack-react/-/webpack-react-0.2.16.tgz#7e2ceb8667cd2816d7966030b130d73410b3c06d"
-  integrity sha512-w9+jwKoHtifwjmFHf8jpOQcNSdCzj5oMYHKdmrbZ+XgDFlmEemrAZ1jqKc80pE2fRQtMceyPO7cG47vtdU7A6g==
+"@leanjs/webpack-react@^0.2.21":
+  version "0.2.21"
+  resolved "https://registry.yarnpkg.com/@leanjs/webpack-react/-/webpack-react-0.2.21.tgz#a4c069a231f2f76dd0b7558a503700e8fac6321a"
+  integrity sha512-unh7RcKmPL6mjbF+Lt4MhL9fFjP9rXy/OT4v+pWzsqCRAKRE5grwmzCQ1eWIETHXtQeFn8UCsOWpJwSY2KWbZw==
   dependencies:
-    "@leanjs/cli" "^0.7.11"
+    "@leanjs/cli" "^0.7.16"
     swc-loader "^0.2.1"
 
-"@leanjs/webpack@^0.19.13":
-  version "0.19.13"
-  resolved "https://registry.yarnpkg.com/@leanjs/webpack/-/webpack-0.19.13.tgz#2828206594ceed07c425281943277ac4c384ea74"
-  integrity sha512-XYM3LBGbWyAdkEmR/iIlpevRkBqd6wcNsvUbFqqtWH+EVv/SVGDrUbgGXploDZPxVolvI09HAF1xuoaCsGQD5A==
+"@leanjs/webpack@^0.19.13", "@leanjs/webpack@^0.19.18":
+  version "0.19.18"
+  resolved "https://registry.yarnpkg.com/@leanjs/webpack/-/webpack-0.19.18.tgz#233eabfa197633de47b986f427db4040d2cf4382"
+  integrity sha512-ACjfYl8RFUuzL2OwZQOXsxMFbs30kjaGbQ8xNTbdyGSEYNNPaqlJhpsWxiD1f1iR8kGxchDsCeCtkzesPAwo8w==
   dependencies:
-    "@leanjs/cli" "^0.7.11"
-    "@leanjs/core" "^0.16.3"
+    "@leanjs/cli" "^0.7.16"
+    "@leanjs/core" "^0.19.0"
     chalk "^4.1.2"
     fast-glob "^3.2.11"
     html-webpack-plugin "^5.5.0"
@@ -682,6 +682,11 @@
   version "6.4.2"
   resolved "https://registry.yarnpkg.com/@pixi/filter-noise/-/filter-noise-6.4.2.tgz#588c779336716ce6ec1adabc75dd199c5fd262a8"
   integrity sha512-WvtpU1JHKujwoRHP7vqcOQ700ZH6faFXVSG6+ot9giJldk1sf5xNK7tKjSEkhcQgI7VwAqwMy/z4Jho+clCPgg==
+
+"@pixi/graphics-extras@^6.5.4":
+  version "6.5.4"
+  resolved "https://registry.yarnpkg.com/@pixi/graphics-extras/-/graphics-extras-6.5.4.tgz#79cb568db299311b305845d9b72c3aa5023f34b0"
+  integrity sha512-flqQzz9kv5MtxAONYE4QhHft+lsTK1oMIMEHYIojVCDPdkVcpaogUvAqPRS9jJu6RTzYDKJnTisnEwb8uXxfOQ==
 
 "@pixi/graphics@6.4.2":
   version "6.4.2"
@@ -1110,9 +1115,9 @@
   integrity sha512-jhuKLIRrhvCPLqwPcx6INqmKeiA5EWrsCOPhrlFSrbrmU4ZMPjj5Ul/oLCMDO98XRUIwVm78xICz4EPCektzeQ==
 
 "@types/node@*":
-  version "18.7.20"
-  resolved "https://registry.yarnpkg.com/@types/node/-/node-18.7.20.tgz#d9442de7b5cb166476340b4271b15300fe058a39"
-  integrity sha512-adzY4vLLr5Uivmx8+zfSJ5fbdgKxX8UMtjtl+17n0B1q1Nz8JEmE151vefMdpD+1gyh+77weN4qEhej/O7budQ==
+  version "18.7.21"
+  resolved "https://registry.yarnpkg.com/@types/node/-/node-18.7.21.tgz#63ee6688070e456325b6748dc492a7b948593871"
+  integrity sha512-rLFzK5bhM0YPyCoTC8bolBjMk7bwnZ8qeZUBslBfjZQou2ssJdWslx9CZ8DGM+Dx7QXQiiTVZ/6QO6kwtHkZCA==
 
 "@types/node@^17.0.23":
   version "17.0.45"
@@ -1834,9 +1839,9 @@ camelcase@^6.2.0, camelcase@^6.3.0:
   integrity sha512-Gmy6FhYlCY7uOElZUSbxo2UCDH8owEk996gkbrpsgGtrJLM3J7jGxl9Ic7Qwwj4ivOE5AWZWRMecDdF7hqGjFA==
 
 caniuse-lite@^1.0.30001400:
-  version "1.0.30001411"
-  resolved "https://registry.yarnpkg.com/caniuse-lite/-/caniuse-lite-1.0.30001411.tgz#303c8594ca5903b193a6d875ac613548cb73379a"
-  integrity sha512-HPnJKESKuhKpHvMY1/ux7J3nG7xG8jRuL4lbyCjDRm0doTNV91tcRk60xrP7Ym9DtJH/yuqntDWBJCqpXB4b7g==
+  version "1.0.30001412"
+  resolved "https://registry.yarnpkg.com/caniuse-lite/-/caniuse-lite-1.0.30001412.tgz#30f67d55a865da43e0aeec003f073ea8764d5d7c"
+  integrity sha512-+TeEIee1gS5bYOiuf+PS/kp2mrXic37Hl66VY6EAfxasIk5fELTktK2oOezYed12H8w7jt3s512PpulQidPjwA==
 
 chalk@^2.0.0:
   version "2.4.2"
