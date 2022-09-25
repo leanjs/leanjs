@@ -1,6 +1,6 @@
 {
   "name": "@leanjs/vue-router",
-  "version": "0.3.12",
+  "version": "0.3.13",
   "author": "Alex Lobera <alex@leanjs.com>",
   "description": "Lean micro-apps for Vue Router",
   "types": "./dist/index.d.ts",
@@ -25,7 +25,7 @@
     "vue-router": "4"
   },
   "dependencies": {
-    "@leanjs/core": "^0.16.4"
+    "@leanjs/core": "^0.16.5"
   },
   "scripts": {
     "test": "echo TODO",

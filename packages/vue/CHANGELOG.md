@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.5.7](https://github.com/leanjs/leanjs/compare/@leanjs/vue@0.5.6...@leanjs/vue@0.5.7) (2022-09-25)
+
+**Note:** Version bump only for package @leanjs/vue
+
+
+
+
+
 ## [0.5.6](https://github.com/leanjs/leanjs/compare/@leanjs/vue@0.5.5...@leanjs/vue@0.5.6) (2022-09-25)
 
 **Note:** Version bump only for package @leanjs/vue
