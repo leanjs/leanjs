@@ -3087,6 +3087,11 @@
     "@jridgewell/resolve-uri" "^3.0.3"
     "@jridgewell/sourcemap-codec" "^1.4.10"
 
+"@leanjs/core@^0.16.1":
+  version "0.16.5"
+  resolved "https://registry.yarnpkg.com/@leanjs/core/-/core-0.16.5.tgz#b70aa015818a9a22e584efa4cc01e8d05bdc52fd"
+  integrity sha512-YXP0b85DenhbgS1HR1ZLoOe1oWvNOMEXMXQUbOVe1rexr+OL9uLp/oyyZy3l0tVfsaCowjcJUR/UzmRBK991Og==
+
 "@leanjs/react@^0.10.3":
   version "0.10.4"
   resolved "https://registry.yarnpkg.com/@leanjs/react/-/react-0.10.4.tgz#1f9852076cb9b67e01f63455014dfb6bf09a8be1"

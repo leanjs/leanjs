@@ -1,4 +1,4 @@
-import { createApp } from "@leanjs/react/18";
+import { createApp } from "@leanjs/react";
 
 import packageJson from "../package.json";
 import ZimaBlue from "./App";

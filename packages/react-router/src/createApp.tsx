@@ -1,10 +1,9 @@
-import { RuntimeProvider, _ as ReactUtils } from "@leanjs/react";
-import type {
-  CreateComposableApp,
+import {
+  RuntimeProvider,
   CreateAppConfig,
-  AppProps,
-  MountFunc,
-} from "@leanjs/core";
+  _ as ReactUtils,
+} from "@leanjs/react";
+import type { CreateComposableApp, AppProps, MountFunc } from "@leanjs/core";
 import { _ as CoreUtils } from "@leanjs/core";
 import React, { ReactElement } from "react";
 import ReactDOM from "react-dom";
@@ -52,16 +51,19 @@ export const createApp = <MyAppProps extends AppProps = AppProps>(
           cleanups: onRemoteNavigate
             ? [history.listen((e) => onRemoteNavigate(e.location))]
             : [],
+
           render: ({ appProps, logScopedError }) => {
             if (el) {
               ReactDOM.render(
-                <ErrorBoundary onError={logScopedError}>
-                  <UniversalRouter history={history} basename={basename}>
-                    <RuntimeProvider runtime={runtime}>
-                      <App {...(appProps as MyAppProps)} />
-                    </RuntimeProvider>
-                  </UniversalRouter>
-                </ErrorBoundary>,
+                <React.StrictMode>
+                  <ErrorBoundary onError={logScopedError}>
+                    <UniversalRouter history={history} basename={basename}>
+                      <RuntimeProvider runtime={runtime}>
+                        <App {...(appProps as MyAppProps)} />
+                      </RuntimeProvider>
+                    </UniversalRouter>
+                  </ErrorBoundary>
+                </React.StrictMode>,
                 el
               );
             }
