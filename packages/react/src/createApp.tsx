@@ -1,12 +1,8 @@
-import type {
-  CreateAppConfig,
-  CreateComposableApp,
-  AppProps,
-  MountFunc,
-} from "@leanjs/core";
+import type { CreateComposableApp, AppProps, MountFunc } from "@leanjs/core";
 import { _ as CoreUtils } from "@leanjs/core";
 import React, { ReactElement } from "react";
 import ReactDOM from "react-dom";
+import { CreateAppConfig } from "./types";
 
 import { ErrorBoundary } from "./utils";
 import { RuntimeProvider } from "./runtime";
@@ -30,11 +26,13 @@ export const createApp = <MyAppProps extends AppProps = AppProps>(
         render: ({ appProps, logScopedError }) => {
           if (el) {
             ReactDOM.render(
-              <ErrorBoundary onError={logScopedError}>
-                <RuntimeProvider runtime={runtime}>
-                  <App {...(appProps as MyAppProps)} />
-                </RuntimeProvider>
-              </ErrorBoundary>,
+              <React.StrictMode>
+                <ErrorBoundary onError={logScopedError}>
+                  <RuntimeProvider runtime={runtime}>
+                    <App {...(appProps as MyAppProps)} />
+                  </RuntimeProvider>
+                </ErrorBoundary>
+              </React.StrictMode>,
               el
             );
           }

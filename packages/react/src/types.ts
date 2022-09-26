@@ -7,6 +7,7 @@ import type {
   ComposableAppAsync,
   ComposableAppSync,
   ComposableApp,
+  CreateAppConfig as CreateAppCoreConfig,
 } from "@leanjs/core";
 import type { ReactElement } from "react";
 
@@ -51,4 +52,8 @@ export interface HostProviderProps<BaseRuntime extends Runtime = Runtime> {
   fallback?: ReactElement;
   runtime: BaseRuntime;
   children: ReactElement | ReactElement[];
+}
+
+export interface CreateAppConfig extends CreateAppCoreConfig {
+  strict?: boolean;
 }
