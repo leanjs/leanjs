@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.8.0](https://github.com/leanjs/leanjs/compare/@leanjs/react-router@0.7.16...@leanjs/react-router@0.8.0) (2022-09-26)
+
+
+### Features
+
+* **react:** add strict mode and update art boards example ([52cfd25](https://github.com/leanjs/leanjs/commit/52cfd25cb8333b8bb745c7ec47d2e63073774c39))
+
+
+
+
+
 ## [0.7.16](https://github.com/leanjs/leanjs/compare/@leanjs/react-router@0.7.15...@leanjs/react-router@0.7.16) (2022-09-25)
 
 **Note:** Version bump only for package @leanjs/react-router
