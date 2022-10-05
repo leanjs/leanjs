@@ -1,9 +1,8 @@
-import { useRuntime } from "@art-boards/runtime-react";
-import { createStar } from "@art-boards/ui-canvas";
 import React, { useState } from "react";
+import { useSelector } from "react-redux";
 
 export default function Chat() {
-  const runtime = useRuntime();
+  const state = useSelector((state) => state);
 
   const [messages, setMessages] = useState([
     { text: "Hello 👋", sentAt: new Date() },
@@ -14,6 +13,7 @@ export default function Chat() {
     <div className="chat">
       <h2>Chat</h2>
       <div className="content">
+        {/* <pre>{JSON.stringify(state, undefined, 2)}</pre> */}
         {messages.map((message) => (
           <p key={message.sentAt.getTime()}>{message.text}</p>
         ))}
@@ -23,10 +23,6 @@ export default function Chat() {
         onSubmit={(e) => {
           e.preventDefault();
           setMessages([...messages, { text: newMessage, sentAt: new Date() }]);
-
-          if (newMessage.startsWith("star")) {
-            runtime.api.canvas.stage.addChild(createStar());
-          }
 
           setNewMessage("");
         }}
