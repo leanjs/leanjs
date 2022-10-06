@@ -4,7 +4,6 @@ import {
   Canvas,
   Loader,
   LoaderResource,
-  // Application,
   Sprite,
   Graphics,
   Dict,
@@ -14,7 +13,6 @@ import { useRuntime } from "@art-boards/runtime-react";
 
 export default function ZimaBlue() {
   useEffect(() => utils.clearTextureCache);
-
   const runtime = useRuntime();
 
   return (
@@ -22,22 +20,11 @@ export default function ZimaBlue() {
       mount={(element) => {
         if (!element) return () => {};
 
-        // const app = new Application({
-        //   antialias: true,
-        //   backgroundColor: 0x202124,
-        //   width: 1024,
-        //   height: Math.max(
-        //     document.documentElement.clientHeight || 0,
-        //     window.innerHeight || 0
-        //   ),
-        // });
         const app = runtime.api.canvas;
         element.appendChild(app.view);
 
         if (!app.loader.loading) {
-          // if (!app.loader.resources.earth)
           app.loader.add("earth", "/earth.png");
-          // if (!app.loader.resources.robot)
           app.loader.add("robot", "/robot.png");
           app.loader.load(setup);
         }
@@ -49,15 +36,10 @@ export default function ZimaBlue() {
           earth.y = app.screen.height / 3;
           app.stage.addChild(earth);
 
-          const graphics = new Graphics();
-          graphics.beginFill(0xff3300);
-          graphics.lineStyle(5, 0xffd900, 1);
-          app.stage.addChild(graphics);
-
-          const thing = new Graphics();
-          thing.x = 800 / 2;
-          thing.y = 600 / 2;
-          app.stage.addChild(thing);
+          const swimmingPool = new Graphics();
+          swimmingPool.x = 800 / 2;
+          swimmingPool.y = 600 / 2;
+          app.stage.addChild(swimmingPool);
           app.renderer.plugins.interaction.on("pointerdown", onPointerDown);
 
           let x = 20;
@@ -68,18 +50,7 @@ export default function ZimaBlue() {
             x = x * 1.4;
             y = y * 1.5;
 
-            graphics.lineStyle(Math.random() * 30, Math.random() * 0xffffff, 1);
-            graphics.moveTo(Math.random() * 800, Math.random() * 600);
-            graphics.bezierCurveTo(
-              Math.random() * 400,
-              Math.random() * 300,
-              Math.random() * 400,
-              Math.random() * 300,
-              Math.random() * 400,
-              Math.random() * 300
-            );
-
-            if (x > 1024 && !robot) {
+            if (x > window.innerWidth * 0.7 && !robot) {
               robot = new Sprite(resources.robot.texture);
               robot.scale.set(0.7, 0.7);
               robot.scale.x *= -1;
@@ -111,21 +82,30 @@ export default function ZimaBlue() {
             }
 
             count += 0.1;
-            thing.clear();
-            thing.beginFill(0x16b8f3, 1);
-            thing.moveTo(
+            swimmingPool.clear();
+            swimmingPool.beginFill(0x16b8f3, 1);
+            swimmingPool.moveTo(
               -1 * x + Math.sin(count) * 5,
               -1 * y + Math.cos(count) * 5
             );
-            thing.lineTo(x + Math.cos(count) * 5, -1 * y + Math.sin(count) * 5);
-            thing.lineTo(x + Math.sin(count) * 5, y + Math.cos(count) * 5);
-            thing.lineTo(-1 * x + Math.cos(count) * 5, y + Math.sin(count) * 5);
-            thing.lineTo(
+            swimmingPool.lineTo(
+              x + Math.cos(count) * 5,
+              -1 * y + Math.sin(count) * 5
+            );
+            swimmingPool.lineTo(
+              x + Math.sin(count) * 5,
+              y + Math.cos(count) * 5
+            );
+            swimmingPool.lineTo(
+              -1 * x + Math.cos(count) * 5,
+              y + Math.sin(count) * 5
+            );
+            swimmingPool.lineTo(
               -1 * x + Math.sin(count) * 5,
               -1 * y + Math.cos(count) * 5
             );
-            thing.closePath();
-            thing.rotation = count * 0.1;
+            swimmingPool.closePath();
+            swimmingPool.rotation = count * 0.1;
           });
         }
 

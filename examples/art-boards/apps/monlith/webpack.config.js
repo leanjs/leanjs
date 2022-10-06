@@ -27,7 +27,7 @@ module.exports = {
       remotes: {
         // packages: isProduction
         //   ? []
-        //   : ["@art-boards/zima-blue", "@art-boards/chat"],
+        //   : ["@art-boards/zima-blue", "@art-boards/chat-app"],
       },
     }),
     new HtmlWebpackPlugin({

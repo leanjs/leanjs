@@ -9,7 +9,8 @@
   "author": "Alex Lobera <alex@leanjs.com>",
   "license": "MIT",
   "dependencies": {
-    "@art-boards/chat": "*",
+    "@art-boards/chat-app": "*",
+    "@art-boards/chat-component": "*",
     "@art-boards/runtime-react": "*",
     "@art-boards/ui-canvas": "*",
     "@art-boards/zima-blue": "*"

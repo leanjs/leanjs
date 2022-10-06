@@ -3,7 +3,7 @@
 html,
 body,
 #root,
-.board-layout {
+.work-layout {
   height: 100%;
 }
 body {
@@ -18,20 +18,10 @@ a {
 }
 
 .logo {
-  font-weight: 800;
-  display: inline-block;
+  display: inline;
   position: fixed;
-  padding-left: 16px;
+  padding-left: 15px;
 }
-
-.loading {
-  /* min-width: 1024px; */
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 1.4rem;
-}
-
 .logo a:link,
 .logo a:visited,
 .logo a:hover,
@@ -39,14 +29,21 @@ a {
   text-decoration: none;
 }
 
-.board-layout,
-.board-layout > div {
+.loading {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.4rem;
+}
+
+.work-layout,
+.work-layout > div {
   display: flex;
 }
-.board-layout > div:first-child {
-  min-width: 1024px;
+.work-layout > div:first-child {
+  width: 70%;
 }
-.board-layout > div:last-child {
+.work-layout > div:last-child {
   flex: 1;
 }
 

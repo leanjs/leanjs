@@ -1,5 +1,5 @@
 {
-  "name": "@art-boards/chat",
+  "name": "@art-boards/chat-app",
   "version": "1.0.0",
   "scripts": {
     "dev": "lean dev --config=react",
