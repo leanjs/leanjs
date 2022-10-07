@@ -27,6 +27,9 @@ export function App() {
                 <ZimaBlueLazyComponent />
               </Suspense> */}
               <Host app={Chat} />
+              <Host
+                app={() => Promise.resolve({ default: { packageName: "" } })}
+              />
               {/* <Chat /> */}
             </div>
           }

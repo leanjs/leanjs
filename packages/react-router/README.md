@@ -2,36 +2,18 @@
 
 ## Installation
 
-If you use a monorepo (recommended), at the root of your repository:
-
-```
-my-monorepo/
-├─ micro-apps/
-│  ├─ react-router-micro-app-example/
-│  │  ├─ package.json
-├─ package.json  👈
-```
-
-execute the following command:
+If your React Router app is in a monorepo (recommended) execute the following command at the root of your repository:
 
 ```sh
-yarn add @leanjs/react-router @leanjs/core @leanjs/react react-router-dom@6 react-dom@17 react@17
+yarn add -W react-router-dom@6 react-dom@17 react@17 \
+  @leanjs/react-router @leanjs/core @leanjs/react
 ```
 
-Then in the `package.json` of your micro-app app
+then in the `package.json` of your React Router app add the following `peerDependencies`:
 
 ```
-my-monorepo/
-├─ micro-apps/
-│  ├─ react-router-micro-app-example/
-│  │  ├─ package.json 👈
-├─ package.json
-```
-
-add the following `peerDependencies`:
-
-```
-"peerDependencies": {
+"dependencies": {
+  "@leanjs/core": "*",
   "@leanjs/react-router": "*",
   "@leanjs/react": "*",
   "react-router-dom": "*",
@@ -40,56 +22,278 @@ add the following `peerDependencies`:
 }
 ```
 
-and also the following `devDependencies`:
+If your React Router app is not in a monorepo, then run the following command instead of the above:
 
+```sh
+yarn add react-router-dom@6 react-dom@17 react@17 \
+  @leanjs/react-router @leanjs/core @leanjs/react
 ```
-  "devDependencies": {
-    "@leanjs/cli": "*"
-  }
-```
 
-## Usage
+## App
 
-Create a file called `index.ts` in the `src` directory where your micro-app is.
+Create small React Router apps that can be composed with other apps.
+
+### `createApp`
+
+Create a file called `index.ts|js` in the `src` directory where your composable app is. For example:
 
 ```
 my-monorepo/
-├─ micro-apps/
-│  ├─ react-router-micro-app-example/
+├─ apps/
+│  ├─ react-router-host/
+├─ composable-apps/
+│  ├─ react-router-app-1/
 │  │  ├─ package.json
 │  │  ├─ src/
-│  │  │  ├─ ReactApp.tsx
+│  │  │  ├─ ReactRouterApp1.tsx
 │  │  │  ├─ index.ts 👈
 ├─ package.json
 ```
 
-> **Note**
-> Read the recommended setup in our [getting started page](../../docs/getting-started.md#recommended-setup) if you want to create a similar monorepo structure
+:::tip
 
-Call `createApp` with the root component of your App and your `createRuntime` function and:
+Read the recommended setup in our [getting started page](../../docs/getting-started#recommended-setup) if you want to create a similar monorepo structure
+
+:::
+
+Call `createApp` with the root component of your app and pass the package name of the app, for example:
 
 ```ts
+// my-monorepo/composable-apps/react-router-app-1/src/index.ts
+
 import { createApp } from "@leanjs/react-router";
-// shared runtime example package created by your org
-import { createRuntime } from "@my-org/runtime-shared";
 
 import packageJson from "../package.json";
-import { ReactApp } from "./ReactApp";
+import { ReactRouterApp1 } from "./ReactRouterApp1";
 
-// 👇  you must `export default createApp(`
-export default createApp(ReactApp, {
-  createRuntime,
+//       👇  you have to `export default`
+export default createApp(ReactRouterApp1, {
   packageName: packageJson.name,
 });
 ```
 
-> **Note**
-> Read [@leanjs/core](/packages/core#runtime) if you have not already created your own `createRuntime` function
-
-Create `ReactApp.tsx` component, for example:
+Hello world example of the `ReactRouterApp1` imported above
 
 ```tsx
+// my-monorepo/composable-apps/react-router-app-1/src/ReactRouterApp1.tsx
+
 import React from "react";
 
-export const ReactApp = () => <div>Hello React micro-app</div>;
+export const ReactRouterApp1 = () => <h1>Hello React Router app</h1>;
+```
+
+Create a file called `selfHosted.ts|js` in the `src` directory where your composable app is, for example:
+
+```
+my-monorepo/
+├─ apps/
+│  ├─ react-router-host/
+├─ composable-apps/
+│  ├─ react-router-app-1/
+│  │  ├─ package.json
+│  │  ├─ src/
+│  │  │  ├─ ReactRouterApp1.tsx
+│  │  │  ├─ index.ts
+│  │  │  ├─ selfHosted.ts 👈
+├─ package.json
+```
+
+Export a `createRuntime` function from the `selfHosted.ts|js` file. This is the runtime that will be used when the app runs in isolation, meaning without a host.
+
+```ts
+// my-monorepo/composable-apps/react-router-app-1/src/selfHosted.ts
+
+export { createRuntime } from "@my-org/runtime-react";
+```
+
+:::info
+
+Read [@leanjs/core](/packages/core#runtime) if you have not already created your own `createRuntime` function
+
+:::
+
+## Components
+
+### `Host`
+
+It hosts a composable app in a React Router host.
+
+#### `app` - required prop
+
+The `app` prop can be a `ComposableApp` object, or a function that returns a promise that resolves to a `ComposableApp` object.
+
+```tsx
+interface ComposableApp {
+  // packageName is the `name` field in the `package.json` of a composable app
+  packageName: string;
+  // mount function returned by a `createApp` function
+  mount?: MountFunc;
+}
+```
+
+You can `import` a `ComposableApp` from any `export default createApp()` function, for instance:
+
+```tsx
+// my-monorepo/composable -apps/react-router-app-1/src/ReactRouterApp1.tsx
+
+import { createApp } from "@leanjs/react-router";
+import ReactRouterApp1 from "./ReactRouterApp1";
+
+// createApp returns a ComposableApp
+export default createApp(ReactRouterApp1, {
+  packageName: "@my-org/react-router-app-1",
+});
+```
+
+:::info
+
+In this example, both the host app and the composable app are React Router apps. However, the React Router `<Host>` component can host any composable app, e.g. Vue.
+
+:::
+
+then pass it to the `Host` component in a React Router app:
+
+```tsx
+// my-monorepo/apps/react-router-host/src/pages/index.tsx
+
+import { Host } from "@leanjs/react-router";
+
+// this composable app is bundled and deployed along with the host app
+import { ReactRouterApp1 } from "@my-org/react-router-app-1";
+
+const Home = () => {
+  return (
+    <>
+      <h1>React Router Host</h1>
+      <Host app={ReactRouterApp1} />
+    </>
+  );
+};
+
+export default Home;
+```
+
+You can also pass a function to the `Host` component that returns a dynamic import to lazy load a composable app:
+
+```tsx
+// my-monorepo/apps/react-router-host/src/pages/index.tsx
+
+import { Host } from "@leanjs/react-router";
+
+const Home = () => {
+  return (
+    <>
+      <h1>React Router Host</h1>
+      <Host
+        app={() => {
+          // this composable app is bundled in a separate chunk
+          // but it's still built and deployed along with the host app
+
+          return import("@my-org/react-router-app-1");
+        }}
+      />
+    </>
+  );
+};
+
+export default Home;
+```
+
+Alternatively, you can pass an object to the `app` prop with a `packageName` key which value is the field `name` in the package.json of the composable app that you want to host. In this case, the `Host` component will try to fetch the `mount` function from the remote `origin` specified in `<HostProvider origin=" 👉 HERE 👈 " runtime={runtime}>` (see [HostProvider](/packages/react#hostprovider) to know more). For example:
+
+```tsx
+// my-monorepo/apps/react-router-host/src/pages/index.tsx
+
+import { Host } from "@leanjs/react";
+
+const Home = () => {
+  return (
+    <>
+      <h1>React Host</h1>
+      {/* in this case, the composable app is neither built nor deployed
+          along with the React host */}
+      <Host app={{ packageName: "@my-org/react-router-app-1" }} />
+    </>
+  );
+};
+
+export default Home;
+```
+
+:::caution
+Fetching from a remote `origin` only works with Webpack v5 because this feature uses Module Federation under the hood. You need to add a [HostWebpackPlugin](/packages/webpack/#hostwebpackplugin) to your Webpack configuration to enable this feature. If this feature is enabled you need to build and deploy your composable apps independently. See [@leanjs/aws](/packages/aws/) to deploy your composable apps to AWS.
+:::
+
+:::tip
+You can still pass an `import` (either dynamic or static) to the `app` prop of the `Host` component and configure Webpack to fetch it from a remote origin by changing the configuration of your `HostWebpackPlugin`.
+:::
+
+Tip example:
+
+```tsx
+// webpack.config.js of the host application
+const { HostWebpackPlugin } = require("@leanjs/webpack");
+
+module.exports = {
+  // the rest of your configuration goes here
+  plugins: [
+    new HostWebpackPlugin({
+      remotes: {
+        // these packages are not built along with the host app
+        // but downloaded from a remote origin
+        packages: ["@my-org/react-router-app-1"],
+      },
+    }),
+  ],
+};
+```
+
+then in your React app:
+
+```tsx
+// @my-org/my-react-app pages/index.tsx
+
+import { Host } from "@leanjs/react";
+
+// this composable app is neither bundled nor deployed along with the host app
+// because of the above remote: { packages: ["@my-org/react-router-app-1"] }
+// in the webpack.config.js HostWebpackPlugin
+import { MyMicroAppExample } from "@my-org/react-router-app-1";
+
+const Home = () => {
+  return (
+    <>
+      <h1>React Host</h1>
+      <Host app={MyMicroAppExample} />
+    </>
+  );
+};
+
+export default Home;
+```
+
+**Pro-tip**
+Configure your `remotes` in `HostWebpackPlugin` on development only. This way no CI/CD changes are required. It also reduces build time of your monolith in development since these packages are excluded from the monolith build. Last but not least, you can experiment with micro-frontends in development without changing how you implement and host your apps.
+
+Pro-tip example:
+
+```tsx
+// webpack.config.js of the host application
+const { HostWebpackPlugin } = require("@leanjs/webpack");
+
+module.exports = {
+  // the rest of your configuration goes here
+  plugins: [
+    new HostWebpackPlugin({
+      remotes: {
+        // the following packages are built and deployed along with
+        // the React app on production, but not during development.
+        packages:
+          process.env.NODE_ENV === "production"
+            ? []
+            : ["@my-org/react-router-app-1"],
+      },
+    }),
+  ],
+};
 ```

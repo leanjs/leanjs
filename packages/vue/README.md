@@ -1,6 +1,6 @@
 # @leanjs/vue
 
-This package contains Vue bindings for [@leanjs/core](https://github.com/leanjs/leanjs/tree/main/packages/core) `runtime`. These Vue bindings provide idiomatic type-safe access to your LeanJS `runtime`.
+This package contains Vue bindings for [@leanjs/core](https://github.com/leanjs/leanjs/tree/main/packages/core) `runtime`. These Vue bindings provide idiomatic type-safe access to your Lean `runtime`.
 
 # Installation
 
@@ -8,7 +8,7 @@ This package contains Vue bindings for [@leanjs/core](https://github.com/leanjs/
 
 # Usage
 
-1 . Create your custom `useSharedState` composable. This will add type-safety to your `useSharedState` composable based on your instance of LeanJS `runtime`.
+1 . Create your custom `useSharedState` composable. This will add type-safety to your `useSharedState` composable based on your instance of Lean `runtime`.
 
 ```ts
 // runtime-vue.ts

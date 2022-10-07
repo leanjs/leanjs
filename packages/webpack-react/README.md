@@ -4,7 +4,7 @@
 
 `yarn add -D @leanjs/webpack-react`
 
-It exports a default Webpack config for React that you can use directly or extend.
+It exports a default Webpack config for React that you can use.
 
 ## Usage
 

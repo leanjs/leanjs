@@ -66,28 +66,71 @@ const config = {
         sidebarItemsGenerator: async (
           /** @type {{ docs: { id: string; sourceDirName: string; }[]; }} */ items
         ) => {
-          return items.docs
-            .sort((a, b) =>
-              a.sourceDirName < b.sourceDirName
-                ? -1
-                : a.sourceDirName > b.sourceDirName
-                ? 1
-                : 0
-            )
-            .reduce((acc, { id, sourceDirName }) => {
-              const item = {
-                label: sourceDirName,
-                id,
-                type: "doc",
-              };
-              if (id === "runtime/README") {
-                return acc;
-              } else if (id === "create-micro-frontends/README") {
-                return [item, ...acc];
-              } else {
-                return [...acc, item];
-              }
-            }, []);
+          return [
+            {
+              type: "doc",
+              id: "create-micro-frontends/README",
+              label: "create micro-frontends",
+            },
+            {
+              type: "doc",
+              id: "core/README",
+            },
+            {
+              type: "doc",
+              id: "cli/README",
+            },
+            {
+              type: "doc",
+              id: "react/README",
+            },
+            {
+              type: "doc",
+              id: "react-router/README",
+            },
+            {
+              type: "doc",
+              id: "next/README",
+            },
+            {
+              type: "doc",
+              id: "vue/README",
+            },
+            {
+              type: "doc",
+              id: "vue-router/README",
+            },
+            {
+              type: "doc",
+              id: "nuxt/README",
+            },
+            {
+              type: "doc",
+              id: "webpack/README",
+            },
+          ];
+          // return items.docs
+          //   .sort((a, b) =>
+          //     a.sourceDirName < b.sourceDirName
+          //       ? -1
+          //       : a.sourceDirName > b.sourceDirName
+          //       ? 1
+          //       : 0
+          //   )
+          //   .reduce((acc, { id, sourceDirName }) => {
+          //     const item = {
+          //       label: sourceDirName,
+          //       id,
+          //       type: "doc",
+          //     };
+          //     if (id === "runtime/README") {
+          //       return acc;
+          //     } else if (id === "create-micro-frontends/README") {
+          //       return [item, ...acc];
+          //     } else {
+          //       return [...acc, item];
+          //     }
+          //   }, []);
         },
       },
     ],

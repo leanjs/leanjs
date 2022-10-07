@@ -1,6 +1,6 @@
 # @leanjs/aws
 
-LeanJS utilities for AWS.
+Lean utilities for AWS.
 
 ## Installation
 
@@ -9,7 +9,7 @@ LeanJS utilities for AWS.
 yarn add -D @leanjs/aws @leanjs/cli
 ```
 
-## Usage
+## Basic usage
 
 If you deploy all your micro-frontends to the same cloud provider and use a monorepo, you can add the following in your `lean.config.js` file:
 

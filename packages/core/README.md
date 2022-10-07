@@ -1,35 +1,41 @@
 # @leanjs/core
 
-# Runtime
-
-This `runtime` enables micro-apps to share state or execution context in a controlled manner, keeping your micro-apps performant and maintainable. By default nothing is shared. You can read more about [the why of this package in this post](https://alexlobera.com/sharing-state-in-micro-frontends-at-runtime/).
+The LeanJS `runtime` enables composable apps to share some state or to define APIs that share the same execution context, in a controlled manner. This keeps your composable apps performant and maintainable. By default nothing is shared. You can read more about [the why of this package in this post](https://alexlobera.com/sharing-state-in-micro-frontends-at-runtime/).
 
 The `runtime` is created in two steps:
 
-1. `configureRuntime`. In a distributed architecture there are many places where a runtime could be created. For instance, each micro-app will create a `runtime` if they run in isolation. However, when micro-apps are composed into a single app, only one `runtime` should be created and shared across all of them. The `runtime` can be created in more than one place but the configuration of it should be the same for all of them. Don't invoke `configureRuntime` more than once in a project. By project I mean in your whole front-end architecture.
+1. `configureRuntime`. In a distributed architecture there are many contexts where a `runtime` could be created. For instance, each composable app will create a `runtime` if they run in isolation. However, when composable apps are composed into a single app, only one `runtime` will be created and shared across all of them. The `runtime` can be created in more than one place but the configuration of it should be consistent across contexts.
 
-2. `createRuntime`. Invoking `configureRuntime` returns a function called `createRuntime` which creates a `runtime` when invoked. You can use `createRuntime` in each distributed micro-app. Remember, there should be only one shared `runtime` in the runtime program. `createRuntime` is not a singleton so you are responsible for making sure no more than one `runtime` is created.
+2. `createRuntime`. Invoking `configureRuntime` returns a function called `createRuntime` which creates a `runtime` when invoked. `createRuntime` is not a singleton so you are responsible for not calling `createRuntime` more than once in a given execution context. In other words, call `createRuntime` only once in your host app.
 
-There are two things that you can share in a `runtime`:
+There are two types of things that you can share in this `runtime`:
 
-- State. By design, we don't facilitate creating complex data structures. The `runtime` shared state is a flatten data structure, it doesn't support nested states unlike Redux for instance. However, you can add any object in a given state property. You can think of the `runtime` state as a **read-write** hash table.
-- Execution context. It contains instances of code that we want to share. E.g. a WebSocket client that holds WS connections. You can think of it as a **read-only** hash table.
+- State. This is data that your app/s need to react to when it changes. By design, we don't facilitate creating complex data structures. The `runtime` shared state is a flatten data structure, it doesn't support nested states unlike Redux for instance. However, you can add any object in a given state property. You can think of the `runtime` state as a **read-write** hash table.
+- APIs. These are application interfaces that your program shares along with its execution context. It contains instances of classes, or closures, that we want to share, typically for performance reasons. E.g. a WebSocket client that holds WS connections, functions or classes that have internal non-reactive state like an HTTP client cache, etc. You can think of these API instances as a global **read-only** object.
 
 ## Installation
 
-`yarn add @leanjs/core`
+If your app is in a monorepo (recommended) execute the following command at the root of your repository:
 
-## Usage
+```sh
+yarn add -W @leanjs/core
+```
 
-### Guiding principles
+then in the `package.json` of your app add the following `peerDependencies`:
 
-When designing your shared runtime follow these recommendations:
+```
+"dependencies": {
+  "@leanjs/core": "*"
+}
+```
 
-- Less is more. The more things shared between micro-apps the higher coupling. Use this `runtime` sparingly.
-- Make the `runtime` type-safety. Only types defined in the configuration of the `runtime` are allowed. This way developers in different teams know what can be shared and what can't be shared. Use TypeScript.
-- Centralise the configuration of the `runtime`. Anyone can use the `runtime` but only a few people should be able to change what can be shared. Execute `configureRuntime` in its own repo with restricted access, or use CODEOWNERS if in a monorepo, then export it for anyone to use.
+If your app is not in a monorepo, then run the following command instead of the above:
 
-### Basic
+```sh
+yarn add @leanjs/core
+```
+
+## Basic usage
 
 ```ts
 const defaultState = {
@@ -37,11 +43,11 @@ const defaultState = {
 };
 
 const { createRuntime } = configureRuntime(defaultState)({
-  onError: (error) => {}, // required, log the error properly, e.g. Sentry, Datadog, etc
+  onError: (error) => {}, // required, log the error properly
 });
 ```
 
-#### With execution context
+With api factory:
 
 ```ts
 const defaultState = {
@@ -49,18 +55,18 @@ const defaultState = {
 };
 
 const { createRuntime } = configureRuntime(defaultState)({
-  onError: () => {}, // required, log the error properly, e.g. Sentry, Datadog, etc
-  context: {
-    eventEmitter: new MyEventEmitter(),
+  onError: () => {}, // required, log the error properly
+  apiFactory: {
+    eventEmitter: () => new MyEventEmitter(),
   },
 });
 ```
 
-### API
+## Runtime functions
 
-#### `configureRuntime`
+### `configureRuntime`
 
-It's a function with two curried arguments. The argument of the first function receives the default state. The argument of the second function is the configuration of the runtime.
+It's a function with two curried arguments. The argument of the first function receives the default state. The argument of the second function is aditional configuration of the runtime.
 
 The default state must be an object. The keys of the objects are used at runtime to validate access to the shared state. For instance, given the following default state:
 
@@ -74,7 +80,7 @@ if a consumer of the `runtime` tries to read or write a shared state property na
 
 If you use TypeScript, the `runtime` will infer the types of the shared state from the default state. For instance, in the previous `defaultState` TypeScript will only allow consumers of your shared state to read and write a state property called `locale` and its only possible value will be a string.
 
-`configureRuntime` is a generic function so you can pass a TS type definition for your shared state. This is useful if your default state values don't match all the possible values of your shared state, e.g.
+`configureRuntime` is a generic function so you can pass a TypeScript type definition for your shared state. This is useful if your default state values don't match all the possible values of your shared state, e.g.
 
 ```ts
 interface SharedState {
@@ -85,102 +91,129 @@ const defaultState = {
   locale: undefined,
 };
 
-// without passing a concrete type to the generic `configureRuntime`,
-// locale could only be assigned to undefined because of the defaultState value
+// without passing a type to the generic `configureRuntime`,
+// locale could only be assigned to undefined
 const { createRuntime } = configureRuntime<SharedState>(defaultState)({
-  onError: () => {}, // required, log the error properly, e.g. Sentry, Datadog, etc
+  onError: () => {}, // required, log the error properly
 });
 ```
 
-##### onError - required function
+#### onError - required function
 
-The `runtime` makes any asynchronous code internally look synchronous externally. This means that you won't be able to catch all the promises that might be generated. The `onError` function will be invoked whenever there is an errors in the runtime, either sync or async.
+The `runtime` makes any asynchronous code internally look synchronous externally. This means that you won't be able to catch all the promises that might be generated. The `onError` function will be invoked whenever there is an error in the `runtime`, either sync or async.
 
-##### context - optional object
+#### apiFactory - optional object
 
-Similarly to `defaultState` each property in this context object argument is used to validate access to the shared context at runtime. In the following example reading a context prop different from `serviceX` will throw a runtime error.
+You can use it to define APIs specific to your runtime. Similarly to `defaultState`, each property in the `apiFactory` object is used to validate access to your shared APIs at runtime. In the following example, reading an `api` prop different from `serviceX` will throw a runtime error.
 
 ```ts
-cosnst { createRuntime } = configureRuntime(defaultState)({
+const { createRuntime } = configureRuntime(defaultState)({
   onError,
-  context: {
-    serviceX: new ServiceX(),
+  apiFactory: {
+    // each key in apiFactory must be a function that returns something
+    serviceX: () => new ServiceX(),
   },
 });
 
-const runtime = createRuntime()
-
+const runtime = createRuntime();
 
 // ✅ reading the following property doesn't throw an error
-runtime.context.serviceX
+runtime.api.serviceX;
 
 // ❌ reading the following property will throw an error
-runtime.context.serviceNameNotValid
+runtime.api.serviceNameNotValid;
 ```
 
-Context is read-only. You can't re-assign values. Example:
+The `api` object generated by the `apiFactory` is read-only. You can't re-assign values. The following example is not possible:
 
 ```ts
-cosnst { createRuntime } = configureRuntime(defaultState)({
-  onError,
-  context: {
-    serviceX: new ServiceX(),
-  },
-});
-
-const runtime = createRuntime()
-
-
-// ❌ assigning a new value to a context property will throw an error
-runtime.context.serviceX = new ServiceX()
+// ❌ assigning a new value to an api property will throw an error
+runtime.api.serviceX = new ServiceX();
 ```
 
-If you use TypeScript, since context can't change, the types of the context values will be inferred by TypeScript as follows:
+If you use TypeScript, the types of the `api` object will be inferred by TypeScript from the `apiFactory` as follows:
 
 ```ts
-cosnst { createRuntime } = configureRuntime(defaultState)({
+const { createRuntime } = configureRuntime(defaultState)({
   onError,
-  context: {
-    // wsClient1 type is WsClient
-    wsClient1: new WsClient(),
-    // wsClient2 type is WsClient
-    wsClient2: () => new WsClient(),
-    // wsClient3 type is WsClient
-    wsClient3: async () => new WsClient()),
+  apiFactory: {
+    // runtime.api.wsClient1 type is WsClient
+    wsClient1: () => new WsClient(),
+    // runtime.api.wsClient2 type is WsClient
+    wsClient2: async () => new WsClient()),
   },
 });
 ```
 
-When initialising a context property using a function, e.g. `wsClient3: async () => new WsClient()),` the function is executed lazily when the property is read. Context properties that are not a function are executed eagerly, e.g. `wsClient1: new WsClient(),`.
-
-In the example above calling `createRuntime()` will return the following runtime:
+`api` factory functions are executed lazily when the property is read. In the example above calling `createRuntime()` will return the following runtime:
 
 ```ts
 const runtime = createRuntime();
-
-// runtime.context.wsClient1 has been initialised and it's value is `new WsClient()`
-
-// runtime.context.wsClient2 has not been initialised and it's value is undefined
-
-runtime.context.wsClient2; // this initialises wsClient2 with new WsClient()
+// runtime.api.wsClient1 has not been initialised and it's value is undefined
+// runtime.api.wsClient2 has not been initialised and it's value is undefined
+runtime.api.wsClient1; // this calls the api factory function for wsClient1
+// runtime.api.wsClient2 has not been initialised and it's value is undefined
 ```
 
-You can also lazy load code. In the following example, when a micro-app reads `runtime.context.wsClient`, the JavaScript required to execute `wsClient` will be downloaded and executed.
+You can also lazy load `api` code. In the following example, when a composable app reads `runtime.api.wsClient`, the JavaScript required to execute `wsClient` will be downloaded and executed.
 
 ```ts
-cosnst { createRuntime } = configureRuntime(defaultState)({
+const { createRuntime } = configureRuntime(defaultState)({
   onError,
-  context: {
-    wsClient: () => import('./path-to-my-code'),
+  apiFactory: {
+    wsClient: () => import("./path-to-my-code"),
   },
 });
 
 const runtime = createRuntime();
+// runtime.api.wsClient is undefined
+// and path-to-my-code.js has not been downloaded
 
-const wsClient = await runtime.context.wsClient // ./path-to-my-code.js is downloaded
+const wsClient = await runtime.api.wsClient;
+// path-to-my-code.js has been downloaded
+// and wsClient is not undefined
 ```
 
-#### `createRuntime`
+Each factory function has access to a `runtime` context.
+
+```ts
+const defaultState = { token: "" };
+
+const { createRuntime } = configureRuntime(defaultState)({
+  onError,
+  apiFactory: {
+    wsClient: async ({
+      getState,
+      setState,
+      onCleanup,
+      load,
+      loaded,
+      loader,
+      isBrowser,
+      request,
+    }) => {
+      // e.g. init and read token from the shared state
+      const token = await load("token", fetchToken);
+      const client = new WsClient(token);
+      // call onCleanup hook, notice client.destroy() is not invoked yet
+      onCleanup(() => client.destroy());
+
+      return client;
+    },
+  },
+});
+
+const runtime = createRuntime();
+// runtime.api.wsClient has not been initialised and it's value is undefined
+
+// creates an instance of WsClient
+const wsClient = await runtime.api.wsClient;
+
+// calls client.destroy() and sets runtime.api.wsClient as undefined again
+runtime.cleanup("wsClient");
+```
+
+### `createRuntime`
 
 It creates a `runtime`. Example:
 
@@ -196,78 +229,46 @@ const { createRuntime } = configureRuntime(defaultState)({
 const runtime = createRuntime();
 ```
 
-#### `booted`
+<!-- ### `booted`
 
-Async method that resolves true when all the async context resolves. If any of the async context properties is rejected it resolves false.
+Async method that resolves to true when all the async api factory functiones that have been read resolve. If any of the async apiFactories properties that have been read is rejected it resolves to false.
 
 ```ts
 await runtime.booted();
-```
+``` -->
 
-#### `state`
+### `getState`
 
-It holds the current shared state.
+It returns the current state of a given state property.
 
 ```ts
-// you can read state
-const locale = runtime.state.locale;
-
-// you can write state
-runtime.state.locale = "es";
-// subscribers to state.locale are notified
+const locale = runtime.getState("locale");
 ```
 
-#### `subscribe`
+### `setState`
+
+It sets the state of a given state property.
+
+```ts
+const locale = runtime.setState("locale", "pt");
+```
+
+### `subscribe`
 
 It's used to subscribe to state changes. It receives a state property and a callback. When the state property changes the callback is invoked. It returns an `unsubscribe` function. Example:
 
 ```ts
 const unsubscribe = runtime.subscribe("locale", (locale) =>
-  console.log(`locale changed ${locale}`)
+  console.log(`locale changed, new value is ${locale}`)
 );
 ```
 
-#### `context`
+### `load`
 
-It holds the current shared context. Example:
-
-```ts
-const wsClient = runtime.context.wsClient;
-
-// context is read only, the following line throws an error
-// ❌ runtime.context.wsClient = new WsClient()
-```
-
-It's not recommended to access the context directly whenever possible. If you want to update some shared state based on an event from the shared context then use the `on` method underneath.
-
-#### `on`
-
-This method is used to update shared state based on events from the context.
-
-It has two arguments, the context property that you want to use, and a callback function that will receive the context instance and the current state. The callback must return a clean-up function. `on` returns an `off` function which calls the callback clean-up function upon invocation. Example:
-
-```ts
-const off = runtime.on("wsClient", (wsClient, state) => {
-  function updateLocale(value) {
-    state.locale = value;
-  }
-  wsClient?.on("locale-changed", updateLocale);
-
-  return () => {
-    wsClient.off("locale-changed", updateLocale);
-  };
-});
-
-off(); // wsClient.off("locale-changed", updateLocale); is called
-```
-
-#### `load`
-
-It loads some value in a given state property. Once a state property is loaded with a value, no other loader will have effect on the given state property. `load` is async. Example:
+It loads some value in a given state property. Once a state property is loaded with a value or being loaded, no other loader will be executed on the given state property. `load` is async. Example:
 
 ```ts
 const locale = await runtime.load("locale", fetchLocale);
-// locale equals runtime.state.locale
 ```
 
 When calling `load` many times for the same state property, the `runtime` will only execute the first loader.
@@ -281,23 +282,24 @@ runtime.load("locale", fetchLocale);
 runtime.load("locale", fetchLocale);
 ```
 
-#### `loaded`
+### `loaded`
 
 It's an async method that will await while a given state property is being loaded. If the state property is not being loaded it resolves immediately. Example:
 
 ```ts
 runtime.load("locale", () => Promise.resolve("es"));
-// in real-world project the next line would not be after the previous `load` call but in a different part of the codebase
+// in real-world apps the next line would not be after the `load` call
+// but in a different part of the codebase
 const locale = await runtime.loaded("locale"); // locale equals "es"
 ```
 
-The previous code has the same effect as the following code. The reason for having `loaded` is that in a distributed UI, the code that needs to `await` might not be the same as the code that `load`s the value, unlike the following example:
+The previous code has the same effect as the following code. The reason for having `loaded` is that in a distributed UI, the code that needs to `await` might not be the same as the code that `load`s the value. Example:
 
 ```ts
 const locale = await runtime.load("locale", () => Promise.resolve("es"));
 ```
 
-If `loaded` is called with no state property then it awaits for all the loaders to resolve.
+If `loaded` is called with no state property then it awaits for all the loaders that are in progress to resolve.
 
 ```ts
 runtime.load("locale", fetchLocale);
@@ -307,7 +309,7 @@ await runtime.loaded();
 // both locale and token have been loaded
 ```
 
-#### `loader`
+### `loader`
 
 It returns the state of a loader: `loading: boolean` and `error?: string`. Example:
 
@@ -322,3 +324,43 @@ await runtime.loaded("locale");
 const didError = runtime.loader.locale.error;
 // didError has an error message if the load method failed.
 ```
+
+### `api`
+
+It holds the shared execution context and the interfaces to interact with it. Example:
+
+```ts
+const wsClient = runtime.api.wsClient;
+
+// api is read only, the following line throws an error
+// ❌ runtime.api.wsClient = new WsClient()
+```
+
+### `on`
+
+This method is used to update shared state based on events from the `api`.
+
+It has two arguments, the `api` property that you want to listen to, and a callback function that will receive the `api` instance along with `getState` and `setState`. The callback must return a clean-up function. `on` returns an `off` function which calls the callback clean-up function upon invocation. Example:
+
+```ts
+const off = runtime.on("wsClient", (wsClient, { setState }) => {
+  function updateLocale(value) {
+    setState("locale", value);
+  }
+  wsClient?.on("locale-changed", updateLocale);
+
+  return () => {
+    wsClient.off("locale-changed", updateLocale);
+  };
+});
+
+off(); // wsClient.off("locale-changed", updateLocale); is called
+```
+
+## Guiding principles
+
+We have the following recommendations when you design your shared runtime:
+
+- Both sharing state or execution context are a form of coupling. The more things you share between composable apps the higher coupling. Use this `runtime` sparingly.
+- Use TypeScript. This way developers in different teams easily know what is shared and what isn't.
+- Centralise the configuration of the `runtime`. Anyone can use the `runtime` but only a few people should be able to change what is shared in it. Define your `configureRuntime` in a place with restricted access, for instance via CODEOWNERS, then export `createRuntime` for anyone to use it.

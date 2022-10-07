@@ -1468,7 +1468,8 @@ describe("cleanup", () => {
     const runtime = configureRuntime<SharedState>(defaultState)({
       onError: emptyFunction,
       apiFactory: {
-        eventEmitter1: ({ onCleanup }) => {
+        eventEmitter1: async ({ onCleanup, load }) => {
+          await load("token", fetchToken);
           onCleanup(cleanup1);
           initialised1();
           return new FakeEventEmitter();
