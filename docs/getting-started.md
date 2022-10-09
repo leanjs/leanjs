@@ -10,7 +10,7 @@ For a quick start, visit [create micro-frontends](../packages/create-micro-front
 
 ## Manual start
 
-You will want to manually start a micro-apps project when you have an existing monolith. This is the expected path.
+You will want to manually start a composable apps project when you have an existing monolith. This is the expected path.
 
 ## Recommended setup
 
@@ -40,7 +40,7 @@ You will want to manually start a micro-apps project when you have an existing m
 
 ### Create a `packages` workspace
 
-Packages are used to share code between micro-apps and/or the monolith.
+Packages are used to share code between composable apps and/or the monolith.
 
 - Add _"packages/\*"_ to the following field `workspaces: ["apps/*", "packages/*"]` in the root package.json.
 
@@ -61,13 +61,13 @@ Packages are used to share code between micro-apps and/or the monolith.
   ├─ package.json
   ```
 
-- Create a package inside the `packages` folder. You must include a `package.json` in your new package.
+- Create a package inside the `packages` folder. You must include a `package.json` in your package.
 
   ```
   my-monorepo/
   ├─ apps/
   ├─ packages/
-  │  ├─ new-package/
+  │  ├─ my-package/
   │  │  ├─ package.json  👈 here
   ├─ package.json
   ```
@@ -96,13 +96,13 @@ my-monorepo/
 Add some config, for example:
 
 ```js
-const { getDefaultReactWebpack } = require("@leanjs/webpack");
+const { createReactWebpackConfig } = require("@leanjs/webpack-react");
 
 module.exports = {
   devServer: { port: 43210 },
   webpack: {
     // replace the following config with your custom Webpack config
-    react: getDefaultReactWebpack(),
+    react: createReactWebpackConfig(),
   },
 };
 ```
@@ -113,9 +113,9 @@ Execute the following command at the root directory of your monorepo:
 yarn add -W -D @leanjs/cli @leanjs/webpack
 ```
 
-### Create a `micro-apps` workspace
+### Create a `composable-apps` workspace
 
-- Add _"micro-apps/\*"_ to the following field `workspaces: ["apps/*", "packages/*", "micro-apps/*"]` in the root package.json.
+- Add _"composable-apps/\*"_ to the following field `workspaces: ["apps/*", "packages/*", "composable-apps/*"]` in the root package.json.
 
   ```
   my-monorepo/
@@ -126,28 +126,28 @@ yarn add -W -D @leanjs/cli @leanjs/webpack
   ├─ package.json  👈 here
   ```
 
-- Create a `micro-apps` folder at the root of your monorepo, e.g.
+- Create a `composable-apps` folder at the root of your monorepo, e.g.
 
   ```
   my-monorepo/
   ├─ apps/
-  ├─ micro-apps/ 👈 here
+  ├─ composable-apps/ 👈 here
   ├─ packages/
   ├─ package.json
   ```
 
-- Create a micro-app inside the `micro-apps` folder. You must include a `package.json` in your new micro-app:
+- Create a composable app inside the `composable-apps` folder. You must include a `package.json` in your new composable app:
 
   ```
   my-monorepo/
   ├─ apps/
-  ├─ micro-apps/
-  │  ├─ new-micro-app/
+  ├─ composable-apps/
+  │  ├─ my-app/
   │  │  ├─ package.json  👈 here
   ├─ packages/
   ├─ package.json
   ```
 
-- Create a micro-app based on your UI library:
+- Create a composable app based on your UI library:
   - [React Router](../packages/react-router/)
   - [Vue Router](../packages/vue-router/)
