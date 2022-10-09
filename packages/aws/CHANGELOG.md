@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.2.35](https://github.com/leanjs/leanjs/compare/@leanjs/aws@0.2.34...@leanjs/aws@0.2.35) (2022-10-09)
+
+**Note:** Version bump only for package @leanjs/aws
+
+
+
+
+
 ## [0.2.34](https://github.com/leanjs/leanjs/compare/@leanjs/aws@0.2.33...@leanjs/aws@0.2.34) (2022-09-25)
 
 **Note:** Version bump only for package @leanjs/aws
