@@ -38,7 +38,7 @@ export const { createRuntime } = configureRuntime(defaultState)({
   onError: () => {},
 });
 
-// Then create the React bindings for your runtime
+// Then create your React bindings for your runtime
 export const {
   HostProvider,
   useGetter,

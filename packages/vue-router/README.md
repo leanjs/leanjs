@@ -2,95 +2,106 @@
 
 ## Installation
 
-If you use a monorepo (recommended), at the root of your repository:
-
-```
-my-monorepo/
-├─ micro-apps/
-│  ├─ vue-router-micro-app-example/
-│  │  ├─ package.json
-├─ package.json  👈
-```
-
-execute the following command:
+If your Vue Router app is in a monorepo (recommended) execute the following command at the root of your repository:
 
 ```sh
-yarn add @leanjs/vue-router @leanjs/core vue-router@4 vue@3
+yarn add -W @leanjs/vue-router @leanjs/core vue-router@4 vue@3
 ```
 
-Then in the `package.json` of your micro-app app
+then in the `package.json` of your Vue Router app add the following `peerDependencies`:
 
 ```
-my-monorepo/
-├─ micro-apps/
-│  ├─ vue-router-micro-app-example/
-│  │  ├─ package.json 👈
-├─ package.json
-```
-
-add the following `peerDependencies`:
-
-```
-"dependencies": {
+"peerDependencies": {
+  "@leanjs/core": "*",
   "@leanjs/vue-router": "*",
   "vue-router": "*",
   "vue": "*"
 }
 ```
 
-and also the following `devDependencies`:
+If your Vue Router app is not in a monorepo, then run the following command instead of the above:
 
-```
-  "devDependencies": {
-    "@leanjs/cli": "*"
-  }
+```sh
+yarn add @leanjs/vue-router @leanjs/core vue-router@4 vue@3
 ```
 
-## Usage
+## Composable app
 
-Create a file called `index.ts` in the `src` directory where your micro-app is.
+Create small Vue Router apps that can be composed with other apps.
+
+### `createApp`
+
+Create a file called `index.ts|js` in the `src` directory where your composable app is.
 
 ```
 my-monorepo/
-├─ micro-apps/
-│  ├─ vue-router-micro-app-example/
+├─ apps/
+├─ composable-apps/
+│  ├─ vue-router-app-1/
 │  │  ├─ package.json
 │  │  ├─ src/
-│  │  │  ├─ VueApp.vue
+│  │  │  ├─ VueRouterApp1.vue
 │  │  │  ├─ index.ts 👈
 ├─ package.json
 ```
 
-> **Note**
+:::info
 
 <!-- > Read the recommended setup in our [getting started page](../../docs/getting-started#recommended-setup) if you want to create a similar monorepo structure -->
 
-> Read the recommended setup in our [getting started page](/getting-started#recommended-setup) if you want to create a similar monorepo structure
+Read the recommended setup in our [getting started page](/getting-started#recommended-setup) if you want to create a similar monorepo structure
 
-Call `createApp` with the root component of your VueApp and your `createRuntime` function:
+:::
+
+Call `createApp` with the root component of your Vue Router app:
 
 ```ts
 import { createApp } from "@leanjs/vue-router";
-// shared runtime example package created by your org
-import { createRuntime } from "@my-org/runtime-shared";
 
 import packageJson from "../package.json";
-import VueApp from "./VueApp.vue";
+import VueRouterApp1 from "./VueRouterApp1.vue";
 
 // 👇  you must `export default createApp(`
 export default createApp(VueApp, {
-  createRuntime,
   packageName: packageJson.name,
 });
 ```
 
-> **Note**
-> Read [@leanjs/core](/packages/core#runtime) if you have not already created your own `createRuntime` function
-
-Create `VueApp.vue` component, for example:
+Hello world example of the `VueRouterApp1` imported above
 
 ```vue
+<!-- my-monorepo/composable-apps/vue-router-app-1/src/VueRouterApp1.tsx -->
+
 <template>
-  <h1>Hello Vue micro-app</h1>
+  <h1>Hello composable Vue Router app</h1>
 </template>
 ```
+
+Create a file called `selfHosted.ts|js` in the `src` directory where your composable app is, for example:
+
+```
+my-monorepo/
+├─ apps/
+├─ composable-apps/
+│  ├─ vue-router-app-1/
+│  │  ├─ package.json
+│  │  ├─ src/
+│  │  │  ├─ VueRouterApp1.vue
+│  │  │  ├─ index.ts
+│  │  │  ├─ selfHosted.ts 👈
+├─ package.json
+```
+
+Export a `createRuntime` function from the `selfHosted.ts|js` file. This is the runtime that will be used when the app runs in isolation, meaning without a host.
+
+```ts
+// my-monorepo/composable-apps/vue-router-app-1/src/selfHosted.ts
+
+export { createRuntime } from "@my-org/runtime-react";
+```
+
+:::info
+
+Read [@leanjs/core](/packages/core#basic-usage) if you have not already created your own `createRuntime` function
+
+:::
