@@ -5,7 +5,7 @@
   "private": true,
   "workspaces": [
     "apps/*",
-    "micro-apps/*",
+    "composable-apps/*",
     "packages/*"
   ],
   "scripts": {
