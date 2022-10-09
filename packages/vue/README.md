@@ -1,39 +1,57 @@
 # @leanjs/vue
 
-# Installation
+## Installation
 
-`yarn add @leanjs/vue @leanjs/core`
+If your Vue app is in a monorepo (recommended) execute the following command at the root of your repository:
 
-# Usage
+```sh
+yarn add -W @leanjs/vue @leanjs/core
+```
 
-1 . Create your custom `useSharedState` composable. This will add type-safety to your `useSharedState` composable based on your instance of Lean `runtime`.
+then in the `package.json` of your Vue app add the following `peerDependencies`:
+
+```
+"peerDependencies": {
+  "@leanjs/core": "*",
+  "@leanjs/vue": "*"
+}
+```
+
+If your Vue app is not in a monorepo, then run the following command instead of the above:
+
+```sh
+yarn add @leanjs/vue @leanjs/core
+```
+
+## Basic usage
+
+### `createRuntimeBindings`
+
+1 . First, you have to create your Vue bindings for your `runtime`.
 
 ```ts
-// runtime-vue.ts
-// Pro-tip: move this file to its own package, see examples/coolest-todos/packages/runtime-vue
+// shared-runtime.ts
 
-const defaultState = {
-  locale: "en", // define your default state accordingly, this is just an example
-};
-
-// configureRuntime is a generic TS function (if you use TypeScript)
-// handy if the types that you want don't match the inferred types from defaultState
+// You need to configure your runtime
+const defaultState = { locale: "en" }; // this is just an example
 export const { createRuntime } = configureRuntime(defaultState)({
-  onError: () => throw new Error("🔥 log this properly!")
+  onError: () => {},
 });
 
+// Then create your Vue bindings for your runtime
 export const { useSharedState } = createRuntimeBindings(createRuntime);
 ```
 
-**⚠️ Why is `useSharedState` not a generic function instead of using `createRuntimeBindings` to infer and return a typed `useSharedState`?**
+:::info
 
-We want `useSharedState` to have custom TypeScript types based on the `runtime` used by a group of micro-apps in the same micro-frontend architecture. We don't want to give the consumers of `useSharedState` the ability to change these types because that could create inconsistencies between different micro-apps that share the same `runtime`.
+Read [@leanjs/core](/packages/core#basic-usage) if you have not already created your own `createRuntime` function
+
+:::
 
 2 . Provide a `runtime` at the root of your app, e.g.
 
 ```tsx
 import { createApp } from "vue";
-// Pro-tip: move your ./runtime-vue file to its own package, see examples/coolest-todos/packages/runtime-vue
 import { createRuntime } from "./runtime-vue";
 
 const runtime = createRuntime();
@@ -62,7 +80,7 @@ app.mount(document.getElementById("#app"));
 
 ## Composables
 
-To use any of the following composables, you must first call `createRuntimeBindings`. Read the [usage](#usage) section above for more info.
+To use any of the following composables, you must first call `createRuntimeBindings`. Read the [basic usage](#basic-usage) section above for more info.
 
 ### `useSharedState`
 
