@@ -49,6 +49,12 @@ export const {
 } = createRuntimeBindings(createRuntime);
 ```
 
+:::info
+
+Read [@leanjs/core](/packages/core#basic-usage) if you have not already created your own `createRuntime` function
+
+:::
+
 Add your `HostProvider` at the root of your React component tree, e.g.
 
 ```tsx
@@ -75,7 +81,7 @@ export function LocaleComponent() {
 }
 ```
 
-## App
+## Composable app
 
 Create small React apps that can be composed with other apps.
 
@@ -98,7 +104,9 @@ my-monorepo/
 
 :::tip
 
-Read the recommended setup in our [getting started page](../../docs/getting-started#recommended-setup) if you want to create a similar monorepo structure
+<!-- Read the recommended setup in our [getting started page](../../docs/getting-started#recommended-setup) if you want to create a similar monorepo structure -->
+
+Read the recommended setup in our [getting started page](/getting-started#recommended-setup) if you want to create a similar monorepo structure
 
 :::
 
@@ -154,7 +162,7 @@ export { createRuntime } from "@my-org/runtime-react";
 
 :::info
 
-Read [@leanjs/core](/packages/core#runtime) if you have not already created your own `createRuntime` function
+Read [@leanjs/core](/packages/core#basic-usage) if you have not already created your own `createRuntime` function
 
 :::
 
@@ -167,10 +175,6 @@ You have to **call [createRuntimeBindings](#createruntimebindings) to create a `
 #### `runtime` prop - required
 
 Your Lean [runtime](/packages/core/).
-
-#### `origin` prop - optional
-
-[Origin](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Origin) where your remote composable apps are. During development, use the address where you run your Lean [proxy dev server](/packages/cli#proxy-dev-server). Use the address of your CDN in production, e.g. `https://cdn.example.com`.
 
 #### `errorComponent` prop - optional
 
@@ -188,18 +192,23 @@ React element displayed when a `<Host>` component is fetching a remote app. It c
 type Fallback = ReactElement;
 ```
 
-Example:
+#### `origin` prop - optional
+
+[Origin](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Origin) where your remote composable apps are. During development, use the address where you run your Lean [proxy dev server](/packages/cli#proxy-dev-server). Use the address of your CDN in production, e.g. `https://cdn.example.com`.
+
+Example
 
 ```tsx
 // where does shared-runtime come from? Read the "Usage" section at the top
 import { createRuntime, HostProvider } from "./shared-runtime";
 
 const runtime = createRuntime();
-const origin = process.env.LEAN_ORIGIN; // e.g. http://localhost:55555
+// origin is optional, it's only used if micro-frontends are enabled
+const origin = process.env.MICROFRONTENDS_ORIGIN;
 
 export function App({ children }) {
   return (
-    <HostProvider origin={LEAN_ORIGIN} runtime={runtime}>
+    <HostProvider runtime={runtime} origin={origin}>
       {children}
     </HostProvider>
   );
@@ -229,10 +238,10 @@ You can `import` a `ComposableApp` from any `export default createApp()` functio
 // my-monorepo/composable-apps/react-app-1/src/index.tsx
 
 import { createApp } from "@leanjs/react";
-import ReactApp1 from "./ReactApp1";
+import { ReactApp1 } from "./ReactApp1";
 
 // createApp returns a ComposableApp
-export default createApp(MyApp, {
+export default createApp(ReactApp1, {
   packageName: "@my-org/react-app-1",
 });
 ```
@@ -245,13 +254,13 @@ then pass it to the `Host` component in a React app:
 import { Host } from "@leanjs/react";
 
 // this composable app is bundled and deployed along with the host app
-import { MyReactApp1 } from "@my-org/react-app-1";
+import ReactApp1 from "@my-org/react-app-1";
 
 const Home = () => {
   return (
     <>
       <h1>React Host</h1>
-      <Host app={MyReactApp1} />
+      <Host app={ReactApp1} />
     </>
   );
 };
@@ -280,7 +289,6 @@ const Home = () => {
         app={() => {
           // this composable app is bundled in a separate chunk
           // but it's still built and deployed along with the host app
-
           return import("@my-org/react-app-1");
         }}
       />
@@ -291,7 +299,7 @@ const Home = () => {
 export default Home;
 ```
 
-Alternatively, you can pass an object to the `app` prop with a `packageName` key which value is the field `name` in the package.json of the composable app that you want to host. In this case, the `Host` component will try to fetch the `mount` function from the remote `origin` specified in `<HostProvider origin=" 👉 HERE 👈 " runtime={runtime}>` (see [HostProvider](#hostprovider) to know more). For example:
+Alternatively, you can pass an object to the `app` prop with a `packageName` key which value is the field `name` in the package.json of the composable app that you want to host. In this case, the `Host` component will try to fetch the `mount` function from the remote `origin` specified in `<HostProvider origin=" 👉 HERE 👈 " runtime={runtime}>` (see [origin prop](#origin-prop---optional) to know more). For example:
 
 ```tsx
 // my-monorepo/apps/react-host/src/index.ts
@@ -350,13 +358,13 @@ import { Host } from "@leanjs/react";
 // this composable app is neither bundled nor deployed along with the host app
 // because of the above remote: { packages: ["@my-org/react-app-1"] }
 // in the webpack.config.js HostWebpackPlugin
-import { MyReactApp1 } from "@my-org/react-app-1";
+import ReactApp1 from "@my-org/react-app-1";
 
 const Home = () => {
   return (
     <>
       <h1>React Host</h1>
-      <Host app={MyReactApp1} />
+      <Host app={ReactApp1} />
     </>
   );
 };

@@ -1,7 +1,5 @@
 # @leanjs/vue
 
-This package contains Vue bindings for [@leanjs/core](https://github.com/leanjs/leanjs/tree/main/packages/core) `runtime`. These Vue bindings provide idiomatic type-safe access to your Lean `runtime`.
-
 # Installation
 
 `yarn add @leanjs/vue @leanjs/core`
@@ -62,9 +60,9 @@ app.mount(document.getElementById("#app"));
 </script>
 ```
 
-## API
+## Composables
 
-To use any of the following, you must first call `createRuntimeBindings`. Read the [usage](#usage) section above for more info.
+To use any of the following composables, you must first call `createRuntimeBindings`. Read the [usage](#usage) section above for more info.
 
 ### `useSharedState`
 
@@ -84,18 +82,3 @@ type useSharedState = <
       }
 ) => Record<Prop, Ref<MyState[Prop]>>;
 ```
-
-## Example
-
-You have a full example in the following files:
-
-- `examples/coolest-todos/packages/runtime-vue/src/index.ts`
-- `examples/coolest-todos/micros/profile-reset/src/components/App.vue`
-
-## Issues
-
-Do you have any issues with this package? Please file an [issue](https://github.com/leanjs/leanjs/issues/new).
-
-## Feedback or questions
-
-Send me a tweet at [@alex_lobera](https://twitter.com/alex_lobera/) with any feedback or questions 🙏.

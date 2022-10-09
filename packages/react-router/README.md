@@ -12,7 +12,7 @@ yarn add -W react-router-dom@6 react-dom@17 react@17 \
 then in the `package.json` of your React Router app add the following `peerDependencies`:
 
 ```
-"dependencies": {
+"peerDependencies": {
   "@leanjs/core": "*",
   "@leanjs/react-router": "*",
   "@leanjs/react": "*",
@@ -29,7 +29,40 @@ yarn add react-router-dom@6 react-dom@17 react@17 \
   @leanjs/react-router @leanjs/core @leanjs/react
 ```
 
-## App
+## Basic usage
+
+### `HostProvider`
+
+You have to add a `HostProvider` at the root of your component tree if you want to host composable apps. **Heads up!** `HostProvider` is not exported from `@leanjs/react-router`. Learn more about the [`HostProvider`](/packages/react/#hostprovider).
+
+Example:
+
+```tsx
+import React from "react";
+// react runtime package created within your org
+import { HostProvider } from "@my-org/react-runtime";
+// shared runtime package created within your org
+import { createRuntime } from "@my-org/shared-runtime";
+import HostApp from "./HostApp.tsx";
+
+const runtime = createRuntime();
+
+const Root = () => (
+  <HostProvider runtime={runtime}>
+    <HostApp />
+  </HostProvider>
+);
+
+export default Root;
+```
+
+:::info
+
+Read [@leanjs/core](/packages/core#basic-usage) if you have not already created your own `createRuntime` function
+
+:::
+
+## Composable app
 
 Create small React Router apps that can be composed with other apps.
 
@@ -52,7 +85,9 @@ my-monorepo/
 
 :::tip
 
-Read the recommended setup in our [getting started page](../../docs/getting-started#recommended-setup) if you want to create a similar monorepo structure
+<!-- Read the recommended setup in our [getting started page](../../docs/getting-started#recommended-setup) if you want to create a similar monorepo structure -->
+
+Read the recommended setup in our [getting started page](/getting-started#recommended-setup) if you want to create a similar monorepo structure
 
 :::
 
@@ -108,7 +143,7 @@ export { createRuntime } from "@my-org/runtime-react";
 
 :::info
 
-Read [@leanjs/core](/packages/core#runtime) if you have not already created your own `createRuntime` function
+Read [@leanjs/core](/packages/core#basic-usage) if you have not already created your own `createRuntime` function
 
 :::
 
@@ -137,7 +172,7 @@ You can `import` a `ComposableApp` from any `export default createApp()` functio
 // my-monorepo/composable -apps/react-router-app-1/src/ReactRouterApp1.tsx
 
 import { createApp } from "@leanjs/react-router";
-import ReactRouterApp1 from "./ReactRouterApp1";
+import { ReactRouterApp1 } from "./ReactRouterApp1";
 
 // createApp returns a ComposableApp
 export default createApp(ReactRouterApp1, {
@@ -159,7 +194,7 @@ then pass it to the `Host` component in a React Router app:
 import { Host } from "@leanjs/react-router";
 
 // this composable app is bundled and deployed along with the host app
-import { ReactRouterApp1 } from "@my-org/react-router-app-1";
+import ReactRouterApp1 from "@my-org/react-router-app-1";
 
 const Home = () => {
   return (
@@ -188,7 +223,6 @@ const Home = () => {
         app={() => {
           // this composable app is bundled in a separate chunk
           // but it's still built and deployed along with the host app
-
           return import("@my-org/react-router-app-1");
         }}
       />
@@ -199,7 +233,7 @@ const Home = () => {
 export default Home;
 ```
 
-Alternatively, you can pass an object to the `app` prop with a `packageName` key which value is the field `name` in the package.json of the composable app that you want to host. In this case, the `Host` component will try to fetch the `mount` function from the remote `origin` specified in `<HostProvider origin=" 👉 HERE 👈 " runtime={runtime}>` (see [HostProvider](/packages/react#hostprovider) to know more). For example:
+Alternatively, you can pass an object to the `app` prop with a `packageName` key which value is the field `name` in the package.json of the composable app that you want to host. In this case, the `Host` component will try to fetch the `mount` function from the remote `origin` specified in `<HostProvider origin=" 👉 HERE 👈 " runtime={runtime}>` (see [origin prop](/packages/react/#origin-prop---optional) to know more). For example:
 
 ```tsx
 // my-monorepo/apps/react-router-host/src/pages/index.tsx
@@ -258,13 +292,13 @@ import { Host } from "@leanjs/react";
 // this composable app is neither bundled nor deployed along with the host app
 // because of the above remote: { packages: ["@my-org/react-router-app-1"] }
 // in the webpack.config.js HostWebpackPlugin
-import { MyMicroAppExample } from "@my-org/react-router-app-1";
+import ReactRouterApp1 from "@my-org/react-router-app-1";
 
 const Home = () => {
   return (
     <>
       <h1>React Host</h1>
-      <Host app={MyMicroAppExample} />
+      <Host app={ReactRouterApp1} />
     </>
   );
 };
@@ -287,7 +321,7 @@ module.exports = {
     new HostWebpackPlugin({
       remotes: {
         // the following packages are built and deployed along with
-        // the React app on production, but not during development.
+        // the React Router app on production, but not during development.
         packages:
           process.env.NODE_ENV === "production"
             ? []

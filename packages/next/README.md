@@ -11,7 +11,7 @@ yarn add -W @leanjs/next @leanjs/react @leanjs/core
 then in the `package.json` of your Nextjs app add the following `peerDependencies`:
 
 ```
-"dependencies": {
+"peerDependencies": {
   "@leanjs/core": "*",
   "@leanjs/next": "*",
   "@leanjs/react": "*"
@@ -28,25 +28,22 @@ yarn add @leanjs/next @leanjs/react @leanjs/core
 
 ### `HostProvider`
 
-You have to add a `HostProvider` at the root of your component tree in `pages/_app.tsx`. **Heads up!** `HostProvider` is not exported from `@leanjs/next`. Learn more about the `HostProvider` [here](/packages/react/#basic-usage).
+You have to add a `HostProvider` at the root of your component tree in `pages/_app.tsx`. **Heads up!** `HostProvider` is not exported from `@leanjs/next`. Learn more about the [`HostProvider`](/packages/react/#hostprovider).
 
 Example:
 
 ```tsx
 import type { AppProps } from "next/app";
 import React from "react";
-// react runtime example package created within your org
+// react runtime package created within your org
 import { HostProvider } from "@my-org/react-runtime";
-// shared runtime example package created within your org
+// shared runtime package created within your org
 import { createRuntime } from "@my-org/shared-runtime";
 
 const runtime = createRuntime();
 
-// e.g. http://localhost:${LEAN_CONFIG_DEV_SERVER_PORT}
-const origin = process.env.REMOTE_ORIGIN;
-
 const App = ({ Component, pageProps }: AppProps) => (
-  <HostProvider origin={origin} runtime={runtime}>
+  <HostProvider runtime={runtime}>
     <Component {...pageProps} />
   </HostProvider>
 );
@@ -54,11 +51,33 @@ const App = ({ Component, pageProps }: AppProps) => (
 export default App;
 ```
 
+:::info
+
+Read [@leanjs/core](/packages/core#basic-usage) if you have not already created your own `createRuntime` function
+
+:::
+
 ## Components
+
+The examples in this section are based on the following project structure:
+
+```
+my-monorepo/
+├─ apps/
+│  ├─ nextjs-host/
+│  │  ├─ next.config.js
+├─ composable-apps/
+│  ├─ react-app-1/
+│  │  ├─ package.json
+│  │  ├─ src/
+│  │  │  ├─ ReactApp1.tsx
+│  │  │  ├─ index.ts
+├─ package.json
+```
 
 ### `Host`
 
-It hosts a micro-app in a Next host.
+It hosts a composable app in a Next host.
 
 #### `app` - required prop
 
@@ -66,7 +85,7 @@ The `app` prop can be a `ComposableApp` object, or a function that returns a pro
 
 ```tsx
 interface ComposableApp {
-  // packageName is the `name` field in the `package.json` of a micro-app
+  // packageName is the `name` field in the `package.json` of a composable app
   packageName: string;
   // mount function returned by a `createApp` function
   mount?: MountFunc;
@@ -76,39 +95,39 @@ interface ComposableApp {
 You can `import` a `ComposableApp` from any `export default createApp()` function, for instance:
 
 ```tsx
-// @my-org/my-micro-app-1 src/index.ts (package main file)
+// my-monorepo/composable-apps/react-app-1/src/index.ts
 
 import { createApp } from "@leanjs/react";
-import MyApp from "./MyApp";
+import { ReactApp1 } from "./ReactApp1";
 
 // createApp returns a ComposableApp
-export default createApp(MyApp, {
-  packageName: "@my-org/my-micro-app-1",
+export default createApp(ReactApp1, {
+  packageName: "@my-org/react-app-1",
 });
 ```
 
 :::info
 
-In this example, the composable app is a React app. However, the Nextjs `<Host>` component can host any composable app, e.g. Vue.
+In this example the composable app is a React app. However, the Nextjs `<Host>` component can host any composable app, e.g. Vue.
 
 :::
 
 then pass it to the `Host` component in a Next.js app:
 
 ```tsx
-// @my-org/my-nextjs-app pages/index.tsx
+// my-monorepo/apps/nextjs-host/pages/index.tsx
 
 import type { NextPage } from "next";
 import { Host } from "@leanjs/next";
 
-// this micro-app is bundled and deployed along with the Nextjs app
-import { MyMicroAppExample } from "@my-org/my-micro-app-1";
+// this composable app is bundled and deployed along with the Nextjs app
+import ReactApp1 from "@my-org/react-app-1";
 
 const Home: NextPage = () => {
   return (
     <>
       <h1>Nextjs Host</h1>
-      <Host app={MyMicroAppExample} />
+      <Host app={ReactApp1} />
     </>
   );
 };
@@ -116,10 +135,10 @@ const Home: NextPage = () => {
 export default Home;
 ```
 
-You can also pass a function to the `Host` component that returns a dynamic import to lazy load a micro-app:
+You can also pass a function to the `Host` component that returns a dynamic import to lazy load a composable app:
 
 ```tsx
-// @my-org/my-nextjs-app pages/index.tsx
+// my-monorepo/apps/nextjs-host/pages/index.tsx
 
 import type { NextPage } from "next";
 import { Host } from "@leanjs/next";
@@ -130,10 +149,9 @@ const Home: NextPage = () => {
       <h1>Nextjs Host</h1>
       <Host
         app={() => {
-          // this micro-app is bundled in a separate chunk
+          // this composable app is bundled in a separate chunk
           // but it's still built and deployed along with the Nextjs app
-
-          return import("@my-org/my-micro-app-1");
+          return import("@my-org/react-app-1");
         }}
       />
     </>
@@ -143,10 +161,10 @@ const Home: NextPage = () => {
 export default Home;
 ```
 
-Alternatively, you can pass an object to the `app` prop with a `packageName` key which value is the field `name` in the package.json of the micro-app that you want to host. In this case, the `Host` component will try to fetch the `mount` function from the remote `origin` specified in `<HostProvider origin=" 👉 HERE 👈 " runtime={runtime}>` (see [HostProvider](#hostprovider) to know more). For example:
+Alternatively, you can pass an object to the `app` prop with a `packageName` key which value is the field `name` in the package.json of the composable app that you want to host. In this case, the `Host` component will try to fetch the `mount` function from the remote `origin` specified in `<HostProvider origin=" 👉 HERE 👈 " runtime={runtime}>` (see [origin prop](/packages/react/#origin-prop---optional) to know more). For example:
 
 ```tsx
-// @my-org/my-nextjs-app pages/index.tsx
+// my-monorepo/apps/nextjs-host/pages/index.tsx
 
 import type { NextPage } from "next";
 import { Host } from "@leanjs/next";
@@ -155,9 +173,9 @@ const Home: NextPage = () => {
   return (
     <>
       <h1>Nextjs Host</h1>
-      {/* in this case, the micro-app is neither built nor deployed
+      {/* in this case, the composable app is neither built nor deployed
           along with the Next.js host */}
-      <Host app={{ packageName: "@my-org/my-micro-app-1" }} />
+      <Host app={{ packageName: "@my-org/react-app-1" }} />
     </>
   );
 };
@@ -166,7 +184,7 @@ export default Home;
 ```
 
 :::caution
-Fetching from a remote `origin` only works with Webpack v5 because this feature uses Module Federation under the hood. You need to add a [HostWebpackPlugin](/packages/webpack/#hostwebpackplugin) to your `next.config.js` to enable this feature. If this feature is enabled you need to build and deploy your micro-apps independently. See [@leanjs/aws](/packages/aws/) to deploy your micro-apps to AWS.
+Fetching from a remote `origin` only works with Webpack v5 because this feature uses Module Federation under the hood. You need to add a [HostWebpackPlugin](/packages/webpack/#hostwebpackplugin) to your `next.config.js` to enable this feature. If this feature is enabled you need to build and deploy your composable apps independently. See [@leanjs/aws](/packages/aws/) to deploy your composable apps to AWS.
 :::
 
 :::tip
@@ -176,7 +194,7 @@ You can still pass an `import` (either dynamic or static) to the `app` prop of t
 Tip example:
 
 ```tsx
-// next.config.js
+// my-monorepo/apps/nextjs-host/next.config.js
 const { HostWebpackPlugin } = require("@leanjs/webpack");
 
 module.exports = {
@@ -186,7 +204,7 @@ module.exports = {
         remotes: {
           // these packages are not built along with the Nextjs app
           // but downloaded from a remote origin
-          packages: ["@my-org/my-micro-app-1"],
+          packages: ["@my-org/react-app-1"],
         },
       })
     );
@@ -199,21 +217,21 @@ module.exports = {
 then in your Next.js app:
 
 ```tsx
-// @my-org/my-nextjs-app pages/index.tsx
+// my-monorepo/apps/nextjs-host/pages/index.tsx
 
 import type { NextPage } from "next";
 import { Host } from "@leanjs/next";
 
-// this micro-app is neither bundled nor deployed along with the Nextjs app
-// because of the above remote: { packages: ["@my-org/my-micro-app-1"] }
+// this composable app is neither bundled nor deployed along with the Nextjs app
+// because of the above remote: { packages: ["@my-org/react-app-1"] }
 // in the next.config.js HostWebpackPlugin
-import { MyMicroAppExample } from "@my-org/my-micro-app-1";
+import ReactApp1 from "@my-org/react-app-1";
 
 const Home: NextPage = () => {
   return (
     <>
       <h1>Nextjs Host</h1>
-      <Host app={MyMicroAppExample} />
+      <Host app={ReactApp1} />
     </>
   );
 };
@@ -222,12 +240,12 @@ export default Home;
 ```
 
 **Pro-tip**
-Configure your `remotes` in `HostWebpackPlugin` on development only. This way no CI/CD changes are required. It also reduces build time of your monolith in development since these packages are excluded from the monolith build. Last but not least, you can experiment with micro-frontends in development without changing how you implement and host your apps.
+Configure your `remotes` in `HostWebpackPlugin` on development only. This way no CI/CD changes are required. It also reduces the build time of your monolith in development since these packages are excluded from the monolith build. Last but not least, you can experiment with micro-frontends in development without changing how you implement and host your apps.
 
 Pro-tip example:
 
 ```tsx
-// next.config.js
+// my-monorepo/apps/nextjs-host/next.config.js
 const { HostWebpackPlugin } = require("@leanjs/webpack");
 
 module.exports = {
@@ -240,7 +258,7 @@ module.exports = {
           packages:
             process.env.NODE_ENV === "production"
               ? []
-              : ["@my-org/my-micro-app-1"],
+              : ["@my-org/react-app-1"],
         },
       })
     );

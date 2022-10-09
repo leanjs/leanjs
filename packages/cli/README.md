@@ -7,17 +7,21 @@ The LeanJS CLI provides commands to help you develop, build, and deploy your com
 If you use a monorepo (recommended) execute the following command at the root of your repository:
 
 ```sh
-yarn add -D -W @leanjs/cli @leanjs/core
+yarn add -D -W @leanjs/cli && yarn add -W @leanjs/core
 ```
 
-If you don't use a monorepo, run `yarn add -D @leanjs/cli @leanjs/core` in each repository of each composable app.
-
-Finally, in the `package.json` of each composable app add the following `devDependency`:
+then in the `package.json` of each composable app add the following `devDependency`:
 
 ```
 "devDependencies": {
   "@leanjs/cli": "*"
 }
+```
+
+If your app is not in a monorepo, then run the following command instead of the above:
+
+```sh
+yarn add -D @leanjs/cli && yarn add @leanjs/core
 ```
 
 ## Basic usage
@@ -157,7 +161,7 @@ This is an example of a `package.json` for a composable app with all the Lean co
 
 ```json
 {
-  "name": "@my-org/composable -app-x",
+  "name": "@my-org/composable-app-x",
   "version": "1.0.0",
   "scripts": {
     "dev": "lean dev --config react",

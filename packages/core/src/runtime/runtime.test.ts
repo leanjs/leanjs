@@ -1483,7 +1483,7 @@ describe("cleanup", () => {
     }).createRuntime();
 
     // reading these apis to invoke their factory functions
-    runtime.api.eventEmitter1;
+    await runtime.api.eventEmitter1;
     runtime.api.eventEmitter2;
 
     expect(cleanup1).not.toHaveBeenCalled();
@@ -1496,14 +1496,14 @@ describe("cleanup", () => {
     expect(cleanup2).toHaveBeenCalled();
 
     // reading these apis to invoke factory their functions
-    runtime.api.eventEmitter1;
-    runtime.api.eventEmitter2;
+    await runtime.api.eventEmitter1;
+    await runtime.api.eventEmitter2;
     expect(initialised1).toHaveBeenCalledTimes(2);
     expect(initialised2).toHaveBeenCalledTimes(2);
 
     // these should not invoke any factory function because runtime.cleanup() didn't run again
-    runtime.api.eventEmitter1;
-    runtime.api.eventEmitter2;
+    await runtime.api.eventEmitter1;
+    await runtime.api.eventEmitter2;
     expect(initialised1).toHaveBeenCalledTimes(2);
     expect(initialised2).toHaveBeenCalledTimes(2);
   });

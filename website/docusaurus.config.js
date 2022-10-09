@@ -108,6 +108,10 @@ const config = {
               type: "doc",
               id: "webpack/README",
             },
+            {
+              type: "doc",
+              id: "aws/README",
+            },
           ];
           // return items.docs
           //   .sort((a, b) =>
@@ -200,6 +204,10 @@ const config = {
       prism: {
         theme: lightCodeTheme,
         darkTheme: darkCodeTheme,
+      },
+      colorMode: {
+        defaultMode: "dark",
+        respectPrefersColorScheme: true,
       },
     }),
 };

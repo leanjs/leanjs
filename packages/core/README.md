@@ -4,7 +4,7 @@ The LeanJS `runtime` enables composable apps to share some state or to define AP
 
 The `runtime` is created in two steps:
 
-1. `configureRuntime`. In a distributed architecture there are many contexts where a `runtime` could be created. For instance, each composable app will create a `runtime` if they run in isolation. However, when composable apps are composed into a single app, only one `runtime` will be created and shared across all of them. The `runtime` can be created in more than one place but the configuration of it should be consistent across contexts.
+1. `configureRuntime`. In a distributed architecture there are many contexts where a `runtime` could be created. For instance, each composable app will create a `runtime` when they run in isolation. However, when composable apps are composed into a single app, only one `runtime` will be created and shared across all of them. The `runtime` can be created in more than one place but the configuration of it should be consistent across contexts.
 
 2. `createRuntime`. Invoking `configureRuntime` returns a function called `createRuntime` which creates a `runtime` when invoked. `createRuntime` is not a singleton so you are responsible for not calling `createRuntime` more than once in a given execution context. In other words, call `createRuntime` only once in your host app.
 
@@ -24,7 +24,7 @@ yarn add -W @leanjs/core
 then in the `package.json` of your app add the following `peerDependencies`:
 
 ```
-"dependencies": {
+"peerDependencies": {
   "@leanjs/core": "*"
 }
 ```
