@@ -1,6 +1,6 @@
 {
   "name": "@leanjs/vue",
-  "version": "0.5.11",
+  "version": "0.5.12",
   "author": "Alex Lobera <alex@leanjs.com>",
   "description": "Create your own Vue bindings for LeanJS Runtime",
   "types": "./dist/index.d.ts",
