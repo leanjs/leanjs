@@ -1,4 +1,3 @@
-import { exitError } from "@leanjs/cli";
 import { _ as CoreUtils } from "@leanjs/core";
 import fs from "fs";
 import chalk from "chalk";
