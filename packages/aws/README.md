@@ -1,15 +1,28 @@
 # @leanjs/aws
 
-LeanJS utilities for AWS.
-
 ## Installation
 
+If your apps are in a monorepo (recommended) execute the following command at the root of your repository:
+
 ```sh
-# If you use a monorepo run this command at the root
-yarn add -D @leanjs/aws @leanjs/cli
+yarn add -D -W @leanjs/aws @leanjs/cli && yarn add -W @leanjs/core
 ```
 
-## Usage
+then in the `package.json` of each composable app add the following `devDependency`:
+
+```
+"devDependencies": {
+  "@leanjs/cli": "*"
+}
+```
+
+If you don't use a monorepo, run the following command in each repository of each composable app instead of the above:
+
+```sh
+ yarn add -D @leanjs/aws @leanjs/cli && yarn add @leanjs/core
+```
+
+## Basic usage
 
 If you deploy all your micro-frontends to the same cloud provider and use a monorepo, you can add the following in your `lean.config.js` file:
 

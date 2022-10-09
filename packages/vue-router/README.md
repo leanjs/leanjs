@@ -62,7 +62,10 @@ my-monorepo/
 ```
 
 > **Note**
-> Read the recommended setup in our [getting started page](../../docs/getting-started.md#recommended-setup) if you want to create a similar monorepo structure
+
+<!-- > Read the recommended setup in our [getting started page](../../docs/getting-started#recommended-setup) if you want to create a similar monorepo structure -->
+
+> Read the recommended setup in our [getting started page](/getting-started#recommended-setup) if you want to create a similar monorepo structure
 
 Call `createApp` with the root component of your VueApp and your `createRuntime` function:
 
