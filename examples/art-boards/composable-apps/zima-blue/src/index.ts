@@ -1,8 +1,5 @@
 import { createApp } from "@leanjs/react";
 
-import packageJson from "../package.json";
 import ZimaBlue from "./App";
 
-export default createApp(ZimaBlue, {
-  packageName: packageJson.name,
-});
+export default createApp(ZimaBlue);
