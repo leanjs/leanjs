@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.19.21](https://github.com/leanjs/leanjs/compare/@leanjs/webpack@0.19.20...@leanjs/webpack@0.19.21) (2022-10-10)
+
+**Note:** Version bump only for package @leanjs/webpack
+
+
+
+
+
 ## [0.19.20](https://github.com/leanjs/leanjs/compare/@leanjs/webpack@0.19.19...@leanjs/webpack@0.19.20) (2022-10-10)
 
 **Note:** Version bump only for package @leanjs/webpack

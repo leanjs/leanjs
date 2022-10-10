@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.20.0](https://github.com/leanjs/leanjs/compare/@leanjs/core@0.19.2...@leanjs/core@0.20.0) (2022-10-10)
+
+
+### Features
+
+* remove packageName from createApp ([c38dc2a](https://github.com/leanjs/leanjs/commit/c38dc2ac344c52860068f99154b0e8cba6918a8e))
+
+
+
+
+
 ## [0.19.2](https://github.com/leanjs/leanjs/compare/@leanjs/core@0.19.1...@leanjs/core@0.19.2) (2022-10-10)
 
 **Note:** Version bump only for package @leanjs/core

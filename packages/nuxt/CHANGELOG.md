@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.4.0](https://github.com/leanjs/leanjs/compare/@leanjs/nuxt@0.3.23...@leanjs/nuxt@0.4.0) (2022-10-10)
+
+
+### Features
+
+* remove packageName from createApp ([c38dc2a](https://github.com/leanjs/leanjs/commit/c38dc2ac344c52860068f99154b0e8cba6918a8e))
+
+
+
+
+
 ## [0.3.23](https://github.com/leanjs/leanjs/compare/@leanjs/nuxt@0.3.22...@leanjs/nuxt@0.3.23) (2022-10-10)
 
 **Note:** Version bump only for package @leanjs/nuxt
