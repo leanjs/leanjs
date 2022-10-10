@@ -1,10 +1,10 @@
 import React from "react";
 import { Link, Route, Routes } from "react-router-dom";
 
-import { PetList } from "./pets";
-import { Pet } from "./pets/Pet";
+import { PetList } from "./components/pets";
+import { Pet } from "./components/pets/Pet";
 
-export function App() {
+export function RemoteReactSubPages() {
   return (
     <>
       <Routes>

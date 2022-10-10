@@ -9,15 +9,15 @@
   },
   "author": "Alex Lobera <alex@leanjs.com>",
   "dependencies": {
-    "@leanjs/core": "^0.16.1",
-    "@leanjs/next": "^0.4.12",
-    "@leanjs/react": "^0.10.3",
+    "@leanjs/core": "*",
+    "@leanjs/next": "*",
+    "@leanjs/react": "*",
     "next": "^11.0.0",
     "react": "^17.0.2",
     "react-dom": "^17.0.2"
   },
   "devDependencies": {
-    "@leanjs/webpack": "^0.19.11",
+    "@leanjs/webpack": "*",
     "@types/node": "^17.0.0",
     "@types/react": "^17.0.0",
     "@types/react-dom": "^17.0.0",

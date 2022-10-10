@@ -194,7 +194,7 @@ export type GetRuntime<MyCreateRuntime extends CreateRuntime> =
   ReturnType<MyCreateRuntime>;
 
 export interface OnErrorOptions {
-  scope?: string;
+  appName?: string;
 }
 
 export type OnError = (error: Error, options?: OnErrorOptions) => void;

@@ -10,8 +10,8 @@
   "author": "Alex Lobera <alex@leanjs.com>",
   "license": "MIT",
   "dependencies": {
-    "@leanjs/e2e-test-subjects-package-runtime-shared": "^1.2.1",
-    "@leanjs/react": "^0.10.3",
+    "@leanjs/e2e-test-subjects-package-runtime-shared": "*",
+    "@leanjs/react": "*",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "react-redux": "^8.0.2",

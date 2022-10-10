@@ -6,7 +6,10 @@ import { useRuntime } from "@leanjs/e2e-test-subjects-package-runtime-react";
 
 import { configureStore } from "./store";
 
-export function App({ initialState, updateInitialState }: AppProps) {
+export function RemoteReactRedux({
+  initialState,
+  updateInitialState,
+}: AppProps) {
   const runtime = useRuntime();
   const store = useMemo(
     () =>
@@ -17,7 +20,7 @@ export function App({ initialState, updateInitialState }: AppProps) {
           // merging potentially stale initial state
           ...initialState?.settings,
           // with potentially more up-to-date shared state
-          locale: runtime?.state.locale,
+          locale: runtime?.getState("locale"),
         },
       }),
     []
@@ -32,7 +35,7 @@ export function App({ initialState, updateInitialState }: AppProps) {
   store.subscribe(() => {
     const locale = store.getState().settings?.locale;
     if (runtime && locale) {
-      runtime.state.locale = locale;
+      runtime.setState("locale", locale);
     }
   });
 

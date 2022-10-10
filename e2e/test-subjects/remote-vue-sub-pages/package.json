@@ -7,7 +7,7 @@
     "start:e2e_DISABLED": "NODE_ENV=development node ../../../packages/cli/dist/bin/lean-cli dev --config=vue --port=44445"
   },
   "dependencies": {
-    "@leanjs/vue-router": "^0.3.9",
+    "@leanjs/vue-router": "*",
     "vue": "^3.0.0",
     "vue-router": "^4.0.0"
   },

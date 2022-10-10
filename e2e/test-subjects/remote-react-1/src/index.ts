@@ -1,6 +1,5 @@
 import { createApp } from "@leanjs/react-router";
 
-import packageJson from "../package.json";
-import { App } from "./components/App";
+import { RemoteReact1 } from "./RemoteReact1";
 
-export default createApp(App, { packageName: packageJson.name });
+export default createApp(RemoteReact1);

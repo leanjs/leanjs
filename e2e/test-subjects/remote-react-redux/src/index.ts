@@ -1,8 +1,5 @@
 import { createApp } from "@leanjs/react";
 
-import { App } from "./App";
-import packageJson from "../package.json";
+import { RemoteReactRedux } from "./RemoteReactRedux";
 
-export default createApp(App, {
-  packageName: packageJson.name,
-});
+export default createApp(RemoteReactRedux);

@@ -11,7 +11,7 @@ export const getDefaultPathname = (isSelfHosted?: boolean) =>
 
 export const createMount: CreateMount = ({
   el,
-  packageName,
+  appName,
   unmount,
   render,
   isSelfHosted = false,
@@ -20,12 +20,12 @@ export const createMount: CreateMount = ({
   onError,
 }) => {
   function updateInitialState(newInitialState: any) {
-    appInitialState.set(packageName, newInitialState);
+    appInitialState.set(appName, newInitialState);
   }
 
   const logScopedError = (error: any) => {
     if (onError) {
-      onError(error, { scope: packageName });
+      onError(error, { appName });
     } else {
       throw Error;
     }
@@ -34,14 +34,14 @@ export const createMount: CreateMount = ({
   if (el) {
     try {
       // initialize appInitialState if it's the first time this app runs
-      if (!initializedInitialState.has(packageName)) {
+      if (!initializedInitialState.has(appName)) {
         updateInitialState(initialState);
-        initializedInitialState.add(packageName);
+        initializedInitialState.add(appName);
       }
 
       render({
         appProps: {
-          initialState: appInitialState.get(packageName),
+          initialState: appInitialState.get(appName),
           updateInitialState,
           isSelfHosted,
         },

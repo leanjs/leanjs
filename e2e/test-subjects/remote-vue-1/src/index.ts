@@ -1,6 +1,5 @@
 import { createApp } from "@leanjs/vue-router";
 
-import App from "./components/App.vue";
-import packageJson from "../package.json";
+import RemoteVue1 from "./RemoteVue1.vue";
 
-export default createApp(App, { packageName: packageJson.name });
+export default createApp(RemoteVue1, { appName: "RemoteVue1" });

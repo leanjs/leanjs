@@ -1,6 +1,5 @@
 import { createApp } from "@leanjs/react";
 
-import packageJson from "../package.json";
-import { App } from "./components/App";
+import { CliReact } from "./CliReact";
 
-export default createApp(App, { packageName: packageJson.name });
+export default createApp(CliReact);

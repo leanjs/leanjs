@@ -1,8 +1,13 @@
 import { useState, useEffect, useContext } from "react";
 
-import type { MountFunc } from "@leanjs/core";
+import type {
+  MountFunc,
+  RemoteComposableApp,
+  ComposableApp,
+  GetComposableApp,
+} from "@leanjs/core";
 import { _ as CoreUtils } from "@leanjs/core";
-import type { UseHostArgs } from "../types";
+import type { UseMountArgs } from "../types";
 import { HostContext } from "../private/HostProvider";
 import { useRuntime } from "../runtime";
 
@@ -16,27 +21,35 @@ const {
 
 const mountCache = new Map<string, MountFunc | undefined>();
 
-export function useMount({ app }: UseHostArgs) {
-  const { packageName } = app;
-  if (!packageName) {
-    throw new Error(`Remote with no packageName can't be hosted`);
-  }
-  let url = "";
-  const name = createRemoteName(packageName);
-  const mountKey = url + name;
-  const isAppObject = typeof app === "object";
-  const context = useContext(HostContext);
+function isRemoteApp(
+  app: RemoteComposableApp | ComposableApp
+): app is RemoteComposableApp {
+  return !!(app as RemoteComposableApp).packageName;
+}
 
-  if (isAppObject && !app.mount) {
+export function useMount({ app }: UseMountArgs) {
+  const context = useContext(HostContext);
+  const appObject =
+    typeof app === "function" ? app({ isSelfHosted: false }) : app;
+  let mountKey: string;
+  let url: string | undefined;
+  let packageName: string | undefined;
+
+  if (isRemoteApp(appObject)) {
+    packageName = appObject.packageName;
     if (!context?.origin) {
       throw new Error(
         `origin prop is required in HostProvider to host a remote app`
       );
     }
-    const origin = deleteTrailingSlash(context.origin);
-    url = getRemoteUrl({ origin, packageName });
-  } else if (!mountCache.get(mountKey)) {
-    mountCache.set(mountKey, isAppObject ? app.mount : app().mount);
+    url = getRemoteUrl({
+      origin: deleteTrailingSlash(context.origin),
+      packageName,
+    });
+    mountKey = url;
+  } else {
+    mountKey = appObject.appName;
+    mountCache.set(mountKey, appObject.mount);
   }
 
   const cachedMount = mountCache.get(mountKey);
@@ -46,8 +59,12 @@ export function useMount({ app }: UseHostArgs) {
 
   useEffect(() => {
     if (!cachedMount) {
+      if (!url || !packageName) {
+        throw new Error(`packageName and URL are required for remote apps`);
+      }
+      const remoteName = createRemoteName(packageName);
       loadScript(url)
-        .then(() => loadModule(name))
+        .then(() => loadModule(remoteName))
         .then(({ default: createComposableApp }) => {
           if (typeof createComposableApp !== "function") {
             setError(new Error("Remote module didn't return a function"));
@@ -67,7 +84,7 @@ export function useMount({ app }: UseHostArgs) {
       setError(undefined);
       setMount(undefined);
     };
-  }, [name, mountKey, url, cachedMount]);
+  }, [packageName, mountKey, url, cachedMount]);
 
-  return { mount, error, name, url, runtime };
+  return { mount, error, url, runtime };
 }

@@ -12,9 +12,9 @@
     "nuxt3": "3.0.0-27313139.1c88580"
   },
   "dependencies": {
-    "@leanjs/core": "^0.16.1",
-    "@leanjs/e2e-test-subjects-package-runtime-react": "^1.1.15",
-    "@leanjs/nuxt": "^0.3.13",
-    "@leanjs/vue": "^0.5.3"
+    "@leanjs/core": "*",
+    "@leanjs/e2e-test-subjects-package-runtime-react": "*",
+    "@leanjs/nuxt": "*",
+    "@leanjs/vue": "*"
   }
 }
