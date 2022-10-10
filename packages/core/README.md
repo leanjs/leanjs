@@ -1,5 +1,7 @@
 # @leanjs/core
 
+## The LeanJS runtime
+
 The LeanJS `runtime` enables composable apps to share some state or to define APIs that share the same execution context, in a controlled manner. This keeps your composable apps performant and maintainable. By default nothing is shared. You can read more about [the why of this package in this post](https://alexlobera.com/sharing-state-in-micro-frontends-at-runtime/).
 
 The `runtime` is created in two steps:
