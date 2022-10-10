@@ -81,29 +81,16 @@ It hosts a composable app in a Next host.
 
 #### `app` - required prop
 
-The `app` prop can be a `ComposableApp` object, or a function that returns a promise that resolves to a `ComposableApp` object.
-
-```tsx
-interface ComposableApp {
-  // packageName is the `name` field in the `package.json` of a composable app
-  packageName: string;
-  // mount function returned by a `createApp` function
-  mount?: MountFunc;
-}
-```
-
-You can `import` a `ComposableApp` from any `export default createApp()` function, for instance:
+The `app` prop expects a `GetComposableApp` type. You can `import` a `GetComposableApp` from any `export default createApp()` function, for instance:
 
 ```tsx
 // my-monorepo/composable-apps/react-app-1/src/index.ts
 
 import { createApp } from "@leanjs/react";
+
 import { ReactApp1 } from "./ReactApp1";
 
-// createApp returns a ComposableApp
-export default createApp(ReactApp1, {
-  packageName: "@my-org/react-app-1",
-});
+export default createApp(ReactApp1);
 ```
 
 :::info
