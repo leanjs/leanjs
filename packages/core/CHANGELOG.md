@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.19.2](https://github.com/leanjs/leanjs/compare/@leanjs/core@0.19.1...@leanjs/core@0.19.2) (2022-10-10)
+
+**Note:** Version bump only for package @leanjs/core
+
+
+
+
+
 ## [0.19.1](https://github.com/leanjs/leanjs/compare/@leanjs/core@0.19.0...@leanjs/core@0.19.1) (2022-10-09)
 
 **Note:** Version bump only for package @leanjs/core

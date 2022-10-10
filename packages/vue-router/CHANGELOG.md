@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.3.19](https://github.com/leanjs/leanjs/compare/@leanjs/vue-router@0.3.18...@leanjs/vue-router@0.3.19) (2022-10-10)
+
+**Note:** Version bump only for package @leanjs/vue-router
+
+
+
+
+
 ## [0.3.18](https://github.com/leanjs/leanjs/compare/@leanjs/vue-router@0.3.17...@leanjs/vue-router@0.3.18) (2022-10-09)
 
 **Note:** Version bump only for package @leanjs/vue-router
