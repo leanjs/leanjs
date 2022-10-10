@@ -6,8 +6,8 @@
   "description": "Coolest todo example for building maintainable and performant micro-frontends.",
   "workspaces": [
     "apps/*",
-    "packages/*",
-    "micro-frontends/*"
+    "composable-apps/*",
+    "packages/*"
   ],
   "scripts": {
     "dev": "turbo run dev --parallel --no-cache",
