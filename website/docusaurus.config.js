@@ -113,28 +113,6 @@ const config = {
               id: "aws/README",
             },
           ];
-          // return items.docs
-          //   .sort((a, b) =>
-          //     a.sourceDirName < b.sourceDirName
-          //       ? -1
-          //       : a.sourceDirName > b.sourceDirName
-          //       ? 1
-          //       : 0
-          //   )
-          //   .reduce((acc, { id, sourceDirName }) => {
-          //     const item = {
-          //       label: sourceDirName,
-          //       id,
-          //       type: "doc",
-          //     };
-          //     if (id === "runtime/README") {
-          //       return acc;
-          //     } else if (id === "create-micro-frontends/README") {
-          //       return [item, ...acc];
-          //     } else {
-          //       return [...acc, item];
-          //     }
-          //   }, []);
         },
       },
     ],

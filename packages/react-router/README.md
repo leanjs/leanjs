@@ -68,6 +68,11 @@ Create small React Router apps that can be composed with other apps.
 
 ### `createApp`
 
+Arguments:
+
+- `App: ReactElement` - required
+- `options: { appName?: string }` - optional. By default, the name of your composable app is the name of your `App` component. You can change it using the optional argument `appName`.
+
 Create a file called `index.ts|js` in the `src` directory where your composable app is. For example:
 
 ```
@@ -91,20 +96,22 @@ Read the recommended setup in our [getting started page](/getting-started#recomm
 
 :::
 
-Call `createApp` with the root component of your app and pass the package name of the app, for example:
+Call `createApp` with the root component of your app, for example:
 
 ```ts
 // my-monorepo/composable-apps/react-router-app-1/src/index.ts
 
 import { createApp } from "@leanjs/react-router";
 
-import packageJson from "../package.json";
 import { ReactRouterApp1 } from "./ReactRouterApp1";
 
-//       👇  you have to `export default`
-export default createApp(ReactRouterApp1, {
-  packageName: packageJson.name,
-});
+// 👇 you have to `export default`
+export default createApp(ReactRouterApp1);
+
+// The name of the composable app is the name of your component,
+// "ReactRouterApp1 in this case.
+// you can pass a different name using the second argument, e.g.
+// export default createApp(ReactRouterApp1, { appName: "SomeName" });
 ```
 
 Hello world example of the `ReactRouterApp1` imported above
@@ -155,29 +162,16 @@ It hosts a composable app in a React Router host.
 
 #### `app` - required prop
 
-The `app` prop can be a `ComposableApp` object, or a function that returns a promise that resolves to a `ComposableApp` object.
-
-```tsx
-interface ComposableApp {
-  // packageName is the `name` field in the `package.json` of a composable app
-  packageName: string;
-  // mount function returned by a `createApp` function
-  mount?: MountFunc;
-}
-```
-
-You can `import` a `ComposableApp` from any `export default createApp()` function, for instance:
+The `app` prop expects a `GetComposableApp` type. You can `import` a `GetComposableApp` from any `export default createApp()` function, for instance:
 
 ```tsx
 // my-monorepo/composable -apps/react-router-app-1/src/ReactRouterApp1.tsx
 
 import { createApp } from "@leanjs/react-router";
+
 import { ReactRouterApp1 } from "./ReactRouterApp1";
 
-// createApp returns a ComposableApp
-export default createApp(ReactRouterApp1, {
-  packageName: "@my-org/react-router-app-1",
-});
+export default createApp(ReactRouterApp1);
 ```
 
 :::info

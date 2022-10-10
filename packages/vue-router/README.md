@@ -31,6 +31,11 @@ Create small Vue Router apps that can be composed with other apps.
 
 ### `createApp`
 
+Arguments:
+
+- `App: Component` - required
+- `options: { appName: string }` - required. You have to specify the name of your composable app.
+
 Create a file called `index.ts|js` in the `src` directory where your composable app is.
 
 ```
@@ -58,12 +63,11 @@ Call `createApp` with the root component of your Vue Router app:
 ```ts
 import { createApp } from "@leanjs/vue-router";
 
-import packageJson from "../package.json";
 import VueRouterApp1 from "./VueRouterApp1.vue";
 
-// 👇  you must `export default createApp(`
+// 👇  you have to `export default createApp(`
 export default createApp(VueApp, {
-  packageName: packageJson.name,
+  appName: "VueRouterApp1",
 });
 ```
 
