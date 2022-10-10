@@ -49,32 +49,37 @@ export interface MountOutput {
   unmount: UnmountFunc;
   onHostNavigate?: OnNavigate;
 }
-export interface CreateComposableApp {
-  (options?: CreateComposableAppOptions): ComposableApp;
+
+export interface ComposableApp {
+  appName: string;
+  mount: MountFunc;
+}
+
+export interface RemoteComposableApp {
   packageName: string;
 }
 
-export type ComposableApp = {
-  packageName: string;
-  mount?: MountFunc;
-};
+export interface CreateComposableAppOptions {
+  isSelfHosted?: boolean;
+}
 
-export type ComposableAppSync = ComposableApp | CreateComposableApp;
+export type CreateComposableApp = (
+  options?: CreateComposableAppOptions
+) => ComposableApp;
 
-export type ComposableAppAsync = (
-  options: CreateComposableAppOptions
-) => Promise<{ default: ComposableApp }>;
+export type GetComposableApp = RemoteComposableApp | CreateComposableApp;
+
+export type GetComposableAppAsync = Promise<{
+  default: GetComposableApp;
+}>;
 export interface MountFunc<MyRuntime extends Runtime = Runtime> {
   (element: HTMLElement | null, options: MountOptions<MyRuntime>): MountOutput;
 }
 
 type UdpateInitialState = (state: any) => void;
 
-export interface CreateComposableAppOptions {
-  isSelfHosted?: boolean;
-}
 export interface CreateAppConfig {
-  packageName: string;
+  appName?: string;
 }
 export interface NavigationOptions {
   hash?: string;
@@ -96,7 +101,7 @@ interface CreateMountRenderArgs {
 }
 export interface CreateMountArgs {
   el: HTMLElement | null;
-  packageName: string;
+  appName: string;
   unmount: () => void;
   render: ({ appProps, logScopedError }: CreateMountRenderArgs) => void;
   isSelfHosted: boolean | undefined;

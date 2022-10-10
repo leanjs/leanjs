@@ -4,8 +4,8 @@ import type {
   NavigateFunc,
   ListenFunc,
   BasePath,
-  ComposableAppAsync,
-  ComposableAppSync,
+  GetComposableAppAsync,
+  GetComposableApp,
   ComposableApp,
   CreateAppConfig as CreateAppCoreConfig,
 } from "@leanjs/core";
@@ -27,17 +27,17 @@ export interface BaseHostProps {
 }
 
 export interface AsyncHostProps extends BaseHostProps {
-  app: ComposableAppAsync | ComposableAppSync;
+  app: GetComposableApp | (() => GetComposableAppAsync);
 }
 
 export interface HostProps extends BaseHostProps {
-  app: ComposableApp;
+  app: GetComposableApp;
 }
 
 export type ErrorComponent = (props: { error: Error }) => React.ReactElement;
 
-export interface UseHostArgs {
-  app: ComposableAppSync;
+export interface UseMountArgs {
+  app: GetComposableApp | ComposableApp;
 }
 
 export interface HostContextValues {
@@ -56,4 +56,9 @@ export interface HostProviderProps<BaseRuntime extends Runtime = Runtime> {
 
 export interface CreateAppConfig extends CreateAppCoreConfig {
   strict?: boolean;
+}
+
+export interface RootComponent {
+  (props: { children: ReactElement }): ReactElement;
+  displayName?: string;
 }

@@ -1,6 +1,5 @@
 import { createApp } from "@leanjs/vue-router";
 
-import packageJson from "../package.json";
-import App from "./components/App.vue";
+import CliVue from "./CliVue.vue";
 
-export default createApp(App, { packageName: packageJson.name });
+export default createApp(CliVue, { appName: "CliVue" });

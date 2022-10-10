@@ -1,7 +1,7 @@
 import React from "react";
 import { useRuntime } from "@leanjs/e2e-test-subjects-package-runtime-react";
 
-export function App() {
+export function CliReact() {
   const runtime = useRuntime();
   console.log("test pusher", runtime.api.pusher.key);
 

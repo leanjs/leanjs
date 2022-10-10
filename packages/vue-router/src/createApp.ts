@@ -35,15 +35,18 @@ interface VueRouterConfig {
 }
 interface CreateRemoteVueConfig extends CreateAppConfig {
   router?: VueRouterConfig;
+  appName: string;
 }
 
 export const createApp = (
   App: Component,
   {
-    packageName,
+    appName,
     router: { routes = [], ...routerConfig } = {},
   }: CreateRemoteVueConfig
 ) => {
+  if (!appName) throw new Error("appName required in Vue createApp");
+
   const createComposableApp: CreateComposableApp = ({ isSelfHosted } = {}) => {
     const mount: MountFunc = (
       el,
@@ -71,7 +74,7 @@ export const createApp = (
       return {
         ...createMount({
           el,
-          packageName,
+          appName,
           initialState,
           isSelfHosted,
           onError: runtime?.logError,
@@ -122,10 +125,8 @@ export const createApp = (
       };
     };
 
-    return { mount, packageName };
+    return { mount, appName };
   };
-
-  createComposableApp.packageName = packageName;
 
   return createComposableApp;
 };

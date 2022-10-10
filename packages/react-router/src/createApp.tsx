@@ -16,7 +16,7 @@ const { createMount, getDefaultPathname } = CoreUtils;
 
 export const createApp = <MyAppProps extends AppProps = AppProps>(
   App: (props: MyAppProps) => ReactElement,
-  { packageName }: CreateAppConfig
+  { appName = App.name }: CreateAppConfig = {}
 ) => {
   const createComposableApp: CreateComposableApp = ({ isSelfHosted } = {}) => {
     const history = isSelfHosted
@@ -41,7 +41,7 @@ export const createApp = <MyAppProps extends AppProps = AppProps>(
       return {
         ...createMount({
           el,
-          packageName,
+          appName,
           isSelfHosted,
           initialState,
           onError: runtime?.logError,
@@ -79,11 +79,9 @@ export const createApp = <MyAppProps extends AppProps = AppProps>(
 
     return {
       mount,
-      packageName,
+      appName,
     };
   };
-
-  createComposableApp.packageName = packageName;
 
   return createComposableApp;
 };

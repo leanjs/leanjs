@@ -22,6 +22,7 @@ import type {
   NavigateFunc,
   ListenFunc,
   ComposableApp,
+  RemoteComposableApp,
 } from "@leanjs/core";
 import { _ as CoreUtils } from "@leanjs/core";
 import { Mount } from "@leanjs/vue";
@@ -30,7 +31,7 @@ import mountCache from "./mountCache";
 import { RouteLocationNormalizedLoaded, Router } from "vue-router";
 
 export interface HostProps {
-  app: ComposableApp;
+  app: RemoteComposableApp;
   pathname?: string;
 }
 

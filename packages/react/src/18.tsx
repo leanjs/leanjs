@@ -11,6 +11,7 @@ import React, { ReactElement, useEffect } from "react";
 // @ts-ignore
 import { createRoot } from "react-dom/client";
 
+import { RootComponent } from "./types";
 import { ErrorBoundary } from "./utils";
 import { RuntimeProvider } from "./runtime";
 const { createMount } = CoreUtils;
@@ -20,14 +21,9 @@ interface ReactRoot {
   render: (element: ReactElement) => void;
 }
 
-interface RootComponent {
-  (props: { children: ReactElement }): ReactElement;
-  displayName?: string;
-}
-
 export const createApp = <MyAppProps extends AppProps = AppProps>(
   App: (props: MyAppProps) => ReactElement,
-  { packageName }: CreateAppConfig
+  { appName = App.name }: CreateAppConfig = {}
 ) => {
   const createComposableApp: CreateComposableApp = ({ isSelfHosted } = {}) => {
     let unmountCallback: UnmountFunc | null;
@@ -48,14 +44,14 @@ export const createApp = <MyAppProps extends AppProps = AppProps>(
 
       return children;
     };
-    Root.displayName = `${App.name}Root`;
+    Root.displayName = `${appName}Root`;
 
     const mount: MountFunc = (el, { runtime, initialState } = {}) => {
       return createMount({
         el,
         isSelfHosted,
         initialState,
-        packageName,
+        appName,
         onError: runtime?.logError,
         unmount: () => {
           if (rendering) {
@@ -85,10 +81,8 @@ export const createApp = <MyAppProps extends AppProps = AppProps>(
       });
     };
 
-    return { mount, packageName };
+    return { mount, appName };
   };
-
-  createComposableApp.packageName = packageName;
 
   return createComposableApp;
 };

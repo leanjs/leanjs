@@ -1,5 +1,5 @@
 import React, { ReactElement, useEffect, useState } from "react";
-import type { ComposableApp } from "@leanjs/core";
+import type { GetComposableApp } from "@leanjs/core";
 import { _ as CoreUtils } from "@leanjs/core";
 
 import type { HostProps, AsyncHostProps } from "../types";
@@ -21,7 +21,7 @@ export const useApp = (
   const isAppAsync = isPromise(maybeAsyncApp);
   const composableApp = isAppAsync ? undefined : maybeAsyncApp;
   const [loading, setLoading] = useState(isAppAsync);
-  const [resolvedApp, setResolvedApp] = useState<ComposableApp>();
+  const [resolvedApp, setResolvedApp] = useState<GetComposableApp>();
   const [error, setError] = useState<Error>();
 
   useEffect(() => {
