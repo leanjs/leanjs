@@ -1,7 +1,7 @@
 import { createApp } from "@leanjs/vue-router";
 
 import { routes } from "./routes";
-import RemoteVueSubPages from "./App.vue";
+import RemoteVueSubPages from "./RemoteVueSubPages.vue";
 
 export default createApp(RemoteVueSubPages, {
   appName: "RemoteVueSubPages",
