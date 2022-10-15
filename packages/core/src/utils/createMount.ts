@@ -1,4 +1,5 @@
 import type { CreateMount } from "../types";
+import { createAppError } from "./index";
 
 // TODO, SHOULD THIS BE INJECTED FROM "PROVIDER"?
 const appInitialState = new Map<string, any>();
@@ -23,14 +24,6 @@ export const createMount: CreateMount = ({
     appInitialState.set(appName, newInitialState);
   }
 
-  const logScopedError = (error: any) => {
-    if (onError) {
-      onError(error, { appName });
-    } else {
-      throw Error;
-    }
-  };
-
   if (el) {
     try {
       // initialize appInitialState if it's the first time this app runs
@@ -45,13 +38,12 @@ export const createMount: CreateMount = ({
           updateInitialState,
           isSelfHosted,
         },
-        logScopedError,
       });
 
       // add unmount function with UI library unmount logic, e.g. ReactDOM.unmountComponentAtNode(el)
       cleanups.push(unmount);
     } catch (error: any) {
-      logScopedError(error);
+      onError(createAppError({ appName, error }));
     }
   }
 
@@ -61,7 +53,7 @@ export const createMount: CreateMount = ({
       try {
         cleanups.forEach((cleanup) => cleanup());
       } catch (error) {
-        logScopedError(error);
+        onError(createAppError({ appName, error }));
       }
     },
   };

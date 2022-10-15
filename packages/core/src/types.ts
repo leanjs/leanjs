@@ -20,6 +20,7 @@ export interface MountOptions<MyRuntime extends Runtime = Runtime>
   runtime?: MyRuntime;
   onRemoteNavigate?: OnNavigate;
   initialState?: any;
+  onError: LogAnyError;
 }
 
 export type NavigateFunc = (location: Location) => void;
@@ -97,16 +98,15 @@ export type CreateMount = (args: CreateMountArgs) => MountOutput;
 
 interface CreateMountRenderArgs {
   appProps?: AppProps;
-  logScopedError: LogAnyError;
 }
 export interface CreateMountArgs {
   el: HTMLElement | null;
   appName: string;
   unmount: () => void;
-  render: ({ appProps, logScopedError }: CreateMountRenderArgs) => void;
+  render: (args: CreateMountRenderArgs) => void;
   isSelfHosted: boolean | undefined;
   initialState: any;
-  onError: LogAnyError | undefined;
+  onError: LogAnyError;
   cleanups?: Cleanup[];
 }
 

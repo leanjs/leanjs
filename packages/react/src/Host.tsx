@@ -1,3 +1,4 @@
+import { _ } from "@leanjs/core";
 import React from "react";
 
 import type { HostProps, AsyncHostProps } from "./types";
@@ -11,13 +12,19 @@ function ReactHost({
   errorComponent: ErrorComponent = DefaultError,
   ...rest
 }: HostProps) {
-  const { mount, error, runtime } = useMount({ app });
+  const { mount, runtime, error, setError } = useMount({ app });
+  const throwErrors = ErrorComponent === null;
 
-  return mount ? (
-    <Mount {...rest} mount={mount} runtime={runtime} />
-  ) : error ? (
-    <ErrorComponent error={error} />
-  ) : (
-    fallback
-  );
+  if (error) {
+    if (throwErrors) {
+      throw error;
+    }
+    return <ErrorComponent error={error} />;
+  } else if (mount) {
+    return (
+      <Mount {...rest} setError={setError} mount={mount} runtime={runtime} />
+    );
+  } else {
+    return fallback;
+  }
 }

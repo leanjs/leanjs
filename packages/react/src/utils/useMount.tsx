@@ -86,5 +86,5 @@ export function useMount({ app }: UseMountArgs) {
     };
   }, [packageName, mountKey, url, cachedMount]);
 
-  return { mount, error, url, runtime };
+  return { mount, error, url, runtime, setError };
 }

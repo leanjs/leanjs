@@ -12,7 +12,7 @@ import { createBrowserHistory, createMemoryHistory } from "history";
 import { UniversalRouter } from "./components/UniversalRouter";
 
 const { ErrorBoundary } = ReactUtils;
-const { createMount, getDefaultPathname } = CoreUtils;
+const { createMount, getDefaultPathname, createAppError } = CoreUtils;
 
 export const createApp = <MyAppProps extends AppProps = AppProps>(
   App: (props: MyAppProps) => ReactElement,
@@ -31,7 +31,8 @@ export const createApp = <MyAppProps extends AppProps = AppProps>(
         basename,
         pathname = getDefaultPathname(isSelfHosted),
         initialState,
-      } = {}
+        onError,
+      }
     ) => {
       const initialPath = [basename, pathname]
         .join("/")
@@ -44,19 +45,23 @@ export const createApp = <MyAppProps extends AppProps = AppProps>(
           appName,
           isSelfHosted,
           initialState,
-          onError: runtime?.logError,
+          onError,
           unmount: () => {
             if (el) ReactDOM.unmountComponentAtNode(el);
           },
           cleanups: onRemoteNavigate
             ? [history.listen((e) => onRemoteNavigate(e.location))]
             : [],
-
-          render: ({ appProps, logScopedError }) => {
+          render: ({ appProps }) => {
             if (el) {
               ReactDOM.render(
                 <React.StrictMode>
-                  <ErrorBoundary onError={logScopedError}>
+                  <ErrorBoundary
+                    onError={(error) =>
+                      onError(createAppError({ appName, error }))
+                    }
+                    errorComponent={null}
+                  >
                     <UniversalRouter history={history} basename={basename}>
                       <RuntimeProvider runtime={runtime}>
                         <App {...(appProps as MyAppProps)} />

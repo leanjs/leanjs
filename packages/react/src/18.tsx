@@ -14,7 +14,7 @@ import { createRoot } from "react-dom/client";
 import { RootComponent } from "./types";
 import { ErrorBoundary } from "./utils";
 import { RuntimeProvider } from "./runtime";
-const { createMount } = CoreUtils;
+const { createMount, createAppError } = CoreUtils;
 
 interface ReactRoot {
   unmount: UnmountFunc;
@@ -46,13 +46,13 @@ export const createApp = <MyAppProps extends AppProps = AppProps>(
     };
     Root.displayName = `${appName}Root`;
 
-    const mount: MountFunc = (el, { runtime, initialState } = {}) => {
+    const mount: MountFunc = (el, { runtime, initialState, onError }) => {
       return createMount({
         el,
         isSelfHosted,
         initialState,
         appName,
-        onError: runtime?.logError,
+        onError,
         unmount: () => {
           if (rendering) {
             unmountCallback = unmountRoot;
@@ -60,7 +60,7 @@ export const createApp = <MyAppProps extends AppProps = AppProps>(
             setTimeout(unmountRoot);
           }
         },
-        render: ({ appProps, logScopedError }) => {
+        render: ({ appProps }) => {
           unmountCallback = null;
           if (el && !rendering) {
             rendering = true;
@@ -68,7 +68,12 @@ export const createApp = <MyAppProps extends AppProps = AppProps>(
             root?.render(
               <React.StrictMode>
                 <Root>
-                  <ErrorBoundary onError={logScopedError}>
+                  <ErrorBoundary
+                    onError={(error) =>
+                      onError(createAppError({ appName, error }))
+                    }
+                    errorComponent={null}
+                  >
                     <RuntimeProvider runtime={runtime}>
                       <App {...(appProps as MyAppProps)} />
                     </RuntimeProvider>

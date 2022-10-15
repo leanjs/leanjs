@@ -144,7 +144,11 @@ export type StateType<T extends Runtime> = T extends {
   ? State
   : any;
 
-export type LogAnyError = (error: any, options?: OnErrorOptions) => void;
+export interface LogErrorOptions {
+  appName?: string;
+}
+
+export type LogAnyError = (error: any) => void;
 
 export interface LoaderState {
   loading: boolean;
@@ -193,8 +197,4 @@ export type CreateRuntime<MyRuntime extends Runtime = Runtime> = {
 export type GetRuntime<MyCreateRuntime extends CreateRuntime> =
   ReturnType<MyCreateRuntime>;
 
-export interface OnErrorOptions {
-  appName?: string;
-}
-
-export type OnError = (error: Error, options?: OnErrorOptions) => void;
+export type OnError = (error: Error) => void;

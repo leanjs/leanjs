@@ -21,7 +21,8 @@ import type {
 } from "vue-router";
 import { _ as CoreUtils } from "@leanjs/core";
 
-const { createMount, getDefaultPathname, dedupeSlash } = CoreUtils;
+const { createMount, getDefaultPathname, dedupeSlash, createAppError } =
+  CoreUtils;
 
 export { CreateAppConfig, MountOptions, Cleanup };
 
@@ -56,7 +57,8 @@ export const createApp = (
         basename,
         pathname = getDefaultPathname(isSelfHosted),
         initialState,
-      } = {}
+        onError,
+      }
     ) => {
       let app: App;
       let semaphore = true;
@@ -77,7 +79,7 @@ export const createApp = (
           appName,
           initialState,
           isSelfHosted,
-          onError: runtime?.logError,
+          onError,
           cleanups: onRemoteNavigate
             ? [
                 router.beforeEach((to, from) => {
@@ -93,14 +95,14 @@ export const createApp = (
                 }),
               ]
             : [],
-          render: ({ appProps, logScopedError }) => {
+          render: ({ appProps }) => {
             try {
               app = createVueApp(App, { ...appProps, isSelfHosted })
                 .provide("runtime", runtime)
                 .use(router);
               app.mount(el);
-            } catch (error) {
-              logScopedError(error);
+            } catch (error: any) {
+              throw createAppError({ appName, error });
             }
           },
           unmount: () => {

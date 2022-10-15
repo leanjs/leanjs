@@ -10,6 +10,7 @@ export const Mount = memo(function Mount({
   basename,
   runtime,
   className,
+  setError,
 }: MountProps) {
   const ref = useRef<HTMLDivElement>(null);
   const initialPathname = useRef(pathname).current;
@@ -25,6 +26,7 @@ export const Mount = memo(function Mount({
       basename,
       pathname: initialPathname,
       runtime,
+      onError: setError,
     });
 
     const removeListener = onHostNavigate

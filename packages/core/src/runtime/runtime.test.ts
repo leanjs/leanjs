@@ -77,7 +77,7 @@ describe("configureRuntime", () => {
 
     await runtime.booted();
 
-    expect(onError).toHaveBeenCalledWith(randomError, undefined);
+    expect(onError).toHaveBeenCalledWith(randomError);
   });
 
   it(`calls onError if it can't create any sync api`, async () => {
@@ -94,7 +94,7 @@ describe("configureRuntime", () => {
 
     runtime.api.eventEmitter;
 
-    expect(onError).toHaveBeenCalledWith(randomError, undefined);
+    expect(onError).toHaveBeenCalledWith(randomError);
     expect(onError).toHaveBeenCalledTimes(1);
   });
 
@@ -163,7 +163,7 @@ describe("createRuntime", () => {
     const error = new Error(Math.random().toString());
     runtime.logError(error);
 
-    expect(onError).toHaveBeenCalledWith(error, undefined);
+    expect(onError).toHaveBeenCalledWith(error);
   });
 
   describe("given a parent runtime", () => {
@@ -796,36 +796,6 @@ Current valid props are: token, locale`);
           expect(parentRuntime.loader.locale.error).toBe(errorMssg);
           expect(parentRuntime.loader.locale.loading).toBe(false);
         });
-      });
-
-      it("throws an Error from either the parent runtime or the child runtime if an invalid state prop is used", async () => {
-        const { createRuntime: createParentRuntime } = configureRuntime(
-          defaultState
-        )({
-          onError: emptyFunction,
-        });
-
-        const { createRuntime: createChildRuntime } = configureRuntime(
-          defaultState
-        )({
-          onError: emptyFunction,
-        });
-
-        const parentRuntime = createParentRuntime();
-        const childRuntime = createChildRuntime({ runtime: parentRuntime });
-        let errorMessage;
-
-        try {
-          // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-          // @ts-ignore
-          childRuntime.loader.invalid_prop.loading;
-        } catch (error: any) {
-          errorMessage = error.message;
-        }
-
-        expect(errorMessage).toBe(`"invalid_prop" is not a valid state prop.
-Did you forget to set "invalid_prop" to a value in your defaultState (including null or undefined) when calling configureState function?
-Current valid props are: locale, token, user`);
       });
     });
 
@@ -1803,24 +1773,6 @@ describe("loader", () => {
       expect(runtime.loader.locale.error).toBe(errorMssg);
       expect(runtime.loader.locale.loading).toBe(false);
     });
-  });
-
-  it("throws an Error if an invalid state prop is used", async () => {
-    let errorMessage;
-
-    const runtime = createRuntime();
-    try {
-      await runtime;
-      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-      // @ts-ignore
-      runtime.loader.invalid_prop.loading;
-    } catch (error: any) {
-      errorMessage = error.message;
-    }
-
-    expect(errorMessage).toBe(`"invalid_prop" is not a valid state prop.
-Did you forget to set "invalid_prop" to a value in your defaultState (including null or undefined) when calling configureState function?
-Current valid props are: locale, token, user`);
   });
 });
 

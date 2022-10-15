@@ -35,11 +35,14 @@ export const useApp = (
     }
   }, [maybeAsyncApp, isAppAsync]);
 
-  return loading ? (
-    fallback
-  ) : resolvedApp || composableApp ? (
-    <Host {...props} app={resolvedApp! || composableApp!} />
-  ) : (
-    <ErrorComponent error={error!} />
-  );
+  if (loading) {
+    return fallback;
+  } else if (resolvedApp || composableApp) {
+    return <Host {...props} app={resolvedApp! || composableApp!} />;
+  } else {
+    if (ErrorComponent === null) {
+      throw error;
+    }
+    return <ErrorComponent error={error!} />;
+  }
 };
