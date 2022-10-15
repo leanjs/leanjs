@@ -21,9 +21,10 @@ export type Runtime = GetRuntime<typeof createRuntime>;
 
 export const { createRuntime } = configureRuntime<State>(defaultState)({
   onError: console.log, // add a proper logger here,
-  context: {
-    pusher: new Pusher("ADD_KEY", {
-      cluster: "eu",
-    }),
+  apiFactory: {
+    pusher: () =>
+      new Pusher("ADD_KEY", {
+        cluster: "eu",
+      }),
   },
 });
