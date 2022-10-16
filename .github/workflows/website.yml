@@ -6,6 +6,7 @@ on:
     paths:
       - docs/**
       - website/**
+      - packages/**.md
 
   workflow_dispatch:
 
