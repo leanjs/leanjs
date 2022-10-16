@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.0.11](https://github.com/leanjs/leanjs/compare/@leanjs/website@0.0.10...@leanjs/website@0.0.11) (2022-10-16)
+
+**Note:** Version bump only for package @leanjs/website
+
+
+
+
+
 ## [0.0.10](https://github.com/leanjs/leanjs/compare/@leanjs/website@0.0.9...@leanjs/website@0.0.10) (2022-10-15)
 
 **Note:** Version bump only for package @leanjs/website
