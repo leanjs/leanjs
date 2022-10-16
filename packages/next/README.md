@@ -271,7 +271,7 @@ If `null` is passed to the `errorComponent` prop then the `Host` component will 
 <MyErrorBoundary>
   <Host app={exampleApp1} errorComponent={null} />
   <Host app={exampleApp2} errorComponent={null} />
-  <h1>Don't show this if any of the hosted apps fail</h1>
+  <h1>Don't show this if either of the above hosted apps fail</h1>
 </MyErrorBoundary>
 ```
 
