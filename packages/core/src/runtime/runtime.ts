@@ -13,11 +13,11 @@ import type {
   ValueFromApiFactorySync,
   CreateRuntimeArgs,
   Unsubscribe,
-  OnErrorOptions,
   Request,
+  LogErrorOptions,
 } from "./types";
 
-import { isPromise } from "../utils";
+import { createAppError, isPromise } from "../utils";
 import { Cleanup } from "..";
 
 const runCreateRuntime =
@@ -44,13 +44,8 @@ const runCreateRuntime =
     ApiFactory,
     ApiProp
   > => {
-    function logError(error: any, options?: OnErrorOptions) {
-      onError(
-        error && error.stack && error.message
-          ? (error as Error)
-          : new Error(typeof error === "string" ? error : "Unknown error"),
-        options
-      );
+    function logError(error: any, options?: LogErrorOptions) {
+      onError(createAppError({ appName: options?.appName, error }));
     }
 
     const isBrowser = typeof window !== "undefined";
@@ -145,7 +140,6 @@ Current valid props are: ${Object.keys(currentState).join(", ")}`);
             throw 1;
           }
         } catch {
-          validateProp(prop);
           const value = loaders.get(prop);
 
           return {

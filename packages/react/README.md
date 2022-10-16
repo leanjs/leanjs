@@ -185,15 +185,27 @@ Your Lean [runtime](/packages/core/).
 
 #### `errorComponent` prop - optional
 
-React component displayed when a `<Host>` component errors and the error is not handled. It can be overridden by the `<Host>` component.
+React component displayed when a hosted `app` errors and the error is not handled by the `app`.
 
 ```ts
-type ErrorComponent = (props: { error: Error }) => ReactElement;
+type ErrorComponent = null | (props: { error: Error }) => ReactElement;
+```
+
+If the `errorComponent` prop is not passed then the `Host` component will catch the error and display a default error component. The default behaviour is to always catch errors within the boundaries of the host.
+
+If `null` is passed to the `errorComponent` prop then the `Host` component will throw any errors not handled by the hosted `app`. This is useful if you want to display a single error message for a group of elements in case of error, e.g.:
+
+```tsx
+<MyErrorBoundary>
+  <Host app={exampleApp1} errorComponent={null} />
+  <Host app={exampleApp2} errorComponent={null} />
+  <h1>Don't show this if any of the hosted apps fail</h1>
+</MyErrorBoundary>
 ```
 
 #### `fallback` prop - optional
 
-React element displayed when a `<Host>` component is fetching a remote app. It can be overriden by the `<Host>` component.
+React element displayed when a `<Host>` component is fetching a remote app.
 
 ```ts
 type Fallback = ReactElement;

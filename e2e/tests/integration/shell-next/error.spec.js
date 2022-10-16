@@ -20,4 +20,19 @@ describe("Nextjs shell: error", () => {
     cy.visit("http://localhost:44440/custom-react-error");
     cy.contains("Your app failed:").should("be.visible");
   });
+
+  // it("displays 2 error messages when not using an error component", () => {
+  //   cy.visit("http://localhost:44440/custom-react-error");
+  //   cy.contains(
+  //     "Error: Error from RemoteReactThrowError | Error: Error from RemoteReactThrowError"
+  //   ).should("be.visible");
+  // });
+
+  // it("displays one error message when using an error component", () => {
+  //   cy.visit("http://localhost:44440/custom-react-error");
+  //   cy.contains("Next Shell Error Boundary").should("be.visible");
+  //   cy.contains(
+  //     "Next Shell Error BoundaryNext Shell Error Boundary"
+  //   ).not.should("be.visible");
+  // });
 });

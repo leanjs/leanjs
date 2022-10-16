@@ -14,6 +14,27 @@ interface GetRemoteUrl {
   target?: RemoteTarget;
 }
 
+export const isError = (error: any): error is Error =>
+  error.stack && error.message;
+
+export const createAppError = ({
+  error,
+  appName,
+}: {
+  error: any;
+  appName?: string;
+}) => {
+  let appError: Error = error;
+  if (!isError(error)) {
+    appError = new Error(error ? error.toString() : "unknown");
+  }
+  if (appName) {
+    appError.name = `${appName}::${error.name}`;
+  }
+
+  return appError;
+};
+
 export const deleteTrailingSlash = (str: string) => str.replace(/\/+$/g, "");
 
 export const dedupeSlash = (str: string) => str.replace(/\/{2,}/g, "/");

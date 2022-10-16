@@ -1,9 +1,4 @@
-import type {
-  ComposableApp,
-  CreateRuntime,
-  MountFunc,
-  Runtime,
-} from "@leanjs/core";
+import type { CreateRuntime, MountFunc, Runtime } from "@leanjs/core";
 
 const indexError = new Error(
   `🔥🔥🔥 src/index file or it doesn't export default createApp(app, { packageName }) 🔥🔥🔥`
@@ -23,7 +18,12 @@ function host({ mount, runtime }: Host) {
   }
 
   if (el) {
-    mount(el, { runtime });
+    mount(el, {
+      runtime,
+      onError: (error: any) => {
+        throw error;
+      },
+    });
   }
 }
 interface BootstrapOptions {

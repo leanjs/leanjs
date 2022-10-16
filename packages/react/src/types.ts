@@ -8,6 +8,7 @@ import type {
   GetComposableApp,
   ComposableApp,
   CreateAppConfig as CreateAppCoreConfig,
+  LogAnyError,
 } from "@leanjs/core";
 import type { ReactElement } from "react";
 
@@ -18,10 +19,11 @@ export interface MountProps extends BasePath {
   navigate?: NavigateFunc;
   listen?: ListenFunc;
   className?: string;
+  setError: LogAnyError;
 }
 
 export interface BaseHostProps {
-  errorComponent?: ErrorComponent;
+  errorComponent?: ErrorComponent | null;
   fallback?: ReactElement;
   className?: string;
 }

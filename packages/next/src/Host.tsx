@@ -1,4 +1,4 @@
-import React, { useCallback } from "react";
+import React, { ReactElement, useCallback } from "react";
 import { _ as ReactUtils } from "@leanjs/react";
 import type { HostProps } from "@leanjs/react";
 import type { Listener, Location } from "@leanjs/core";
@@ -24,7 +24,8 @@ function NextHost({
 }: NextHostProps) {
   const router = useRouter();
   const basename = dedupeSlash(`${router.basePath}/${router.pathname}`);
-  const { mount, error, url, runtime } = useMount({ app });
+  const { mount, url, runtime, error, setError } = useMount({ app });
+  const throwErrors = ErrorComponent === null;
 
   const navigate = useCallback(({ pathname, hash, search }: Location) => {
     router.push(
@@ -56,21 +57,28 @@ function NextHost({
       router.events.off("routeChangeComplete", onRouteChangeComplete);
   }, []);
 
-  const children = mount ? (
-    <Mount
-      mount={mount}
-      navigate={navigate}
-      listen={listen}
-      basename={basename}
-      className={className}
-      pathname={pathname}
-      runtime={runtime}
-    />
-  ) : error ? (
-    <ErrorComponent error={error} />
-  ) : (
-    fallback
-  );
+  let children: ReactElement;
+  if (error) {
+    if (throwErrors) {
+      throw error;
+    }
+    children = <ErrorComponent error={error} />;
+  } else if (mount) {
+    children = (
+      <Mount
+        mount={mount}
+        navigate={navigate}
+        listen={listen}
+        basename={basename}
+        className={className}
+        pathname={pathname}
+        runtime={runtime}
+        setError={setError}
+      />
+    );
+  } else {
+    children = fallback;
+  }
 
   return (
     <>

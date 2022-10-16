@@ -1,0 +1,27 @@
+{
+  "name": "@leanjs/e2e-test-subjects-shell-react",
+  "private": true,
+  "version": "1.0.0",
+  "description": "",
+  "scripts": {
+    "start:e2e": "NODE_ENV=development webpack serve"
+  },
+  "author": "Alex Lobera <alex@leanjs.com>",
+  "license": "MIT",
+  "dependencies": {
+    "@leanjs/e2e-test-subjects-remote-react-throw-error": "*",
+    "@leanjs/react": "*",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2"
+  },
+  "devDependencies": {
+    "@leanjs/webpack": "*",
+    "@swc/core": "^1.2.160",
+    "@types/react": "^17.0.43",
+    "@types/react-dom": "^17.0.14",
+    "swc-loader": "^0.1.15",
+    "webpack": "^5.58.2",
+    "webpack-cli": "^4.9.1",
+    "webpack-dev-server": "^4.3.1"
+  }
+}

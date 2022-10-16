@@ -28,21 +28,28 @@ function ReactRouterHost({
   ...rest
 }: ReactRouterHostProps) {
   const navigate = useNavigate();
-  const { mount, error, runtime } = useMount({ app });
+  const { mount, runtime, error, setError } = useMount({ app });
   const listen = useListen();
+  const throwErrors = ErrorComponent === null;
 
-  return mount ? (
-    <Mount
-      {...rest}
-      mount={mount}
-      navigate={navigate}
-      listen={listen}
-      basename={basename}
-      runtime={runtime}
-    />
-  ) : error ? (
-    <ErrorComponent error={error} />
-  ) : (
-    fallback
-  );
+  if (error) {
+    if (throwErrors) {
+      throw error;
+    }
+    return <ErrorComponent error={error} />;
+  } else if (mount) {
+    return (
+      <Mount
+        {...rest}
+        setError={setError}
+        mount={mount}
+        navigate={navigate}
+        listen={listen}
+        basename={basename}
+        runtime={runtime}
+      />
+    );
+  } else {
+    return fallback;
+  }
 }

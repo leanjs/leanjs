@@ -5,9 +5,13 @@ import {
   HostProvider,
 } from "@leanjs/e2e-test-subjects-package-runtime-react";
 import { Link, Route, Routes } from "react-router-dom";
-import SubPages from "./SubPages";
 import reactApp from "@leanjs/e2e-test-subjects-remote-react-1";
-// const reactApp = () => import("@leanjs/e2e-test-subjects-remote-react-1");
+// import reactThrowErrorApp from "@leanjs/e2e-test-subjects-remote-react-throw-error";
+import { _ } from "@leanjs/react";
+
+import SubPages from "./SubPages";
+
+// const { ErrorBoundary } = _;
 
 const runtime = createRuntime();
 
@@ -26,16 +30,22 @@ export function App() {
                 <h2>🏠 Home page</h2>
                 <Link to="/micro">Visit micro-frontend on another page</Link>
 
-                <Host
-                  app={reactApp}
-                  // app={{
-                  //   packageName:
-                  //     "@leanjs/e2e-test-subjects-remote-react-sub-pages",
-                  // }}
-                />
+                <Host app={reactApp} />
               </>
             }
           />
+          {/* <Route
+            path="/error-boundary"
+            element={
+              <ErrorBoundary
+                errorComponent={() => (
+                  <h1>React Router Shell Error Boundary</h1>
+                )}
+              >
+                <Host app={reactThrowErrorApp} errorComponent={null} />
+              </ErrorBoundary>
+            }
+          /> */}
         </Routes>
       </UniversalRouter>
     </HostProvider>

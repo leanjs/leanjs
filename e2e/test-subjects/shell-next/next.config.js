@@ -4,6 +4,7 @@ const { HostWebpackPlugin } = require("@leanjs/webpack");
 const withTM = require("next-transpile-modules")([
   "@leanjs/e2e-test-subjects-package-runtime-react",
   "@leanjs/e2e-test-subjects-package-runtime-shared",
+  // "@leanjs/e2e-test-subjects-remote-react-throw-error",
 ]);
 
 // eslint-disable-next-line @typescript-eslint/no-var-requires
