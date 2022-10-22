@@ -1,6 +1,6 @@
 {
   "name": "@leanjs/next",
-  "version": "0.5.2",
+  "version": "0.5.3",
   "author": "Alex Lobera <alex@leanjs.com>",
   "description": "Lean micro-app tools for Nextjs",
   "types": "./dist/index.d.ts",
@@ -15,8 +15,8 @@
     "dist"
   ],
   "devDependencies": {
-    "@leanjs/core": "^0.21.0",
-    "@leanjs/react": "^0.14.2",
+    "@leanjs/core": "^0.21.1",
+    "@leanjs/react": "^0.14.3",
     "@testing-library/react": "^12.1.4",
     "@types/react": "^17.0.41",
     "next": "12",

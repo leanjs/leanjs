@@ -1,6 +1,6 @@
 {
   "name": "@leanjs/vue",
-  "version": "0.6.0",
+  "version": "0.6.1",
   "author": "Alex Lobera <alex@leanjs.com>",
   "description": "Create your own Vue bindings for LeanJS Runtime",
   "types": "./dist/index.d.ts",
@@ -40,7 +40,7 @@
     "micro-frontends"
   ],
   "dependencies": {
-    "@leanjs/core": "^0.21.0"
+    "@leanjs/core": "^0.21.1"
   },
   "scripts": {
     "test": "jest",

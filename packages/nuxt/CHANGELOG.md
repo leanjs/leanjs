@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.4.2](https://github.com/leanjs/leanjs/compare/@leanjs/nuxt@0.4.1...@leanjs/nuxt@0.4.2) (2022-10-22)
+
+**Note:** Version bump only for package @leanjs/nuxt
+
+
+
+
+
 ## [0.4.1](https://github.com/leanjs/leanjs/compare/@leanjs/nuxt@0.4.0...@leanjs/nuxt@0.4.1) (2022-10-16)
 
 **Note:** Version bump only for package @leanjs/nuxt
