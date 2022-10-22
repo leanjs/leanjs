@@ -339,7 +339,7 @@ Current valid props are: token, locale`);
       });
 
       describe("listen", () => {
-        it(`calls parent subscribers when child runtime changes`, async () => {
+        it(`calls parent listeners when child runtime changes`, async () => {
           const { createRuntime: createParentRuntime } = configureRuntime({
             locale: "en",
           })({
@@ -364,7 +364,7 @@ Current valid props are: token, locale`);
           );
         });
 
-        it(`calls child subscribers when child runtime changes`, async () => {
+        it(`calls child listeners when child runtime changes`, async () => {
           const { createRuntime: createParentRuntime } = configureRuntime({
             locale: "en",
           })({
@@ -385,7 +385,7 @@ Current valid props are: token, locale`);
           expect(localeCallback).toBeCalledWith(randomString, false, undefined);
         });
 
-        it(`calls child subscribers when parent runtime changes`, async () => {
+        it(`calls child listeners when parent runtime changes`, async () => {
           const { createRuntime: createParentRuntime } = configureRuntime({
             locale: "en",
           })({
@@ -407,7 +407,7 @@ Current valid props are: token, locale`);
           expect(localeCallback).toBeCalledWith(randomString, false, undefined);
         });
 
-        it(`calls child and parent subscribers when child and parent runtime change`, async () => {
+        it(`calls child and parent listeners when child and parent runtime change`, async () => {
           const { createRuntime: createParentRuntime } = configureRuntime({
             locale: "en",
           })({
@@ -454,7 +454,7 @@ Current valid props are: token, locale`);
           );
         });
 
-        it(`unubscribes child and parent subscribers`, async () => {
+        it(`unubscribes child and parent listeners`, async () => {
           const { createRuntime: createParentRuntime } = configureRuntime({
             locale: "en",
           })({
@@ -967,87 +967,87 @@ Did you forget to set "invalid_prop" to a value in your defaultState (including 
 Current valid props are: locale, token, user`);
     });
 
-    it("calls subscribers of a state prop when its value changes", () => {
+    it("calls listeners of a state prop when its value changes", () => {
       const runtime = createRuntime();
-      const subscriber = jest.fn();
+      const listener = jest.fn();
       const random = Math.random().toString();
 
-      runtime.state.listen("locale", subscriber);
+      runtime.state.listen("locale", listener);
       runtime.state.set("locale", random);
 
-      expect(subscriber).toHaveBeenCalledTimes(1);
-      expect(subscriber).toHaveBeenCalledWith(random, false, undefined);
+      expect(listener).toHaveBeenCalledTimes(1);
+      expect(listener).toHaveBeenCalledWith(random, false, undefined);
     });
 
-    it("it won't call any subscribers of a prop if the current value is shallowly equal to the new value", () => {
+    it("it won't call any listeners of a prop if the current value is shallowly equal to the new value", () => {
       const runtime = createRuntime();
-      const subscriber = jest.fn();
+      const listener = jest.fn();
 
-      runtime.state.listen("locale", subscriber);
+      runtime.state.listen("locale", listener);
       runtime.state.set("locale", runtime.state.get("locale"));
 
-      expect(subscriber).not.toHaveBeenCalled();
+      expect(listener).not.toHaveBeenCalled();
     });
 
-    it("only adds the same subscriber once given the same state prop", () => {
+    it("only adds the same listener once given the same state prop", () => {
       const runtime = createRuntime();
-      const subscriber = jest.fn();
+      const listener = jest.fn();
       const random = Math.random().toString();
 
-      runtime.state.listen("locale", subscriber);
-      runtime.state.listen("locale", subscriber);
+      runtime.state.listen("locale", listener);
+      runtime.state.listen("locale", listener);
 
       runtime.state.set("locale", random);
 
-      expect(subscriber).toHaveBeenCalledTimes(1);
-      expect(subscriber).toHaveBeenCalledWith(random, false, undefined);
+      expect(listener).toHaveBeenCalledTimes(1);
+      expect(listener).toHaveBeenCalledWith(random, false, undefined);
     });
 
-    it("can unsubscribe and stops calling the subscriber", () => {
+    it("can unsubscribe and stops calling the listener", () => {
       const runtime = createRuntime();
-      const subscriberA = jest.fn();
-      const subscriberB = jest.fn();
-      const unsubscribeA = runtime.state.listen("locale", subscriberA);
-      const unsubscribeB = runtime.state.listen("locale", subscriberB);
+      const listenerA = jest.fn();
+      const listenerB = jest.fn();
+      const unsubscribeA = runtime.state.listen("locale", listenerA);
+      const unsubscribeB = runtime.state.listen("locale", listenerB);
       const random = Math.random().toString();
 
       runtime.state.set("locale", random);
 
-      expect(subscriberA).toHaveBeenCalledTimes(1);
-      expect(subscriberA).toHaveBeenCalledWith(random, false, undefined);
-      expect(subscriberB).toHaveBeenCalledTimes(1);
-      expect(subscriberB).toHaveBeenCalledWith(random, false, undefined);
+      expect(listenerA).toHaveBeenCalledTimes(1);
+      expect(listenerA).toHaveBeenCalledWith(random, false, undefined);
+      expect(listenerB).toHaveBeenCalledTimes(1);
+      expect(listenerB).toHaveBeenCalledWith(random, false, undefined);
 
-      subscriberA.mockReset();
-      subscriberB.mockReset();
+      listenerA.mockReset();
+      listenerB.mockReset();
 
       unsubscribeB();
 
       runtime.state.set("locale", Math.random().toString());
-      expect(subscriberB).toHaveBeenCalledTimes(0);
-      expect(subscriberA).toHaveBeenCalledTimes(1);
+      expect(listenerB).toHaveBeenCalledTimes(0);
+      expect(listenerA).toHaveBeenCalledTimes(1);
 
       unsubscribeA();
 
-      subscriberA.mockReset();
+      listenerA.mockReset();
       runtime.state.set("locale", Math.random().toString());
-      expect(subscriberA).toHaveBeenCalledTimes(0);
+      expect(listenerA).toHaveBeenCalledTimes(0);
     });
 
-    it("can use the same subscriber for different state props", () => {
+    it("can use the same listener for different state props", () => {
       const runtime = createRuntime();
       const randomA = Math.random().toString();
       const randomB = { username: randomA };
-      const subscriber = jest.fn();
+      const listener = jest.fn();
 
-      runtime.state.listen("locale", subscriber);
-      runtime.state.listen("user", subscriber);
+      runtime.state.listen("locale", listener);
+      runtime.state.listen("user", listener);
       runtime.state.set("locale", randomA);
       runtime.state.set("user", randomB);
 
-      expect(subscriber).toHaveBeenCalledTimes(2);
-      expect(subscriber).toHaveBeenCalledWith(randomA, false, undefined);
-      expect(subscriber).toHaveBeenCalledWith(randomB, false, undefined);
+      expect(listener).toHaveBeenCalledTimes(2);
+      expect(listener).toHaveBeenCalledWith(randomA, false, undefined);
+      expect(listener).toHaveBeenCalledWith(randomB, false, undefined);
     });
   });
 
