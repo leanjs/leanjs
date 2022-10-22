@@ -55,14 +55,12 @@ describe("useRuntime", () => {
     });
     const runtime = result.current;
 
-    expect(typeof runtime.load).toBe("function");
-    expect(typeof runtime.loaded).toBe("function");
-    expect(typeof runtime.loader).toBe("object");
-    expect(typeof runtime.getState).toBe("function");
-    expect(typeof runtime.setState).toBe("function");
-    expect(typeof runtime.on).toBe("function");
-    expect(typeof runtime.subscribe).toBe("function");
-    expect(typeof runtime.booted).toBe("function");
+    expect(typeof runtime.state.load).toBe("function");
+    expect(typeof runtime.state.loaded).toBe("function");
+    expect(typeof runtime.state.loader).toBe("object");
+    expect(typeof runtime.state.get).toBe("function");
+    expect(typeof runtime.state.set).toBe("function");
+    expect(typeof runtime.state.listen).toBe("function");
   });
 });
 
@@ -124,20 +122,20 @@ describe("useSetter", () => {
         });
 
         await waitForExpect(() => {
-          expect(runtime.getState("locale")).toBe(random);
+          expect(runtime.state.get("locale")).toBe(random);
         });
       });
 
       it(`doesn't rerender when that state prop changes`, async () => {
         const runtime = createRuntime();
 
-        await runtime.loaded();
+        await runtime.state.loaded();
         const { waitForNextUpdate } = renderHook(() => useSetter("locale"), {
           wrapper: createWrapper(runtime),
         });
 
         setTimeout(() => {
-          runtime.setState("locale", Math.random().toString());
+          runtime.state.set("locale", Math.random().toString());
         }, 1);
 
         let error: Error | undefined = undefined;
@@ -206,7 +204,7 @@ describe("useGetter", () => {
       expect(result.current).toBe("en");
 
       act(() => {
-        runtime.setState("locale", random);
+        runtime.state.set("locale", random);
       });
 
       await waitForExpect(() => expect(result.current).toBe(random));
@@ -258,7 +256,7 @@ describe("useLoading", () => {
     expect(result.current).toBe(false);
 
     act(() => {
-      runtime.load(
+      runtime.state.load(
         "locale",
         () => new Promise((resolve) => setTimeout(() => resolve(random), 1))
       );
@@ -312,7 +310,7 @@ describe("useError", () => {
     expect(result.current).toBe(undefined);
 
     act(() => {
-      runtime.load(
+      runtime.state.load(
         "locale",
         () => new Promise((_, reject) => setTimeout(() => reject(random), 1))
       );

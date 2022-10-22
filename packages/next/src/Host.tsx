@@ -1,7 +1,7 @@
 import React, { ReactElement, useCallback } from "react";
 import { _ as ReactUtils } from "@leanjs/react";
 import type { HostProps } from "@leanjs/react";
-import type { Listener, Location } from "@leanjs/core";
+import type { NavigationListener, Location } from "@leanjs/core";
 import { _ as CoreUtils } from "@leanjs/core";
 import { useRouter } from "next/router";
 import Head from "next/head";
@@ -41,7 +41,7 @@ function NextHost({
     );
   }, []);
 
-  const listen = useCallback((listener: Listener) => {
+  const listen = useCallback((listener: NavigationListener) => {
     function onRouteChangeComplete(newHostPathname: string) {
       const {
         location: { hash, search },

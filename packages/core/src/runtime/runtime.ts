@@ -2,7 +2,7 @@ import type {
   BaseShape,
   KeyOf,
   Key,
-  Subscriber,
+  StateListener,
   InternalLoaderState,
   LoaderState,
   BaseApiFactory,
@@ -21,12 +21,7 @@ import { createAppError, isPromise } from "../utils";
 import { Cleanup } from "..";
 
 const runCreateRuntime =
-  <
-    State extends BaseShape = BaseShape,
-    Prop extends KeyOf<State> = KeyOf<State>
-  >(
-    initialState: State
-  ) =>
+  <State extends BaseShape, Prop extends KeyOf<State>>(initialState: State) =>
   <
     ApiFactory extends BaseApiFactory<State, Prop>,
     ApiProp extends KeyOf<ApiFactory>
@@ -58,16 +53,16 @@ const runCreateRuntime =
       typeof structuredClone === "undefined"
         ? { ...initialState }
         : structuredClone(initialState);
-    const subscribers = new Map<Prop, Set<Subscriber<State[Prop]>>>();
+    const subscribers = new Map<Prop, Set<StateListener<State[Prop]>>>();
     const loaders = new Map<Key | undefined, InternalLoaderState>();
     const apiPromises = new Map<ApiProp, Promise<any>>();
     const cleanups = new Map<ApiProp, Cleanup>();
 
-    const callSubscribers = <P extends Prop>(prop: P) => {
+    const callListeners = <P extends Prop>(prop: P) => {
       subscribers
         .get(prop)
-        ?.forEach((subscriber) =>
-          subscriber(getState(prop), loader[prop].loading, loader[prop].error)
+        ?.forEach((listener) =>
+          listener(getState(prop), loader[prop].loading, loader[prop].error)
         );
     };
 
@@ -90,7 +85,7 @@ Current valid props are: ${Object.keys(currentState).join(", ")}`);
 
     const getState = <P extends Prop>(prop: P) => {
       try {
-        return runOrThrow(parent?.getState, prop);
+        return runOrThrow(parent?.state.get, prop);
       } catch {
         validateProp(prop);
 
@@ -100,20 +95,20 @@ Current valid props are: ${Object.keys(currentState).join(", ")}`);
 
     const setState = <P extends Prop>(prop: P, value: State[P]): void => {
       try {
-        runOrThrow(parent?.setState, prop, value);
+        runOrThrow(parent?.state.set, prop, value);
       } catch (error) {
         validateProp(prop);
         if (currentState[prop] !== value) {
           currentState[prop] = value;
 
-          callSubscribers(prop);
+          callListeners(prop);
         }
       }
     };
 
     const loaded = async <P extends Prop>(prop?: P): Promise<any> => {
       try {
-        return runOrThrow(parent?.loaded, prop);
+        return runOrThrow(parent?.state.loaded, prop);
       } catch {
         if (prop) {
           validateProp(prop);
@@ -133,7 +128,7 @@ Current valid props are: ${Object.keys(currentState).join(", ")}`);
     const loader = new Proxy({} as Record<Prop, LoaderState>, {
       get: (_, prop: Prop) => {
         try {
-          const loaderItem = parent?.loader[prop];
+          const loaderItem = parent?.state.loader[prop];
           if (loaderItem) {
             return loaderItem;
           } else {
@@ -150,24 +145,24 @@ Current valid props are: ${Object.keys(currentState).join(", ")}`);
       },
     });
 
-    const subscribe = <P extends Prop>(
+    const listen = <P extends Prop>(
       prop: P,
-      subscriber: Subscriber<State[P]>
+      listener: StateListener<State[P]>
     ): Unsubscribe => {
       try {
-        return runOrThrow(parent?.subscribe, prop, subscriber);
+        return runOrThrow(parent?.state.listen, prop, listener);
       } catch {
         validateProp(prop);
         const propSubscribers =
-          subscribers.get(prop) ?? new Set<Subscriber<State[P]>>();
-        propSubscribers.add(subscriber);
+          subscribers.get(prop) ?? new Set<StateListener<State[P]>>();
+        propSubscribers.add(listener);
         subscribers.set(
           prop,
-          propSubscribers as unknown as Set<Subscriber<State[Prop]>>
+          propSubscribers as unknown as Set<StateListener<State[Prop]>>
         );
 
         return () => {
-          propSubscribers.delete(subscriber);
+          propSubscribers.delete(listener);
         };
       }
     };
@@ -177,7 +172,7 @@ Current valid props are: ${Object.keys(currentState).join(", ")}`);
       loader: () => Promise<State[P]> | State[P]
     ) => {
       try {
-        return runOrThrow(parent?.load, prop, loader);
+        return runOrThrow(parent?.state.load, prop, loader);
       } catch {
         validateProp(prop);
         const loaderState = loaders.get(prop);
@@ -203,7 +198,7 @@ Current valid props are: ${Object.keys(currentState).join(", ")}`);
                 loading: true,
                 promise: promiseOrValue,
               });
-              callSubscribers(prop);
+              callListeners(prop);
               doneLoading(await promiseOrValue);
             } else {
               doneLoading(promiseOrValue);
@@ -214,7 +209,7 @@ Current valid props are: ${Object.keys(currentState).join(", ")}`);
               done: true,
               error: (error as Error)?.message ?? error,
             });
-            callSubscribers(prop);
+            callListeners(prop);
             logError(error);
           }
         }
@@ -242,16 +237,15 @@ Current valid props are: ${Object.keys(currentState).join(", ")}`);
                   ...request,
                   url,
                 },
-                load,
-                loaded,
-                loader,
-                setState,
-                getState,
+                state: {
+                  load,
+                  loaded,
+                  loader,
+                  set: setState,
+                  get: getState,
+                },
                 onCleanup: (cleanup: Cleanup) => {
                   cleanups.set(prop, cleanup);
-                },
-                cleanup: () => {
-                  cleanups.get(prop)?.();
                 },
               });
             } catch (error) {
@@ -274,16 +268,6 @@ Current valid props are: ${Object.keys(currentState).join(", ")}`);
         );
       },
     });
-
-    const booted = async () => {
-      try {
-        await Promise.all(apiPromises.values());
-
-        return parent?.booted() ?? true;
-      } catch (error) {
-        return false;
-      }
-    };
 
     const on = <P extends ApiProp>(
       prop: P,
@@ -324,14 +308,14 @@ Current valid props are: ${Object.keys(currentState).join(", ")}`);
 
     return {
       api,
-      loader,
-      getState,
-      setState,
-      booted,
-      on,
-      subscribe,
-      loaded,
-      load,
+      state: {
+        get: getState,
+        set: setState,
+        listen,
+        loaded,
+        load,
+        loader,
+      },
       logError,
       cleanup,
     };
@@ -346,7 +330,9 @@ export const configureRuntime = <
   if (!defaultState)
     throw new Error(`default state is required to configure a runtime`);
 
-  return <ApiFactory extends BaseApiFactory<State, Prop>>({
+  return <
+    ApiFactory extends BaseApiFactory<State, Prop> = BaseApiFactory<State, Prop>
+  >({
     apiFactory,
     onError,
   }: ConfigureRuntimeOptions<State, Prop, ApiFactory>) => ({
