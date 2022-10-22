@@ -14,21 +14,21 @@ export const createRuntimeBindings = <
 ) => {
   const useRuntime = () => useBaseRuntime<MyRuntime>();
 
-  const useGetter = <Prop extends KeyOf<MyRuntime["loader"]>>(
+  const useGetter = <Prop extends KeyOf<MyRuntime["state"]["loader"]>>(
     prop: Prop,
     loader?: () =>
-      | MyRuntime["loader"][Prop]
-      | Promise<MyRuntime["loader"][Prop]>
+      | MyRuntime["state"]["loader"][Prop]
+      | Promise<MyRuntime["state"]["loader"][Prop]>
   ) => {
     const runtime = useRuntime();
-    if (loader) runtime.load(prop, loader);
+    if (loader) runtime.state.load(prop, loader);
     const [value, setValue] = useState<StateType<MyRuntime>[Prop]>(
-      runtime.getState(prop)
+      runtime.state.get(prop)
     );
 
     useEffect(
       () =>
-        runtime.subscribe(prop, (nextValue) => {
+        runtime.state.listen(prop, (nextValue) => {
           setValue(nextValue);
         }),
       [runtime]
@@ -37,24 +37,28 @@ export const createRuntimeBindings = <
     return value;
   };
 
-  const useSetter = <Prop extends KeyOf<MyRuntime["loader"]>>(prop: Prop) => {
+  const useSetter = <Prop extends KeyOf<MyRuntime["state"]["loader"]>>(
+    prop: Prop
+  ) => {
     const runtime = useRuntime();
 
     return useCallback(
       (value: StateType<MyRuntime>[Prop]) => {
-        runtime.setState(prop, value);
+        runtime.state.set(prop, value);
       },
       [runtime]
     );
   };
 
-  const useLoading = <Prop extends KeyOf<MyRuntime["loader"]>>(prop: Prop) => {
+  const useLoading = <Prop extends KeyOf<MyRuntime["state"]["loader"]>>(
+    prop: Prop
+  ) => {
     const runtime = useRuntime();
-    const [loading, setLoading] = useState(runtime.loader[prop].loading);
+    const [loading, setLoading] = useState(runtime.state.loader[prop].loading);
 
     useEffect(
       () =>
-        runtime.subscribe(prop, (_, nextLoading) => {
+        runtime.state.listen(prop, (_, nextLoading) => {
           setLoading(nextLoading);
         }),
       [runtime]
@@ -63,13 +67,15 @@ export const createRuntimeBindings = <
     return loading;
   };
 
-  const useError = <Prop extends KeyOf<MyRuntime["loader"]>>(prop: Prop) => {
+  const useError = <Prop extends KeyOf<MyRuntime["state"]["loader"]>>(
+    prop: Prop
+  ) => {
     const runtime = useRuntime();
-    const [error, setError] = useState(runtime.loader[prop].error);
+    const [error, setError] = useState(runtime.state.loader[prop].error);
 
     useEffect(
       () =>
-        runtime.subscribe(prop, (_, __, nextError) => {
+        runtime.state.listen(prop, (_, __, nextError) => {
           setError(nextError);
         }),
       [runtime]

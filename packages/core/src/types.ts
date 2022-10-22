@@ -27,11 +27,13 @@ export type NavigateFunc = (location: Location) => void;
 
 export type RemoveListener = () => void;
 
-export type ListenFunc = (listener: Listener) => RemoveListener | undefined;
+export type ListenFunc = (
+  listener: NavigationListener
+) => RemoveListener | undefined;
 
 export type Action = "POP" | "PUSH" | "REPLACE";
 
-export interface Listener {
+export interface NavigationListener {
   (update: NavigationUpdate): void;
 }
 

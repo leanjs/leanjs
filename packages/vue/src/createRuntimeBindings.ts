@@ -31,7 +31,7 @@ export const createRuntimeBindings = <
       } else if (isPropObj(prop)) {
         propName = prop.prop;
         if (prop.loader) {
-          runtime.load(propName, prop.loader);
+          runtime.state.load(propName, prop.loader);
         }
         deep = !!prop.deep;
       } else {
@@ -40,7 +40,7 @@ export const createRuntimeBindings = <
         );
       }
       // It uses a `ref` for each state prop instead of `reactive(vueState)` so state can be destructured
-      const propValue = runtime.getState(propName);
+      const propValue = runtime.state.get(propName);
       vueState[propName] = ref(propValue);
       if (deep || isPrimitive(propValue)) {
         // ref( propValue ) adds a proxy recursively to each property of runtime.getState(propName)
@@ -53,7 +53,7 @@ export const createRuntimeBindings = <
             function syncState(newValue) {
               const rawValue = toRaw(newValue);
               // If runtime.state[propName] === rawValue then runtime doesn't calls its subscribers
-              if (rawValue === runtime.getState(propName) && deep) {
+              if (rawValue === runtime.state.get(propName) && deep) {
                 // newValue was mutated, meaning a deep value changed in newValue but the reference to newValue didn't.
                 // Therefore, we need to change the reference to newValue so that runtime is aware of the change
                 vueState[propName].value = shallowCopy(rawValue);
@@ -61,7 +61,7 @@ export const createRuntimeBindings = <
                 // so we don't set runtime.state in this branch to avoid an infinite loop
               } else {
                 // Update runtime state with the new value so runtime subscribers are called
-                runtime.setState(propName, rawValue);
+                runtime.state.set(propName, rawValue);
               }
             },
             { deep }
@@ -70,7 +70,7 @@ export const createRuntimeBindings = <
       }
       cleanups.push(
         // Runtime returns an unsubscribe function
-        runtime.subscribe(propName, (value) => {
+        runtime.state.listen(propName, (value) => {
           // If vueState[propName].value === toRaw(value) then Vue bails out of setting the value
           vueState[propName].value = value as State[Prop];
         })

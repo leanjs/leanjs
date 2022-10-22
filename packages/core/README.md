@@ -185,12 +185,8 @@ const { createRuntime } = configureRuntime(defaultState)({
   onError,
   apiFactory: {
     wsClient: async ({
-      getState,
-      setState,
+      state: { get, set, load, loaded, loader },
       onCleanup,
-      load,
-      loaded,
-      loader,
       isBrowser,
       request,
     }) => {
@@ -231,99 +227,91 @@ const { createRuntime } = configureRuntime(defaultState)({
 const runtime = createRuntime();
 ```
 
-<!-- ### `booted`
-
-Async method that resolves to true when all the async api factory functiones that have been read resolve. If any of the async apiFactories properties that have been read is rejected it resolves to false.
-
-```ts
-await runtime.booted();
-``` -->
-
-### `getState`
+### `state.get`
 
 It returns the current state of a given state property.
 
 ```ts
-const locale = runtime.getState("locale");
+const locale = runtime.state.get("locale");
 ```
 
-### `setState`
+### `state.set`
 
 It sets the state of a given state property.
 
 ```ts
-const locale = runtime.setState("locale", "pt");
+const locale = runtime.state.set("locale", "pt");
 ```
 
-### `subscribe`
+### `state.listen`
 
-It's used to subscribe to state changes. It receives a state property and a callback. When the state property changes the callback is invoked. It returns an `unsubscribe` function. Example:
+It's used to listen to state changes. It receives a state property and a callback. When the state property changes the callback is invoked. It returns an `unlisten` function. Example:
 
 ```ts
-const unsubscribe = runtime.subscribe("locale", (locale) =>
+const unlisten = runtime.state.listen("locale", (locale) =>
   console.log(`locale changed, new value is ${locale}`)
 );
 ```
 
-### `load`
+### `state.load`
 
 It loads some value in a given state property. Once a state property is loaded with a value or being loaded, no other loader will be executed on the given state property. `load` is async. Example:
 
 ```ts
-const locale = await runtime.load("locale", fetchLocale);
+const locale = await runtime.state.load("locale", fetchLocale);
 ```
 
 When calling `load` many times for the same state property, the `runtime` will only execute the first loader.
 
 ```ts
 // ✅ fetchLocale is executed
-runtime.load("locale", fetchLocale);
+runtime.state.load("locale", fetchLocale);
 // ❌ fetchLocale is skipped
-runtime.load("locale", fetchLocale);
+runtime.state.load("locale", fetchLocale);
 // ❌ fetchLocale is skipped
-runtime.load("locale", fetchLocale);
+runtime.state.load("locale", fetchLocale);
 ```
 
-### `loaded`
+### `state.loaded`
 
 It's an async method that will await while a given state property is being loaded. If the state property is not being loaded it resolves immediately. Example:
 
 ```ts
-runtime.load("locale", () => Promise.resolve("es"));
+runtime.state.load("locale", () => Promise.resolve("es"));
 // in real-world apps the next line would not be after the `load` call
 // but in a different part of the codebase
-const locale = await runtime.loaded("locale"); // locale equals "es"
+const locale = await runtime.state.loaded("locale"); // locale equals "es"
 ```
 
 The previous code has the same effect as the following code. The reason for having `loaded` is that in a distributed UI, the code that needs to `await` might not be the same as the code that `load`s the value. Example:
 
 ```ts
-const locale = await runtime.load("locale", () => Promise.resolve("es"));
+const locale = await runtime.state.load("locale", () => Promise.resolve("es"));
 ```
 
 If `loaded` is called with no state property then it awaits for all the loaders that are in progress to resolve.
 
 ```ts
-runtime.load("locale", fetchLocale);
-runtime.load("token", fetchToken);
+runtime.state.load("locale", fetchLocale);
+runtime.state.load("token", fetchToken);
 
-await runtime.loaded();
+await runtime.state.loaded();
 // both locale and token have been loaded
 ```
 
-### `loader`
+### `state.loader`
 
 It returns the state of a loader: `loading: boolean` and `error?: string`. Example:
 
 ```ts
-runtime.load("locale", fetchLocale);
-// runtime.loader.locale.loading is true
+runtime.state.load("locale", fetchLocale);
+// runtime.state.loader.locale.loading is true
 
-await runtime.loaded("locale");
-// runtime.loader.locale.loading is false
+await runtime.state.loaded("locale");
+// runtime.state.loader.locale.loading is false
 
-// Heads up, make sure to await runtime.loaded("state_property") before checking if there is an error
-const didError = runtime.loader.locale.error;
+// Heads up, make sure to await runtime.state.loaded("state_property") before checking if there is an error
+const didError = runtime.state.loader.locale.error;
 // didError has an error message if the load method failed.
 ```
 
@@ -336,27 +324,6 @@ const wsClient = runtime.api.wsClient;
 
 // api is read only, the following line throws an error
 // ❌ runtime.api.wsClient = new WsClient()
-```
-
-### `on`
-
-This method is used to update shared state based on events from the `api`.
-
-It has two arguments, the `api` property that you want to listen to, and a callback function that will receive the `api` instance along with `getState` and `setState`. The callback must return a clean-up function. `on` returns an `off` function which calls the callback clean-up function upon invocation. Example:
-
-```ts
-const off = runtime.on("wsClient", (wsClient, { setState }) => {
-  function updateLocale(value) {
-    setState("locale", value);
-  }
-  wsClient?.on("locale-changed", updateLocale);
-
-  return () => {
-    wsClient.off("locale-changed", updateLocale);
-  };
-});
-
-off(); // wsClient.off("locale-changed", updateLocale); is called
 ```
 
 ## Guiding principles

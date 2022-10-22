@@ -30,14 +30,12 @@ describe("useRuntime", () => {
     });
     const runtime = result.current;
 
-    expect(typeof runtime.load).toBe("function");
-    expect(typeof runtime.loaded).toBe("function");
-    expect(typeof runtime.loader).toBe("object");
-    expect(typeof runtime.getState).toBe("function");
-    expect(typeof runtime.setState).toBe("function");
-    expect(typeof runtime.on).toBe("function");
-    expect(typeof runtime.subscribe).toBe("function");
-    expect(typeof runtime.booted).toBe("function");
+    expect(typeof runtime.state.load).toBe("function");
+    expect(typeof runtime.state.loaded).toBe("function");
+    expect(typeof runtime.state.loader).toBe("object");
+    expect(typeof runtime.state.get).toBe("function");
+    expect(typeof runtime.state.set).toBe("function");
+    expect(typeof runtime.state.listen).toBe("function");
   });
 
   it("throws an error if it can't find a runtime in the context", () => {

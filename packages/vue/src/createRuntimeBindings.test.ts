@@ -126,7 +126,7 @@ describe("useSharedState:", () => {
       previous: "alejandro",
     });
 
-    if (runtime) runtime.setState("theme", "dark");
+    if (runtime) runtime.state.set("theme", "dark");
 
     expect(vueState?.theme.value).toEqual("dark");
 
@@ -158,7 +158,7 @@ describe("useSharedState:", () => {
       previous: "alejandro",
     });
 
-    if (runtime) runtime.setState("theme", "dark");
+    if (runtime) runtime.state.set("theme", "dark");
 
     expect(vueState?.theme.value).toEqual("dark");
 
@@ -171,7 +171,7 @@ describe("useSharedState:", () => {
     );
     const random = Math.random().toString();
     const spyTheme = jest.fn();
-    runtime?.subscribe("theme", spyTheme);
+    runtime?.state.listen("theme", spyTheme);
 
     if (vueState) vueState.theme.value = random;
 
@@ -188,7 +188,7 @@ describe("useSharedState:", () => {
     const { vueState, app, runtime } = withSetup(() => useSharedState("theme"));
     const random = Math.random().toString();
     const spyTheme = jest.fn();
-    runtime?.subscribe("theme", spyTheme);
+    runtime?.state.listen("theme", spyTheme);
 
     if (vueState) vueState.theme.value = random;
 
@@ -207,7 +207,7 @@ describe("useSharedState:", () => {
     );
     const random = Math.random().toString();
     const spyUsername = jest.fn();
-    runtime?.subscribe("username", spyUsername);
+    runtime?.state.listen("username", spyUsername);
 
     expect(vueState?.username.value).toEqual({
       current: "alex",
@@ -236,7 +236,7 @@ describe("useSharedState:", () => {
     const random = Math.random().toString();
     const spyUsername = jest.fn();
     if (!runtime) throw Error("No runtime found in test");
-    runtime?.subscribe("username", spyUsername);
+    runtime?.state.listen("username", spyUsername);
 
     expect(vueState?.username.value).toEqual({
       current: "alex",
@@ -263,7 +263,7 @@ describe("useSharedState:", () => {
     const random = Math.random().toString();
     const spyUsername = jest.fn();
     if (!runtime) throw Error("No runtime found in test");
-    runtime?.subscribe("username", spyUsername);
+    runtime?.state.listen("username", spyUsername);
 
     expect(vueState?.username.value).toEqual({
       current: "alex",
@@ -295,7 +295,7 @@ describe("useSharedState:", () => {
     vueState.theme.value = random;
 
     expect(vueState?.theme.value).toEqual(random);
-    expect(runtime?.getState("theme")).toEqual("light");
+    expect(runtime?.state.get("theme")).toEqual("light");
 
     app?.unmount();
   });
@@ -314,10 +314,10 @@ describe("useSharedState:", () => {
 
     expect(vueState?.theme.value).toEqual("light");
 
-    await runtime?.loaded("theme");
+    await runtime?.state.loaded("theme");
 
     expect(vueState?.theme.value).toEqual(random);
-    expect(runtime?.getState("theme")).toEqual(random);
+    expect(runtime?.state.get("theme")).toEqual(random);
 
     app?.unmount();
   });
@@ -344,7 +344,7 @@ describe("useSharedState:", () => {
     jest.spyOn(Vue, "watch");
     const runtime = createRuntime();
     const cleanup = jest.fn();
-    runtime.subscribe = () => cleanup;
+    runtime.state.listen = () => cleanup;
     const { vueState, app } = withSetup(
       () => useSharedState({ prop: "theme", deep: true }),
       {

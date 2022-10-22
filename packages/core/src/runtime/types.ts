@@ -4,7 +4,7 @@ export type Key = string | symbol;
 export type BaseShape = Record<Key, any>;
 export type KeyOf<Shape extends BaseShape> = Exclude<keyof Shape, number>;
 
-export type Subscriber<Value> = (
+export type StateListener<Value> = (
   value: Value,
   loading: boolean,
   error?: string
@@ -18,23 +18,25 @@ export interface Request {
 }
 
 export type Unsubscribe = () => void;
+export type Unlisten = () => void;
 
 export interface RuntimeApi<
   State extends BaseShape,
-  Prop extends KeyOf<State>
+  Prop extends KeyOf<State> = KeyOf<State>
 > {
   isBrowser: boolean;
-  loader: Record<Prop, LoaderState>;
-  load: <P extends Prop>(
-    prop: P,
-    loader: () => Promise<State[P]> | State[P]
-  ) => Promise<State[P]>;
-  loaded: <P extends Prop>(prop: P) => Promise<State[P]>;
-  getState: (prop: Prop) => State[Prop];
-  setState: (prop: Prop, state: State[Prop]) => void;
+  state: {
+    loader: Record<Prop, LoaderState>;
+    load: <P extends Prop>(
+      prop: P,
+      loader: () => Promise<State[P]> | State[P]
+    ) => Promise<State[P]>;
+    loaded: <P extends Prop>(prop: P) => Promise<State[P]>;
+    get: (prop: Prop) => State[Prop];
+    set: (prop: Prop, state: State[Prop]) => void;
+  };
   request: Request;
   onCleanup: (cleanup: Cleanup) => void;
-  cleanup: () => void;
 }
 
 type ApiFactoryFunction<State extends BaseShape, Prop extends KeyOf<State>> =
@@ -113,33 +115,32 @@ export interface Runtime<
   ApiFactory extends BaseApiFactory<State, Prop> = BaseApiFactory<State, Prop>,
   ApiProp extends KeyOf<ApiFactory> = KeyOf<ApiFactory>
 > {
-  getState: <P extends Prop>(prop: P) => State[P];
-  setState: <P extends Prop>(prop: P, state: State[P]) => void;
-  subscribe: <P extends Prop>(
-    prop: P,
-    subscriber: Subscriber<State[P]>
-  ) => Unsubscribe;
-  loader: Record<Prop, LoaderState>;
-  booted: () => Promise<boolean>;
+  state: {
+    get: <P extends Prop>(prop: P) => State[P];
+    set: <P extends Prop>(prop: P, state: State[P]) => void;
+    listen: <P extends Prop>(
+      prop: P,
+      listener: StateListener<State[P]>
+    ) => Unlisten;
+    load<P extends Prop>(
+      prop: P,
+      loader: () => Promise<State[P]> | State[P]
+    ): Promise<State[P]>;
+    loaded(): Promise<State>;
+    loaded<P extends Prop>(prop: P): Promise<State[P]>;
+    loader: Record<Prop, LoaderState>;
+  };
   api: ValuesFromApiFactory<ApiFactory>;
-  on: <P extends ApiProp>(
-    prop: P,
-    callback: OnCallback<ApiFactory, P, State, Prop>
-  ) => OffCallback;
-  load<P extends Prop>(
-    prop: P,
-    loader: () => Promise<State[P]> | State[P]
-  ): Promise<State[P]>;
-  loaded(): Promise<State>;
-  loaded<P extends Prop>(prop: P): Promise<State[P]>;
   logError: LogAnyError;
   cleanup(): void;
   cleanup<P extends ApiProp>(prop: P): void;
 }
 
 export type StateType<T extends Runtime> = T extends {
-  loaded(): Promise<infer State>;
-  loaded<P extends string>(prop: P): Promise<any>;
+  state: {
+    loaded(): Promise<infer State>;
+    loaded<P extends string>(prop: P): Promise<any>;
+  };
 }
   ? State
   : any;
