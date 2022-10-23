@@ -169,5 +169,6 @@ export function formatSharedDependencies({
   return {
     ...formattedImplicitDependencies,
     ...formattedExplicitDependencies,
+    "@leanjs/react/18": "*",
   };
 }

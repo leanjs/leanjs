@@ -1,4 +1,4 @@
-import { useState, useEffect, useContext } from "react";
+import { useState, useEffect, useContext, useRef } from "react";
 
 import type {
   MountFunc,
@@ -56,12 +56,14 @@ export function useMount({ app }: UseMountArgs) {
   const runtime = useRuntime();
   const [mount = cachedMount, setMount] = useState();
   const [error, setError] = useState<Error>();
+  const loadingMountKey = useRef<string>();
 
   useEffect(() => {
-    if (!cachedMount) {
+    if (!cachedMount && loadingMountKey.current !== mountKey) {
       if (!url || !packageName) {
         throw new Error(`packageName and URL are required for remote apps`);
       }
+      loadingMountKey.current = mountKey;
       const remoteName = createRemoteName(packageName);
       loadScript(url)
         .then(() => loadModule(remoteName))
@@ -75,6 +77,7 @@ export function useMount({ app }: UseMountArgs) {
 
             setMount(() => remoteMount);
             mountCache.set(mountKey, remoteMount);
+            loadingMountKey.current = undefined;
           }
         })
         .catch(setError);

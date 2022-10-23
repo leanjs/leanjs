@@ -1,11 +1,13 @@
-import React, { ReactElement, useEffect, useState } from "react";
-import type { GetComposableApp } from "@leanjs/core";
+import React, { ReactElement, useEffect, useRef, useState } from "react";
+import type { GetComposableApp, GetComposableAppAsync } from "@leanjs/core";
 import { _ as CoreUtils } from "@leanjs/core";
 
 import type { HostProps, AsyncHostProps } from "../types";
 import { DefaultError } from "./DefaultError";
 
 const { isPromise } = CoreUtils;
+
+const cache = new WeakMap();
 
 export const useApp = (
   Host: (props: HostProps) => ReactElement,
@@ -18,31 +20,40 @@ export const useApp = (
   } = props;
   const maybeAsyncApp =
     typeof app === "function" ? app({ isSelfHosted: false }) : app;
-  const isAppAsync = isPromise(maybeAsyncApp);
-  const composableApp = isAppAsync ? undefined : maybeAsyncApp;
-  const [loading, setLoading] = useState(isAppAsync);
-  const [resolvedApp, setResolvedApp] = useState<GetComposableApp>();
+  const asyncApp = isPromise(maybeAsyncApp) ? maybeAsyncApp : undefined;
+  const syncApp = asyncApp ? undefined : maybeAsyncApp;
+  const [resolvedApp = cache.get(app), setResolvedApp] = useState();
   const [error, setError] = useState<Error>();
+  const loadingApp = useRef<GetComposableApp | (() => GetComposableAppAsync)>();
 
   useEffect(() => {
-    if (isAppAsync) {
-      maybeAsyncApp
-        .then(({ default: resolvedApp }) => {
-          setResolvedApp(() => resolvedApp);
-          setLoading(false);
+    if (asyncApp && !loadingApp.current && !resolvedApp) {
+      loadingApp.current = app;
+      asyncApp
+        .then((module) => {
+          cache.set(app, module.default);
+          setResolvedApp(() => cache.get(app));
+          loadingApp.current = undefined;
         })
-        .catch(setError);
+        .catch((error) => {
+          loadingApp.current = undefined;
+          setError(error);
+        });
     }
-  }, [maybeAsyncApp, isAppAsync]);
 
-  if (loading) {
-    return fallback;
-  } else if (resolvedApp || composableApp) {
-    return <Host {...props} app={resolvedApp! || composableApp!} />;
-  } else {
+    return () => {
+      setError(undefined);
+    };
+  }, [asyncApp, resolvedApp, loadingApp, app]);
+
+  if (error) {
     if (ErrorComponent === null) {
       throw error;
     }
-    return <ErrorComponent error={error!} />;
+    return <ErrorComponent error={error} />;
+  } else if (syncApp || resolvedApp) {
+    return <Host {...props} app={syncApp || resolvedApp} />;
+  } else {
+    return fallback;
   }
 };

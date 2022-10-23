@@ -167,6 +167,7 @@ describe("dependencies:", () => {
       expect(actual).toEqual({
         react: { eager, requiredVersion: explicitDependencies.react },
         lodash: { eager, requiredVersion: implicitDependencies.lodash },
+        "@leanjs/react/18": "*",
       });
     });
 
@@ -188,6 +189,7 @@ describe("dependencies:", () => {
       expect(actual).toEqual({
         react: { eager: !eager },
         lodash: { eager, requiredVersion: implicitDependencies.lodash },
+        "@leanjs/react/18": "*",
       });
     });
 
@@ -210,6 +212,7 @@ describe("dependencies:", () => {
       expect(actual).toEqual({
         react: { eager: false, requiredVersion: implicitDependencies.react },
         lodash: implicitDependencies.lodash,
+        "@leanjs/react/18": "*",
       });
     });
 
@@ -234,6 +237,7 @@ describe("dependencies:", () => {
       expect(actual).toEqual({
         react: { eager: false, requiredVersion: implicitDependencies.react },
         lodash: { eager, requiredVersion: implicitDependencies.lodash },
+        "@leanjs/react/18": "*",
       });
     });
   });
