@@ -13,8 +13,11 @@ import { createRoot } from "react-dom/client";
 
 import { RootComponent } from "./types";
 import { ErrorBoundary } from "./utils";
-import { RuntimeProvider } from "./runtime";
+import { RuntimeProvider, createRuntimeBindings } from "./runtime";
+
 const { createMount, createAppError } = CoreUtils;
+
+export { createRuntimeBindings };
 
 interface ReactRoot {
   unmount: UnmountFunc;
