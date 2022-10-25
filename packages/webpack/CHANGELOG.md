@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.20.2](https://github.com/leanjs/leanjs/compare/@leanjs/webpack@0.20.1...@leanjs/webpack@0.20.2) (2022-10-25)
+
+
+### Bug Fixes
+
+* react 18 different runtime context ([6e423f2](https://github.com/leanjs/leanjs/commit/6e423f23388c514a21f9c3789baa26f17ad483d3))
+
+
+
+
+
 ## [0.20.1](https://github.com/leanjs/leanjs/compare/@leanjs/webpack@0.20.0...@leanjs/webpack@0.20.1) (2022-10-22)
 
 **Note:** Version bump only for package @leanjs/webpack
