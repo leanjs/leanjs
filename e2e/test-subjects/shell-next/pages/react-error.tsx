@@ -1,3 +1,4 @@
+import React from "react";
 import type { NextPage } from "next";
 import { Host } from "@leanjs/next";
 import { _ } from "@leanjs/react";

@@ -1,6 +1,5 @@
-import { createApp } from "@leanjs/react";
+import { createApp } from "@leanjs/react/18";
 
 import ChatApp from "./App";
 
-// export default ChatApp;
 export default createApp(ChatApp);

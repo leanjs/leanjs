@@ -2,7 +2,7 @@ import React, { useEffect, useMemo } from "react";
 import { Provider } from "react-redux";
 import { Settings } from "./components/Settings";
 import { AppProps } from "@leanjs/react";
-import { useRuntime } from "@leanjs/e2e-test-subjects-package-runtime-react";
+import { useRuntime } from "@leanjs/e2e-test-package-runtime-react";
 
 import { configureStore } from "./store";
 
@@ -20,14 +20,14 @@ export function RemoteReactRedux({
           // merging potentially stale initial state
           ...initialState?.settings,
           // with potentially more up-to-date shared state
-          locale: runtime?.getState("locale"),
+          locale: runtime?.state.get("locale"),
         },
       }),
     []
   );
 
   // update Redux state when shared state changes
-  runtime?.subscribe("locale", (locale) =>
+  runtime?.state.listen("locale", (locale) =>
     store.dispatch({ type: "UPDATE_LOCALE", payload: locale })
   );
 
@@ -35,7 +35,7 @@ export function RemoteReactRedux({
   store.subscribe(() => {
     const locale = store.getState().settings?.locale;
     if (runtime && locale) {
-      runtime.setState("locale", locale);
+      runtime.state.set("locale", locale);
     }
   });
 

@@ -28,6 +28,7 @@ test/**/out*
 # Editors
 **/.idea
 **/.#*
+.vscode
 
 # tools
 .eslintcache

@@ -3,7 +3,7 @@ import { Host, _ } from "@leanjs/react";
 import {
   createRuntime,
   HostProvider,
-} from "@leanjs/e2e-test-subjects-package-runtime-react";
+} from "@leanjs/e2e-test-package-runtime-react";
 
 import reactThrowErrorApp from "@leanjs/e2e-test-subjects-remote-react-throw-error";
 

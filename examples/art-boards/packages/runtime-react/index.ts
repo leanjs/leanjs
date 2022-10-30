@@ -1,5 +1,5 @@
-import { createRuntimeBindings } from "@leanjs/react";
-import { configureRuntime } from "@leanjs/core";
+import { createRuntimeBindings } from "@leanjs/react/18";
+import { configureRuntime, GetRuntime } from "@leanjs/core";
 import { Application } from "@art-boards/ui-canvas";
 
 const defaultState = {};
@@ -26,6 +26,8 @@ export const { createRuntime } = configureRuntime(defaultState)({
     },
   },
 });
+
+export type Runtime = GetRuntime<typeof createRuntime>;
 
 export const {
   useGetter,

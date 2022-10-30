@@ -24,16 +24,19 @@ export interface MountProps extends BasePath {
 
 export interface BaseHostProps {
   errorComponent?: ErrorComponent | null;
-  fallback?: ReactElement;
   className?: string;
 }
 
-export interface AsyncHostProps extends BaseHostProps {
-  app: GetComposableApp | (() => GetComposableAppAsync);
+export interface OuterHostProps extends BaseHostProps {
+  app: GetComposableApp | GetComposableAppAsync;
 }
 
-export interface HostProps extends BaseHostProps {
-  app: GetComposableApp;
+export interface InnerHostProps extends BaseHostProps {
+  mount: MountFunc;
+  runtime: Runtime;
+  url?: string;
+  className?: string;
+  setError: LogAnyError;
 }
 
 export type ErrorComponent = (props: { error: Error }) => React.ReactElement;

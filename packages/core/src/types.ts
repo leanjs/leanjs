@@ -66,15 +66,20 @@ export interface CreateComposableAppOptions {
   isSelfHosted?: boolean;
 }
 
-export type CreateComposableApp = (
-  options?: CreateComposableAppOptions
-) => ComposableApp;
+export interface CreateComposableApp {
+  (options?: CreateComposableAppOptions): ComposableApp;
+  appName: string;
+}
 
 export type GetComposableApp = RemoteComposableApp | CreateComposableApp;
 
-export type GetComposableAppAsync = Promise<{
-  default: GetComposableApp;
-}>;
+export interface GetComposableAppAsync {
+  (): Promise<{
+    default: GetComposableApp;
+  }>;
+  appName?: string;
+}
+
 export interface MountFunc<MyRuntime extends Runtime = Runtime> {
   (element: HTMLElement | null, options: MountOptions<MyRuntime>): MountOutput;
 }

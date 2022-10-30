@@ -1,6 +1,8 @@
+import React, { Suspense } from "react";
 import type { NextPage } from "next";
+import { useRouter } from "next/navigation";
 import { Host } from "@leanjs/next";
-import { useRouter } from "next/router";
+
 import { CustomLoader } from "../components/CustomLoader";
 
 /*
@@ -16,24 +18,17 @@ async rewrites() {
 },
 */
 
-const React: NextPage = () => {
-  const {
-    query: { id },
-  } = useRouter();
-  const pathname = Array.isArray(id) ? id[0] : id;
-
+const Page: NextPage = () => {
   return (
     <>
       <h1>Hosting multiple pages</h1>
-      <Host
-        pathname={pathname}
-        fallback={<CustomLoader />}
-        app={{
-          packageName: "@leanjs/e2e-test-subjects-remote-react-sub-pages",
-        }}
-      />
+      <Suspense fallback={<CustomLoader />}>
+        <Host
+          app={() => import("@leanjs/e2e-test-subjects-remote-react-sub-pages")}
+        />
+      </Suspense>
     </>
   );
 };
 
-export default React;
+export default Page;

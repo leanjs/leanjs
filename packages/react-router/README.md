@@ -110,7 +110,7 @@ export default createApp(ReactRouterApp1);
 
 // The name of the composable app is the name of your component,
 // "ReactRouterApp1 in this case.
-// you can pass a different name using the second argument, e.g.
+// you can name it differently using the second argument, e.g.
 // export default createApp(ReactRouterApp1, { appName: "SomeName" });
 ```
 
@@ -207,19 +207,22 @@ You can also pass a function to the `Host` component that returns a dynamic impo
 ```tsx
 // my-monorepo/apps/react-router-host/src/pages/index.tsx
 
+import React, { Suspense } from "react";
 import { Host } from "@leanjs/react-router";
 
 const Home = () => {
   return (
     <>
       <h1>React Router Host</h1>
-      <Host
-        app={() => {
-          // this composable app is bundled in a separate chunk
-          // but it's still built and deployed along with the host app
-          return import("@my-org/react-router-app-1");
-        }}
-      />
+      <Suspense fallback={<p>Loading...</p>}>
+        <Host
+          app={() => {
+            // this composable app is bundled in a separate chunk
+            // but it's still built and deployed along with the host app
+            return import("@my-org/react-router-app-1");
+          }}
+        />
+      </Suspense>
     </>
   );
 };
@@ -232,15 +235,18 @@ Alternatively, you can pass an object to the `app` prop with a `packageName` key
 ```tsx
 // my-monorepo/apps/react-router-host/src/pages/index.tsx
 
+import React, { Suspense } from "react";
 import { Host } from "@leanjs/react";
 
 const Home = () => {
   return (
     <>
       <h1>React Host</h1>
-      {/* in this case, the composable app is neither built nor deployed
+      <Suspense fallback={<p>Loading...</p>}>
+        {/* in this case, the composable app is neither built nor deployed
           along with the React host */}
-      <Host app={{ packageName: "@my-org/react-router-app-1" }} />
+        <Host app={{ packageName: "@my-org/react-router-app-1" }} />
+      </Suspense>
     </>
   );
 };
@@ -281,6 +287,7 @@ then in your React app:
 ```tsx
 // @my-org/my-react-app pages/index.tsx
 
+import React, { Suspense } from "react";
 import { Host } from "@leanjs/react";
 
 // this composable app is neither bundled nor deployed along with the host app
@@ -292,7 +299,9 @@ const Home = () => {
   return (
     <>
       <h1>React Host</h1>
-      <Host app={ReactRouterApp1} />
+      <Suspense fallback={<p>Loading...</p>}>
+        <Host app={ReactRouterApp1} />
+      </Suspense>
     </>
   );
 };

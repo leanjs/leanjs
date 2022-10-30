@@ -226,7 +226,7 @@ const Home: NextPage = () => {
 export default Home;
 ```
 
-**Pro-tip**
+<!-- **Pro-tip**
 Configure your `remotes` in `HostWebpackPlugin` on development only. This way no CI/CD changes are required. It also reduces the build time of your monolith in development since these packages are excluded from the monolith build. Last but not least, you can experiment with micro-frontends in development without changing how you implement and host your apps.
 
 Pro-tip example:
@@ -253,7 +253,7 @@ module.exports = {
     return config;
   },
 };
-```
+``` -->
 
 #### `errorComponent` prop - optional
 
