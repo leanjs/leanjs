@@ -22,8 +22,6 @@
     "dist"
   ],
   "dependencies": {
-    "@leanjs/cli": "^0.7.22",
-    "@leanjs/core": "^0.22.0",
     "chalk": "^4.1.2",
     "fast-glob": "^3.2.11",
     "html-webpack-plugin": "^5.5.0",
@@ -33,6 +31,8 @@
     "copyfiles": "^2.4.1"
   },
   "peerDependencies": {
+    "@leanjs/cli": "^0.7.22",
+    "@leanjs/core": "^0.22.0",
     "webpack": "^5.72.0"
   },
   "keywords": [

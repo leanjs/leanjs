@@ -5,13 +5,13 @@
 If you use a monorepo (recommended) execute the following command at the root of your repository:
 
 ```sh
-yarn add -D -W @leanjs/webpack webpack
+yarn add -D -W @leanjs/cli @leanjs/webpack webpack && yarn add -W @leanjs/core
 ```
 
 If your app is not in a monorepo, then run the following command instead of the above:
 
 ```sh
-yarn add -D @leanjs/webpack webpack
+yarn add -D @leanjs/cli @leanjs/webpack webpack && yarn add @leanjs/core
 ```
 
 ## RemoteWebpackPlugin
