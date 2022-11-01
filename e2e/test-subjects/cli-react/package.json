@@ -12,7 +12,7 @@
   "author": "Alex Lobera <alex@leanjs.com>",
   "license": "MIT",
   "dependencies": {
-    "@leanjs/e2e-test-subjects-package-runtime-mocks": "*",
+    "@leanjs/e2e-test-package-runtime-mocks": "*",
     "@leanjs/react": "*",
     "react": "^17.0.2",
     "react-dom": "^17.0.2"

@@ -92,5 +92,7 @@ export const createApp = <MyAppProps extends AppProps = AppProps>(
     return { mount, appName };
   };
 
+  createComposableApp.appName = appName;
+
   return createComposableApp;
 };

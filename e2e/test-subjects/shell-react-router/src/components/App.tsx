@@ -3,7 +3,7 @@ import { UniversalRouter, Host } from "@leanjs/react-router";
 import {
   createRuntime,
   HostProvider,
-} from "@leanjs/e2e-test-subjects-package-runtime-react";
+} from "@leanjs/e2e-test-package-runtime-react";
 import { Link, Route, Routes } from "react-router-dom";
 import reactApp from "@leanjs/e2e-test-subjects-remote-react-1";
 // import reactThrowErrorApp from "@leanjs/e2e-test-subjects-remote-react-throw-error";

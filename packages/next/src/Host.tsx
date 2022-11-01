@@ -1,32 +1,20 @@
-import React, { ReactElement, useCallback } from "react";
+import React, { useCallback } from "react";
 import { _ as ReactUtils } from "@leanjs/react";
-import type { HostProps } from "@leanjs/react";
+import type { OuterHostProps, InnerHostProps } from "@leanjs/react";
 import type { NavigationListener, Location } from "@leanjs/core";
 import { _ as CoreUtils } from "@leanjs/core";
 import { useRouter } from "next/router";
 import Head from "next/head";
 
-const { useMount, Mount, DefaultError, useApp } = ReactUtils;
+const { createHost, Mount } = ReactUtils;
 const { dedupeSlash } = CoreUtils;
 
-interface NextHostProps extends HostProps {
-  pathname?: string;
-}
+export const Host = createHost<OuterHostProps>(NextHost);
 
-export const Host = (props: NextHostProps) => useApp(NextHost, props);
-
-function NextHost({
-  app,
-  pathname,
-  className,
-  fallback = <>...</>,
-  errorComponent: ErrorComponent = DefaultError,
-}: NextHostProps) {
+function NextHost({ url, ...rest }: InnerHostProps) {
   const router = useRouter();
   const basename = dedupeSlash(`${router.basePath}/${router.pathname}`);
-  const { mount, url, runtime, error, setError } = useMount({ app });
-  const throwErrors = ErrorComponent === null;
-
+  const pathname = router.asPath.replace(router.pathname, "");
   const navigate = useCallback(({ pathname, hash, search }: Location) => {
     router.push(
       {
@@ -40,9 +28,8 @@ function NextHost({
       }
     );
   }, []);
-
   const listen = useCallback((listener: NavigationListener) => {
-    function onRouteChangeComplete(newHostPathname: string) {
+    function onRouteChange(newHostPathname: string) {
       const {
         location: { hash, search },
       } = window;
@@ -51,34 +38,10 @@ function NextHost({
         location: { pathname: newHostPathname, hash, search },
       });
     }
-    router.events.on("routeChangeComplete", onRouteChangeComplete);
+    router.events.on("routeChangeStart", onRouteChange);
 
-    return () =>
-      router.events.off("routeChangeComplete", onRouteChangeComplete);
+    return () => router.events.off("routeChangeStart", onRouteChange);
   }, []);
-
-  let children: ReactElement;
-  if (error) {
-    if (throwErrors) {
-      throw error;
-    }
-    children = <ErrorComponent error={error} />;
-  } else if (mount) {
-    children = (
-      <Mount
-        mount={mount}
-        navigate={navigate}
-        listen={listen}
-        basename={basename}
-        className={className}
-        pathname={pathname}
-        runtime={runtime}
-        setError={setError}
-      />
-    );
-  } else {
-    children = fallback;
-  }
 
   return (
     <>
@@ -87,7 +50,13 @@ function NextHost({
           <link rel="preload" as="script" href={url} />
         </Head>
       ) : null}
-      {children}
+      <Mount
+        {...rest}
+        navigate={navigate}
+        listen={listen}
+        basename={basename}
+        pathname={pathname}
+      />
     </>
   );
 }

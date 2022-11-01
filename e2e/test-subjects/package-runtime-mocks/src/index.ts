@@ -2,7 +2,7 @@ import { configureRuntime } from "@leanjs/core";
 import {
   defaultState,
   CreateRuntime,
-} from "@leanjs/e2e-test-subjects-package-runtime-shared";
+} from "@leanjs/e2e-test-package-runtime-shared";
 import type Pusher from "pusher-js";
 
 export const createRuntime: CreateRuntime = configureRuntime(defaultState)({

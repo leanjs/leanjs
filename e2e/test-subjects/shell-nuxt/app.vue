@@ -1,8 +1,8 @@
 <template>
   <div>
     <h1>Nuxt Host</h1>
-    <NuxtLink to="/">Home page</NuxtLink> | 
-    <NuxtLink to="/vue">Vue page</NuxtLink> | 
+    <NuxtLink to="/">Home page</NuxtLink> |
+    <NuxtLink to="/vue">Vue page</NuxtLink> |
     <NuxtLink to="/custom">Custom page</NuxtLink> |
     <NuxtLink to="/custom-error">Custom error</NuxtLink> |
     <NuxtLink to="/nested-routing">Nested React</NuxtLink>
@@ -13,8 +13,8 @@
 </template>
 
 <script setup lang="ts">
-  import { HostProvider } from "@leanjs/nuxt";
-  import { createRuntime }from "@leanjs/e2e-test-subjects-package-runtime-shared";
+import { HostProvider } from "@leanjs/nuxt";
+import { createRuntime } from "@leanjs/e2e-test-package-runtime-shared";
 
-  const runtime = createRuntime();
+const runtime = createRuntime();
 </script>

@@ -130,5 +130,7 @@ export const createApp = (
     return { mount, appName };
   };
 
+  createComposableApp.appName = appName;
+
   return createComposableApp;
 };

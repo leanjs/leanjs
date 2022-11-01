@@ -10,7 +10,7 @@ module.exports = {
     vue: createVueWebpackConfig(),
   },
   selfHosted: {
-    createRuntimePath: "@leanjs/e2e-test-subjects-package-runtime-shared",
+    createRuntimePath: "@leanjs/e2e-test-package-runtime-shared",
   },
   command: {
     deploy: {

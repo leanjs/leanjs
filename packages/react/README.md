@@ -129,7 +129,7 @@ export default createApp(ReactApp1);
 
 // The name of the composable app is the name of your component,
 // "ReactApp1 in this case.
-// you can pass a different name using the second argument, e.g.
+// you can name it differently using the second argument, e.g.
 // export default createApp(ReactApp1, { appName: "SomeName" });
 ```
 
@@ -234,7 +234,6 @@ The `app` prop expects a `GetComposableApp` type. You can `import` a `GetComposa
 // my-monorepo/composable-apps/react-app-1/src/index.tsx
 
 import { createApp } from "@leanjs/react";
-
 import { ReactApp1 } from "./ReactApp1";
 
 export default createApp(ReactApp1);
@@ -245,6 +244,7 @@ then pass it to the `Host` component in a React app:
 ```tsx
 // my-monorepo/apps/react-host/src/index.ts
 
+import React from "react";
 import { Host } from "@leanjs/react";
 
 // this composable app is bundled and deployed along with the host app
@@ -273,19 +273,22 @@ You can also pass a function to the `Host` component that returns a dynamic impo
 ```tsx
 // my-monorepo/apps/react-host/src/index.ts
 
+import React, { Suspense } from "react";
 import { Host } from "@leanjs/react";
 
 const Home = () => {
   return (
     <>
       <h1>React Host</h1>
-      <Host
-        app={() => {
-          // this composable app is bundled in a separate chunk
-          // but it's still built and deployed along with the host app
-          return import("@my-org/react-app-1");
-        }}
-      />
+      <Suspense fallback={<p>Loading...</p>}>
+        <Host
+          app={() => {
+            // this composable app is bundled in a separate chunk
+            // but it's still built and deployed along with the host app
+            return import("@my-org/react-app-1");
+          }}
+        />
+      </Suspense>
     </>
   );
 };
@@ -304,9 +307,11 @@ const Home = () => {
   return (
     <>
       <h1>React Host</h1>
-      {/* in this case, the composable app is neither built nor deployed
+      <Suspense fallback={<p>Loading...</p>}>
+        {/* in this case, the composable app is neither built nor deployed
           along with the React host */}
-      <Host app={{ packageName: "@my-org/react-app-1" }} />
+        <Host app={{ packageName: "@my-org/react-app-1" }} />
+      </Suspense>
     </>
   );
 };
@@ -347,6 +352,7 @@ then in your React app:
 ```tsx
 // my-monorepo/apps/react-host/src/index.ts
 
+import React, { Suspense } from "react";
 import { Host } from "@leanjs/react";
 
 // this composable app is neither bundled nor deployed along with the host app
@@ -358,7 +364,9 @@ const Home = () => {
   return (
     <>
       <h1>React Host</h1>
-      <Host app={ReactApp1} />
+      <Suspense fallback={<p>Loading...</p>}>
+        <Host app={ReactApp1} />
+      </Suspense>
     </>
   );
 };

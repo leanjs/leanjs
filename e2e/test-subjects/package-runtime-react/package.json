@@ -1,5 +1,5 @@
 {
-  "name": "@leanjs/e2e-test-subjects-package-runtime-react",
+  "name": "@leanjs/e2e-test-package-runtime-react",
   "version": "1.1.15",
   "private": true,
   "description": "",
@@ -8,7 +8,7 @@
   "author": "",
   "license": "MIT",
   "dependencies": {
-    "@leanjs/e2e-test-subjects-package-runtime-shared": "*"
+    "@leanjs/e2e-test-package-runtime-shared": "*"
   },
   "devDependencies": {
     "@types/react": "^17.0.41"

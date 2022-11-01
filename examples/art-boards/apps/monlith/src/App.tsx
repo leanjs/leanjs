@@ -1,12 +1,14 @@
 import React, { Suspense, lazy } from "react";
 import { Host } from "@leanjs/react";
 import { Route, Routes, Link } from "react-router-dom";
+import { _ } from "@leanjs/react";
 
 import { Home } from "./components/home";
 import Fallback from "./components/Fallback";
 
 import Chat from "@art-boards/chat-app";
 
+const { ErrorBoundary } = _;
 const ZimaBlueLazyComponent = lazy(() => import("../src/works/zima-blue"));
 const ZimaBlueLazyApp = () => import("@art-boards/zima-blue");
 
@@ -22,11 +24,13 @@ export function App() {
           path="/zima-blue"
           element={
             <div className="work-layout">
-              <Host fallback={<Fallback />} app={ZimaBlueLazyApp} />
-              {/* <Suspense fallback={<Fallback />}>
-                <ZimaBlueLazyComponent />
-              </Suspense> */}
-              <Host app={Chat} />
+              {/* <Host fallback={<Fallback />} app={ZimaBlueLazyApp} /> */}
+              <ErrorBoundary>
+                <Suspense fallback={<Fallback />}>
+                  <Host app={ZimaBlueLazyApp} errorComponent={null} />
+                  <Host app={Chat} errorComponent={null} />
+                </Suspense>
+              </ErrorBoundary>
               {/* <Chat /> */}
             </div>
           }

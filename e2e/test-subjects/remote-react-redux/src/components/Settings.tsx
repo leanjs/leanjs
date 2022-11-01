@@ -1,6 +1,6 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useRuntime } from "@leanjs/e2e-test-subjects-package-runtime-react";
+import { useRuntime } from "@leanjs/e2e-test-package-runtime-react";
 
 export function Settings() {
   const locale = useSelector((state: any) => state.settings?.locale);

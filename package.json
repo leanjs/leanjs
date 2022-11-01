@@ -18,17 +18,22 @@
     "check-types": "tsc --noEmit",
     "----------------------TESTING----------------------": ".",
     "test": "lerna run test",
-    "start:all:e2e": "turbo run start:e2e --filter=@leanjs/e2e-test-*",
-    "test:e2e": "yarn workspace @leanjs/e2e-tests test:all:e2e",
+    "start:e2e": "turbo run start:e2e --no-cache  --no-daemon --concurrency=100 --filter=@leanjs/e2e-test-subjects*",
+    "test:e2e": "start-test start:e2e \"44440|http-get://localhost:56501|http-get://localhost:44442|http-get://localhost:44443|http-get://localhost:44444|http-get://localhost:44447\" 'yarn workspace @leanjs/e2e-tests test:e2e'",
     "----------------------RUNNING----------------------": ".",
     "prepare": "husky install"
   },
-  "workspaces": [
-    "packages/*",
-    "e2e/test-subjects/*",
-    "e2e/tests",
-    "website"
-  ],
+  "workspaces": {
+    "packages": [
+      "packages/*",
+      "e2e/test-subjects/*",
+      "e2e/tests",
+      "website"
+    ],
+    "nohoist": [
+      "e2e/test-subjects/*"
+    ]
+  },
   "devDependencies": {
     "@commitlint/cli": "^16.2.3",
     "@commitlint/config-conventional": "^16.2.1",
@@ -38,7 +43,7 @@
     "@typescript-eslint/eslint-plugin": "^5.16.0",
     "@typescript-eslint/parser": "^5.16.0",
     "del-cli": "^4.0.1",
-    "eslint": "^8.12.0",
+    "eslint": "^8.26.0",
     "eslint-config-prettier": "^8.5.0",
     "eslint-import-resolver-typescript": "^2.7.1",
     "eslint-plugin": "^1.0.1",

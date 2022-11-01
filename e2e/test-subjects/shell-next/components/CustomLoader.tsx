@@ -1,5 +1,5 @@
-import { LoadingComponent } from "@leanjs/react";
+import React from "react";
 
-export const CustomLoader: LoadingComponent = () => {
+export const CustomLoader = () => {
   return <>Loading micro frontend</>;
 };

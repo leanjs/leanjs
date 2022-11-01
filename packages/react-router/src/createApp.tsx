@@ -88,5 +88,7 @@ export const createApp = <MyAppProps extends AppProps = AppProps>(
     };
   };
 
+  createComposableApp.appName = appName;
+
   return createComposableApp;
 };

@@ -1,5 +1,5 @@
 import React from "react";
-import { useRuntime } from "@leanjs/e2e-test-subjects-package-runtime-react";
+import { useRuntime } from "@leanjs/e2e-test-package-runtime-react";
 
 export function CliReact() {
   const runtime = useRuntime();

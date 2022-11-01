@@ -1,18 +1,19 @@
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const { HostWebpackPlugin } = require("@leanjs/webpack");
-// eslint-disable-next-line @typescript-eslint/no-var-requires
-const withTM = require("next-transpile-modules")([
-  "@leanjs/e2e-test-subjects-package-runtime-react",
-  "@leanjs/e2e-test-subjects-package-runtime-shared",
-  // "@leanjs/e2e-test-subjects-remote-react-throw-error",
-]);
 
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const packageJson = require("./package.json");
 
 /** @type {import('next').NextConfig} */
-const nextConfig = withTM({
+const nextConfig = {
   reactStrictMode: true,
+  experimental: {
+    appDir: true,
+    transpilePackages: [
+      "@leanjs/e2e-test-package-runtime-react",
+      "@leanjs/e2e-test-subjects-package-runtime-shared",
+    ],
+  },
   async rewrites() {
     return [
       {
@@ -33,11 +34,14 @@ const nextConfig = withTM({
           react: packageJson.dependencies.react,
           ["react-dom"]: packageJson.dependencies["react-dom"],
         },
+        // remotes: {
+        //   packages: ["@leanjs/e2e-test-subjects-remote-react-sub-pages"],
+        // },
       })
     );
 
     return config;
   },
-});
+};
 
 module.exports = nextConfig;
