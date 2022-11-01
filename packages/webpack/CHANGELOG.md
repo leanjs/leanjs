@@ -3,316 +3,171 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
-## [0.20.2](https://github.com/leanjs/leanjs/compare/@leanjs/webpack@0.20.1...@leanjs/webpack@0.20.2) (2022-10-25)
+## [0.20.3](https://github.com/leanjs/leanjs/compare/@leanjs/webpack@0.20.2...@leanjs/webpack@0.20.3) (2022-11-01)
 
+**Note:** Version bump only for package @leanjs/webpack
+
+## [0.20.2](https://github.com/leanjs/leanjs/compare/@leanjs/webpack@0.20.1...@leanjs/webpack@0.20.2) (2022-10-25)
 
 ### Bug Fixes
 
-* react 18 different runtime context ([6e423f2](https://github.com/leanjs/leanjs/commit/6e423f23388c514a21f9c3789baa26f17ad483d3))
-
-
-
-
+- react 18 different runtime context ([6e423f2](https://github.com/leanjs/leanjs/commit/6e423f23388c514a21f9c3789baa26f17ad483d3))
 
 ## [0.20.1](https://github.com/leanjs/leanjs/compare/@leanjs/webpack@0.20.0...@leanjs/webpack@0.20.1) (2022-10-22)
 
 **Note:** Version bump only for package @leanjs/webpack
 
-
-
-
-
 # [0.20.0](https://github.com/leanjs/leanjs/compare/@leanjs/webpack@0.19.21...@leanjs/webpack@0.20.0) (2022-10-16)
-
 
 ### Features
 
-* opt-out to error component and throw instead ([6debf2b](https://github.com/leanjs/leanjs/commit/6debf2b91b4f5d86635fabab1f84a893dcaeebce))
-
-
-
-
+- opt-out to error component and throw instead ([6debf2b](https://github.com/leanjs/leanjs/commit/6debf2b91b4f5d86635fabab1f84a893dcaeebce))
 
 ## [0.19.21](https://github.com/leanjs/leanjs/compare/@leanjs/webpack@0.19.20...@leanjs/webpack@0.19.21) (2022-10-10)
 
 **Note:** Version bump only for package @leanjs/webpack
 
-
-
-
-
 ## [0.19.20](https://github.com/leanjs/leanjs/compare/@leanjs/webpack@0.19.19...@leanjs/webpack@0.19.20) (2022-10-10)
 
 **Note:** Version bump only for package @leanjs/webpack
-
-
-
-
 
 ## [0.19.19](https://github.com/leanjs/leanjs/compare/@leanjs/webpack@0.19.18...@leanjs/webpack@0.19.19) (2022-10-09)
 
 **Note:** Version bump only for package @leanjs/webpack
 
-
-
-
-
 ## [0.19.18](https://github.com/leanjs/leanjs/compare/@leanjs/webpack@0.19.17...@leanjs/webpack@0.19.18) (2022-09-25)
 
 **Note:** Version bump only for package @leanjs/webpack
-
-
-
-
 
 ## [0.19.17](https://github.com/leanjs/leanjs/compare/@leanjs/webpack@0.19.16...@leanjs/webpack@0.19.17) (2022-09-25)
 
 **Note:** Version bump only for package @leanjs/webpack
 
-
-
-
-
 ## [0.19.16](https://github.com/leanjs/leanjs/compare/@leanjs/webpack@0.19.15...@leanjs/webpack@0.19.16) (2022-09-25)
 
 **Note:** Version bump only for package @leanjs/webpack
-
-
-
-
 
 ## [0.19.15](https://github.com/leanjs/leanjs/compare/@leanjs/webpack@0.19.14...@leanjs/webpack@0.19.15) (2022-09-25)
 
 **Note:** Version bump only for package @leanjs/webpack
 
-
-
-
-
 ## [0.19.14](https://github.com/leanjs/leanjs/compare/@leanjs/webpack@0.19.13...@leanjs/webpack@0.19.14) (2022-09-25)
 
 **Note:** Version bump only for package @leanjs/webpack
-
-
-
-
 
 ## [0.19.13](https://github.com/leanjs/leanjs/compare/@leanjs/webpack@0.19.12...@leanjs/webpack@0.19.13) (2022-09-22)
 
 **Note:** Version bump only for package @leanjs/webpack
 
-
-
-
-
 ## [0.19.12](https://github.com/leanjs/leanjs/compare/@leanjs/webpack@0.19.11...@leanjs/webpack@0.19.12) (2022-09-14)
 
 **Note:** Version bump only for package @leanjs/webpack
-
-
-
-
 
 ## [0.19.11](https://github.com/leanjs/leanjs/compare/@leanjs/webpack@0.19.10...@leanjs/webpack@0.19.11) (2022-09-14)
 
 **Note:** Version bump only for package @leanjs/webpack
 
-
-
-
-
 ## [0.19.10](https://github.com/leanjs/leanjs/compare/@leanjs/webpack@0.19.9...@leanjs/webpack@0.19.10) (2022-09-13)
 
 **Note:** Version bump only for package @leanjs/webpack
-
-
-
-
 
 ## [0.19.9](https://github.com/leanjs/leanjs/compare/@leanjs/webpack@0.19.8...@leanjs/webpack@0.19.9) (2022-09-11)
 
 **Note:** Version bump only for package @leanjs/webpack
 
-
-
-
-
 ## [0.19.8](https://github.com/leanjs/leanjs/compare/@leanjs/webpack@0.19.7...@leanjs/webpack@0.19.8) (2022-09-11)
 
 **Note:** Version bump only for package @leanjs/webpack
 
-
-
-
-
 ## [0.19.7](https://github.com/leanjs/leanjs/compare/@leanjs/webpack@0.19.6...@leanjs/webpack@0.19.7) (2022-09-07)
-
 
 ### Bug Fixes
 
-* make core package a peerDependency for consitent version ([4a23083](https://github.com/leanjs/leanjs/commit/4a23083060c8305512bb4c18deeb769583fbd328))
-
-
-
-
+- make core package a peerDependency for consitent version ([4a23083](https://github.com/leanjs/leanjs/commit/4a23083060c8305512bb4c18deeb769583fbd328))
 
 ## [0.19.6](https://github.com/leanjs/leanjs/compare/@leanjs/webpack@0.19.5...@leanjs/webpack@0.19.6) (2022-09-07)
 
-
 ### Bug Fixes
 
-* **webpack:** hot module replacement in self hosted mode ([c75f8b0](https://github.com/leanjs/leanjs/commit/c75f8b076476c5f9df1fb0b51d77e16a9f3a9be1))
-
-
-
-
+- **webpack:** hot module replacement in self hosted mode ([c75f8b0](https://github.com/leanjs/leanjs/commit/c75f8b076476c5f9df1fb0b51d77e16a9f3a9be1))
 
 ## [0.19.5](https://github.com/leanjs/leanjs/compare/@leanjs/webpack@0.19.4...@leanjs/webpack@0.19.5) (2022-09-04)
 
-
 ### Bug Fixes
 
-* **webpack:** throw error in RemoteWebpackPlugin if createRuntime is not a function ([5cc2053](https://github.com/leanjs/leanjs/commit/5cc2053313657b561c3b1606fd2660d335b53a33))
-
-
-
-
+- **webpack:** throw error in RemoteWebpackPlugin if createRuntime is not a function ([5cc2053](https://github.com/leanjs/leanjs/commit/5cc2053313657b561c3b1606fd2660d335b53a33))
 
 ## [0.19.4](https://github.com/leanjs/leanjs/compare/@leanjs/webpack@0.19.3...@leanjs/webpack@0.19.4) (2022-09-04)
 
-
 ### Bug Fixes
 
-* e2e tests ([68cdfe7](https://github.com/leanjs/leanjs/commit/68cdfe71a5b0525badc62be1bded4da1b919c513))
-
-
-
-
+- e2e tests ([68cdfe7](https://github.com/leanjs/leanjs/commit/68cdfe71a5b0525badc62be1bded4da1b919c513))
 
 ## [0.19.3](https://github.com/leanjs/leanjs/compare/@leanjs/webpack@0.19.2...@leanjs/webpack@0.19.3) (2022-09-04)
 
 **Note:** Version bump only for package @leanjs/webpack
 
-
-
-
-
 ## [0.19.2](https://github.com/leanjs/leanjs/compare/@leanjs/webpack@0.19.1...@leanjs/webpack@0.19.2) (2022-09-04)
 
 **Note:** Version bump only for package @leanjs/webpack
-
-
-
-
 
 ## [0.19.1](https://github.com/leanjs/leanjs/compare/@leanjs/webpack@0.19.0...@leanjs/webpack@0.19.1) (2022-09-04)
 
 **Note:** Version bump only for package @leanjs/webpack
 
-
-
-
-
 # [0.19.0](https://github.com/leanjs/leanjs/compare/@leanjs/webpack@0.18.2...@leanjs/webpack@0.19.0) (2022-08-20)
-
 
 ### Features
 
-* add createRuntime config ([32153d9](https://github.com/leanjs/leanjs/commit/32153d92e4a5ea436f597f3af7a09972d003820b))
-
-
-
-
+- add createRuntime config ([32153d9](https://github.com/leanjs/leanjs/commit/32153d92e4a5ea436f597f3af7a09972d003820b))
 
 ## [0.18.2](https://github.com/leanjs/leanjs/compare/@leanjs/webpack@0.18.1...@leanjs/webpack@0.18.2) (2022-08-20)
 
 **Note:** Version bump only for package @leanjs/webpack
 
-
-
-
-
 ## [0.18.1](https://github.com/leanjs/leanjs/compare/@leanjs/webpack@0.18.0...@leanjs/webpack@0.18.1) (2022-08-18)
 
 **Note:** Version bump only for package @leanjs/webpack
 
-
-
-
-
 # [0.18.0](https://github.com/leanjs/leanjs/compare/@leanjs/webpack@0.17.1...@leanjs/webpack@0.18.0) (2022-08-17)
-
 
 ### Features
 
-* **webpack:** more efficient auto shared dependencies ([2d2c2c2](https://github.com/leanjs/leanjs/commit/2d2c2c2f6e83431fc010d19c51ca6cf9c1e8e0fe))
-
-
-
-
+- **webpack:** more efficient auto shared dependencies ([2d2c2c2](https://github.com/leanjs/leanjs/commit/2d2c2c2f6e83431fc010d19c51ca6cf9c1e8e0fe))
 
 ## [0.17.1](https://github.com/leanjs/leanjs/compare/@leanjs/webpack@0.17.0...@leanjs/webpack@0.17.1) (2022-08-16)
 
-
 ### Bug Fixes
 
-* **create-micro-frontends:** bump package.json versions ([5b7a495](https://github.com/leanjs/leanjs/commit/5b7a4956d77c29e5429aa7b6a07df347dd5114aa))
-
-
-
-
+- **create-micro-frontends:** bump package.json versions ([5b7a495](https://github.com/leanjs/leanjs/commit/5b7a4956d77c29e5429aa7b6a07df347dd5114aa))
 
 # [0.17.0](https://github.com/leanjs/leanjs/compare/@leanjs/webpack@0.16.1...@leanjs/webpack@0.17.0) (2022-08-16)
 
-
 ### Features
 
-* enable build-time integration ([df93a43](https://github.com/leanjs/leanjs/commit/df93a433f869a659ace4fb1388608fdd415071b0))
-
-
-
-
+- enable build-time integration ([df93a43](https://github.com/leanjs/leanjs/commit/df93a433f869a659ace4fb1388608fdd415071b0))
 
 ## [0.16.1](https://github.com/leanjs/leanjs/compare/@leanjs/webpack@0.16.0...@leanjs/webpack@0.16.1) (2022-08-11)
 
 **Note:** Version bump only for package @leanjs/webpack
 
-
-
-
-
 # [0.16.0](https://github.com/leanjs/leanjs/compare/@leanjs/webpack@0.15.1...@leanjs/webpack@0.16.0) (2022-08-10)
-
 
 ### Features
 
-* **wepack:** extract configs to its own packages ([e79c859](https://github.com/leanjs/leanjs/commit/e79c859371cb3bfe779eef21bbe3d55874dc2098))
-
-
-
-
+- **wepack:** extract configs to its own packages ([e79c859](https://github.com/leanjs/leanjs/commit/e79c859371cb3bfe779eef21bbe3d55874dc2098))
 
 ## [0.15.1](https://github.com/leanjs/leanjs/compare/@leanjs/webpack@0.15.0...@leanjs/webpack@0.15.1) (2022-08-09)
 
-
 ### Bug Fixes
 
-* **webpack:** move webapck to peerDependencies ([5d4c37b](https://github.com/leanjs/leanjs/commit/5d4c37bde96240a8056c9fb6dfafb9d4f082eb3b))
-
-
-
-
+- **webpack:** move webapck to peerDependencies ([5d4c37b](https://github.com/leanjs/leanjs/commit/5d4c37bde96240a8056c9fb6dfafb9d4f082eb3b))
 
 # [0.15.0](https://github.com/leanjs/leanjs/compare/@leanjs/webpack@0.14.0...@leanjs/webpack@0.15.0) (2022-08-07)
 
-
 ### Features
 
-* **wepack:** improve shared dependencies ([60b8fef](https://github.com/leanjs/leanjs/commit/60b8fef9403d452283d02b844378689e68072641))
-
-
-
-
+- **wepack:** improve shared dependencies ([60b8fef](https://github.com/leanjs/leanjs/commit/60b8fef9403d452283d02b844378689e68072641))
 
 # [0.14.0](https://github.com/leanjs/leanjs/compare/@leanjs/webpack@0.13.5...@leanjs/webpack@0.14.0) (2022-08-05)
 

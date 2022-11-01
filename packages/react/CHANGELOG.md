@@ -3,62 +3,41 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
-## [0.14.4](https://github.com/leanjs/leanjs/compare/@leanjs/react@0.14.3...@leanjs/react@0.14.4) (2022-10-25)
+# [0.15.0](https://github.com/leanjs/leanjs/compare/@leanjs/react@0.14.4...@leanjs/react@0.15.0) (2022-11-01)
 
+### Features
+
+- add suspense support to host ([7a97d9c](https://github.com/leanjs/leanjs/commit/7a97d9c51505eb15a07243157e9a249e3d70085c))
+
+## [0.14.4](https://github.com/leanjs/leanjs/compare/@leanjs/react@0.14.3...@leanjs/react@0.14.4) (2022-10-25)
 
 ### Bug Fixes
 
-* react 18 different runtime context ([6e423f2](https://github.com/leanjs/leanjs/commit/6e423f23388c514a21f9c3789baa26f17ad483d3))
-
-
-
-
+- react 18 different runtime context ([6e423f2](https://github.com/leanjs/leanjs/commit/6e423f23388c514a21f9c3789baa26f17ad483d3))
 
 ## [0.14.3](https://github.com/leanjs/leanjs/compare/@leanjs/react@0.14.2...@leanjs/react@0.14.3) (2022-10-22)
 
-
 ### Bug Fixes
 
-* runtime refactoring ([02de795](https://github.com/leanjs/leanjs/commit/02de79554c9b40b1656f8600028e95288a2e04b3))
-
-
-
-
+- runtime refactoring ([02de795](https://github.com/leanjs/leanjs/commit/02de79554c9b40b1656f8600028e95288a2e04b3))
 
 ## [0.14.2](https://github.com/leanjs/leanjs/compare/@leanjs/react@0.14.1...@leanjs/react@0.14.2) (2022-10-16)
 
 **Note:** Version bump only for package @leanjs/react
 
-
-
-
-
 ## [0.14.1](https://github.com/leanjs/leanjs/compare/@leanjs/react@0.14.0...@leanjs/react@0.14.1) (2022-10-16)
 
 **Note:** Version bump only for package @leanjs/react
 
-
-
-
-
 # [0.14.0](https://github.com/leanjs/leanjs/compare/@leanjs/react@0.13.2...@leanjs/react@0.14.0) (2022-10-16)
-
 
 ### Features
 
-* opt-out to error component and throw instead ([6debf2b](https://github.com/leanjs/leanjs/commit/6debf2b91b4f5d86635fabab1f84a893dcaeebce))
-
-
-
-
+- opt-out to error component and throw instead ([6debf2b](https://github.com/leanjs/leanjs/commit/6debf2b91b4f5d86635fabab1f84a893dcaeebce))
 
 ## [0.13.2](https://github.com/leanjs/leanjs/compare/@leanjs/react@0.13.1...@leanjs/react@0.13.2) (2022-10-15)
 
 **Note:** Version bump only for package @leanjs/react
-
-
-
-
 
 ## [0.13.1](https://github.com/leanjs/leanjs/compare/@leanjs/react@0.13.0...@leanjs/react@0.13.1) (2022-10-10)
 

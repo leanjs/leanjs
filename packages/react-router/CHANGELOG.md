@@ -3,56 +3,37 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.11.0](https://github.com/leanjs/leanjs/compare/@leanjs/react-router@0.10.4...@leanjs/react-router@0.11.0) (2022-11-01)
+
+### Features
+
+- add suspense support to host ([7a97d9c](https://github.com/leanjs/leanjs/commit/7a97d9c51505eb15a07243157e9a249e3d70085c))
+
 ## [0.10.4](https://github.com/leanjs/leanjs/compare/@leanjs/react-router@0.10.3...@leanjs/react-router@0.10.4) (2022-10-25)
 
 **Note:** Version bump only for package @leanjs/react-router
-
-
-
-
 
 ## [0.10.3](https://github.com/leanjs/leanjs/compare/@leanjs/react-router@0.10.2...@leanjs/react-router@0.10.3) (2022-10-22)
 
 **Note:** Version bump only for package @leanjs/react-router
 
-
-
-
-
 ## [0.10.2](https://github.com/leanjs/leanjs/compare/@leanjs/react-router@0.10.1...@leanjs/react-router@0.10.2) (2022-10-16)
 
 **Note:** Version bump only for package @leanjs/react-router
-
-
-
-
 
 ## [0.10.1](https://github.com/leanjs/leanjs/compare/@leanjs/react-router@0.10.0...@leanjs/react-router@0.10.1) (2022-10-16)
 
 **Note:** Version bump only for package @leanjs/react-router
 
-
-
-
-
 # [0.10.0](https://github.com/leanjs/leanjs/compare/@leanjs/react-router@0.9.2...@leanjs/react-router@0.10.0) (2022-10-16)
-
 
 ### Features
 
-* opt-out to error component and throw instead ([6debf2b](https://github.com/leanjs/leanjs/commit/6debf2b91b4f5d86635fabab1f84a893dcaeebce))
-
-
-
-
+- opt-out to error component and throw instead ([6debf2b](https://github.com/leanjs/leanjs/commit/6debf2b91b4f5d86635fabab1f84a893dcaeebce))
 
 ## [0.9.2](https://github.com/leanjs/leanjs/compare/@leanjs/react-router@0.9.1...@leanjs/react-router@0.9.2) (2022-10-15)
 
 **Note:** Version bump only for package @leanjs/react-router
-
-
-
-
 
 ## [0.9.1](https://github.com/leanjs/leanjs/compare/@leanjs/react-router@0.9.0...@leanjs/react-router@0.9.1) (2022-10-10)
 
