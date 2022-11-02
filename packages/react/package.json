@@ -13,7 +13,8 @@
   },
   "files": [
     "dist",
-    "18.d.ts"
+    "18.d.ts",
+    "runtime"
   ],
   "exports": {
     ".": "./dist/index.js",
