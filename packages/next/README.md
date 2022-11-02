@@ -104,20 +104,17 @@ then pass it to the `Host` component in a Next.js app:
 ```tsx
 // my-monorepo/apps/nextjs-host/pages/index.tsx
 
-import type { NextPage } from "next";
 import { Host } from "@leanjs/next";
 
 // this composable app is bundled and deployed along with the Nextjs app
 import ReactApp1 from "@my-org/react-app-1";
 
-const Home: NextPage = () => {
-  return (
-    <>
-      <h1>Nextjs Host</h1>
-      <Host app={ReactApp1} />
-    </>
-  );
-};
+const Home = () => (
+  <>
+    <h1>Nextjs Host</h1>
+    <Host app={ReactApp1} />
+  </>
+);
 
 export default Home;
 ```
@@ -127,18 +124,21 @@ You can also pass a function to the `Host` component that returns a dynamic impo
 ```tsx
 // my-monorepo/apps/nextjs-host/pages/index.tsx
 
+import React, { Suspense } from "react";
 import { Host } from "@leanjs/next";
 
 const Home = () => (
   <>
     <h1>Nextjs Host</h1>
-    <Host
-      app={() => {
-        // this composable app is bundled in a separate chunk
-        // but it's still built and deployed along with the Nextjs app
-        return import("@my-org/react-app-1");
-      }}
-    />
+    <Suspense fallback={<p>Loading...</p>}>
+      <Host
+        app={() => {
+          // this composable app is bundled in a separate chunk
+          // but it's still built and deployed along with the Nextjs app
+          return import("@my-org/react-app-1");
+        }}
+      />
+    </Suspense>
   </>
 );
 
@@ -150,14 +150,17 @@ Alternatively, you can pass an object to the `app` prop with a `packageName` key
 ```tsx
 // my-monorepo/apps/nextjs-host/pages/index.tsx
 
+import React, { Suspense } from "react";
 import { Host } from "@leanjs/next";
 
 const Home = () => (
   <>
     <h1>Nextjs Host</h1>
-    {/* in this case, the composable app is neither built nor deployed
+    <Suspense fallback={<p>Loading...</p>}>
+      {/* in this case, the composable app is neither built nor deployed
           along with the Next.js host */}
-    <Host app={{ packageName: "@my-org/react-app-1" }} />
+      <Host app={{ packageName: "@my-org/react-app-1" }} />
+    </Suspense>
   </>
 );
 
@@ -168,6 +171,7 @@ export default Home;
 Fetching from a remote `origin` only works with Webpack v5 because this feature uses Module Federation under the hood. You need to add a [HostWebpackPlugin](/packages/webpack/#hostwebpackplugin) to your `next.config.js` to enable this feature. If this feature is enabled you need to build and deploy your composable apps independently. See [@leanjs/aws](/packages/aws/) to deploy your composable apps to AWS.
 :::
 
+<!--
 :::tip
 You can still pass an `import` (either dynamic or static) to the `app` prop of the `Host` component and configure Webpack to fetch it from a remote origin by changing the configuration of your `HostWebpackPlugin`.
 :::
@@ -217,7 +221,7 @@ const Home = () => (
 export default Home;
 ```
 
-<!-- **Pro-tip**
+ **Pro-tip**
 Configure your `remotes` in `HostWebpackPlugin` on development only. This way no CI/CD changes are required. It also reduces the build time of your monolith in development since these packages are excluded from the monolith build. Last but not least, you can experiment with micro-frontends in development without changing how you implement and host your apps.
 
 Pro-tip example:
