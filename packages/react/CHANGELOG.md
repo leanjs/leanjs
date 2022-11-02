@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.15.1](https://github.com/leanjs/leanjs/compare/@leanjs/react@0.15.0...@leanjs/react@0.15.1) (2022-11-02)
+
+### Bug Fixes
+
+- types react 18 ([1ebd062](https://github.com/leanjs/leanjs/commit/1ebd0620a69e8e358cf60ba5893d41d3fd78a48c))
+
 # [0.15.0](https://github.com/leanjs/leanjs/compare/@leanjs/react@0.14.4...@leanjs/react@0.15.0) (2022-11-01)
 
 ### Features

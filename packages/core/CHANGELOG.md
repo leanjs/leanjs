@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.22.1](https://github.com/leanjs/leanjs/compare/@leanjs/core@0.22.0...@leanjs/core@0.22.1) (2022-11-02)
+
+### Bug Fixes
+
+- **runtime:** replace subscriber with listener in tests ([140cf99](https://github.com/leanjs/leanjs/commit/140cf994b7063c0154ff3cea974c2c83be5bab3f))
+
 # [0.22.0](https://github.com/leanjs/leanjs/compare/@leanjs/core@0.21.1...@leanjs/core@0.22.0) (2022-11-01)
 
 ### Features
