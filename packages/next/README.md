@@ -127,23 +127,20 @@ You can also pass a function to the `Host` component that returns a dynamic impo
 ```tsx
 // my-monorepo/apps/nextjs-host/pages/index.tsx
 
-import type { NextPage } from "next";
 import { Host } from "@leanjs/next";
 
-const Home: NextPage = () => {
-  return (
-    <>
-      <h1>Nextjs Host</h1>
-      <Host
-        app={() => {
-          // this composable app is bundled in a separate chunk
-          // but it's still built and deployed along with the Nextjs app
-          return import("@my-org/react-app-1");
-        }}
-      />
-    </>
-  );
-};
+const Home = () => (
+  <>
+    <h1>Nextjs Host</h1>
+    <Host
+      app={() => {
+        // this composable app is bundled in a separate chunk
+        // but it's still built and deployed along with the Nextjs app
+        return import("@my-org/react-app-1");
+      }}
+    />
+  </>
+);
 
 export default Home;
 ```
@@ -153,19 +150,16 @@ Alternatively, you can pass an object to the `app` prop with a `packageName` key
 ```tsx
 // my-monorepo/apps/nextjs-host/pages/index.tsx
 
-import type { NextPage } from "next";
 import { Host } from "@leanjs/next";
 
-const Home: NextPage = () => {
-  return (
-    <>
-      <h1>Nextjs Host</h1>
-      {/* in this case, the composable app is neither built nor deployed
+const Home = () => (
+  <>
+    <h1>Nextjs Host</h1>
+    {/* in this case, the composable app is neither built nor deployed
           along with the Next.js host */}
-      <Host app={{ packageName: "@my-org/react-app-1" }} />
-    </>
-  );
-};
+    <Host app={{ packageName: "@my-org/react-app-1" }} />
+  </>
+);
 
 export default Home;
 ```
@@ -206,7 +200,6 @@ then in your Next.js app:
 ```tsx
 // my-monorepo/apps/nextjs-host/pages/index.tsx
 
-import type { NextPage } from "next";
 import { Host } from "@leanjs/next";
 
 // this composable app is neither bundled nor deployed along with the Nextjs app
@@ -214,14 +207,12 @@ import { Host } from "@leanjs/next";
 // in the next.config.js HostWebpackPlugin
 import ReactApp1 from "@my-org/react-app-1";
 
-const Home: NextPage = () => {
-  return (
-    <>
-      <h1>Nextjs Host</h1>
-      <Host app={ReactApp1} />
-    </>
-  );
-};
+const Home = () => (
+  <>
+    <h1>Nextjs Host</h1>
+    <Host app={ReactApp1} />
+  </>
+);
 
 export default Home;
 ```

@@ -190,14 +190,12 @@ import { Host } from "@leanjs/react-router";
 // this composable app is bundled and deployed along with the host app
 import ReactRouterApp1 from "@my-org/react-router-app-1";
 
-const Home = () => {
-  return (
-    <>
-      <h1>React Router Host</h1>
-      <Host app={ReactRouterApp1} />
-    </>
-  );
-};
+const Home = () => (
+  <>
+    <h1>React Router Host</h1>
+    <Host app={ReactRouterApp1} />
+  </>
+);
 
 export default Home;
 ```
@@ -210,22 +208,20 @@ You can also pass a function to the `Host` component that returns a dynamic impo
 import React, { Suspense } from "react";
 import { Host } from "@leanjs/react-router";
 
-const Home = () => {
-  return (
-    <>
-      <h1>React Router Host</h1>
-      <Suspense fallback={<p>Loading...</p>}>
-        <Host
-          app={() => {
-            // this composable app is bundled in a separate chunk
-            // but it's still built and deployed along with the host app
-            return import("@my-org/react-router-app-1");
-          }}
-        />
-      </Suspense>
-    </>
-  );
-};
+const Home = () => (
+  <>
+    <h1>React Router Host</h1>
+    <Suspense fallback={<p>Loading...</p>}>
+      <Host
+        app={() => {
+          // this composable app is bundled in a separate chunk
+          // but it's still built and deployed along with the host app
+          return import("@my-org/react-router-app-1");
+        }}
+      />
+    </Suspense>
+  </>
+);
 
 export default Home;
 ```
@@ -238,18 +234,16 @@ Alternatively, you can pass an object to the `app` prop with a `packageName` key
 import React, { Suspense } from "react";
 import { Host } from "@leanjs/react";
 
-const Home = () => {
-  return (
-    <>
-      <h1>React Host</h1>
-      <Suspense fallback={<p>Loading...</p>}>
-        {/* in this case, the composable app is neither built nor deployed
+const Home = () => (
+  <>
+    <h1>React Host</h1>
+    <Suspense fallback={<p>Loading...</p>}>
+      {/* in this case, the composable app is neither built nor deployed
           along with the React host */}
-        <Host app={{ packageName: "@my-org/react-router-app-1" }} />
-      </Suspense>
-    </>
-  );
-};
+      <Host app={{ packageName: "@my-org/react-router-app-1" }} />
+    </Suspense>
+  </>
+);
 
 export default Home;
 ```
@@ -295,16 +289,14 @@ import { Host } from "@leanjs/react";
 // in the webpack.config.js HostWebpackPlugin
 import ReactRouterApp1 from "@my-org/react-router-app-1";
 
-const Home = () => {
-  return (
-    <>
-      <h1>React Host</h1>
-      <Suspense fallback={<p>Loading...</p>}>
-        <Host app={ReactRouterApp1} />
-      </Suspense>
-    </>
-  );
-};
+const Home = () => (
+  <>
+    <h1>React Host</h1>
+    <Suspense fallback={<p>Loading...</p>}>
+      <Host app={ReactRouterApp1} />
+    </Suspense>
+  </>
+);
 
 export default Home;
 ```

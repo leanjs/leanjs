@@ -250,14 +250,12 @@ import { Host } from "@leanjs/react";
 // this composable app is bundled and deployed along with the host app
 import ReactApp1 from "@my-org/react-app-1";
 
-const Home = () => {
-  return (
-    <>
-      <h1>React Host</h1>
-      <Host app={ReactApp1} />
-    </>
-  );
-};
+const Home = () => (
+  <>
+    <h1>React Host</h1>
+    <Host app={ReactApp1} />
+  </>
+);
 
 export default Home;
 ```
@@ -276,22 +274,20 @@ You can also pass a function to the `Host` component that returns a dynamic impo
 import React, { Suspense } from "react";
 import { Host } from "@leanjs/react";
 
-const Home = () => {
-  return (
-    <>
-      <h1>React Host</h1>
-      <Suspense fallback={<p>Loading...</p>}>
-        <Host
-          app={() => {
-            // this composable app is bundled in a separate chunk
-            // but it's still built and deployed along with the host app
-            return import("@my-org/react-app-1");
-          }}
-        />
-      </Suspense>
-    </>
-  );
-};
+const Home = () => (
+  <>
+    <h1>React Host</h1>
+    <Suspense fallback={<p>Loading...</p>}>
+      <Host
+        app={() => {
+          // this composable app is bundled in a separate chunk
+          // but it's still built and deployed along with the host app
+          return import("@my-org/react-app-1");
+        }}
+      />
+    </Suspense>
+  </>
+);
 
 export default Home;
 ```
@@ -360,16 +356,14 @@ import { Host } from "@leanjs/react";
 // in the webpack.config.js HostWebpackPlugin
 import ReactApp1 from "@my-org/react-app-1";
 
-const Home = () => {
-  return (
-    <>
-      <h1>React Host</h1>
-      <Suspense fallback={<p>Loading...</p>}>
-        <Host app={ReactApp1} />
-      </Suspense>
-    </>
-  );
-};
+const Home = () => (
+  <>
+    <h1>React Host</h1>
+    <Suspense fallback={<p>Loading...</p>}>
+      <Host app={ReactApp1} />
+    </Suspense>
+  </>
+);
 
 export default Home;
 ```
