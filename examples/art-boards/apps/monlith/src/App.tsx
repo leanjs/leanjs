@@ -6,7 +6,8 @@ import { _ } from "@leanjs/react";
 import { Home } from "./components/home";
 import Fallback from "./components/Fallback";
 
-import Chat from "@art-boards/chat-app";
+import ChatApp from "@art-boards/chat-app";
+// import ChatComponent from "@art-boards/chat-component";
 
 const { ErrorBoundary } = _;
 const ZimaBlueLazyComponent = lazy(() => import("../src/works/zima-blue"));
@@ -27,10 +28,10 @@ export function App() {
               <ErrorBoundary>
                 <Suspense fallback={<Fallback />}>
                   <Host app={ZimaBlueLazyApp} errorComponent={null} />
-                  <Host app={Chat} errorComponent={null} />
+                  <Host app={ChatApp} errorComponent={null} />
                 </Suspense>
               </ErrorBoundary>
-              {/* <Chat /> */}
+              {/* <ChatComponent /> */}
             </div>
           }
         />
