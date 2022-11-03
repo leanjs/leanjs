@@ -1,6 +1,6 @@
 {
   "name": "@leanjs/webpack-react",
-  "version": "0.2.30",
+  "version": "0.2.31",
   "description": "Default Webpack configuration for LeanJS React micro-apps",
   "main": "./dist/index.js",
   "author": "Alex Lobera <alex@leanjs.com>",
@@ -18,11 +18,11 @@
     "dist"
   ],
   "dependencies": {
-    "@leanjs/cli": "^0.7.24",
+    "@leanjs/cli": "^0.7.25",
     "swc-loader": "^0.2.1"
   },
   "devDependencies": {
-    "@leanjs/webpack": "^0.20.5"
+    "@leanjs/webpack": "^0.20.6"
   },
   "peerDependencies": {
     "@leanjs/webpack": "*",
