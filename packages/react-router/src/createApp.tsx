@@ -9,7 +9,7 @@ import React, { ReactElement } from "react";
 import ReactDOM from "react-dom";
 import { createBrowserHistory, createMemoryHistory } from "history";
 
-import { UniversalRouter } from "./components/UniversalRouter";
+import { Router } from "./components/Router";
 
 const { ErrorBoundary } = ReactUtils;
 const { createMount, getDefaultPathname, createAppError } = CoreUtils;
@@ -60,13 +60,12 @@ export const createApp = <MyAppProps extends AppProps = AppProps>(
                     onError={(error) =>
                       onError(createAppError({ appName, error }))
                     }
-                    errorComponent={null}
                   >
-                    <UniversalRouter history={history} basename={basename}>
+                    <Router history={history} basename={basename}>
                       <RuntimeProvider runtime={runtime}>
                         <App {...(appProps as MyAppProps)} />
                       </RuntimeProvider>
-                    </UniversalRouter>
+                    </Router>
                   </ErrorBoundary>
                 </React.StrictMode>,
                 el

@@ -1,10 +1,7 @@
 import type { BrowserHistory, MemoryHistory } from "history";
 
-export type UniversalHistory = MemoryHistory | BrowserHistory;
-
-export interface UniversalRouterProps {
+export interface RouterProps {
   basename?: string;
-  // children?: React.ReactElement | React.ReactElement[];
   children?: JSX.Element | JSX.Element[];
-  history?: UniversalHistory;
+  history?: MemoryHistory | BrowserHistory;
 }

@@ -250,26 +250,23 @@ module.exports = {
 };
 ``` -->
 
-#### `errorComponent` prop - optional
+#### `className` - optional prop
 
-React component displayed when a hosted `app` errors and the error is not handled by the `app`.
-
-```ts
-type ErrorComponent = null | (props: { error: Error }) => ReactElement;
-```
-
-If the `errorComponent` prop is not passed then the `Host` component will catch the error and display a default error component. The default behaviour is to always catch errors within the boundaries of the host.
-
-If `null` is passed to the `errorComponent` prop then the `Host` component will throw any errors not handled by the hosted `app`. This is useful if you want to display a single error message for a group of elements in case of error, e.g.:
+CSS class added to the root DOM element where the [`app` prop](#app---required-prop) is mounted.
 
 ```tsx
-<MyErrorBoundary>
-  <Host app={exampleApp1} errorComponent={null} />
-  <Host app={exampleApp2} errorComponent={null} />
-  <h1>Don't show this if either of the above hosted apps fail</h1>
-</MyErrorBoundary>
+// my-monorepo/apps/react-host/src/index.ts
+
+import React from "react";
+import { Host } from "@leanjs/react";
+import ReactApp1 from "@my-org/react-app-1";
+
+const Home = () => (
+  <>
+    <h1>React Host</h1>
+    <Host className="some-css-class" app={ReactApp1} />
+  </>
+);
+
+export default Home;
 ```
-
-#### `fallback` prop - optional
-
-React element displayed when a `<Host>` component is fetching a remote app.

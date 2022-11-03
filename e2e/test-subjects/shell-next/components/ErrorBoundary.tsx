@@ -1,12 +1,12 @@
 import React, { Component } from "react";
-import type { ReactElement } from "react";
+import type { ReactNode } from "react";
 
 export type ErrorComponent = (props: { error: Error }) => React.ReactElement;
 
 export interface Props {
-  children: ReactElement | JSX.Element[];
+  children: ReactNode | ReactNode[];
   onError?: (error: Error) => void;
-  errorComponent?: ErrorComponent;
+  errorComponent: ErrorComponent;
 }
 
 export interface State {
@@ -31,13 +31,9 @@ export class ErrorBoundary extends Component<Props, State> {
     const { errorComponent: ErrorComponent } = this.props;
 
     if (error) {
-      if (ErrorComponent) {
-        return <ErrorComponent error={error} />;
-      } else {
-        return null;
-      }
+      return <ErrorComponent error={error} />;
+    } else {
+      return this.props.children;
     }
-
-    return this.props.children;
   }
 }

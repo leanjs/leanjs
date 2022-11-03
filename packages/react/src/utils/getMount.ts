@@ -5,7 +5,7 @@ import type {
   RemoteComposableApp,
 } from "@leanjs/core";
 import { _ as CoreUtils } from "@leanjs/core";
-import type { ErrorComponent, HostContextValues } from "../types";
+import type { HostContextValues } from "../types";
 
 const {
   loadModule,
@@ -20,7 +20,6 @@ const mountCache = new Map<string, MountFunc | undefined>();
 export interface GetMountArgs {
   app: GetComposableApp | ComposableApp;
   context?: HostContextValues;
-  errorComponent?: ErrorComponent;
 }
 
 function isNotRemoteApp(

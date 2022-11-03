@@ -75,7 +75,6 @@ export const createApp = <MyAppProps extends AppProps = AppProps>(
                     onError={(error) =>
                       onError(createAppError({ appName, error }))
                     }
-                    errorComponent={null}
                   >
                     <RuntimeProvider runtime={runtime}>
                       <App {...(appProps as MyAppProps)} />

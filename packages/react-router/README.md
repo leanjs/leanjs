@@ -33,23 +33,28 @@ yarn add react-router-dom@6 react-dom@17 react@17 \
 
 ### `HostProvider`
 
-You have to add a `HostProvider` at the root of your component tree if you want to host composable apps. **Heads up!** `HostProvider` is not exported from `@leanjs/react-router`. Learn more about the [`HostProvider`](/packages/react/#hostprovider).
+You have to add a `HostProvider` at the root of the component tree of your React Router host app if you want to host composable apps within a React Router host. **Heads up!** `HostProvider` is not exported from `@leanjs/react-router`. Learn more about the [`HostProvider`](/packages/react/#hostprovider).
 
 Example:
 
 ```tsx
 import React from "react";
-// react runtime package created within your org
-import { HostProvider } from "@my-org/react-runtime";
-// shared runtime package created within your org
-import { createRuntime } from "@my-org/shared-runtime";
-import HostApp from "./HostApp.tsx";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { Host } from "@leanjs/react-router";
+// React runtime package created within your org
+import { HostProvider, createRuntime } from "@my-org/react-runtime";
+
+import ExampleApp from "@my-org/example-app";
 
 const runtime = createRuntime();
 
 const Root = () => (
   <HostProvider runtime={runtime}>
-    <HostApp />
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<Host app={ExampleApp} />} />
+      </Routes>
+    </BrowserRouter>
   </HostProvider>
 );
 
@@ -327,26 +332,46 @@ module.exports = {
 };
 ```
 
-#### `errorComponent` prop - optional
+#### `className` - optional prop
 
-React component displayed when a hosted `app` errors and the error is not handled by the `app`.
-
-```ts
-type ErrorComponent = null | (props: { error: Error }) => ReactElement;
-```
-
-If the `errorComponent` prop is not passed then the `Host` component will catch the error and display a default error component. The default behaviour is to always catch errors within the boundaries of the host.
-
-If `null` is passed to the `errorComponent` prop then the `Host` component will throw any errors not handled by the hosted `app`. This is useful if you want to display a single error message for a group of elements in case of error, e.g.:
+CSS class added to the root DOM element where the [`app` prop](#app---required-prop) is mounted.
 
 ```tsx
-<MyErrorBoundary>
-  <Host app={exampleApp1} errorComponent={null} />
-  <Host app={exampleApp2} errorComponent={null} />
-  <h1>Don't show this if either of the above hosted apps fail</h1>
-</MyErrorBoundary>
+// my-monorepo/apps/react-host/src/index.ts
+
+import React from "react";
+import { Host } from "@leanjs/react";
+import ReactRouterApp1 from "@my-org/react-router-app-1";
+
+const Home = () => (
+  <>
+    <h1>React Host</h1>
+    <Host className="some-css-class" app={ReactRouterApp1} />
+  </>
+);
+
+export default Home;
 ```
 
-#### `fallback` prop - optional
+#### `basename` - optional prop
 
-React element displayed when a `<Host>` component is fetching a remote app.
+It makes all routes and links in your app relative to a "base" portion of the URL pathname that they all share. For instance, you could render an app `BestSellingBooksApp` in the following URL `https://fake-bookstore.com/best-sellers`.
+
+`BestSellingBooksApp` doesn't need to define internally the segment in the URL pathname where it is hosted. In this example `basename` is `/best-sellers`, and it could be changed, e.g. `https://fake-bookstore.com/top-📚`, without having to change anything inside `BestSellingBooksApp`. The "base" portion of the URL pathname where `BestSellingBooksApp` is hosted is responsibility of the host.
+
+```tsx
+// my-monorepo/apps/react-host/src/index.ts
+
+import React from "react";
+import { Host } from "@leanjs/react";
+import BestSellingBooksApp from "@my-org/best-selling-books";
+
+const Home = () => (
+  <>
+    <h1>React Host</h1>
+    <Host basename="/best-sellers" app={BestSellingBooksApp} />
+  </>
+);
+
+export default Home;
+```

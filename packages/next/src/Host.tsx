@@ -1,6 +1,6 @@
 import React, { useCallback } from "react";
 import { _ as ReactUtils } from "@leanjs/react";
-import type { OuterHostProps, InnerHostProps } from "@leanjs/react";
+import type { InnerHostProps } from "@leanjs/react";
 import type { NavigationListener, Location } from "@leanjs/core";
 import { _ as CoreUtils } from "@leanjs/core";
 import { useRouter } from "next/router";
@@ -9,7 +9,7 @@ import Head from "next/head";
 const { createHost, Mount } = ReactUtils;
 const { dedupeSlash } = CoreUtils;
 
-export const Host = createHost<OuterHostProps>(NextHost);
+export const Host = createHost(NextHost);
 
 function NextHost({ url, ...rest }: InnerHostProps) {
   const router = useRouter();

@@ -5,7 +5,7 @@
   "description": "End-to-end tests for LeanJS",
   "license": "MIT",
   "scripts": {
-    "test:e2e": "cypress run"
+    "test:e2e": "cypress run --browser chrome"
   },
   "repository": {
     "type": "git",
@@ -14,7 +14,7 @@
   },
   "author": "Alex Lobera <alex@leanjs.com>",
   "devDependencies": {
-    "cypress": "^9.6.1",
+    "cypress": "^10.11.0",
     "start-server-and-test": "^1.14.0"
   }
 }
