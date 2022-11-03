@@ -13,9 +13,9 @@
     "build": "turbo run build"
   },
   "devDependencies": {
-    "@leanjs/cli": "^0.7.21",
-    "@leanjs/webpack": "^0.20.2",
-    "@leanjs/webpack-react": "^0.2.24",
+    "@leanjs/cli": "^0.7.23",
+    "@leanjs/webpack": "^0.20.4",
+    "@leanjs/webpack-react": "^0.2.29",
     "@swc/core": "^1.2.142",
     "@swc/jest": "^0.2.17",
     "@types/jest": "^27.4.0",
@@ -34,7 +34,7 @@
   },
   "dependencies": {
     "@leanjs/core": "0.21.1",
-    "@leanjs/react": "0.14.4",
+    "@leanjs/react": "0.15.2",
     "@pixi/graphics-extras": "^6.5.4",
     "@reduxjs/toolkit": "^1.8.5",
     "history": "5.3.0",
