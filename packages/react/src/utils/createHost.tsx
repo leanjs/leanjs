@@ -11,7 +11,6 @@ import { HostContext } from "../private/HostProvider";
 
 import { getMount } from "./getMount";
 import { useRuntime } from "../runtime";
-import { DefaultError } from "./DefaultError";
 
 const { isPromise, createAppError } = CoreUtils;
 
@@ -28,11 +27,7 @@ export function createHost<Props extends OuterHostProps = OuterHostProps>(
 ) {
   const lazyMap = new Map<OuterHostProps["app"] | string, any>();
 
-  return function Host({
-    app,
-    errorComponent: ErrorComponent = DefaultError,
-    ...rest
-  }: Props) {
+  return function Host({ app, ...rest }: Props) {
     const context = useContext(HostContext);
     const runtime = useRuntime();
     const [error, setError] = useState<Error>();
@@ -40,9 +35,6 @@ export function createHost<Props extends OuterHostProps = OuterHostProps>(
     const appKey = isRemoteApp(app) ? app.packageName : app;
 
     if (error) {
-      if (ErrorComponent) {
-        return <ErrorComponent error={error} />;
-      }
       throw error;
     }
 
@@ -63,13 +55,7 @@ export function createHost<Props extends OuterHostProps = OuterHostProps>(
               function handleError(error: Error, appName?: string) {
                 const namedError = createAppError({ error, appName });
                 runtime.logError(namedError);
-                if (ErrorComponent) {
-                  resolve({
-                    default: () => <ErrorComponent error={namedError} />,
-                  });
-                } else {
-                  reject(namedError);
-                }
+                reject(namedError);
               }
 
               async function run() {

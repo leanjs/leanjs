@@ -28,8 +28,8 @@ export function App() {
             <div className="work-layout">
               <ErrorBoundary>
                 <Suspense fallback={<Fallback />}>
-                  <Host app={ZimaBlueLazyApp} errorComponent={null} />
-                  <Host app={ChatApp} errorComponent={null} />
+                  <Host app={ZimaBlueLazyApp} />
+                  <Host app={ChatApp} />
                 </Suspense>
                 {/* <Suspense fallback={<Fallback />}>
                   <ZimaBlueLazyComponent />

@@ -39,7 +39,7 @@ export const Mount = memo(function Mount({
       unmount();
       removeListener?.();
     };
-  }, [mount, runtime, basename, listen, navigate, initialPathname]);
+  }, [mount, runtime, basename, listen, navigate, initialPathname, setError]);
 
   return <div className={className} ref={ref} />;
 });

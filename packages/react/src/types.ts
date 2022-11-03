@@ -23,7 +23,6 @@ export interface MountProps extends BasePath {
 }
 
 export interface BaseHostProps {
-  errorComponent?: ErrorComponent | null;
   className?: string;
 }
 
@@ -39,22 +38,16 @@ export interface InnerHostProps extends BaseHostProps {
   setError: LogAnyError;
 }
 
-export type ErrorComponent = (props: { error: Error }) => React.ReactElement;
-
 export interface UseMountArgs {
   app: GetComposableApp | ComposableApp;
 }
 
 export interface HostContextValues {
   origin?: string;
-  errorComponent?: ErrorComponent;
-  fallback?: ReactElement;
 }
 
 export interface HostProviderProps<BaseRuntime extends Runtime = Runtime> {
   origin?: string;
-  errorComponent?: ErrorComponent;
-  fallback?: ReactElement;
   runtime: BaseRuntime;
   children: ReactElement | ReactElement[];
 }

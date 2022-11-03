@@ -10,11 +10,9 @@ export const HostContext = createContext<HostContextValues | undefined>(
 export const HostProvider = ({
   children,
   runtime,
-  errorComponent,
-  fallback,
   origin,
 }: HostProviderProps) => (
-  <HostContext.Provider value={{ errorComponent, fallback, origin }}>
+  <HostContext.Provider value={{ origin }}>
     <RuntimeProvider runtime={runtime}>{children}</RuntimeProvider>
   </HostContext.Provider>
 );
