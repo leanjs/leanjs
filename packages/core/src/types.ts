@@ -71,14 +71,14 @@ export interface CreateComposableApp {
   appName: string;
 }
 
-export type GetComposableApp = RemoteComposableApp | CreateComposableApp;
-
 export interface GetComposableAppAsync {
   (): Promise<{
     default: GetComposableApp;
   }>;
   appName?: string;
 }
+
+export type GetComposableApp = RemoteComposableApp | CreateComposableApp;
 
 export interface MountFunc<MyRuntime extends Runtime = Runtime> {
   (element: HTMLElement | null, options: MountOptions<MyRuntime>): MountOutput;
