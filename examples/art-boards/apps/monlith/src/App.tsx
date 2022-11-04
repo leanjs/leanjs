@@ -26,7 +26,7 @@ export function App() {
           path="/zima-blue"
           element={
             <div className="work-layout">
-              <ErrorBoundary>
+              <ErrorBoundary errorComponent={() => <h1>🔥🔥🔥🔥🔥🔥🔥🔥🔥</h1>}>
                 <Suspense fallback={<Fallback />}>
                   <Host app={ZimaBlueLazyApp} />
                   <Host app={ChatApp} />
