@@ -231,6 +231,35 @@ const { createRuntime } = configureRuntime(defaultState)({
 const runtime = createRuntime();
 ```
 
+A `runtime` can extend another `runtime` as long as the parent runtime is a subset of the child runtime. Example:
+
+```ts
+const defaultParentState = {
+  locale: "en",
+};
+
+const { createRuntime: createParentRuntime } = configureRuntime(
+  defaultParentState
+)({
+  onError,
+});
+
+const parentRuntime = createRuntime();
+
+const defaultChildState = {
+  locale: "en",
+  username: "alex",
+};
+
+const { createRuntime: createChildRuntime } = configureRuntime(
+  defaultChildState
+)({
+  onError,
+});
+
+const childRuntime = createChildRuntime({ runtime: parentRuntime });
+```
+
 ### `state.get`
 
 It returns the current state of a given state property.
@@ -328,6 +357,47 @@ const wsClient = runtime.api.wsClient;
 
 // api is read only, the following line throws an error
 // ❌ runtime.api.wsClient = new WebSocketClient()
+```
+
+### `cleanup`
+
+It calls the clean-up function/s defined in the `apiFactory` of your `configureRuntime`. Example:
+
+```ts
+// it calls all the clean-up functions defined in the apiFactory
+runtime.api.cleanup();
+
+// it calls the clean-up function of "someApi" defined in the apiFactory
+runtime.api.cleanup("someApi");
+```
+
+Accessing an `api` after calling its clean-up function will create a new instance of that `api`. Example:
+
+```ts
+const { createRuntime } = configureRuntime(defaultState)({
+  onError: () => {}, // required, log the error properly
+  apiFactory: {
+    wsClient: ({ onCleanup }) => {
+      const wsClient = new WebSocketClient();
+      onCleanup(() => wsClient.destroy());
+
+      return wsClient;
+    },
+  },
+});
+
+const runtime = createRuntime();
+// runtime.api.wsClient is undefined
+
+// the following line creates an instance of WebSocketClient
+runtime.api.wsClient;
+
+// WebSocketClient is destroyed
+runtime.api.cleanup("wsClient");
+// runtime.api.wsClient is undefined
+
+// the following line creates a new instance of WebSocketClient
+runtime.api.wsClient;
 ```
 
 ## Guiding principles

@@ -27,7 +27,7 @@ yarn add @leanjs/react @leanjs/core
 
 ### `createRuntimeBindings`
 
-First, you have to create your React bindings (**HostProvider**, **useGetter**, etc) for your `runtime`.
+First, you have to create your React bindings (**HostProvider**, **useGetter**, etc) for your [`runtime`](/packages/core/#the-leanjs-runtime).
 
 ```ts
 // shared-runtime.ts

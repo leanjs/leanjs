@@ -36,9 +36,7 @@ Example:
 import type { AppProps } from "next/app";
 import React from "react";
 // react runtime package created within your org
-import { HostProvider } from "@my-org/react-runtime";
-// shared runtime package created within your org
-import { createRuntime } from "@my-org/shared-runtime";
+import { HostProvider, createRuntime } from "@my-org/react-runtime";
 
 const runtime = createRuntime();
 
@@ -258,12 +256,12 @@ CSS class added to the root DOM element where the [`app` prop](#app---required-p
 // my-monorepo/apps/react-host/src/index.ts
 
 import React from "react";
-import { Host } from "@leanjs/react";
+import { Host } from "@leanjs/next";
 import ReactApp1 from "@my-org/react-app-1";
 
 const Home = () => (
   <>
-    <h1>React Host</h1>
+    <h1>Next Host</h1>
     <Host className="some-css-class" app={ReactApp1} />
   </>
 );
