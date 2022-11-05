@@ -49,8 +49,8 @@ export class ErrorBoundary extends Component<Props, State> {
     if (!onError && !this.context?.logError) {
       return (
         <h1>
-          🚨 <code>ErrorBoundary</code> disabled. Provide an{" "}
-          <code>onError</code> prop or add a <code>HostProvider</code>
+          🚨 ErrorBoundary disabled. Provide an onError prop or add a
+          HostProvider.
         </h1>
       );
     }

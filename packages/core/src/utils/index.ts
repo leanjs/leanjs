@@ -15,7 +15,7 @@ interface GetRemoteUrl {
 }
 
 export const isError = (error: any): error is Error =>
-  error.stack && error.message;
+  error?.stack !== undefined && error?.message !== undefined;
 
 export const createAppError = ({
   error,

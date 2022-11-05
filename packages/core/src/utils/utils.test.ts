@@ -1,8 +1,68 @@
-import { createRemoteName, isObject, isPromise } from "./index";
+import {
+  createRemoteName,
+  isError,
+  isObject,
+  isPromise,
+  createAppError,
+} from "./index";
 
 function emptyFunction() {
   // empty
 }
+
+describe("utils: isError", () => {
+  it(`returns true when the input is an error`, () => {
+    const actual = isError(new Error());
+    expect(actual).toBe(true);
+  });
+
+  it(`returns false when the input is not an error`, () => {
+    expect(isError(undefined)).toBe(false);
+    expect(isError(1)).toBe(false);
+    expect(isError("undefined")).toBe(false);
+    expect(isError(new Date())).toBe(false);
+    expect(isError(true)).toBe(false);
+    expect(isError({})).toBe(false);
+  });
+});
+
+describe("utils: createAppError", () => {
+  it(`returns a new error if the input is not an error`, () => {
+    const actual = createAppError({ error: Math.random() });
+
+    expect(actual.name).toBe("Error");
+    expect(actual instanceof Error).toBe(true);
+  });
+
+  it(`adds appName to the error`, () => {
+    const appName = Math.random().toString();
+    const actual = createAppError({ error: new Error(), appName });
+
+    expect(actual.name).toBe(`Error::${appName}`);
+    expect(actual.appName).toBe(appName);
+    expect(actual instanceof Error).toBe(true);
+  });
+
+  it(`adds version to the error`, () => {
+    const version = Math.random().toString();
+    const actual = createAppError({ error: new Error(), version });
+
+    expect(actual.name).toBe(`Error::${version}`);
+    expect(actual.version).toBe(version);
+    expect(actual instanceof Error).toBe(true);
+  });
+
+  it(`adds appName and version to the error`, () => {
+    const version = Math.random().toString();
+    const appName = Math.random().toString();
+    const actual = createAppError({ error: new Error(), appName, version });
+
+    expect(actual.name).toBe(`Error::${appName}::${version}`);
+    expect(actual.appName).toBe(appName);
+    expect(actual.version).toBe(version);
+    expect(actual instanceof Error).toBe(true);
+  });
+});
 
 describe("utils: createRemoteName", () => {
   it(`removes all characters but numberes and ASCII letters`, async () => {
