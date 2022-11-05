@@ -211,20 +211,24 @@ You can also pass a function to the `Host` component that returns a dynamic impo
 // my-monorepo/apps/react-router-host/src/pages/index.tsx
 
 import React, { Suspense } from "react";
-import { Host } from "@leanjs/react-router";
+import { Host, ErrorBoundary } from "@leanjs/react-router";
 
 const Home = () => (
   <>
     <h1>React Router Host</h1>
-    <Suspense fallback={<p>Loading...</p>}>
-      <Host
-        app={() => {
-          // this composable app is bundled in a separate chunk
-          // but it's still built and deployed along with the host app
-          return import("@my-org/react-router-app-1");
-        }}
-      />
-    </Suspense>
+    {/* The network can fail.
+     Add an ErrorBoundary if you are hosting an app using a dynamic import */}
+    <ErrorBoundary>
+      <Suspense fallback={<p>Loading...</p>}>
+        <Host
+          app={() => {
+            // this composable app is bundled in a separate chunk
+            // but it's still built and deployed along with the host app
+            return import("@my-org/react-router-app-1");
+          }}
+        />
+      </Suspense>
+    </ErrorBoundary>
   </>
 );
 
@@ -237,16 +241,20 @@ Alternatively, you can pass an object to the `app` prop with a `packageName` key
 // my-monorepo/apps/react-router-host/src/pages/index.tsx
 
 import React, { Suspense } from "react";
-import { Host } from "@leanjs/react";
+import { Host, ErrorBoundary } from "@leanjs/react";
 
 const Home = () => (
   <>
     <h1>React Host</h1>
-    <Suspense fallback={<p>Loading...</p>}>
-      {/* in this case, the composable app is neither built nor deployed
+    {/* The network can fail.
+     Add an ErrorBoundary if you are hosting a remote app */}
+    <ErrorBoundary>
+      <Suspense fallback={<p>Loading...</p>}>
+        {/* in this case, the composable app is neither built nor deployed
           along with the React host */}
-      <Host app={{ packageName: "@my-org/react-router-app-1" }} />
-    </Suspense>
+        <Host app={{ packageName: "@my-org/react-router-app-1" }} />
+      </Suspense>
+    </ErrorBoundary>
   </>
 );
 
@@ -287,7 +295,7 @@ then in your React app:
 // @my-org/my-react-app pages/index.tsx
 
 import React, { Suspense } from "react";
-import { Host } from "@leanjs/react";
+import { Host, ErrorBoundary } from "@leanjs/react";
 
 // this composable app is neither bundled nor deployed along with the host app
 // because of the above remote: { packages: ["@my-org/react-router-app-1"] }
@@ -297,9 +305,13 @@ import ReactRouterApp1 from "@my-org/react-router-app-1";
 const Home = () => (
   <>
     <h1>React Host</h1>
-    <Suspense fallback={<p>Loading...</p>}>
-      <Host app={ReactRouterApp1} />
-    </Suspense>
+    {/* The network can fail.
+     Add an ErrorBoundary if you are hosting a remote app */}
+    <ErrorBoundary>
+      <Suspense fallback={<p>Loading...</p>}>
+        <Host app={ReactRouterApp1} />
+      </Suspense>
+    </ErrorBoundary>
   </>
 );
 

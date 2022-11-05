@@ -177,7 +177,7 @@ Read [@leanjs/core](/packages/core#basic-usage) if you have not already created 
 
 ### `HostProvider`
 
-You have to **call [createRuntimeBindings](#createruntimebindings) to create a `HostProvider` component** before you use it. `HostProvider` stores in the React context values that are shared across apps hosted in the same component tree. Props:
+You have to **call [createRuntimeBindings](#createruntimebindings) to create a `HostProvider` component** before you use it. `HostProvider` stores in a React context values that are shared across apps hosted in the same component tree. Props:
 
 #### `runtime` prop - required
 
@@ -205,6 +205,46 @@ export function App({ children }) {
   );
 }
 ```
+
+### ErrorBoundary
+
+It catches both rendering errors and errors from Suspense.
+
+#### `children` - required prop
+
+React nodes displayed if there are no errors.
+
+#### `fallback` - optional prop
+
+Error fallback component displayed when an error is caught by the `ErrorBoundary`.
+
+```ts
+type ErrorFallbackComponent = (props: {
+  error: AppError;
+}) => React.ReactElement;
+
+interface AppError extends Error {
+  appName?: string;
+  version?: string;
+}
+```
+
+#### `onError` - optional prop
+
+Function called when an error is caught.
+
+```ts
+onError?: (error: AppError, options?: LogErrorOptions) => void;
+
+interface LogErrorOptions {
+    appName?: string;
+    version?: string;
+}
+
+interface AppError extends Error, LogErrorOptions {}
+```
+
+If `onError` is not provided and an error is caught by the `ErrorBoundary` the error will be logged using the `onError` function passed to the [`configureRuntime`](/packages/core/#configureruntime) if a `HostProvider` is found in the component tree.
 
 ### `Host`
 
@@ -256,20 +296,24 @@ You can also pass a function to the `Host` component that returns a dynamic impo
 // my-monorepo/apps/react-host/src/index.ts
 
 import React, { Suspense } from "react";
-import { Host } from "@leanjs/react";
+import { Host, ErrorBoundary } from "@leanjs/react";
 
 const Home = () => (
   <>
     <h1>React Host</h1>
-    <Suspense fallback={<p>Loading...</p>}>
-      <Host
-        app={() => {
-          // this composable app is bundled in a separate chunk
-          // but it's still built and deployed along with the host app
-          return import("@my-org/react-app-1");
-        }}
-      />
-    </Suspense>
+    {/* The network can fail.
+     Add an ErrorBoundary if you are hosting an app using a dynamic import */}
+    <ErrorBoundary>
+      <Suspense fallback={<p>Loading...</p>}>
+        <Host
+          app={() => {
+            // this composable app is bundled in a separate chunk
+            // but it's still built and deployed along with the host app
+            return import("@my-org/react-app-1");
+          }}
+        />
+      </Suspense>
+    </ErrorBoundary>
   </>
 );
 
@@ -281,20 +325,22 @@ Alternatively, you can pass an object to the `app` prop with a `packageName` key
 ```tsx
 // my-monorepo/apps/react-host/src/index.ts
 
-import { Host } from "@leanjs/react";
+import { Host, ErrorBoundary } from "@leanjs/react";
 
-const Home = () => {
-  return (
-    <>
-      <h1>React Host</h1>
+const Home = () => (
+  <>
+    <h1>React Host</h1>
+    {/* The network can fail.
+     Add an ErrorBoundary if you are hosting a remote app */}
+    <ErrorBoundary>
       <Suspense fallback={<p>Loading...</p>}>
         {/* in this case, the composable app is neither built nor deployed
           along with the React host */}
         <Host app={{ packageName: "@my-org/react-app-1" }} />
       </Suspense>
-    </>
-  );
-};
+    </ErrorBoundary>
+  </>
+);
 
 export default Home;
 ```
@@ -333,7 +379,7 @@ then in your React app:
 // my-monorepo/apps/react-host/src/index.ts
 
 import React, { Suspense } from "react";
-import { Host } from "@leanjs/react";
+import { Host, ErrorBoundary } from "@leanjs/react";
 
 // this composable app is neither bundled nor deployed along with the host app
 // because of the above remote: { packages: ["@my-org/react-app-1"] }
@@ -343,9 +389,13 @@ import ReactApp1 from "@my-org/react-app-1";
 const Home = () => (
   <>
     <h1>React Host</h1>
-    <Suspense fallback={<p>Loading...</p>}>
-      <Host app={ReactApp1} />
-    </Suspense>
+    {/* The network can fail.
+     Add an ErrorBoundary if you are hosting a remote app */}
+    <ErrorBoundary>
+      <Suspense fallback={<p>Loading...</p>}>
+        <Host app={ReactApp1} />
+      </Suspense>
+    </ErrorBoundary>
   </>
 );
 
@@ -444,13 +494,13 @@ Example:
 import { useSetter } from "./shared-runtime";
 
 export function ThemeSelector() {
-  const shareTheme = useSetter("theme");
+  const setTheme = useSetter("theme");
 
   return (
     <>
       <label for="theme-select">Choose a theme:</label>
       <select
-        onChange={(e) => shareTheme(e.target.value)}
+        onChange={(e) => setTheme(e.target.value)}
         name="theme"
         id="theme-select"
       >

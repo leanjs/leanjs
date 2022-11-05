@@ -5,6 +5,7 @@ import type {
   RemoteComposableApp,
 } from "@leanjs/core";
 import { _ as CoreUtils } from "@leanjs/core";
+import { RemoteProp } from "..";
 import type { HostContextValues } from "../types";
 
 const {
@@ -20,6 +21,7 @@ const mountCache = new Map<string, MountFunc | undefined>();
 export interface GetMountArgs {
   app: GetComposableApp | ComposableApp;
   context?: HostContextValues;
+  remote?: RemoteProp;
 }
 
 function isNotRemoteApp(
@@ -28,7 +30,11 @@ function isNotRemoteApp(
   return typeof app === "object" && !(app as RemoteComposableApp).packageName;
 }
 
-export async function getMount({ app, context }: GetMountArgs): Promise<{
+export async function getMount({
+  app,
+  context,
+  remote,
+}: GetMountArgs): Promise<{
   name: string;
   mount: MountFunc | undefined;
   url?: string;
@@ -55,7 +61,7 @@ export async function getMount({ app, context }: GetMountArgs): Promise<{
     }
 
     const origin = deleteTrailingSlash(context.origin);
-    const url = getRemoteUrl({ origin, packageName });
+    const url = getRemoteUrl({ origin, packageName, version: remote?.version });
     const name = createRemoteName(packageName);
     const cachedMount = mountCache.get(url);
 

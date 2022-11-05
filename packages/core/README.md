@@ -4,15 +4,11 @@
 
 The LeanJS `runtime` enables composable apps to share some state or to define APIs that share the same execution context, in a controlled manner. This keeps your composable apps performant and maintainable. By default nothing is shared. You can read more about [the why of this package in this post](https://alexlobera.com/sharing-state-in-micro-frontends-at-runtime/).
 
-The `runtime` is created in two steps: 1) `configureRuntime` and 2) `createRuntime`:
+The `runtime` is created in two steps:
 
-### `configureRuntime`
+1. **`configureRuntime`**. In a distributed architecture there are many contexts where a `runtime` could be created. For instance, each composable app will create a `runtime` when they run in isolation. However, when composable apps are composed into a single app, only one `runtime` will be created and shared across all of them. The `runtime` can be created in more than one place but the configuration of it should be consistent across contexts.
 
-In a distributed architecture there are many contexts where a `runtime` could be created. For instance, each composable app will create a `runtime` when they run in isolation. However, when composable apps are composed into a single app, only one `runtime` will be created and shared across all of them. The `runtime` can be created in more than one place but the configuration of it should be consistent across contexts.
-
-### `createRuntime`
-
-Invoking `configureRuntime` returns a function called `createRuntime` which creates a `runtime` when invoked. `createRuntime` is not a singleton so you are responsible for not calling `createRuntime` more than once in a given execution context. In other words, call `createRuntime` only once in your host app.
+2. **`createRuntime`**. Invoking `configureRuntime` returns a function called `createRuntime` which creates a `runtime` when invoked. `createRuntime` is not a singleton so you are responsible for not calling `createRuntime` more than once in a given execution context. In other words, call `createRuntime` only once in your host app.
 
 There are two types of things that you can share in this `runtime`:
 

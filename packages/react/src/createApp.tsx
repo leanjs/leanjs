@@ -4,7 +4,7 @@ import React, { ReactElement } from "react";
 import ReactDOM from "react-dom";
 import { CreateAppConfig, RootComponent } from "./types";
 
-import { ErrorBoundary } from "./utils";
+import { ErrorBoundary } from "./components";
 import { RuntimeProvider } from "./runtime";
 const { createMount, createAppError } = CoreUtils;
 

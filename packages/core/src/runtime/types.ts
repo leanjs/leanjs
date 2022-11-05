@@ -20,21 +20,26 @@ export interface Request {
 export type Unsubscribe = () => void;
 export type Unlisten = () => void;
 
+export interface RuntimeState<
+  State extends BaseShape,
+  Prop extends KeyOf<State> = KeyOf<State>
+> {
+  loader: Record<Prop, LoaderState>;
+  load: <P extends Prop>(
+    prop: P,
+    loader: () => Promise<State[P]> | State[P]
+  ) => Promise<State[P]>;
+  loaded: <P extends Prop>(prop: P) => Promise<State[P]>;
+  get: (prop: Prop) => State[Prop];
+  set: (prop: Prop, state: State[Prop]) => void;
+}
+
 export interface RuntimeApi<
   State extends BaseShape,
   Prop extends KeyOf<State> = KeyOf<State>
 > {
   isBrowser: boolean;
-  state: {
-    loader: Record<Prop, LoaderState>;
-    load: <P extends Prop>(
-      prop: P,
-      loader: () => Promise<State[P]> | State[P]
-    ) => Promise<State[P]>;
-    loaded: <P extends Prop>(prop: P) => Promise<State[P]>;
-    get: (prop: Prop) => State[Prop];
-    set: (prop: Prop, state: State[Prop]) => void;
-  };
+  state: RuntimeState<State, Prop>;
   request: Request;
   onCleanup: (cleanup: Cleanup) => void;
 }
@@ -105,8 +110,9 @@ export interface ConfigureRuntimeOptions<
   Prop extends KeyOf<State>,
   ApiFactory extends BaseApiFactory<State, Prop>
 > {
-  onError: OnError;
+  onError: OnError<State, Prop>;
   apiFactory?: ApiFactory;
+  version?: string;
 }
 
 export interface Runtime<
@@ -147,9 +153,10 @@ export type StateType<T extends Runtime> = T extends {
 
 export interface LogErrorOptions {
   appName?: string;
+  version?: string;
 }
 
-export type LogAnyError = (error: any) => void;
+export type LogAnyError = (error: any, options?: LogErrorOptions) => void;
 
 export interface LoaderState {
   loading: boolean;
@@ -198,4 +205,13 @@ export type CreateRuntime<MyRuntime extends Runtime = Runtime> = {
 export type GetRuntime<MyCreateRuntime extends CreateRuntime> =
   ReturnType<MyCreateRuntime>;
 
-export type OnError = (error: Error) => void;
+interface OnErrorOptions<
+  State extends BaseShape,
+  Prop extends KeyOf<State> = KeyOf<State>
+> extends LogErrorOptions {
+  state: RuntimeState<State, Prop>;
+}
+export type OnError<
+  State extends BaseShape,
+  Prop extends KeyOf<State> = KeyOf<State>
+> = (error: Error, options?: OnErrorOptions<State, Prop>) => void;

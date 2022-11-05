@@ -3,6 +3,8 @@ import waitForExpect from "wait-for-expect";
 import { configureRuntime } from "./runtime";
 import { isPromise } from "../utils";
 import type { RuntimeApi } from "./types";
+import { AppError } from "..";
+import { LogErrorOptions } from ".";
 
 const emptyFunction = () => {
   // empty
@@ -64,14 +66,16 @@ const { createRuntime } = configureRuntime<SharedState>(defaultState)({
 });
 
 describe("configureRuntime", () => {
-  it(`calls onError if it can't create any async api`, async () => {
+  it(`calls onError if it can't create any async api and passes the runtime version`, async () => {
     const onError = jest.fn();
+    const version = Math.random().toString();
     const randomError = new Error(Math.random().toString());
     const runtime = configureRuntime(defaultState)({
       onError,
       apiFactory: {
         eventEmitter: () => Promise.reject(randomError),
       },
+      version,
     }).createRuntime();
 
     try {
@@ -80,11 +84,16 @@ describe("configureRuntime", () => {
       // empty
     }
 
-    expect(onError).toHaveBeenCalledWith(randomError);
+    expect(onError).toHaveBeenCalledWith(randomError, {
+      appName: "SharedRuntime",
+      version,
+      state: runtime.state,
+    });
   });
 
-  it(`calls onError if it can't create any sync api`, async () => {
+  it(`calls onError if it can't create any sync api and passes the runtime version`, async () => {
     const onError = jest.fn();
+    const version = Math.random().toString();
     const randomError = new Error(Math.random().toString());
     const runtime = configureRuntime(defaultState)({
       onError,
@@ -93,11 +102,16 @@ describe("configureRuntime", () => {
           throw randomError;
         },
       },
+      version,
     }).createRuntime();
 
     runtime.api.eventEmitter;
 
-    expect(onError).toHaveBeenCalledWith(randomError);
+    expect(onError).toHaveBeenCalledWith(randomError, {
+      appName: "SharedRuntime",
+      version,
+      state: runtime.state,
+    });
     expect(onError).toHaveBeenCalledTimes(1);
   });
 
@@ -156,17 +170,55 @@ describe("createRuntime", () => {
     expect(runtime.state.get("user")?.username).toBe(username);
   });
 
-  it(`returns a runtime that exposes a logError function that accepts an Error argument`, async () => {
+  it(`returns a runtime that exposes a logError function that accepts an Error argument with options`, async () => {
     const onError = jest.fn();
+    const runtimeVersion = Math.random().toString();
     const { createRuntime } = configureRuntime<SharedState>(defaultState)({
       onError,
+      version: runtimeVersion,
     });
-
+    const appName = Math.random().toString();
+    const customVersion = Math.random().toString();
     const runtime = createRuntime();
     const error = new Error(Math.random().toString());
-    runtime.logError(error);
+    runtime.logError(error, {
+      appName,
+      version: customVersion,
+    });
 
-    expect(onError).toHaveBeenCalledWith(error);
+    expect(onError).toHaveBeenCalledWith(error, {
+      appName,
+      version: customVersion,
+      state: runtime.state,
+    });
+  });
+
+  it(`returns a runtime that exposes a logError function that accepts an Error argument with appName and version its name`, async () => {
+    let assertError: AppError | undefined;
+    let assertOptions: LogErrorOptions | undefined;
+    const onError = (err: AppError, options?: LogErrorOptions) => {
+      assertError = err;
+      assertOptions = options;
+    };
+    const runtimeVersion = Math.random().toString();
+    const { createRuntime } = configureRuntime<SharedState>(defaultState)({
+      onError,
+      version: runtimeVersion,
+    });
+    const appName = Math.random().toString();
+    const customVersion = Math.random().toString();
+    const runtime = createRuntime();
+    const error = new Error(Math.random().toString());
+    runtime.logError(error, {
+      appName,
+      version: customVersion,
+    });
+
+    expect(assertOptions?.appName).toBe(appName);
+    expect(assertOptions?.version).toBe(customVersion);
+    expect(assertError?.appName).toBe(appName);
+    expect(assertError?.version).toBe(customVersion);
+    expect(assertError?.name).toBe(`Error::${appName}::${customVersion}`);
   });
 
   describe("given a parent runtime", () => {

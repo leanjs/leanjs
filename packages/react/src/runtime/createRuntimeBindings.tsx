@@ -5,6 +5,7 @@ import type { KeyOf, CreateRuntime, StateType } from "@leanjs/core";
 import { HostProvider } from "../private/HostProvider";
 import type { HostProviderProps } from "../types";
 import { useRuntime as useBaseRuntime } from "./RuntimeProvider";
+import { Host } from "../components";
 
 export const createRuntimeBindings = <
   MyCreateRuntime extends CreateRuntime = CreateRuntime,

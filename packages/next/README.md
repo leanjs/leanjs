@@ -123,20 +123,24 @@ You can also pass a function to the `Host` component that returns a dynamic impo
 // my-monorepo/apps/nextjs-host/pages/index.tsx
 
 import React, { Suspense } from "react";
-import { Host } from "@leanjs/next";
+import { Host, ErrorBoundary } from "@leanjs/next";
 
 const Home = () => (
   <>
     <h1>Nextjs Host</h1>
-    <Suspense fallback={<p>Loading...</p>}>
-      <Host
-        app={() => {
-          // this composable app is bundled in a separate chunk
-          // but it's still built and deployed along with the Nextjs app
-          return import("@my-org/react-app-1");
-        }}
-      />
-    </Suspense>
+    {/* The network can fail.
+     Add an ErrorBoundary if you are hosting an app using a dynamic import */}
+    <ErrorBoundary>
+      <Suspense fallback={<p>Loading...</p>}>
+        <Host
+          app={() => {
+            // this composable app is bundled in a separate chunk
+            // but it's still built and deployed along with the Nextjs app
+            return import("@my-org/react-app-1");
+          }}
+        />
+      </Suspense>
+    </ErrorBoundary>
   </>
 );
 
@@ -149,16 +153,20 @@ Alternatively, you can pass an object to the `app` prop with a `packageName` key
 // my-monorepo/apps/nextjs-host/pages/index.tsx
 
 import React, { Suspense } from "react";
-import { Host } from "@leanjs/next";
+import { Host, ErrorBoundary } from "@leanjs/next";
 
 const Home = () => (
   <>
     <h1>Nextjs Host</h1>
-    <Suspense fallback={<p>Loading...</p>}>
-      {/* in this case, the composable app is neither built nor deployed
+    {/* The network can fail.
+     Add an ErrorBoundary if you are hosting a remote app */}
+    <ErrorBoundary>
+      <Suspense fallback={<p>Loading...</p>}>
+        {/* in this case, the composable app is neither built nor deployed
           along with the Next.js host */}
-      <Host app={{ packageName: "@my-org/react-app-1" }} />
-    </Suspense>
+        <Host app={{ packageName: "@my-org/react-app-1" }} />
+      </Suspense>
+    </ErrorBoundary>
   </>
 );
 
