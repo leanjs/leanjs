@@ -63,7 +63,7 @@ export default Root;
 
 :::info
 
-Read [@leanjs/core](/packages/core#basic-usage) if you have not already created your own `createRuntime` function
+Read [@leanjs/core](/packages/core#basic-usage) if you have not already created your own `createRuntime` function.
 
 :::
 
