@@ -1,6 +1,6 @@
 {
   "name": "@leanjs/react",
-  "version": "0.16.2",
+  "version": "0.16.3",
   "author": "Alex Lobera <alex@leanjs.com>",
   "description": "Create your own React bindings for LeanJS Runtime",
   "types": "./dist/index.d.ts",
@@ -24,7 +24,7 @@
     }
   },
   "devDependencies": {
-    "@leanjs/core": "^0.23.1",
+    "@leanjs/core": "^0.23.2",
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^12.1.4",
     "@testing-library/react-hooks": "^7.0.2",
