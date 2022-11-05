@@ -17,8 +17,8 @@ const nextConfig = {
   async rewrites() {
     return [
       {
-        source: "/react-sub-pages/:id",
-        destination: "/react-sub-pages?id=:id",
+        source: "/react-router-sub-pages/:id",
+        destination: "/react-router-sub-pages?id=:id",
       },
       {
         source: "/vue-sub-pages/:path",
@@ -35,7 +35,7 @@ const nextConfig = {
           ["react-dom"]: packageJson.dependencies["react-dom"],
         },
         // remotes: {
-        //   packages: ["@leanjs/e2e-test-subjects-remote-react-sub-pages"],
+        //   packages: ["@leanjs/e2e-test-subjects-remote-react-router-sub-pages"],
         // },
       })
     );
