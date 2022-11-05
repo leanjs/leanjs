@@ -11,8 +11,8 @@ For this page to work we need to add the following in next.config.js:
 async rewrites() {
   return [
     {
-      source: '/react-sub-pages/:id',
-      destination: '/react-sub-pages?id=:id',
+      source: '/react-router-sub-pages/:id',
+      destination: '/react-router-sub-pages?id=:id',
     },
   ];
 },
@@ -24,7 +24,9 @@ const Page: NextPage = () => {
       <h1>Hosting multiple pages</h1>
       <Suspense fallback={<CustomLoader />}>
         <Host
-          app={() => import("@leanjs/e2e-test-subjects-remote-react-sub-pages")}
+          app={() =>
+            import("@leanjs/e2e-test-subjects-remote-react-router-sub-pages")
+          }
         />
       </Suspense>
     </>
