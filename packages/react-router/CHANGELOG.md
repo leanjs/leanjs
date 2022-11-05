@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.12.0](https://github.com/leanjs/leanjs/compare/@leanjs/react-router@0.11.5...@leanjs/react-router@0.12.0) (2022-11-05)
+
+### Features
+
+- move error handling to the host app instead of the host component ([b5259ee](https://github.com/leanjs/leanjs/commit/b5259eeeecbd4f5cb800a4c4568fc96d91c95de4))
+
 ## [0.11.5](https://github.com/leanjs/leanjs/compare/@leanjs/react-router@0.11.4...@leanjs/react-router@0.11.5) (2022-11-04)
 
 **Note:** Version bump only for package @leanjs/react-router
