@@ -5,7 +5,7 @@
 If your React Router app is in a monorepo (recommended) execute the following command at the root of your repository:
 
 ```sh
-yarn add -W react-router-dom@6 react-dom@17 history react@17 \
+yarn add -W react-router-dom@6 history react-dom@17 react@17 \
   @leanjs/react-router @leanjs/core @leanjs/react
 ```
 
@@ -25,7 +25,7 @@ then in the `package.json` of your React Router app add the following `peerDepen
 If your React Router app is not in a monorepo, then run the following command instead of the above:
 
 ```sh
-yarn add react-router-dom@6 react-dom@17 react@17 \
+yarn add react-router-dom@6 history react-dom@17 react@17 \
   @leanjs/react-router @leanjs/core @leanjs/react
 ```
 
