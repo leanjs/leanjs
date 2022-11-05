@@ -1,5 +1,6 @@
 import React, { Suspense } from "react";
 import { Host } from "@leanjs/react-router";
+import { ErrorBoundary } from "@leanjs/react";
 import {
   createRuntime,
   HostProvider,
@@ -25,9 +26,11 @@ export function App() {
               <>
                 <h2>🏠 Home page</h2>
                 <Link to="/micro">Visit micro-frontend on another page</Link>
-                <Suspense fallback={<>Loading...</>}>
-                  <Host app={reactApp} />
-                </Suspense>
+                <ErrorBoundary>
+                  <Suspense fallback={<>Loading...</>}>
+                    <Host app={reactApp} />
+                  </Suspense>
+                </ErrorBoundary>
               </>
             }
           />
