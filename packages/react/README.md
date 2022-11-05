@@ -244,7 +244,7 @@ interface LogErrorOptions {
 interface AppError extends Error, LogErrorOptions {}
 ```
 
-If `onError` is not provided and an error is caught by the `ErrorBoundary` the error will be logged using the `onError` function passed to the [`configureRuntime`](/packages/core/#configureruntime) if a `HostProvider` is found in the component tree.
+If `onError` is not provided and an error is caught by the `ErrorBoundary` the error will be logged using the [`onError`](/packages/core/#onerror---required-function) function passed to the `configureRuntime` if a `HostProvider` is found in the component tree.
 
 ### `Host`
 
