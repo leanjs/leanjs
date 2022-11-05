@@ -167,7 +167,6 @@ describe("dependencies:", () => {
       expect(actual).toEqual({
         react: { eager, requiredVersion: explicitDependencies.react },
         lodash: { eager, requiredVersion: implicitDependencies.lodash },
-        "@leanjs/react/18": "*",
       });
     });
 
@@ -189,7 +188,6 @@ describe("dependencies:", () => {
       expect(actual).toEqual({
         react: { eager: !eager },
         lodash: { eager, requiredVersion: implicitDependencies.lodash },
-        "@leanjs/react/18": "*",
       });
     });
 
@@ -212,7 +210,6 @@ describe("dependencies:", () => {
       expect(actual).toEqual({
         react: { eager: false, requiredVersion: implicitDependencies.react },
         lodash: implicitDependencies.lodash,
-        "@leanjs/react/18": "*",
       });
     });
 
@@ -237,7 +234,39 @@ describe("dependencies:", () => {
       expect(actual).toEqual({
         react: { eager: false, requiredVersion: implicitDependencies.react },
         lodash: { eager, requiredVersion: implicitDependencies.lodash },
-        "@leanjs/react/18": "*",
+      });
+    });
+
+    it("adds @leanjs/react/18 if @leanjs/react is a shared dependency", () => {
+      const eager = false;
+      const explicitDependencies = {
+        react: {
+          eager: false,
+        },
+        "@leanjs/react": Math.random().toString(),
+      };
+      const implicitDependencies = {
+        lodash: Math.random().toString(),
+        react: Math.random().toString(),
+      };
+
+      const actual = formatSharedDependencies({
+        eager,
+        explicitDependencies,
+        implicitDependencies,
+      });
+
+      expect(actual).toEqual({
+        react: { eager: false, requiredVersion: implicitDependencies.react },
+        lodash: { eager, requiredVersion: implicitDependencies.lodash },
+        "@leanjs/react": {
+          eager: false,
+          requiredVersion: explicitDependencies["@leanjs/react"],
+        },
+        "@leanjs/react/18": {
+          eager: false,
+          requiredVersion: explicitDependencies["@leanjs/react"],
+        },
       });
     });
   });

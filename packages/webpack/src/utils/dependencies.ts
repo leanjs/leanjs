@@ -166,9 +166,16 @@ export function formatSharedDependencies({
     );
   }
 
-  return {
+  const sharedDependencies: SharedDependencies = {
     ...formattedImplicitDependencies,
     ...formattedExplicitDependencies,
-    "@leanjs/react/18": "*",
   };
+  const addDependencies: SharedDependencies = {};
+  for (const key in sharedDependencies) {
+    if (key === "@leanjs/react") {
+      addDependencies["@leanjs/react/18"] = sharedDependencies[key];
+    }
+  }
+
+  return { ...sharedDependencies, ...addDependencies };
 }
