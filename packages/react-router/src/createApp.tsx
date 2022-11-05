@@ -1,8 +1,4 @@
-import {
-  RuntimeProvider,
-  CreateAppConfig,
-  _ as ReactUtils,
-} from "@leanjs/react";
+import { RuntimeProvider, CreateAppConfig, ErrorBoundary } from "@leanjs/react";
 import type { CreateComposableApp, AppProps, MountFunc } from "@leanjs/core";
 import { _ as CoreUtils } from "@leanjs/core";
 import React, { ReactElement } from "react";
@@ -11,7 +7,6 @@ import { createBrowserHistory, createMemoryHistory } from "history";
 
 import { Router } from "./components/Router";
 
-const { ErrorBoundary } = ReactUtils;
 const { createMount, getDefaultPathname, createAppError } = CoreUtils;
 
 export const createApp = <MyAppProps extends AppProps = AppProps>(

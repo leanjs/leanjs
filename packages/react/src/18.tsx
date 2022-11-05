@@ -12,7 +12,7 @@ import React, { ReactElement, useEffect } from "react";
 import { createRoot } from "react-dom/client";
 
 import { RootComponent } from "./types";
-import { ErrorBoundary } from "./utils";
+import { ErrorBoundary } from "./components";
 import { RuntimeProvider, createRuntimeBindings } from "./runtime";
 
 const { createMount, createAppError } = CoreUtils;

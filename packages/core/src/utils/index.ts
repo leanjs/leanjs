@@ -1,4 +1,4 @@
-import { RemoteTarget } from "../types";
+import type { RemoteTarget, AppError } from "../types";
 
 export * from "./loadScript";
 export * from "./loadModule";
@@ -20,16 +20,25 @@ export const isError = (error: any): error is Error =>
 export const createAppError = ({
   error,
   appName,
+  version,
 }: {
   error: any;
   appName?: string;
+  version?: string;
 }) => {
-  let appError: Error = error;
+  let appError: AppError = error;
+
   if (!isError(error)) {
     appError = new Error(error ? error.toString() : "unknown");
   }
+
   if (appName) {
-    appError.name = `${appName}::${error.name}`;
+    appError.name = `${appError.name}::${appName}`;
+    appError.appName = appName;
+  }
+  if (version) {
+    appError.name = `${appError.name}::${version}`;
+    appError.version = version;
   }
 
   return appError;

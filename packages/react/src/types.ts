@@ -26,8 +26,12 @@ export interface BaseHostProps {
   className?: string;
 }
 
+export interface RemoteProp {
+  version: string;
+}
 export interface OuterHostProps extends BaseHostProps {
   app: GetComposableApp | GetComposableAppAsync;
+  remote?: RemoteProp;
 }
 
 export interface InnerHostProps extends BaseHostProps {
@@ -36,6 +40,7 @@ export interface InnerHostProps extends BaseHostProps {
   url?: string;
   className?: string;
   setError: LogAnyError;
+  remote?: RemoteProp;
 }
 
 export interface UseMountArgs {

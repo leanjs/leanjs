@@ -1,17 +1,18 @@
 import React from "react";
 import type { NextPage } from "next";
 import { Host } from "@leanjs/next";
-import { _ } from "@leanjs/react";
+import { ErrorBoundary } from "@leanjs/react";
 // import reactThrowErrorApp from "@leanjs/e2e-test-subjects-remote-react-throw-error";
 
 import { CustomError } from "../components/CustomError";
-import { ErrorBoundary } from "../components/ErrorBoundary";
 
 const ReactError: NextPage = () => {
   return (
     <>
       <h1>React Error page</h1>
-      <ErrorBoundary errorComponent={CustomError}>
+      {/* eslint-disable-next-line @typescript-eslint/ban-ts-comment */}
+      {/* @ts-ignore */}
+      <ErrorBoundary fallback={CustomError}>
         <Host app={{ packageName: "i-dont-exist-but-have-a-default-error" }} />
       </ErrorBoundary>
       {/* <hr />

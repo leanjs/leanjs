@@ -9,7 +9,7 @@ import {
 import type { OuterHostProps, InnerHostProps } from "../types";
 import { HostContext } from "../private/HostProvider";
 
-import { getMount } from "./getMount";
+import { getMount } from "../private/getMount";
 import { useRuntime } from "../runtime";
 
 const { isPromise, createAppError } = CoreUtils;
@@ -27,12 +27,13 @@ export function createHost<Props extends OuterHostProps = OuterHostProps>(
 ) {
   const lazyMap = new Map<OuterHostProps["app"] | string, any>();
 
-  return function Host({ app, ...rest }: Props) {
+  return function Host({ app, remote, ...rest }: Props) {
     const context = useContext(HostContext);
     const runtime = useRuntime();
     const [error, setError] = useState<Error>();
     const [showChild, setShowChild] = useState(false);
-    const appKey = isRemoteApp(app) ? app.packageName : app;
+    const version = remote?.version;
+    const appKey = isRemoteApp(app) ? `${app.packageName}${version}` : app;
 
     if (error) {
       throw error;
@@ -53,9 +54,7 @@ export function createHost<Props extends OuterHostProps = OuterHostProps>(
           return new Promise<{ default: () => ReactElement }>(
             (resolve, reject) => {
               function handleError(error: Error, appName?: string) {
-                const namedError = createAppError({ error, appName });
-                runtime.logError(namedError);
-                reject(namedError);
+                reject(createAppError({ error, appName, version }));
               }
 
               async function run() {
@@ -75,6 +74,7 @@ export function createHost<Props extends OuterHostProps = OuterHostProps>(
 
                   const { mount, url, name } = await getMount({
                     app: syncApp,
+                    remote,
                     context,
                   });
 

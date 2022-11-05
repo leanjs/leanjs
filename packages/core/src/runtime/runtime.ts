@@ -30,6 +30,7 @@ const runCreateRuntime =
     onError,
     request,
     parent,
+    version,
   }: {
     request?: Request;
     parent?: Runtime<any, any, any>;
@@ -40,9 +41,10 @@ const runCreateRuntime =
     ApiProp
   > => {
     function logError(error: any, options?: LogErrorOptions) {
-      onError(createAppError({ appName: options?.appName, error }));
+      onError(createAppError({ error, ...options }), { ...options, state });
     }
 
+    const logRuntimeOptions = { appName: "SharedRuntime", version };
     const isBrowser = typeof window !== "undefined";
     const url = request?.url
       ? request.url
@@ -210,7 +212,7 @@ Current valid props are: ${Object.keys(currentState).join(", ")}`);
               error: (error as Error)?.message ?? error,
             });
             callListeners(prop);
-            logError(error);
+            logError(error, logRuntimeOptions);
           }
         }
 
@@ -249,13 +251,13 @@ Current valid props are: ${Object.keys(currentState).join(", ")}`);
                 },
               });
             } catch (error) {
-              logError(error);
+              logError(error, logRuntimeOptions);
             }
           }
 
           if (isPromise(item)) {
             apiPromises.set(prop, item);
-            item.catch(logError);
+            item.catch((error) => logError(error, logRuntimeOptions));
           }
           target[prop] = item as any;
         }
@@ -268,28 +270,6 @@ Current valid props are: ${Object.keys(currentState).join(", ")}`);
         );
       },
     });
-
-    const on = <P extends ApiProp>(
-      prop: P,
-      callback: OnCallback<ApiFactory, P, State, Prop>
-    ) => {
-      const apiItem = api[prop];
-      if (!apiItem) {
-        throw new Error(`No api found in runtime for prop ${String(prop)}.`);
-      }
-      const offPromise = Promise.resolve(apiItem)
-        .then((apiValue) =>
-          callback(apiValue as ValueFromApiFactorySync<ApiFactory, P>, {
-            getState,
-            setState,
-          })
-        )
-        .catch(logError);
-
-      return () => {
-        offPromise.then((off) => off?.()).catch(logError);
-      };
-    };
 
     const cleanup = <P extends ApiProp>(prop?: P) => {
       if (prop) {
@@ -306,16 +286,18 @@ Current valid props are: ${Object.keys(currentState).join(", ")}`);
       }
     };
 
+    const state = {
+      get: getState,
+      set: setState,
+      listen,
+      loaded,
+      load,
+      loader,
+    };
+
     return {
       api,
-      state: {
-        get: getState,
-        set: setState,
-        listen,
-        loaded,
-        load,
-        loader,
-      },
+      state,
       logError,
       cleanup,
     };
@@ -335,6 +317,7 @@ export const configureRuntime = <
   >({
     apiFactory,
     onError,
+    version,
   }: ConfigureRuntimeOptions<State, Prop, ApiFactory>) => ({
     createRuntime: ({
       initialState,
@@ -346,6 +329,7 @@ export const configureRuntime = <
         onError,
         request,
         parent: runtime,
+        version,
       }),
   });
 };

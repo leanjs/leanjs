@@ -1,4 +1,4 @@
-import type { Runtime, LogAnyError } from "./runtime";
+import type { Runtime, LogAnyError, LogErrorOptions } from "./runtime";
 
 export type RemoteTarget = "browser" | "node";
 export interface BasePath {
@@ -122,3 +122,5 @@ export interface AppProps {
   initialState: any;
   updateInitialState: UdpateInitialState;
 }
+
+export interface AppError extends Error, LogErrorOptions {}

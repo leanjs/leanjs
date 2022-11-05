@@ -1,7 +1,7 @@
 import type { Runtime as BaseRuntime } from "@leanjs/core";
 import React, { createContext, useContext, ReactElement } from "react";
 
-const RuntimeContext = createContext<BaseRuntime | undefined>(undefined);
+export const RuntimeContext = createContext<BaseRuntime | undefined>(undefined);
 
 export const RuntimeProvider = ({
   children,
