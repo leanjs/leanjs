@@ -5,7 +5,7 @@
 If your React Router app is in a monorepo (recommended) execute the following command at the root of your repository:
 
 ```sh
-yarn add -W react-router-dom@6 react-dom@17 react@17 \
+yarn add -W react-router-dom@6 react-dom@17 history react@17 \
   @leanjs/react-router @leanjs/core @leanjs/react
 ```
 

@@ -150,11 +150,12 @@ describe("createRuntime", () => {
     expect(runtime.state.loader.locale).toEqual(defaultLoader);
     expect(runtime.state.loader.user).toEqual(defaultLoader);
     expect(runtime.state.loader.token).toEqual(defaultLoader);
-    // expect(typeof runtime.booted).toBe("function");
     expect(typeof runtime.state.load).toBe("function");
     expect(typeof runtime.state.loaded).toBe("function");
-    // expect(typeof runtime.on).toBe("function");
     expect(typeof runtime.state.listen).toBe("function");
+    expect(typeof runtime.logError).toBe("function");
+    expect(typeof runtime.cleanup).toBe("function");
+    expect(typeof runtime.api).toBe("object");
   });
 
   it(`can receive some initial state that overrides the default state`, () => {
