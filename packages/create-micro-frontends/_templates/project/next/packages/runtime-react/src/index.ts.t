@@ -1,7 +1,7 @@
 ---
 to: <%= h.inflection.dasherize(projectName) %>/packages/runtime-react/index.ts
 ---
-import { createRuntimeBindings } from "@leanjs/react";
+import { createRuntimeBindings } from "@leanjs/react/18";
 import { createRuntime } from "@<%=h.inflection.dasherize(projectName)%>/runtime-shared";
 
 export { createRuntime };
