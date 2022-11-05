@@ -13,7 +13,8 @@ export default function SubPages() {
           <Host
             basename={basename}
             app={{
-              packageName: "@leanjs/e2e-test-subjects-remote-react-sub-pages",
+              packageName:
+                "@leanjs/e2e-test-subjects-remote-react-router-sub-pages",
             }}
           />
         </Suspense>
