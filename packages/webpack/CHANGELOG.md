@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.20.12](https://github.com/leanjs/leanjs/compare/@leanjs/webpack@0.20.11...@leanjs/webpack@0.20.12) (2022-11-06)
+
+### Bug Fixes
+
+- **webpack:** remove runtime from lean.config.js ([f4e4bbd](https://github.com/leanjs/leanjs/commit/f4e4bbd14ce382f1346ba034a7780d44cacb4982))
+
 ## [0.20.11](https://github.com/leanjs/leanjs/compare/@leanjs/webpack@0.20.10...@leanjs/webpack@0.20.11) (2022-11-05)
 
 ### Bug Fixes
