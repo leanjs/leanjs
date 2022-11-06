@@ -1,4 +1,4 @@
-import type { Runtime, LogAnyError, LogErrorOptions } from "./runtime";
+import type { Runtime, LogAnyError, RuntimeContext } from "./runtime";
 
 export type RemoteTarget = "browser" | "node";
 export interface BasePath {
@@ -56,6 +56,7 @@ export interface MountOutput {
 export interface ComposableApp {
   appName: string;
   mount: MountFunc;
+  version: string | undefined;
 }
 
 export interface RemoteComposableApp {
@@ -64,6 +65,7 @@ export interface RemoteComposableApp {
 
 export interface CreateComposableAppOptions {
   isSelfHosted?: boolean;
+  version?: string;
 }
 
 export interface CreateComposableApp {
@@ -109,6 +111,7 @@ interface CreateMountRenderArgs {
 export interface CreateMountArgs {
   el: HTMLElement | null;
   appName: string;
+  version?: string;
   unmount: () => void;
   render: (args: CreateMountRenderArgs) => void;
   isSelfHosted: boolean | undefined;
@@ -123,4 +126,7 @@ export interface AppProps {
   updateInitialState: UdpateInitialState;
 }
 
-export interface AppError extends Error, LogErrorOptions {}
+export interface AppError extends Error {
+  appName?: string;
+  version?: string;
+}

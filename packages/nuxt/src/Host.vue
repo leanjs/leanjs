@@ -96,17 +96,23 @@ onBeforeMount(() => {
     if (!cachedMount) {
       loadScript(url)
         .then(() => loadModule(name))
-        .then(({ default: config }) => {
-          if (typeof config !== "function") {
-            error.value = new Error("Remote module didn't return a function");
-          } else {
-            const { mount: remoteMount } = config({
+        .then(({ default: createComposableApp }) => {
+          let remoteMount;
+          if (typeof createComposableApp === "function") {
+            const { mount } = createComposableApp({
               isSelfHosted: false,
             });
-
-            mount.value = remoteMount;
-            mountCache.set(mountKey, remoteMount);
+            remoteMount = mount;
+          } else if (
+            typeof createComposableApp === "object" &&
+            createComposableApp.mount
+          ) {
+            remoteMount = createComposableApp.mount;
+          } else {
+            throw new Error("Remote module didn't return a function");
           }
+          mount.value = remoteMount;
+          mountCache.set(mountKey, remoteMount);
         })
         .catch((err) => {
           error.value = err;

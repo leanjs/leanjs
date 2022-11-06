@@ -21,8 +21,13 @@ import type {
 } from "vue-router";
 import { _ as CoreUtils } from "@leanjs/core";
 
-const { createMount, getDefaultPathname, dedupeSlash, createAppError } =
-  CoreUtils;
+const {
+  createMount,
+  getDefaultPathname,
+  dedupeSlash,
+  createAppError,
+  setRuntimeContext,
+} = CoreUtils;
 
 export { CreateAppConfig, MountOptions, Cleanup };
 
@@ -48,7 +53,10 @@ export const createApp = (
 ) => {
   if (!appName) throw new Error("appName required in Vue createApp");
 
-  const createComposableApp: CreateComposableApp = ({ isSelfHosted } = {}) => {
+  const createComposableApp: CreateComposableApp = ({
+    isSelfHosted,
+    version,
+  } = {}) => {
     const mount: MountFunc = (
       el,
       {
@@ -98,11 +106,14 @@ export const createApp = (
           render: ({ appProps }) => {
             try {
               app = createVueApp(App, { ...appProps, isSelfHosted })
-                .provide("runtime", runtime)
+                .provide(
+                  "runtime",
+                  setRuntimeContext({ appName, version }, runtime)
+                )
                 .use(router);
               app.mount(el);
             } catch (error: any) {
-              throw createAppError({ appName, error });
+              throw createAppError({ appName, version, error });
             }
           },
           unmount: () => {
@@ -127,7 +138,7 @@ export const createApp = (
       };
     };
 
-    return { mount, appName };
+    return { mount, appName, version };
   };
 
   createComposableApp.appName = appName;

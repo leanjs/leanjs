@@ -1,5 +1,5 @@
 import { _ as CoreUtils } from "@leanjs/core";
-import { startDevProxyServer, findRootConfigSync } from "@leanjs/cli";
+import { startDevProxyServer } from "@leanjs/cli";
 import { Compiler, WebpackPluginInstance, container } from "webpack";
 import HtmlWebpackPlugin from "html-webpack-plugin";
 import VirtualModulesPlugin from "webpack-virtual-modules";
@@ -127,7 +127,7 @@ export class RemoteWebpackPlugin implements WebpackPluginInstance {
       name: moduleName,
       filename: "remoteEntry.js",
       exposes: {
-        ".": "./src/index",
+        ".": "./remote_entry_index",
       },
       shared: formatSharedDependencies({
         explicitDependencies: this.options.shared || {},
@@ -139,7 +139,6 @@ export class RemoteWebpackPlugin implements WebpackPluginInstance {
       }),
     }).apply(compiler);
 
-    const { leanConfig } = findRootConfigSync();
     const localSelfHostedPath = ["ts", "tsx", "js"].reduce(
       (accPath, extension) => {
         if (accPath) return accPath;
@@ -167,6 +166,12 @@ export class RemoteWebpackPlugin implements WebpackPluginInstance {
       : `import("./bootstrap").then(({ bootstrap }) => bootstrap());`;
 
     new VirtualModulesPlugin({
+      "./remote_entry_index.js": `
+        import createComposableApp from "./src/index";
+        export default createComposableApp({ isSelfHosted: false ${
+          packageJson.version ? `, version: "${packageJson.version}"` : ""
+        }})
+        `,
       "./bootstrap_entry.js": bootstrapEntryJs,
       "./bootstrap": fs.readFileSync(
         path.resolve(__dirname, "../bootstrap.js"),

@@ -10,7 +10,7 @@ import reactApp from "@leanjs/e2e-test-subjects-remote-react-1";
 
 import SubPages from "./SubPages";
 
-const runtime = createRuntime();
+const runtime = createRuntime({ context: { appName: "ReactRouterShell" } });
 
 export function App() {
   return (

@@ -13,6 +13,7 @@ export const getDefaultPathname = (isSelfHosted?: boolean) =>
 export const createMount: CreateMount = ({
   el,
   appName,
+  version,
   unmount,
   render,
   isSelfHosted = false,
@@ -23,6 +24,8 @@ export const createMount: CreateMount = ({
   function updateInitialState(newInitialState: any) {
     appInitialState.set(appName, newInitialState);
   }
+
+  const context = { appName, version };
 
   if (el) {
     try {
@@ -43,7 +46,7 @@ export const createMount: CreateMount = ({
       // add unmount function with UI library unmount logic, e.g. ReactDOM.unmountComponentAtNode(el)
       cleanups.push(unmount);
     } catch (error: any) {
-      onError(createAppError({ appName, error }));
+      onError(createAppError({ appName, version, error }), context);
     }
   }
 
@@ -53,7 +56,7 @@ export const createMount: CreateMount = ({
       try {
         cleanups.forEach((cleanup) => cleanup());
       } catch (error) {
-        onError(createAppError({ appName, error }));
+        onError(createAppError({ appName, version, error }), context);
       }
     },
   };

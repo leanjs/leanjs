@@ -41,7 +41,7 @@ export const bootstrap = ({ createRuntime }: BootstrapOptions = {}) => {
 
     host({
       mount,
-      runtime: createRuntime?.(),
+      runtime: createRuntime?.({ context: { appName: "SelfHosted" } }),
     });
   });
 };

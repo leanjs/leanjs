@@ -1,4 +1,4 @@
-import { Cleanup } from "..";
+import type { AppError, Cleanup } from "..";
 
 export type Key = string | symbol;
 export type BaseShape = Record<Key, any>;
@@ -27,7 +27,8 @@ export interface RuntimeState<
   loader: Record<Prop, LoaderState>;
   load: <P extends Prop>(
     prop: P,
-    loader: () => Promise<State[P]> | State[P]
+    loader: () => Promise<State[P]> | State[P],
+    context: RuntimeContext
   ) => Promise<State[P]>;
   loaded: <P extends Prop>(prop: P) => Promise<State[P]>;
   get: (prop: Prop) => State[Prop];
@@ -130,7 +131,8 @@ export interface Runtime<
     ) => Unlisten;
     load<P extends Prop>(
       prop: P,
-      loader: () => Promise<State[P]> | State[P]
+      loader: () => Promise<State[P]> | State[P],
+      context: RuntimeContext
     ): Promise<State[P]>;
     loaded(): Promise<State>;
     loaded<P extends Prop>(prop: P): Promise<State[P]>;
@@ -140,6 +142,7 @@ export interface Runtime<
   logError: LogAnyError;
   cleanup(): void;
   cleanup<P extends ApiProp>(prop: P): void;
+  context: RuntimeContext;
 }
 
 export type StateType<T extends Runtime> = T extends {
@@ -151,12 +154,12 @@ export type StateType<T extends Runtime> = T extends {
   ? State
   : any;
 
-export interface LogErrorOptions {
-  appName?: string;
+export interface RuntimeContext {
+  appName: string;
   version?: string;
 }
 
-export type LogAnyError = (error: any, options?: LogErrorOptions) => void;
+export type LogAnyError = (error: any, context: RuntimeContext) => void;
 
 export interface LoaderState {
   loading: boolean;
@@ -196,22 +199,23 @@ export interface CreateRuntimeArgs<
     PartialApiFactory,
     KeyOf<PartialApiFactory>
   >;
+  context: RuntimeContext;
 }
 
 export type CreateRuntime<MyRuntime extends Runtime = Runtime> = {
-  (args?: CreateRuntimeArgs<any, any, any>): MyRuntime;
+  (args: CreateRuntimeArgs<any, any, any>): MyRuntime;
 };
 
 export type GetRuntime<MyCreateRuntime extends CreateRuntime> =
   ReturnType<MyCreateRuntime>;
 
-interface OnErrorOptions<
+interface OnErrorContext<
   State extends BaseShape,
   Prop extends KeyOf<State> = KeyOf<State>
-> extends LogErrorOptions {
+> extends RuntimeContext {
   state: RuntimeState<State, Prop>;
 }
 export type OnError<
   State extends BaseShape,
   Prop extends KeyOf<State> = KeyOf<State>
-> = (error: Error, options?: OnErrorOptions<State, Prop>) => void;
+> = (error: AppError, context?: OnErrorContext<State, Prop>) => void;

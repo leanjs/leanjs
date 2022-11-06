@@ -46,7 +46,7 @@ import { HostProvider, createRuntime } from "@my-org/react-runtime";
 
 import ExampleApp from "@my-org/example-app";
 
-const runtime = createRuntime();
+const runtime = createRuntime({ context: { appName: "AppExample" } });
 
 const Root = () => (
   <HostProvider runtime={runtime}>

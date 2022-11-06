@@ -31,7 +31,7 @@ export const createRuntimeBindings = <
       } else if (isPropObj(prop)) {
         propName = prop.prop;
         if (prop.loader) {
-          runtime.state.load(propName, prop.loader);
+          runtime.state.load(propName, prop.loader, runtime.context);
         }
         deep = !!prop.deep;
       } else {

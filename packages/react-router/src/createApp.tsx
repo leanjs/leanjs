@@ -7,13 +7,17 @@ import { createBrowserHistory, createMemoryHistory } from "history";
 
 import { Router } from "./components/Router";
 
-const { createMount, getDefaultPathname, createAppError } = CoreUtils;
+const { createMount, getDefaultPathname, createAppError, setRuntimeContext } =
+  CoreUtils;
 
 export const createApp = <MyAppProps extends AppProps = AppProps>(
   App: (props: MyAppProps) => ReactElement,
   { appName = App.name }: CreateAppConfig = {}
 ) => {
-  const createComposableApp: CreateComposableApp = ({ isSelfHosted } = {}) => {
+  const createComposableApp: CreateComposableApp = ({
+    isSelfHosted,
+    version,
+  } = {}) => {
     const history = isSelfHosted
       ? createBrowserHistory()
       : createMemoryHistory();
@@ -49,15 +53,21 @@ export const createApp = <MyAppProps extends AppProps = AppProps>(
             : [],
           render: ({ appProps }) => {
             if (el) {
+              const context = { version, appName };
               ReactDOM.render(
                 <React.StrictMode>
                   <ErrorBoundary
                     onError={(error) =>
-                      onError(createAppError({ appName, error }))
+                      onError(
+                        createAppError({ appName, version, error }),
+                        context
+                      )
                     }
                   >
                     <Router history={history} basename={basename}>
-                      <RuntimeProvider runtime={runtime}>
+                      <RuntimeProvider
+                        runtime={setRuntimeContext(context, runtime)}
+                      >
                         <App {...(appProps as MyAppProps)} />
                       </RuntimeProvider>
                     </Router>
@@ -79,6 +89,7 @@ export const createApp = <MyAppProps extends AppProps = AppProps>(
     return {
       mount,
       appName,
+      version,
     };
   };
 

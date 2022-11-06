@@ -4,11 +4,82 @@ import {
   isObject,
   isPromise,
   createAppError,
+  setRuntimeContext,
 } from "./index";
+
+import { configureRuntime } from "../runtime";
 
 function emptyFunction() {
   // empty
 }
+
+describe("utils: setRuntimeContext", () => {
+  const { createRuntime } = configureRuntime({})({
+    onError: emptyFunction,
+    apiFactory: {
+      fake: () => 1,
+    },
+  });
+
+  it(`returns undefined if no runtime is passed`, () => {
+    const actual = setRuntimeContext({ appName: "TestApp" }, undefined);
+    expect(actual).toBe(undefined);
+  });
+
+  it(`returns a new runtime with a new appName if a runtime is passed`, () => {
+    const initialAppName = Math.random().toString();
+    const initialContext = { appName: initialAppName };
+    const runtime = createRuntime({ context: initialContext });
+
+    const newAppName = Math.random().toString();
+    const newRuntimeContext = setRuntimeContext(
+      { appName: newAppName },
+      runtime
+    );
+
+    expect(runtime).not.toBe(newRuntimeContext);
+
+    expect(runtime.context.appName).toBe(initialAppName);
+    expect(runtime.context.version).toBe(undefined);
+    expect(newRuntimeContext?.context.appName).toBe(newAppName);
+  });
+
+  it(`returns a new runtime with a new version if a version and runtime is passed`, () => {
+    const initialAppName = Math.random().toString();
+    const initialContext = { appName: initialAppName };
+    const runtime = createRuntime({ context: initialContext });
+
+    const newAppName = Math.random().toString();
+    const newVersion = Math.random().toString();
+    const newRuntimeContext = setRuntimeContext(
+      { appName: newAppName, version: newVersion },
+      runtime
+    );
+
+    expect(runtime).not.toBe(newRuntimeContext);
+    expect(runtime.context.appName).toBe(initialAppName);
+    expect(runtime.context.version).toBe(undefined);
+    expect(newRuntimeContext?.context.appName).toBe(newAppName);
+    expect(newRuntimeContext?.context.version).toBe(newVersion);
+  });
+
+  it(`only changes runtime context from the original runtime`, () => {
+    const initialContext = { appName: Math.random().toString() };
+    const runtime = createRuntime({ context: initialContext });
+    const newAppName = Math.random().toString();
+    const newVersion = Math.random().toString();
+    const newRuntimeContext = setRuntimeContext(
+      { appName: newAppName, version: newVersion },
+      runtime
+    );
+
+    expect(runtime.api.fake).toBe(newRuntimeContext?.api.fake);
+    expect(runtime.api).toBe(newRuntimeContext?.api);
+    expect(runtime.state).toBe(newRuntimeContext?.state);
+    expect(runtime.cleanup).toBe(newRuntimeContext?.cleanup);
+    expect(runtime.logError).toBe(newRuntimeContext?.logError);
+  });
+});
 
 describe("utils: isError", () => {
   it(`returns true when the input is an error`, () => {
@@ -28,9 +99,9 @@ describe("utils: isError", () => {
 
 describe("utils: createAppError", () => {
   it(`returns a new error if the input is not an error`, () => {
-    const actual = createAppError({ error: Math.random() });
+    const actual = createAppError({ error: Math.random(), appName: "TestApp" });
 
-    expect(actual.name).toBe("Error");
+    expect(actual.name).toBe("Error::TestApp");
     expect(actual instanceof Error).toBe(true);
   });
 
@@ -40,15 +111,6 @@ describe("utils: createAppError", () => {
 
     expect(actual.name).toBe(`Error::${appName}`);
     expect(actual.appName).toBe(appName);
-    expect(actual instanceof Error).toBe(true);
-  });
-
-  it(`adds version to the error`, () => {
-    const version = Math.random().toString();
-    const actual = createAppError({ error: new Error(), version });
-
-    expect(actual.name).toBe(`Error::${version}`);
-    expect(actual.version).toBe(version);
     expect(actual instanceof Error).toBe(true);
   });
 
