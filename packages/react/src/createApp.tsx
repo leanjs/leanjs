@@ -23,7 +23,7 @@ export const createApp = <MyAppProps extends AppProps = AppProps>(
         el,
         isSelfHosted,
         initialState,
-        appName: appName ?? App.name,
+        appName,
         onError,
         unmount: () => {
           if (el) ReactDOM.unmountComponentAtNode(el);
