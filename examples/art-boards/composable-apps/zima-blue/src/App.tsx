@@ -24,8 +24,14 @@ export default function ZimaBlue() {
         element.appendChild(app.view);
 
         if (!app.loader.loading) {
-          app.loader.add("earth", "/earth.png");
-          app.loader.add("robot", "/robot.png");
+          app.loader.add(
+            "earth",
+            "https://d1s8oi6ouy9ssm.cloudfront.net/__art_boards_app/images/earth.png"
+          );
+          app.loader.add(
+            "robot",
+            "https://d1s8oi6ouy9ssm.cloudfront.net/__art_boards_app/images/robot.png"
+          );
           app.loader.load(setup);
         }
 

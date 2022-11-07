@@ -1,0 +1,10 @@
+{
+  "version": "independent",
+  "npmClient": "yarn",
+  "useWorkspaces": true,
+  "command": {
+    "version": {
+      "ignoreChanges": ["**/*.md", "**/*.test.*", "e2e/**"]
+    }
+  }
+}
