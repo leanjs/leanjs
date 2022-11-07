@@ -3,7 +3,7 @@ import React from "react";
 import { Layout } from "./layout";
 import { List } from "./list";
 
-export const Home = () => (
+export const Dashboard = () => (
   <div className="page">
     <Layout />
     <List />

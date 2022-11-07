@@ -9,7 +9,7 @@ const initialState: CounterState = {
 };
 
 export const counterSlice = createSlice({
-  name: "home",
+  name: "dashboard",
   initialState,
   reducers: {
     toggleDisplayAuthor: (state) => {

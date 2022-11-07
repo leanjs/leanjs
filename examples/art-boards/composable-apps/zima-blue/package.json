@@ -11,9 +11,9 @@
   "license": "MIT",
   "peerDependencies": {
     "@leanjs/react": "*",
+    "pixi.js": "*",
     "react": "*",
-    "react-dom": "*",
-    "pixi.js": "*"
+    "react-dom": "*"
   },
   "dependencies": {
     "@art-boards/runtime-react": "*",
