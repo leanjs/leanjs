@@ -25,7 +25,7 @@ const createRuntime = () => {
 
   return configureRuntime(deeplyClonedDefaultState)({
     onError,
-  }).createRuntime();
+  }).createRuntime({ context: { appName: "TestApp" } });
 };
 
 createRuntime.log = onError;

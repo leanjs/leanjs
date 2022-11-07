@@ -38,7 +38,7 @@ import React from "react";
 // react runtime package created within your org
 import { HostProvider, createRuntime } from "@my-org/react-runtime";
 
-const runtime = createRuntime();
+const runtime = createRuntime({ context: { appName: "AppExample" } });
 
 const App = ({ Component, pageProps }: AppProps) => (
   <HostProvider runtime={runtime}>

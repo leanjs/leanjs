@@ -9,12 +9,10 @@ import type {
   ConfigureRuntimeOptions,
   Runtime,
   ValuesFromApiFactory,
-  OnCallback,
-  ValueFromApiFactorySync,
   CreateRuntimeArgs,
   Unsubscribe,
   Request,
-  LogErrorOptions,
+  RuntimeContext,
 } from "./types";
 
 import { createAppError, isPromise } from "../utils";
@@ -30,21 +28,21 @@ const runCreateRuntime =
     onError,
     request,
     parent,
-    version,
+    context,
   }: {
     request?: Request;
     parent?: Runtime<any, any, any>;
+    context: RuntimeContext;
   } & ConfigureRuntimeOptions<State, Prop, ApiFactory>): Runtime<
     State,
     Prop,
     ApiFactory,
     ApiProp
   > => {
-    function logError(error: any, options?: LogErrorOptions) {
-      onError(createAppError({ error, ...options }), { ...options, state });
+    function logError(error: any, context: RuntimeContext) {
+      onError(createAppError({ error, ...context }), { ...context, state });
     }
 
-    const logRuntimeOptions = { appName: "SharedRuntime", version };
     const isBrowser = typeof window !== "undefined";
     const url = request?.url
       ? request.url
@@ -171,7 +169,8 @@ Current valid props are: ${Object.keys(currentState).join(", ")}`);
 
     const load = async <P extends Prop>(
       prop: P,
-      loader: () => Promise<State[P]> | State[P]
+      loader: () => Promise<State[P]> | State[P],
+      context: RuntimeContext
     ) => {
       try {
         return runOrThrow(parent?.state.load, prop, loader);
@@ -212,7 +211,7 @@ Current valid props are: ${Object.keys(currentState).join(", ")}`);
               error: (error as Error)?.message ?? error,
             });
             callListeners(prop);
-            logError(error, logRuntimeOptions);
+            logError(error, context);
           }
         }
 
@@ -232,32 +231,27 @@ Current valid props are: ${Object.keys(currentState).join(", ")}`);
         } else if (target[prop] === undefined) {
           let item = apiFactory?.[prop];
           if (typeof item === "function") {
-            try {
-              item = item({
-                isBrowser,
-                request: {
-                  ...request,
-                  url,
-                },
-                state: {
-                  load,
-                  loaded,
-                  loader,
-                  set: setState,
-                  get: getState,
-                },
-                onCleanup: (cleanup: Cleanup) => {
-                  cleanups.set(prop, cleanup);
-                },
-              });
-            } catch (error) {
-              logError(error, logRuntimeOptions);
-            }
+            item = item({
+              isBrowser,
+              request: {
+                ...request,
+                url,
+              },
+              state: {
+                load,
+                loaded,
+                loader,
+                set: setState,
+                get: getState,
+              },
+              onCleanup: (cleanup: Cleanup) => {
+                cleanups.set(prop, cleanup);
+              },
+            });
           }
 
           if (isPromise(item)) {
             apiPromises.set(prop, item);
-            item.catch((error) => logError(error, logRuntimeOptions));
           }
           target[prop] = item as any;
         }
@@ -300,6 +294,7 @@ Current valid props are: ${Object.keys(currentState).join(", ")}`);
       state,
       logError,
       cleanup,
+      context,
     };
   };
 
@@ -317,19 +312,19 @@ export const configureRuntime = <
   >({
     apiFactory,
     onError,
-    version,
   }: ConfigureRuntimeOptions<State, Prop, ApiFactory>) => ({
     createRuntime: ({
       initialState,
       request,
       runtime,
-    }: CreateRuntimeArgs<State, Prop, ApiFactory> = {}) =>
+      context,
+    }: CreateRuntimeArgs<State, Prop, ApiFactory>) =>
       runCreateRuntime<State, Prop>(initialState ?? defaultState)({
         apiFactory,
         onError,
         request,
         parent: runtime,
-        version,
+        context,
       }),
   });
 };

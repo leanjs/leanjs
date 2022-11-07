@@ -3,7 +3,7 @@ to: <%= h.inflection.dasherize(projectName) %>/apps/shell/pages/_app.tsx
 ---
 import { HostProvider, createRuntime } from "@<%=h.inflection.dasherize(projectName)%>/runtime-react";
 
-const runtime = createRuntime();
+const runtime = createRuntime({ context: { appName: "NextShell" }});
 
 export default function MyApp({ Component, pageProps }) {
   return (

@@ -15,7 +15,7 @@ import { RootComponent } from "./types";
 import { ErrorBoundary } from "./components";
 import { RuntimeProvider, createRuntimeBindings } from "./runtime";
 
-const { createMount, createAppError } = CoreUtils;
+const { createMount, createAppError, setRuntimeContext } = CoreUtils;
 
 export { createRuntimeBindings };
 
@@ -28,7 +28,10 @@ export const createApp = <MyAppProps extends AppProps = AppProps>(
   App: (props: MyAppProps) => ReactElement,
   { appName = App.name }: CreateAppConfig = {}
 ) => {
-  const createComposableApp: CreateComposableApp = ({ isSelfHosted } = {}) => {
+  const createComposableApp: CreateComposableApp = ({
+    isSelfHosted,
+    version,
+  } = {}) => {
     let unmountCallback: UnmountFunc | null;
     let rendering = false;
     let root: ReactRoot | null;
@@ -68,15 +71,21 @@ export const createApp = <MyAppProps extends AppProps = AppProps>(
           if (el && !rendering) {
             rendering = true;
             root = root ?? createRoot(el);
+            const context = { version, appName };
             root?.render(
               <React.StrictMode>
                 <Root>
                   <ErrorBoundary
                     onError={(error) =>
-                      onError(createAppError({ appName, error }))
+                      onError(
+                        createAppError({ appName, version, error }),
+                        context
+                      )
                     }
                   >
-                    <RuntimeProvider runtime={runtime}>
+                    <RuntimeProvider
+                      runtime={setRuntimeContext(context, runtime)}
+                    >
                       <App {...(appProps as MyAppProps)} />
                     </RuntimeProvider>
                   </ErrorBoundary>
@@ -88,7 +97,7 @@ export const createApp = <MyAppProps extends AppProps = AppProps>(
       });
     };
 
-    return { mount, appName };
+    return { mount, appName, version };
   };
 
   createComposableApp.appName = appName;

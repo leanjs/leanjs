@@ -1,10 +1,10 @@
 import waitForExpect from "wait-for-expect";
 
 import { configureRuntime } from "./runtime";
-import { isPromise } from "../utils";
+import { isPromise, setRuntimeContext } from "../utils";
 import type { RuntimeApi } from "./types";
 import { AppError } from "..";
-import { LogErrorOptions } from ".";
+import { RuntimeContext } from ".";
 
 const emptyFunction = () => {
   // empty
@@ -58,77 +58,13 @@ const { createRuntime } = configureRuntime<SharedState>(defaultState)({
     gql: () => new Promise((resolve) => resolve(new FakeGQLClient())),
     firebase: ({ state }) =>
       new Promise<FakeFirebase>((resolve) => {
-        state.load("token", fetchToken).then((token) => {
-          if (token) resolve(new FakeFirebase(token));
-        });
+        state
+          .load("token", fetchToken, { appName: "configureRuntime" })
+          .then((token) => {
+            if (token) resolve(new FakeFirebase(token));
+          });
       }),
   },
-});
-
-describe("configureRuntime", () => {
-  it(`calls onError if it can't create any async api and passes the runtime version`, async () => {
-    const onError = jest.fn();
-    const version = Math.random().toString();
-    const randomError = new Error(Math.random().toString());
-    const runtime = configureRuntime(defaultState)({
-      onError,
-      apiFactory: {
-        eventEmitter: () => Promise.reject(randomError),
-      },
-      version,
-    }).createRuntime();
-
-    try {
-      await runtime.api.eventEmitter;
-    } catch {
-      // empty
-    }
-
-    expect(onError).toHaveBeenCalledWith(randomError, {
-      appName: "SharedRuntime",
-      version,
-      state: runtime.state,
-    });
-  });
-
-  it(`calls onError if it can't create any sync api and passes the runtime version`, async () => {
-    const onError = jest.fn();
-    const version = Math.random().toString();
-    const randomError = new Error(Math.random().toString());
-    const runtime = configureRuntime(defaultState)({
-      onError,
-      apiFactory: {
-        eventEmitter: () => {
-          throw randomError;
-        },
-      },
-      version,
-    }).createRuntime();
-
-    runtime.api.eventEmitter;
-
-    expect(onError).toHaveBeenCalledWith(randomError, {
-      appName: "SharedRuntime",
-      version,
-      state: runtime.state,
-    });
-    expect(onError).toHaveBeenCalledTimes(1);
-  });
-
-  it(`doesn't call onError if it can create the api`, async () => {
-    const onError = jest.fn();
-    const randomError = new Error(Math.random().toString());
-    const runtime = configureRuntime(defaultState)({
-      onError,
-      apiFactory: {
-        eventEmitter: () => Promise.resolve(randomError),
-      },
-    }).createRuntime();
-
-    await runtime.api.eventEmitter;
-
-    expect(onError).not.toHaveBeenCalled();
-  });
 });
 
 describe("createRuntime", () => {
@@ -143,7 +79,7 @@ describe("createRuntime", () => {
       apiFactory,
     });
 
-    const runtime = createRuntime();
+    const runtime = createRuntime({ context: { appName: "ShellApp" } });
     expect(runtime.state.get("locale")).toEqual(defaultState.locale);
     expect(runtime.state.get("user")).toEqual(defaultState.user);
     expect(runtime.state.get("token")).toEqual(defaultState.token);
@@ -165,6 +101,7 @@ describe("createRuntime", () => {
     const username = Math.random().toString();
 
     const runtime = createRuntime({
+      context: { appName: "ShellApp" },
       initialState: { ...defaultState, user: { username } },
     });
 
@@ -180,7 +117,8 @@ describe("createRuntime", () => {
     });
     const appName = Math.random().toString();
     const customVersion = Math.random().toString();
-    const runtime = createRuntime();
+    const runtime = createRuntime({ context: { appName: "ShellApp" } });
+
     const error = new Error(Math.random().toString());
     runtime.logError(error, {
       appName,
@@ -196,8 +134,8 @@ describe("createRuntime", () => {
 
   it(`returns a runtime that exposes a logError function that accepts an Error argument with appName and version its name`, async () => {
     let assertError: AppError | undefined;
-    let assertOptions: LogErrorOptions | undefined;
-    const onError = (err: AppError, options?: LogErrorOptions) => {
+    let assertOptions: RuntimeContext | undefined;
+    const onError = (err: AppError, options?: RuntimeContext) => {
       assertError = err;
       assertOptions = options;
     };
@@ -208,7 +146,7 @@ describe("createRuntime", () => {
     });
     const appName = Math.random().toString();
     const customVersion = Math.random().toString();
-    const runtime = createRuntime();
+    const runtime = createRuntime({ context: { appName: "ShellApp" } });
     const error = new Error(Math.random().toString());
     runtime.logError(error, {
       appName,
@@ -249,12 +187,19 @@ describe("createRuntime", () => {
           onError: emptyFunction,
         });
 
-        const grandparentRuntime = createGrandparentRuntime();
+        const grandparentRuntime = createGrandparentRuntime({
+          context: { appName: "ShellApp" },
+        });
         const parentRuntime = createParentRuntime({
           runtime: grandparentRuntime,
+          context: { appName: "ShellApp" },
         });
-        const childRuntime = createChildRuntime({ runtime: parentRuntime });
+        const childRuntime = createChildRuntime({
+          context: { appName: "ShellApp" },
+          runtime: parentRuntime,
+        });
         const grandchildRuntime = createGrandchildRuntime({
+          context: { appName: "ShellApp" },
           runtime: childRuntime,
         });
 
@@ -298,8 +243,13 @@ describe("createRuntime", () => {
           },
         });
 
-        const parentRuntime = createParentRuntime();
-        const childRuntime = createChildRuntime({ runtime: parentRuntime });
+        const parentRuntime = createParentRuntime({
+          context: { appName: "ShellApp" },
+        });
+        const childRuntime = createChildRuntime({
+          runtime: parentRuntime,
+          context: { appName: "ShellApp" },
+        });
 
         (await childRuntime.api.firebase).toString();
 
@@ -323,8 +273,13 @@ describe("createRuntime", () => {
           onError: emptyFunction,
         });
 
-        const parentRuntime = createParentRuntime();
-        const childRuntime = createChildRuntime({ runtime: parentRuntime });
+        const parentRuntime = createParentRuntime({
+          context: { appName: "ShellApp" },
+        });
+        const childRuntime = createChildRuntime({
+          context: { appName: "ShellApp" },
+          runtime: parentRuntime,
+        });
 
         let errorMessage;
 
@@ -356,8 +311,13 @@ Current valid props are: token, locale`);
             onError: emptyFunction,
           });
 
-          const parentRuntime = createParentRuntime();
-          const childRuntime = createChildRuntime({ runtime: parentRuntime });
+          const parentRuntime = createParentRuntime({
+            context: { appName: "ShellApp" },
+          });
+          const childRuntime = createChildRuntime({
+            context: { appName: "ShellApp" },
+            runtime: parentRuntime,
+          });
 
           const childRandomToken = Math.random().toString();
           childRuntime.state.set("token", childRandomToken);
@@ -383,9 +343,13 @@ Current valid props are: token, locale`);
 
           const parentRandomToken = Math.random().toString();
           const parentRuntime = createParentRuntime({
+            context: { appName: "ShellApp" },
             initialState: { token: parentRandomToken },
           });
-          const childRuntime = createChildRuntime({ runtime: parentRuntime });
+          const childRuntime = createChildRuntime({
+            context: { appName: "ShellApp" },
+            runtime: parentRuntime,
+          });
 
           expect(childRuntime.state.get("token")).toBe(parentRandomToken);
         });
@@ -402,11 +366,16 @@ Current valid props are: token, locale`);
             },
           });
 
-          const parentRuntime = createParentRuntime();
+          const parentRuntime = createParentRuntime({
+            context: { appName: "ShellApp" },
+          });
           const parentLocaleCallback = jest.fn();
           parentRuntime.state.listen("locale", parentLocaleCallback);
 
-          const childRuntime = createRuntime({ runtime: parentRuntime });
+          const childRuntime = createRuntime({
+            context: { appName: "ShellApp" },
+            runtime: parentRuntime,
+          });
           const randomString = Math.random().toString();
           childRuntime.state.set("locale", randomString);
 
@@ -427,10 +396,15 @@ Current valid props are: token, locale`);
             },
           });
 
-          const parentRuntime = createParentRuntime();
+          const parentRuntime = createParentRuntime({
+            context: { appName: "ShellApp" },
+          });
           const localeCallback = jest.fn();
 
-          const childRuntime = createRuntime({ runtime: parentRuntime });
+          const childRuntime = createRuntime({
+            context: { appName: "ShellApp" },
+            runtime: parentRuntime,
+          });
           childRuntime.state.listen("locale", localeCallback);
           const randomString = Math.random().toString();
           childRuntime.state.set("locale", randomString);
@@ -448,10 +422,15 @@ Current valid props are: token, locale`);
             },
           });
 
-          const parentRuntime = createParentRuntime();
+          const parentRuntime = createParentRuntime({
+            context: { appName: "ShellApp" },
+          });
 
           const localeCallback = jest.fn();
-          const childRuntime = createRuntime({ runtime: parentRuntime });
+          const childRuntime = createRuntime({
+            context: { appName: "ShellApp" },
+            runtime: parentRuntime,
+          });
           childRuntime.state.listen("locale", localeCallback);
 
           const randomString = Math.random().toString();
@@ -470,11 +449,16 @@ Current valid props are: token, locale`);
             },
           });
 
-          const parentRuntime = createParentRuntime();
+          const parentRuntime = createParentRuntime({
+            context: { appName: "ShellApp" },
+          });
           const parentLocaleCallback = jest.fn();
           parentRuntime.state.listen("locale", parentLocaleCallback);
 
-          const childRuntime = createRuntime({ runtime: parentRuntime });
+          const childRuntime = createRuntime({
+            context: { appName: "ShellApp" },
+            runtime: parentRuntime,
+          });
           const childLocaleCallback = jest.fn();
           childRuntime.state.listen("locale", childLocaleCallback);
 
@@ -517,14 +501,19 @@ Current valid props are: token, locale`);
             },
           });
 
-          const parentRuntime = createParentRuntime();
+          const parentRuntime = createParentRuntime({
+            context: { appName: "ShellApp" },
+          });
           const parentLocaleCallback = jest.fn();
           const unsubscribeFromParent = parentRuntime.state.listen(
             "locale",
             parentLocaleCallback
           );
 
-          const childRuntime = createRuntime({ runtime: parentRuntime });
+          const childRuntime = createRuntime({
+            context: { appName: "ShellApp" },
+            runtime: parentRuntime,
+          });
           const childLocaleCallback = jest.fn();
           const unsubscribeFromChild = childRuntime.state.listen(
             "locale",
@@ -566,14 +555,20 @@ Current valid props are: token, locale`);
             onError: emptyFunction,
           });
 
-          const parentRuntime = createParentRuntime();
-          const childRuntime = createChildRuntime({ runtime: parentRuntime });
+          const parentRuntime = createParentRuntime({
+            context: { appName: "ShellApp" },
+          });
+          const childRuntime = createChildRuntime({
+            context: { appName: "ShellApp" },
+            runtime: parentRuntime,
+          });
 
           expect(parentRuntime.state.loader.locale.loading).toBe(false);
 
           childRuntime.state.load(
             "locale",
-            () => new Promise((resolve) => setTimeout(resolve, 0))
+            () => new Promise((resolve) => setTimeout(resolve, 0)),
+            { appName: Math.random().toString() }
           );
 
           expect(parentRuntime.state.loader.locale.loading).toBe(true);
@@ -585,7 +580,8 @@ Current valid props are: token, locale`);
 
           parentRuntime.state.load(
             "token",
-            () => new Promise((resolve) => setTimeout(resolve, 0))
+            () => new Promise((resolve) => setTimeout(resolve, 0)),
+            { appName: Math.random().toString() }
           );
 
           expect(parentRuntime.state.loader.token.loading).toBe(true);
@@ -609,8 +605,13 @@ Current valid props are: token, locale`);
             onError: emptyFunction,
           });
 
-          const parentRuntime = createParentRuntime();
-          const childRuntime = createChildRuntime({ runtime: parentRuntime });
+          const parentRuntime = createParentRuntime({
+            context: { appName: "ShellApp" },
+          });
+          const childRuntime = createChildRuntime({
+            context: { appName: "ShellApp" },
+            runtime: parentRuntime,
+          });
           const errorMssg = Math.random().toString();
 
           expect(parentRuntime.state.loader.locale.loading).toBe(false);
@@ -622,7 +623,8 @@ Current valid props are: token, locale`);
               () =>
                 new Promise((_resolve, reject) =>
                   setTimeout(() => reject(errorMssg), 10)
-                )
+                ),
+              { appName: Math.random().toString() }
             )
             .catch(emptyFunction);
 
@@ -652,13 +654,24 @@ Current valid props are: token, locale`);
             onError: emptyFunction,
           });
 
-          const parentRuntime = createParentRuntime();
-          const childRuntime = createChildRuntime({ runtime: parentRuntime });
+          const parentRuntime = createParentRuntime({
+            context: { appName: "ShellApp" },
+          });
+          const childRuntime = createChildRuntime({
+            context: { appName: "ShellApp" },
+            runtime: parentRuntime,
+          });
 
-          const childPromise = childRuntime.state.load("locale", () => "title");
+          const childPromise = childRuntime.state.load(
+            "locale",
+            () => "title",
+            { appName: Math.random().toString() }
+          );
+
           const parentPromise = parentRuntime.state.load(
             "locale",
-            () => "title"
+            () => "title",
+            { appName: Math.random().toString() }
           );
 
           expect(isPromise(childPromise)).toBe(true);
@@ -679,19 +692,26 @@ Current valid props are: token, locale`);
             onError: emptyFunction,
           });
 
-          const parentRuntime = createParentRuntime();
-          const childRuntime = createChildRuntime({ runtime: parentRuntime });
+          const parentRuntime = createParentRuntime({
+            context: { appName: "ShellApp" },
+          });
+          const childRuntime = createChildRuntime({
+            context: { appName: "ShellApp" },
+            runtime: parentRuntime,
+          });
           const random = Math.random().toString();
           const childLoader = jest.fn(() => Promise.resolve(random));
           const parentLoader = jest.fn(() => Promise.resolve(random));
 
           const childValue = await childRuntime.state.load(
             "locale",
-            childLoader
+            childLoader,
+            { appName: Math.random().toString() }
           );
           const parentValue = await parentRuntime.state.load(
             "locale",
-            parentLoader
+            parentLoader,
+            { appName: Math.random().toString() }
           );
 
           expect(childValue).toBe(random);
@@ -713,12 +733,19 @@ Current valid props are: token, locale`);
             onError: emptyFunction,
           });
 
-          const parentRuntime = createParentRuntime();
-          const childRuntime = createChildRuntime({ runtime: parentRuntime });
+          const parentRuntime = createParentRuntime({
+            context: { appName: "ShellApp" },
+          });
+          const childRuntime = createChildRuntime({
+            context: { appName: "ShellApp" },
+            runtime: parentRuntime,
+          });
 
           const randomLocale = Math.random().toString();
-          await childRuntime.state.load("locale", () =>
-            Promise.reject(randomLocale)
+          await childRuntime.state.load(
+            "locale",
+            () => Promise.reject(randomLocale),
+            { appName: Math.random().toString() }
           );
 
           expect(childRuntime.state.loader.locale.error).toBe(randomLocale);
@@ -727,8 +754,10 @@ Current valid props are: token, locale`);
           expect(parentRuntime.state.loader.locale.loading).toBe(false);
 
           const randomToken = Math.random().toString();
-          await parentRuntime.state.load("token", () =>
-            Promise.reject(randomToken)
+          await parentRuntime.state.load(
+            "token",
+            () => Promise.reject(randomToken),
+            { appName: Math.random().toString() }
           );
 
           expect(parentRuntime.state.loader.token.error).toBe(randomToken);
@@ -754,15 +783,24 @@ Current valid props are: token, locale`);
             onError: emptyFunction,
           });
 
-          const parentRuntime = createParentRuntime();
-          const childRuntime = createChildRuntime({ runtime: parentRuntime });
+          const parentRuntime = createParentRuntime({
+            context: { appName: "ShellApp" },
+          });
+          const childRuntime = createChildRuntime({
+            context: { appName: "ShellApp" },
+            runtime: parentRuntime,
+          });
 
           const random = Math.random().toString();
-          const childValue = await childRuntime.state.load("locale", () =>
-            Promise.resolve(random)
+          const childValue = await childRuntime.state.load(
+            "locale",
+            () => Promise.resolve(random),
+            { appName: Math.random().toString() }
           );
-          const parentValue = await childRuntime.state.load("locale", () =>
-            Promise.resolve(random)
+          const parentValue = await childRuntime.state.load(
+            "locale",
+            () => Promise.resolve(random),
+            { appName: Math.random().toString() }
           );
 
           global.window = window;
@@ -783,19 +821,25 @@ Current valid props are: token, locale`);
             onError: emptyFunction,
           });
 
-          const parentRuntime = createParentRuntime();
-          const childRuntime = createChildRuntime({ runtime: parentRuntime });
+          const parentRuntime = createParentRuntime({
+            context: { appName: "ShellApp" },
+          });
+          const childRuntime = createChildRuntime({
+            context: { appName: "ShellApp" },
+            runtime: parentRuntime,
+          });
 
           const random = Math.random().toString();
           const loader = jest.fn(() => Promise.resolve(random));
+          const context = { appName: Math.random().toString() };
 
-          childRuntime.state.load("locale", loader);
-          childRuntime.state.load("locale", loader);
-          parentRuntime.state.load("locale", loader);
-          childRuntime.state.load("locale", loader);
-          parentRuntime.state.load("locale", loader);
-          await childRuntime.state.load("locale", loader);
-          await parentRuntime.state.load("locale", loader);
+          childRuntime.state.load("locale", loader, context);
+          childRuntime.state.load("locale", loader, context);
+          parentRuntime.state.load("locale", loader, context);
+          childRuntime.state.load("locale", loader, context);
+          parentRuntime.state.load("locale", loader, context);
+          await childRuntime.state.load("locale", loader, context);
+          await parentRuntime.state.load("locale", loader, context);
 
           expect(childRuntime.state.get("locale")).toBe(random);
           expect(parentRuntime.state.get("locale")).toBe(random);
@@ -816,8 +860,13 @@ Current valid props are: token, locale`);
             onError: emptyFunction,
           });
 
-          const parentRuntime = createParentRuntime();
-          const childRuntime = createChildRuntime({ runtime: parentRuntime });
+          const parentRuntime = createParentRuntime({
+            context: { appName: "ShellApp" },
+          });
+          const childRuntime = createChildRuntime({
+            context: { appName: "ShellApp" },
+            runtime: parentRuntime,
+          });
 
           let errorMessage;
 
@@ -850,15 +899,22 @@ Current valid props are: locale, token, user`);
             onError: emptyFunction,
           });
 
-          const parentRuntime = createParentRuntime();
-          const childRuntime = createChildRuntime({ runtime: parentRuntime });
+          const parentRuntime = createParentRuntime({
+            context: { appName: "ShellApp" },
+          });
+          const childRuntime = createChildRuntime({
+            context: { appName: "ShellApp" },
+            runtime: parentRuntime,
+          });
 
           const randomLocale = Math.random().toString();
           expect(childRuntime.state.get("locale")).toBe("en");
           expect(parentRuntime.state.get("locale")).toBe("en");
 
-          childRuntime.state.load("locale", () =>
-            Promise.resolve(randomLocale)
+          childRuntime.state.load(
+            "locale",
+            () => Promise.resolve(randomLocale),
+            { appName: Math.random().toString() }
           );
 
           expect(childRuntime.state.get("locale")).toBe("en");
@@ -870,7 +926,11 @@ Current valid props are: locale, token, user`);
           expect(childRuntime.state.get("token")).toBe(undefined);
           expect(parentRuntime.state.get("token")).toBe(undefined);
 
-          parentRuntime.state.load("token", () => Promise.resolve(randomToken));
+          parentRuntime.state.load(
+            "token",
+            () => Promise.resolve(randomToken),
+            { appName: Math.random().toString() }
+          );
 
           expect(childRuntime.state.get("token")).toBe(undefined);
           expect(parentRuntime.state.get("token")).toBe(undefined);
@@ -891,8 +951,13 @@ Current valid props are: locale, token, user`);
             onError: emptyFunction,
           });
 
-          const parentRuntime = createParentRuntime();
-          const childRuntime = createChildRuntime({ runtime: parentRuntime });
+          const parentRuntime = createParentRuntime({
+            context: { appName: "ShellApp" },
+          });
+          const childRuntime = createChildRuntime({
+            context: { appName: "ShellApp" },
+            runtime: parentRuntime,
+          });
 
           expect(childRuntime.state.get("locale")).toBe("en");
           expect(await childRuntime.state.loaded("locale")).toBe("en");
@@ -913,18 +978,27 @@ Current valid props are: locale, token, user`);
             onError: emptyFunction,
           });
 
-          const parentRuntime = createParentRuntime();
-          const childRuntime = createChildRuntime({ runtime: parentRuntime });
+          const parentRuntime = createParentRuntime({
+            context: { appName: "ShellApp" },
+          });
+          const childRuntime = createChildRuntime({
+            context: { appName: "ShellApp" },
+            runtime: parentRuntime,
+          });
           const randomLocale = Math.random().toString();
           const randomUser = { username: Math.random().toString() };
 
           expect(parentRuntime.state.get("locale")).toBe("en");
           expect(parentRuntime.state.get("user")).toBe(undefined);
 
-          parentRuntime.state.load("locale", () =>
-            Promise.resolve(randomLocale)
+          parentRuntime.state.load(
+            "locale",
+            () => Promise.resolve(randomLocale),
+            { appName: Math.random().toString() }
           );
-          parentRuntime.state.load("user", () => Promise.resolve(randomUser));
+          parentRuntime.state.load("user", () => Promise.resolve(randomUser), {
+            appName: Math.random().toString(),
+          });
 
           const result = await childRuntime.state.loaded();
 
@@ -953,7 +1027,7 @@ describe("state", () => {
       let errorMessage;
 
       try {
-        const runtime = createRuntime();
+        const runtime = createRuntime({ context: { appName: "ShellApp" } });
         // eslint-disable-next-line @typescript-eslint/ban-ts-comment
         // @ts-ignore
         runtime.state.get("invalid_prop");
@@ -967,8 +1041,24 @@ Current valid props are: locale, token, user`);
     });
 
     it("can return state given a state prop", () => {
-      const runtime = createRuntime();
+      const runtime = createRuntime({ context: { appName: "ShellApp" } });
       expect(runtime.state.get("locale")).toBe("en");
+    });
+
+    it("can return state given a state prop and a new context", () => {
+      const initialContext = { appName: Math.random().toString() };
+      const newContext = { appName: Math.random().toString() };
+      const runtime = createRuntime({ context: initialContext });
+      const newRuntimeContext = setRuntimeContext(newContext, runtime);
+      const newLocale = Math.random().toString();
+
+      expect(runtime.state.get("locale")).toBe("en");
+      expect(newRuntimeContext?.state.get("locale")).toBe("en");
+
+      runtime.state.set("locale", newLocale);
+
+      expect(runtime.state.get("locale")).toBe(newLocale);
+      expect(newRuntimeContext?.state.get("locale")).toBe(newLocale);
     });
   });
 
@@ -977,7 +1067,7 @@ Current valid props are: locale, token, user`);
       let errorMessage;
 
       try {
-        const runtime = createRuntime();
+        const runtime = createRuntime({ context: { appName: "ShellApp" } });
         // eslint-disable-next-line @typescript-eslint/ban-ts-comment
         // @ts-ignore
         runtime.state.set("invalid_prop", Math.random());
@@ -991,7 +1081,7 @@ Current valid props are: locale, token, user`);
     });
 
     it("can set new state given a state prop", () => {
-      const runtime = createRuntime();
+      const runtime = createRuntime({ context: { appName: "ShellApp" } });
       const random = Math.random().toString();
 
       runtime.state.set("locale", "pt");
@@ -1005,7 +1095,7 @@ Current valid props are: locale, token, user`);
     it("throws an Error if an invalid state prop is used", async () => {
       let errorMessage;
 
-      const runtime = createRuntime();
+      const runtime = createRuntime({ context: { appName: "ShellApp" } });
       try {
         await runtime.state
           // eslint-disable-next-line @typescript-eslint/ban-ts-comment
@@ -1021,7 +1111,7 @@ Current valid props are: locale, token, user`);
     });
 
     it("calls listeners of a state prop when its value changes", () => {
-      const runtime = createRuntime();
+      const runtime = createRuntime({ context: { appName: "ShellApp" } });
       const listener = jest.fn();
       const random = Math.random().toString();
 
@@ -1032,8 +1122,31 @@ Current valid props are: locale, token, user`);
       expect(listener).toHaveBeenCalledWith(random, false, undefined);
     });
 
+    it("calls listeners of a state prop when its value changes in different contexts", () => {
+      const initialContext = { appName: Math.random().toString() };
+      const newContext = { appName: Math.random().toString() };
+      const runtime = createRuntime({ context: initialContext });
+      const newRuntimeContext = setRuntimeContext(newContext, runtime);
+      const newLocale = Math.random().toString();
+
+      const listener1 = jest.fn();
+      const listener2 = jest.fn();
+      runtime.state.listen("locale", listener1);
+      newRuntimeContext?.state.listen("locale", listener2);
+
+      runtime.state.set("locale", newLocale);
+
+      expect(runtime.state.get("locale")).toBe(newLocale);
+      expect(newRuntimeContext?.state.get("locale")).toBe(newLocale);
+
+      expect(listener1).toHaveBeenCalledTimes(1);
+      expect(listener1).toHaveBeenCalledWith(newLocale, false, undefined);
+      expect(listener2).toHaveBeenCalledTimes(1);
+      expect(listener2).toHaveBeenCalledWith(newLocale, false, undefined);
+    });
+
     it("it won't call any listeners of a prop if the current value is shallowly equal to the new value", () => {
-      const runtime = createRuntime();
+      const runtime = createRuntime({ context: { appName: "ShellApp" } });
       const listener = jest.fn();
 
       runtime.state.listen("locale", listener);
@@ -1043,7 +1156,7 @@ Current valid props are: locale, token, user`);
     });
 
     it("only adds the same listener once given the same state prop", () => {
-      const runtime = createRuntime();
+      const runtime = createRuntime({ context: { appName: "ShellApp" } });
       const listener = jest.fn();
       const random = Math.random().toString();
 
@@ -1057,7 +1170,7 @@ Current valid props are: locale, token, user`);
     });
 
     it("can unsubscribe and stops calling the listener", () => {
-      const runtime = createRuntime();
+      const runtime = createRuntime({ context: { appName: "ShellApp" } });
       const listenerA = jest.fn();
       const listenerB = jest.fn();
       const unsubscribeA = runtime.state.listen("locale", listenerA);
@@ -1088,7 +1201,7 @@ Current valid props are: locale, token, user`);
     });
 
     it("can use the same listener for different state props", () => {
-      const runtime = createRuntime();
+      const runtime = createRuntime({ context: { appName: "ShellApp" } });
       const randomA = Math.random().toString();
       const randomB = { username: randomA };
       const listener = jest.fn();
@@ -1106,12 +1219,13 @@ Current valid props are: locale, token, user`);
 
   describe("loader", () => {
     it("is loading true for a given state prop while the associated load function is working and it is false before and after", async () => {
-      const runtime = createRuntime();
+      const runtime = createRuntime({ context: { appName: "ShellApp" } });
       expect(runtime.state.loader.locale.loading).toBe(false);
 
       runtime.state.load(
         "locale",
-        () => new Promise((resolve) => setTimeout(resolve, 0))
+        () => new Promise((resolve) => setTimeout(resolve, 0)),
+        { appName: Math.random().toString() }
       );
 
       expect(runtime.state.loader.locale.loading).toBe(true);
@@ -1121,7 +1235,7 @@ Current valid props are: locale, token, user`);
     });
 
     it("has an error if the load function of a given state prop fails", async () => {
-      const runtime = createRuntime();
+      const runtime = createRuntime({ context: { appName: "ShellApp" } });
 
       expect(runtime.state.loader.locale.loading).toBe(false);
 
@@ -1132,7 +1246,8 @@ Current valid props are: locale, token, user`);
           () =>
             new Promise((_resolve, reject) =>
               setTimeout(() => reject(errorMssg), 10)
-            )
+            ),
+          { appName: Math.random().toString() }
         )
         .catch(() => null);
 
@@ -1147,28 +1262,33 @@ Current valid props are: locale, token, user`);
 
   describe("load", () => {
     it("always returns a promise given a valid state prop", () => {
-      const runtime = createRuntime();
-      const value = runtime.state.load("locale", () => "title");
+      const runtime = createRuntime({ context: { appName: "ShellApp" } });
+      const value = runtime.state.load("locale", () => "title", {
+        appName: Math.random().toString(),
+      });
 
       expect(isPromise(value)).toBe(true);
     });
 
     it("can load a value asynchronously", async () => {
-      const runtime = createRuntime();
+      const runtime = createRuntime({ context: { appName: "ShellApp" } });
       const random = Math.random().toString();
       const value = await runtime.state.load(
         "locale",
-        () => new Promise((resolve) => setTimeout(() => resolve(random), 10))
+        () => new Promise((resolve) => setTimeout(() => resolve(random), 10)),
+        { appName: Math.random().toString() }
       );
 
       expect(value).toBe(random);
     });
 
     it("sets an error message if it fails", async () => {
-      const runtime = createRuntime();
+      const runtime = createRuntime({ context: { appName: "ShellApp" } });
       const random = Math.random().toString();
-      const value = await runtime.state.load("locale", () =>
-        Promise.reject(random)
+      const value = await runtime.state.load(
+        "locale",
+        () => Promise.reject(random),
+        { appName: Math.random().toString() }
       );
 
       expect(runtime.state.loader.locale.error).toBe(random);
@@ -1180,11 +1300,12 @@ Current valid props are: locale, token, user`);
       // eslint-disable-next-line @typescript-eslint/ban-ts-comment
       // @ts-ignore
       delete global.window;
-      const runtime = createRuntime();
+      const runtime = createRuntime({ context: { appName: "ShellApp" } });
       const random = Math.random().toString();
       const value = await runtime.state.load(
         "locale",
-        () => new Promise((resolve) => setTimeout(() => resolve(random), 10))
+        () => new Promise((resolve) => setTimeout(() => resolve(random), 10)),
+        { appName: Math.random().toString() }
       );
 
       global.window = window;
@@ -1193,17 +1314,18 @@ Current valid props are: locale, token, user`);
 
     it("it only loads a value once even if `load` is called many times for the same state prop ", async () => {
       const random = Math.random().toString();
-      const runtime = createRuntime();
+      const runtime = createRuntime({ context: { appName: "ShellApp" } });
       const loader = jest.fn(
         () =>
           new Promise<string>((resolve) => setTimeout(() => resolve(random), 2))
       );
+      const context = { appName: Math.random().toString() };
 
-      await runtime.state.load("locale", loader);
-      runtime.state.load("locale", loader);
-      runtime.state.load("locale", loader);
-      runtime.state.load("locale", loader);
-      await runtime.state.load("locale", loader);
+      await runtime.state.load("locale", loader, context);
+      runtime.state.load("locale", loader, context);
+      runtime.state.load("locale", loader, context);
+      runtime.state.load("locale", loader, context);
+      await runtime.state.load("locale", loader, context);
 
       expect(runtime.state.get("locale")).toBe(random);
 
@@ -1213,7 +1335,7 @@ Current valid props are: locale, token, user`);
     it("throws an Error if an invalid state prop is used", async () => {
       let errorMessage;
 
-      const runtime = createRuntime();
+      const runtime = createRuntime({ context: { appName: "ShellApp" } });
       try {
         await runtime.state
           // eslint-disable-next-line @typescript-eslint/ban-ts-comment
@@ -1231,14 +1353,15 @@ Current valid props are: locale, token, user`);
 
   describe("loaded", () => {
     it("returns a promise that resolves to the value of a given state prop after it's being loaded", async () => {
-      const runtime = createRuntime();
+      const runtime = createRuntime({ context: { appName: "ShellApp" } });
       const random = Math.random().toString();
 
       expect(runtime.state.get("locale")).toBe("en");
 
       runtime.state.load(
         "locale",
-        () => new Promise((resolve) => setTimeout(() => resolve(random), 5))
+        () => new Promise((resolve) => setTimeout(() => resolve(random), 5)),
+        { appName: Math.random().toString() }
       );
 
       expect(runtime.state.get("locale")).toBe("en");
@@ -1246,14 +1369,14 @@ Current valid props are: locale, token, user`);
     });
 
     it("returns a promise that resolves to the default value of a given state prop if that prop wasn't updated", async () => {
-      const runtime = createRuntime();
+      const runtime = createRuntime({ context: { appName: "ShellApp" } });
 
       expect(runtime.state.get("locale")).toBe("en");
       expect(await runtime.state.loaded("locale")).toBe("en");
     });
 
     it("returns a promise that resolves to the entire state after all the loaders have resolved if no state prop is given", async () => {
-      const runtime = createRuntime();
+      const runtime = createRuntime({ context: { appName: "ShellApp" } });
       const randomA = Math.random().toString();
       const randomB = { username: Math.random().toString() };
 
@@ -1261,11 +1384,13 @@ Current valid props are: locale, token, user`);
 
       runtime.state.load(
         "locale",
-        () => new Promise((resolve) => setTimeout(() => resolve(randomA), 2))
+        () => new Promise((resolve) => setTimeout(() => resolve(randomA), 2)),
+        { appName: Math.random().toString() }
       );
       runtime.state.load(
         "user",
-        () => new Promise((resolve) => setTimeout(() => resolve(randomB), 3))
+        () => new Promise((resolve) => setTimeout(() => resolve(randomB), 3)),
+        { appName: Math.random().toString() }
       );
 
       const result = await runtime.state.loaded();
@@ -1278,7 +1403,7 @@ Current valid props are: locale, token, user`);
     it("throws an Error if an invalid state prop is used", async () => {
       let errorMessage;
 
-      const runtime = createRuntime();
+      const runtime = createRuntime({ context: { appName: "ShellApp" } });
       try {
         await runtime.state
           // eslint-disable-next-line @typescript-eslint/ban-ts-comment
@@ -1297,7 +1422,7 @@ Current valid props are: locale, token, user`);
 
 describe("api", () => {
   it(`returns a value from the api given an api prop`, async () => {
-    const runtime = createRuntime();
+    const runtime = createRuntime({ context: { appName: "ShellApp" } });
     const firebase = await runtime.api.firebase;
 
     expect(firebase.toString()).toBe("FakeFirebase");
@@ -1305,7 +1430,7 @@ describe("api", () => {
   });
 
   it(`lazy initializes a value from the api when it's read`, async () => {
-    const runtime = createRuntime();
+    const runtime = createRuntime({ context: { appName: "ShellApp" } });
 
     expect(Object.keys(runtime.api).length).toEqual(0);
 
@@ -1317,7 +1442,7 @@ describe("api", () => {
   });
 
   it(`throws an error if an api prop is set with a new value`, async () => {
-    const runtime = createRuntime();
+    const runtime = createRuntime({ context: { appName: "ShellApp" } });
 
     let errorMessage;
     try {
@@ -1335,10 +1460,12 @@ describe("api", () => {
     let firebaseResolvedCounter = 0;
     const firebase = ({ state }: RuntimeApi<SharedState>) =>
       new Promise<FakeFirebase>((resolve) => {
-        state.load("token", fetchToken).then((token) => {
-          firebaseResolvedCounter++;
-          if (token) resolve(new FakeFirebase(token));
-        });
+        state
+          .load("token", fetchToken, { appName: Math.random().toString() })
+          .then((token) => {
+            firebaseResolvedCounter++;
+            if (token) resolve(new FakeFirebase(token));
+          });
       });
 
     const runtime = configureRuntime<SharedState>(defaultState)({
@@ -1346,7 +1473,7 @@ describe("api", () => {
       apiFactory: {
         firebase,
       },
-    }).createRuntime();
+    }).createRuntime({ context: { appName: "ShellApp" } });
 
     runtime.state.get("locale");
 
@@ -1376,7 +1503,7 @@ describe("cleanup", () => {
           return new FakeEventEmitter();
         },
       },
-    }).createRuntime();
+    }).createRuntime({ context: { appName: "ShellApp" } });
 
     // reading this api to invoke eventEmitter1 factory function
     runtime.api.eventEmitter1;
@@ -1402,7 +1529,7 @@ describe("cleanup", () => {
           return new FakeEventEmitter();
         },
       },
-    }).createRuntime();
+    }).createRuntime({ context: { appName: "ShellApp" } });
 
     // reading this api to invoke eventEmitter1 factory function
     runtime.api.eventEmitter1;
@@ -1431,7 +1558,9 @@ describe("cleanup", () => {
       onError: emptyFunction,
       apiFactory: {
         eventEmitter1: async ({ onCleanup, state }) => {
-          await state.load("token", fetchToken);
+          await state.load("token", fetchToken, {
+            appName: Math.random().toString(),
+          });
           onCleanup(cleanup1);
           initialised1();
           return new FakeEventEmitter();
@@ -1442,7 +1571,7 @@ describe("cleanup", () => {
           return new FakeEventEmitter();
         },
       },
-    }).createRuntime();
+    }).createRuntime({ context: { appName: "ShellApp" } });
 
     // reading these apis to invoke their factory functions
     await runtime.api.eventEmitter1;
@@ -1490,7 +1619,7 @@ describe("cleanup", () => {
           return new FakeEventEmitter();
         },
       },
-    }).createRuntime();
+    }).createRuntime({ context: { appName: "ShellApp" } });
 
     runtime.cleanup("eventEmitter2");
     expect(cleanup1).not.toHaveBeenCalled();
@@ -1522,7 +1651,7 @@ describe("cleanup", () => {
           return new FakeEventEmitter();
         },
       },
-    }).createRuntime();
+    }).createRuntime({ context: { appName: "ShellApp" } });
 
     // reading this api to invoke eventEmitter1 factory function
     await runtime.api.eventEmitter1;
@@ -1569,8 +1698,13 @@ describe("cleanup", () => {
       },
     });
 
-    const parentRuntime = createParentRuntime();
-    const childRuntime = createChildRuntime({ runtime: parentRuntime });
+    const parentRuntime = createParentRuntime({
+      context: { appName: "ShellApp" },
+    });
+    const childRuntime = createChildRuntime({
+      context: { appName: "ShellApp" },
+      runtime: parentRuntime,
+    });
 
     childRuntime.api.eventEmitter1;
     childRuntime.cleanup("eventEmitter1");
@@ -1620,8 +1754,13 @@ describe("cleanup", () => {
       },
     });
 
-    const parentRuntime = createParentRuntime();
-    const childRuntime = createChildRuntime({ runtime: parentRuntime });
+    const parentRuntime = createParentRuntime({
+      context: { appName: "ShellApp" },
+    });
+    const childRuntime = createChildRuntime({
+      context: { appName: "ShellApp" },
+      runtime: parentRuntime,
+    });
 
     childRuntime.api.eventEmitter1;
     childRuntime.api.eventEmitter2;

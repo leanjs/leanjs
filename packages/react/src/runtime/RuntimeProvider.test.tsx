@@ -18,7 +18,7 @@ interface WrapperProps {
   children: ReactElement;
 }
 const createWrapper =
-  (runtime = createRuntime()) =>
+  (runtime = createRuntime({ context: { appName: "TestApp" } })) =>
   // eslint-disable-next-line react/display-name
   ({ children }: WrapperProps) =>
     <RuntimeProvider runtime={runtime}>{children}</RuntimeProvider>;
@@ -56,7 +56,7 @@ describe("useRuntime", () => {
     };
 
     expect(() => {
-      const runtime = createRuntime();
+      const runtime = createRuntime({ context: { appName: "TestApp" } });
 
       render(
         <RuntimeProvider runtime={runtime}>

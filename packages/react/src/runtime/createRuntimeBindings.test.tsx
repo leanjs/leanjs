@@ -25,7 +25,7 @@ interface WrapperProps {
   children: ReactElement;
 }
 const createWrapper =
-  (runtime = createRuntime()) =>
+  (runtime = createRuntime({ context: { appName: "TestApp" } })) =>
   ({ children }: WrapperProps) =>
     <RuntimeProvider runtime={runtime}>{children}</RuntimeProvider>;
 
@@ -110,7 +110,7 @@ describe("useSetter", () => {
       });
 
       it("updates the state", async () => {
-        const runtime = createRuntime();
+        const runtime = createRuntime({ context: { appName: "TestApp" } });
         const { result } = renderHook(() => useSetter("locale"), {
           wrapper: createWrapper(runtime),
         });
@@ -127,7 +127,7 @@ describe("useSetter", () => {
       });
 
       it(`doesn't rerender when that state prop changes`, async () => {
-        const runtime = createRuntime();
+        const runtime = createRuntime({ context: { appName: "TestApp" } });
 
         await runtime.state.loaded();
         const { waitForNextUpdate } = renderHook(() => useSetter("locale"), {
@@ -186,7 +186,7 @@ describe("useGetter", () => {
 
   describe("given a valid prop", () => {
     it("returns the current value", async () => {
-      const runtime = createRuntime();
+      const runtime = createRuntime({ context: { appName: "TestApp" } });
       const { result } = renderHook(() => useGetter("locale"), {
         wrapper: createWrapper(runtime),
       });
@@ -195,7 +195,7 @@ describe("useGetter", () => {
     });
 
     it("rerenders when the current value changes", async () => {
-      const runtime = createRuntime();
+      const runtime = createRuntime({ context: { appName: "TestApp" } });
       const random = Math.random().toString();
       const { result } = renderHook(() => useGetter("locale"), {
         wrapper: createWrapper(runtime),
@@ -244,7 +244,7 @@ describe("useLoading", () => {
   });
 
   it("returns the current loading state of that state prop given a valid prop", async () => {
-    const runtime = createRuntime();
+    const runtime = createRuntime({ context: { appName: "TestApp" } });
     const random = Math.random().toString();
     const { result, waitForNextUpdate } = renderHook(
       () => useLoading("locale"),
@@ -258,7 +258,8 @@ describe("useLoading", () => {
     act(() => {
       runtime.state.load(
         "locale",
-        () => new Promise((resolve) => setTimeout(() => resolve(random), 1))
+        () => new Promise((resolve) => setTimeout(() => resolve(random), 1)),
+        { appName: "TestApp" }
       );
     });
 
@@ -301,7 +302,7 @@ describe("useError", () => {
   });
 
   it("returns the current error of that state prop given a valid prop", async () => {
-    const runtime = createRuntime();
+    const runtime = createRuntime({ context: { appName: "TestApp" } });
     const random = Math.random().toString();
     const { result, waitForNextUpdate } = renderHook(() => useError("locale"), {
       wrapper: createWrapper(runtime),
@@ -312,7 +313,8 @@ describe("useError", () => {
     act(() => {
       runtime.state.load(
         "locale",
-        () => new Promise((_, reject) => setTimeout(() => reject(random), 1))
+        () => new Promise((_, reject) => setTimeout(() => reject(random), 1)),
+        { appName: "TestApp" }
       );
     });
     await waitForNextUpdate();

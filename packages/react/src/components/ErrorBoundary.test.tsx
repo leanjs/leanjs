@@ -25,7 +25,7 @@ describe("ErrorBoundary", () => {
     const { createRuntime } = configureRuntime(defaultState)({
       onError,
     });
-    const runtime = createRuntime();
+    const runtime = createRuntime({ context: { appName: "TestApp" } });
     const randomErrorMessage = Math.random().toString();
     const error = new Error(randomErrorMessage);
     const ThrowError = () => {
@@ -53,7 +53,7 @@ describe("ErrorBoundary", () => {
     const { createRuntime } = configureRuntime(defaultState)({
       onError: onRuntimeError,
     });
-    const runtime = createRuntime();
+    const runtime = createRuntime({ context: { appName: "TestApp" } });
     const onBoundaryError = jest.fn();
     const randomErrorMessage = Math.random().toString();
     const error = new Error(randomErrorMessage);

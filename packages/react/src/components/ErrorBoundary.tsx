@@ -1,8 +1,8 @@
 import React, { Component } from "react";
 import type { ReactElement } from "react";
-import { AppError, LogErrorOptions } from "@leanjs/core";
+import type { AppError, RuntimeContext } from "@leanjs/core";
 
-import { RuntimeContext } from "../runtime";
+import { ReactRuntimeContext } from "../runtime";
 
 export type ErrorFallbackComponent = (props: {
   error: AppError;
@@ -10,7 +10,7 @@ export type ErrorFallbackComponent = (props: {
 
 export interface Props {
   children: ReactElement | JSX.Element[];
-  onError?: (error: AppError, options?: LogErrorOptions) => void;
+  onError?: (error: AppError, options?: RuntimeContext) => void;
   fallback?: ErrorFallbackComponent;
 }
 
@@ -19,8 +19,8 @@ export interface State {
 }
 
 export class ErrorBoundary extends Component<Props, State> {
-  static contextType = RuntimeContext;
-  context: React.ContextType<typeof RuntimeContext>;
+  static contextType = ReactRuntimeContext;
+  context: React.ContextType<typeof ReactRuntimeContext>;
 
   public state: State = {
     error: undefined,
@@ -36,7 +36,7 @@ export class ErrorBoundary extends Component<Props, State> {
       onError(error);
     } else {
       this.context?.logError(error, {
-        appName: error.appName,
+        appName: error.appName || "",
         version: error.version,
       });
     }

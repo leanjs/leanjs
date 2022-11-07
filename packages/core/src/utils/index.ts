@@ -1,4 +1,5 @@
 import type { RemoteTarget, AppError } from "../types";
+import { Runtime, RuntimeContext } from "../runtime";
 
 export * from "./loadScript";
 export * from "./loadModule";
@@ -23,7 +24,7 @@ export const createAppError = ({
   version,
 }: {
   error: any;
-  appName?: string;
+  appName: string;
   version?: string;
 }) => {
   let appError: AppError = error;
@@ -73,3 +74,7 @@ export const isPromise = (arg?: any): arg is Promise<any> =>
 
 export const isObject = (data: any) =>
   ({}.toString.call(data) === "[object Object]");
+
+export function setRuntimeContext(context: RuntimeContext, runtime?: Runtime) {
+  return runtime ? { ...runtime, context } : undefined;
+}

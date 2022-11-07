@@ -117,7 +117,7 @@ const { createRuntime } = configureRuntime(defaultState)({
   },
 });
 
-const runtime = createRuntime();
+const runtime = createRuntime({ context: { appName: "AppExample" } });
 
 // ✅ reading the following property doesn't throw an error
 runtime.api.fetch;

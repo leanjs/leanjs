@@ -54,7 +54,7 @@ Read [@leanjs/core](/packages/core#basic-usage) if you have not already created 
 import { createApp } from "vue";
 import { createRuntime } from "./runtime-vue";
 
-const runtime = createRuntime();
+const runtime = createRuntime({ context: { appName: "VueShell" } });
 const app = createApp(App);
 
 app.provide("runtime", runtime);

@@ -61,7 +61,7 @@ Add your `HostProvider` at the root of your React component tree, e.g.
 // It's recommended to move your ./shared-runtime file to its own package
 import { createRuntime, HostProvider } from "./shared-runtime";
 
-const runtime = createRuntime();
+const runtime = createRuntime({ context: { appName: "AppExample" } });
 
 export function App({ children }) {
   return <HostProvider runtime={runtime}>{children}</HostProvider>;
@@ -193,7 +193,7 @@ Example
 // where does shared-runtime come from? Read the "Usage" section at the top
 import { createRuntime, HostProvider } from "./shared-runtime";
 
-const runtime = createRuntime();
+const runtime = createRuntime({ context: { appName: "AppExample" } });
 // origin is optional, it's only used if micro-frontends are enabled
 const origin = process.env.MICROFRONTENDS_ORIGIN;
 

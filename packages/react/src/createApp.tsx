@@ -6,13 +6,16 @@ import { CreateAppConfig, RootComponent } from "./types";
 
 import { ErrorBoundary } from "./components";
 import { RuntimeProvider } from "./runtime";
-const { createMount, createAppError } = CoreUtils;
+const { createMount, createAppError, setRuntimeContext } = CoreUtils;
 
 export const createApp = <MyAppProps extends AppProps = AppProps>(
   App: (props: MyAppProps) => ReactElement,
   { appName = App.name }: CreateAppConfig = {}
 ) => {
-  const createComposableApp: CreateComposableApp = ({ isSelfHosted } = {}) => {
+  const createComposableApp: CreateComposableApp = ({
+    isSelfHosted,
+    version,
+  } = {}) => {
     const Root: RootComponent = ({ children }) => children;
     Root.displayName = `${appName}Root`;
     const mount: MountFunc = (el, { runtime, initialState, onError }) =>
@@ -27,15 +30,21 @@ export const createApp = <MyAppProps extends AppProps = AppProps>(
         },
         render: ({ appProps }) => {
           if (el) {
+            const context = { version, appName };
             ReactDOM.render(
               <React.StrictMode>
                 <Root>
                   <ErrorBoundary
                     onError={(error) =>
-                      onError(createAppError({ appName, error }))
+                      onError(
+                        createAppError({ appName, error, version }),
+                        context
+                      )
                     }
                   >
-                    <RuntimeProvider runtime={runtime}>
+                    <RuntimeProvider
+                      runtime={setRuntimeContext(context, runtime)}
+                    >
                       <App {...(appProps as MyAppProps)} />
                     </RuntimeProvider>
                   </ErrorBoundary>
@@ -47,7 +56,7 @@ export const createApp = <MyAppProps extends AppProps = AppProps>(
         },
       });
 
-    return { mount, appName };
+    return { mount, appName, version };
   };
 
   createComposableApp.appName = appName;

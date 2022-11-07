@@ -53,7 +53,7 @@ export function createHost<Props extends OuterHostProps = OuterHostProps>(
         React.lazy(() => {
           return new Promise<{ default: () => ReactElement }>(
             (resolve, reject) => {
-              function handleError(error: Error, appName?: string) {
+              function handleError(error: Error, appName = "") {
                 reject(createAppError({ error, appName, version }));
               }
 

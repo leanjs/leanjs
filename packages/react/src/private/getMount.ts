@@ -68,15 +68,20 @@ export async function getMount({
     if (!cachedMount) {
       await loadScript(url);
       const { default: createComposableApp } = await loadModule(name);
-      if (typeof createComposableApp !== "function") {
-        throw new Error("Remote module didn't return a function");
-      } else {
+      if (typeof createComposableApp === "function") {
         const { mount } = createComposableApp({
           isSelfHosted: false,
         });
         mountCache.set(url, mount);
 
         return { mount, name: packageName, url };
+      } else if (
+        typeof createComposableApp === "object" &&
+        createComposableApp.mount
+      ) {
+        return createComposableApp;
+      } else {
+        throw new Error("Remote module didn't return a function");
       }
     } else {
       return { mount: cachedMount, name: packageName, url };
