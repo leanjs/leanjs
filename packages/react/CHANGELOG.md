@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.17.1](https://github.com/leanjs/leanjs/compare/@leanjs/react@0.17.0...@leanjs/react@0.17.1) (2022-11-07)
+
+### Bug Fixes
+
+- **react:** remove unnecessary statement ([05c83c4](https://github.com/leanjs/leanjs/commit/05c83c4b32b0e78a758fb0fd32882c5be3094183))
+
 # [0.17.0](https://github.com/leanjs/leanjs/compare/@leanjs/react@0.16.3...@leanjs/react@0.17.0) (2022-11-07)
 
 ### Features
