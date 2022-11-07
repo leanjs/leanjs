@@ -3,6 +3,10 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.7.30](https://github.com/leanjs/leanjs/compare/@leanjs/cli@0.7.29...@leanjs/cli@0.7.30) (2022-11-07)
+
+**Note:** Version bump only for package @leanjs/cli
+
 ## [0.7.29](https://github.com/leanjs/leanjs/compare/@leanjs/cli@0.7.28...@leanjs/cli@0.7.29) (2022-11-05)
 
 **Note:** Version bump only for package @leanjs/cli

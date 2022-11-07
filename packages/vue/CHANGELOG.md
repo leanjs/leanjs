@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.7.0](https://github.com/leanjs/leanjs/compare/@leanjs/vue@0.6.9...@leanjs/vue@0.7.0) (2022-11-07)
+
+### Features
+
+- add version to remote apps ([bb3344b](https://github.com/leanjs/leanjs/commit/bb3344b8579aab2c6b48e880432c4a6dffd4b9d1))
+
 ## [0.6.9](https://github.com/leanjs/leanjs/compare/@leanjs/vue@0.6.8...@leanjs/vue@0.6.9) (2022-11-05)
 
 **Note:** Version bump only for package @leanjs/vue

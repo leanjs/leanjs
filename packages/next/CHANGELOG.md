@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.8.0](https://github.com/leanjs/leanjs/compare/@leanjs/next@0.7.3...@leanjs/next@0.8.0) (2022-11-07)
+
+### Features
+
+- add version to remote apps ([bb3344b](https://github.com/leanjs/leanjs/commit/bb3344b8579aab2c6b48e880432c4a6dffd4b9d1))
+
 ## [0.7.3](https://github.com/leanjs/leanjs/compare/@leanjs/next@0.7.2...@leanjs/next@0.7.3) (2022-11-05)
 
 **Note:** Version bump only for package @leanjs/next

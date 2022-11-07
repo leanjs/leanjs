@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.17.0](https://github.com/leanjs/leanjs/compare/@leanjs/react@0.16.3...@leanjs/react@0.17.0) (2022-11-07)
+
+### Features
+
+- add version to remote apps ([bb3344b](https://github.com/leanjs/leanjs/commit/bb3344b8579aab2c6b48e880432c4a6dffd4b9d1))
+
 ## [0.16.3](https://github.com/leanjs/leanjs/compare/@leanjs/react@0.16.2...@leanjs/react@0.16.3) (2022-11-05)
 
 **Note:** Version bump only for package @leanjs/react
