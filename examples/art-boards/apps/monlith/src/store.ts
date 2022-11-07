@@ -1,9 +1,9 @@
 import { configureStore } from "@reduxjs/toolkit";
 
-import home from "./components/home/slice";
+import dashboard from "./components/dashboard/slice";
 
 export const store = configureStore({
-  reducer: { home },
+  reducer: { dashboard },
 });
 
 export type RootState = ReturnType<typeof store.getState>;

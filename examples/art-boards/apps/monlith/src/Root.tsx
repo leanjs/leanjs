@@ -6,7 +6,7 @@ import { Provider } from "react-redux";
 import { store } from "./store";
 import { App } from "./App";
 
-const runtime = createRuntime();
+const runtime = createRuntime({ context: { appName: "Monolith" } });
 
 export function Root() {
   return (

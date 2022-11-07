@@ -6,7 +6,9 @@ import "./item.css";
 import { RootState } from "../../../../store";
 
 export const ListItem = () => {
-  const { displayAuthor } = useSelector(({ home }: RootState) => home);
+  const { displayAuthor } = useSelector(
+    ({ dashboard }: RootState) => dashboard
+  );
 
   return (
     <li className="list-item">
