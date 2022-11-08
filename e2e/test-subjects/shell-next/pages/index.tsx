@@ -1,4 +1,4 @@
-import React, { Suspense } from "react";
+import React from "react";
 import type { NextPage } from "next";
 import { Host } from "@leanjs/next";
 import ReactApp from "@leanjs/e2e-test-subjects-remote-react-1";

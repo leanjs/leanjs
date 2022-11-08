@@ -28,8 +28,12 @@ function host({ mount, runtime }: Host) {
 }
 interface BootstrapOptions {
   createRuntime?: CreateRuntime;
+  version?: string;
 }
-export const bootstrap = ({ createRuntime }: BootstrapOptions = {}) => {
+export const bootstrap = ({
+  createRuntime,
+  version,
+}: BootstrapOptions = {}) => {
   import("./src/index").then(({ default: createComposableApp }) => {
     if (!createComposableApp || typeof createComposableApp !== "function") {
       throw indexError;
@@ -37,6 +41,7 @@ export const bootstrap = ({ createRuntime }: BootstrapOptions = {}) => {
 
     const { mount } = createComposableApp({
       isSelfHosted: true,
+      version,
     });
 
     host({
