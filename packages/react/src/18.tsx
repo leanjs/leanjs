@@ -12,10 +12,10 @@ import React, { ReactElement, useEffect } from "react";
 import { createRoot } from "react-dom/client";
 
 import { RootComponent } from "./types";
-import { ErrorBoundary } from "./components";
+import { ErrorBoundary, getErrorBoundaryProps } from "./components";
 import { RuntimeProvider, createRuntimeBindings } from "./runtime";
 
-const { createMount, createAppError, setRuntimeContext } = CoreUtils;
+const { createMount, setRuntimeContext } = CoreUtils;
 
 export { createRuntimeBindings };
 
@@ -76,14 +76,15 @@ export const createApp = <MyAppProps extends AppProps = AppProps>(
               <React.StrictMode>
                 <Root>
                   <ErrorBoundary
-                    onError={(error) =>
-                      onError(
-                        createAppError({ appName, version, error }),
-                        context
-                      )
-                    }
+                    {...getErrorBoundaryProps({
+                      isSelfHosted,
+                      onError,
+                      appName,
+                      version,
+                    })}
                   >
                     <RuntimeProvider
+                      isSelfHosted={!!isSelfHosted}
                       runtime={setRuntimeContext(context, runtime)}
                     >
                       <App {...(appProps as MyAppProps)} />
