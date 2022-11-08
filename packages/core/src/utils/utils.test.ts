@@ -41,12 +41,15 @@ describe("utils: setRuntimeContext", () => {
 
     expect(runtime.context.appName).toBe(initialAppName);
     expect(runtime.context.version).toBe(undefined);
-    expect(newRuntimeContext?.context.appName).toBe(newAppName);
+    expect(newRuntimeContext?.context.appName).toBe(
+      `${initialAppName} ( ${newAppName} )`
+    );
   });
 
   it(`returns a new runtime with a new version if a version and runtime is passed`, () => {
     const initialAppName = Math.random().toString();
-    const initialContext = { appName: initialAppName };
+    const initialVersion = Math.random().toString();
+    const initialContext = { appName: initialAppName, version: initialVersion };
     const runtime = createRuntime({ context: initialContext });
 
     const newAppName = Math.random().toString();
@@ -58,9 +61,12 @@ describe("utils: setRuntimeContext", () => {
 
     expect(runtime).not.toBe(newRuntimeContext);
     expect(runtime.context.appName).toBe(initialAppName);
-    expect(runtime.context.version).toBe(undefined);
-    expect(newRuntimeContext?.context.appName).toBe(newAppName);
-    expect(newRuntimeContext?.context.version).toBe(newVersion);
+    expect(newRuntimeContext?.context.appName).toBe(
+      `${initialAppName} ( ${newAppName} )`
+    );
+    expect(newRuntimeContext?.context.version).toBe(
+      `${initialVersion} ( ${newVersion} )`
+    );
   });
 
   it(`only changes runtime context from the original runtime`, () => {

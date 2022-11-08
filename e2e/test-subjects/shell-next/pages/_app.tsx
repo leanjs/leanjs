@@ -6,7 +6,9 @@ import {
 } from "@leanjs/e2e-test-package-runtime-react";
 import { Nav } from "../components/Nav";
 
-const runtime = createRuntime({ context: { appName: "NextShell" } });
+const runtime = createRuntime({
+  context: { appName: "NextShell", version: "1.0.0" },
+});
 
 const App = ({
   Component,

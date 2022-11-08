@@ -156,21 +156,23 @@ export class RemoteWebpackPlugin implements WebpackPluginInstance {
       ""
     );
 
+    const versionArgument = packageJson.version
+      ? `, version: "${packageJson.version}"`
+      : "";
+
     const bootstrapEntryJs = localSelfHostedPath
       ? `import("${localSelfHostedPath}").then(
         ({ createRuntime }) => {
           if(typeof createRuntime !== "function") throw new Error("src/selfHosted file in ${packageName} doesn't export a createRuntime function")
-          import("./bootstrap").then(({ bootstrap }) => bootstrap({ createRuntime }));
+          import("./bootstrap").then(({ bootstrap }) => bootstrap({ createRuntime ${versionArgument} }));
         });
       `
-      : `import("./bootstrap").then(({ bootstrap }) => bootstrap());`;
+      : `import("./bootstrap").then(({ bootstrap }) => bootstrap({ createRuntime: undefined ${versionArgument} }));`;
 
     new VirtualModulesPlugin({
       "./remote_entry_index.js": `
         import createComposableApp from "./src/index";
-        export default createComposableApp({ isSelfHosted: false ${
-          packageJson.version ? `, version: "${packageJson.version}"` : ""
-        }})
+        export default createComposableApp({ isSelfHosted: false ${versionArgument} })
         `,
       "./bootstrap_entry.js": bootstrapEntryJs,
       "./bootstrap": fs.readFileSync(
