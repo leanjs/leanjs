@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.24.2](https://github.com/leanjs/leanjs/compare/@leanjs/core@0.24.1...@leanjs/core@0.24.2) (2022-11-08)
+
+### Bug Fixes
+
+- versioning of composable apps ([e1fd60d](https://github.com/leanjs/leanjs/commit/e1fd60d951d0fefce485797a3c2a089cb9a25d68))
+
 ## [0.24.1](https://github.com/leanjs/leanjs/compare/@leanjs/core@0.24.0...@leanjs/core@0.24.1) (2022-11-08)
 
 ### Bug Fixes
