@@ -4,7 +4,7 @@ import React from "react";
 import "@testing-library/jest-dom";
 
 import { createRuntimeBindings } from "../runtime/createRuntimeBindings";
-import { ErrorBoundary } from "..";
+import { ErrorBoundary, getErrorBoundaryProps } from "..";
 
 const defaultState = {
   locale: "en",
@@ -94,5 +94,58 @@ describe("ErrorBoundary", () => {
         "🚨 ErrorBoundary disabled. Provide an onError prop or add a HostProvider."
       )
     ).toBeVisible();
+  });
+});
+
+describe("getErrorBoundaryProps", () => {
+  it("returns a fallback if it's self hosted", () => {
+    const isSelfHosted = true;
+    const onError = jest.fn();
+    const appName = Math.random().toString();
+    const version = undefined;
+    const errorMessage = Math.random().toString();
+    const props = getErrorBoundaryProps({
+      isSelfHosted,
+      onError,
+      appName,
+      version,
+    });
+
+    expect(props.fallback?.({ error: new Error(errorMessage) })).toEqual(
+      <h1>Error: {errorMessage}</h1>
+    );
+  });
+
+  it("doesn't return a fallback if it's not self hosted", () => {
+    const isSelfHosted = false;
+    const onError = jest.fn();
+    const appName = Math.random().toString();
+    const version = undefined;
+    const errorMessage = Math.random().toString();
+    const props = getErrorBoundaryProps({
+      isSelfHosted,
+      onError,
+      appName,
+      version,
+    });
+
+    expect(props.fallback?.({ error: new Error(errorMessage) })).toEqual(
+      undefined
+    );
+  });
+
+  it("returns an onError function", () => {
+    const isSelfHosted = false;
+    const onError = jest.fn();
+    const appName = Math.random().toString();
+    const version = undefined;
+    const props = getErrorBoundaryProps({
+      isSelfHosted,
+      onError,
+      appName,
+      version,
+    });
+
+    expect(typeof props.onError).toEqual("function");
   });
 });

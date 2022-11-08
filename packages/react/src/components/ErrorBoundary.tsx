@@ -23,7 +23,7 @@ export interface State {
 
 export class ErrorBoundary extends Component<Props, State> {
   static contextType = ReactRuntimeContext;
-  context: React.ContextType<typeof ReactRuntimeContext>;
+  context: React.ContextType<typeof ReactRuntimeContext> = {};
 
   public state: State = {
     error: undefined,
@@ -38,7 +38,7 @@ export class ErrorBoundary extends Component<Props, State> {
     if (onError) {
       onError(error);
     } else {
-      this.context?.runtime?.logError(error, {
+      this.context.runtime?.logError(error, {
         appName: error.appName || "",
         version: error.version,
       });
@@ -49,7 +49,7 @@ export class ErrorBoundary extends Component<Props, State> {
     const { error } = this.state;
     const { fallback: Fallback, onError } = this.props;
 
-    if (!onError && !this.context?.runtime?.logError) {
+    if (!onError && !this.context.runtime?.logError) {
       return (
         <h1>
           🚨 ErrorBoundary disabled. Provide an onError prop or add a
