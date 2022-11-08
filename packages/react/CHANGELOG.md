@@ -3,6 +3,13 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.17.2](https://github.com/leanjs/leanjs/compare/@leanjs/react@0.17.1...@leanjs/react@0.17.2) (2022-11-08)
+
+### Bug Fixes
+
+- error messages ([3341b05](https://github.com/leanjs/leanjs/commit/3341b05f350f0bb425d13df1417c89010c2782bb))
+- error messages ([cff6506](https://github.com/leanjs/leanjs/commit/cff6506488df4425003fe513af28b753d25920ee))
+
 ## [0.17.1](https://github.com/leanjs/leanjs/compare/@leanjs/react@0.17.0...@leanjs/react@0.17.1) (2022-11-07)
 
 ### Bug Fixes

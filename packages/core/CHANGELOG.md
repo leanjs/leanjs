@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.24.1](https://github.com/leanjs/leanjs/compare/@leanjs/core@0.24.0...@leanjs/core@0.24.1) (2022-11-08)
+
+### Bug Fixes
+
+- error messages ([3341b05](https://github.com/leanjs/leanjs/commit/3341b05f350f0bb425d13df1417c89010c2782bb))
+
 # [0.24.0](https://github.com/leanjs/leanjs/compare/@leanjs/core@0.23.2...@leanjs/core@0.24.0) (2022-11-07)
 
 ### Features
