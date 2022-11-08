@@ -1,4 +1,9 @@
-import { RuntimeProvider, CreateAppConfig, ErrorBoundary } from "@leanjs/react";
+import {
+  RuntimeProvider,
+  CreateAppConfig,
+  ErrorBoundary,
+  getErrorBoundaryProps,
+} from "@leanjs/react";
 import type { CreateComposableApp, AppProps, MountFunc } from "@leanjs/core";
 import { _ as CoreUtils } from "@leanjs/core";
 import React, { ReactElement } from "react";
@@ -7,8 +12,7 @@ import { createBrowserHistory, createMemoryHistory } from "history";
 
 import { Router } from "./components/Router";
 
-const { createMount, getDefaultPathname, createAppError, setRuntimeContext } =
-  CoreUtils;
+const { createMount, getDefaultPathname, setRuntimeContext } = CoreUtils;
 
 export const createApp = <MyAppProps extends AppProps = AppProps>(
   App: (props: MyAppProps) => ReactElement,
@@ -57,15 +61,16 @@ export const createApp = <MyAppProps extends AppProps = AppProps>(
               ReactDOM.render(
                 <React.StrictMode>
                   <ErrorBoundary
-                    onError={(error) =>
-                      onError(
-                        createAppError({ appName, version, error }),
-                        context
-                      )
-                    }
+                    {...getErrorBoundaryProps({
+                      isSelfHosted,
+                      onError,
+                      appName,
+                      version,
+                    })}
                   >
                     <Router history={history} basename={basename}>
                       <RuntimeProvider
+                        isSelfHosted={!!isSelfHosted}
                         runtime={setRuntimeContext(context, runtime)}
                       >
                         <App {...(appProps as MyAppProps)} />

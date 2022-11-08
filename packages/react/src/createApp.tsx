@@ -4,9 +4,9 @@ import React, { ReactElement } from "react";
 import ReactDOM from "react-dom";
 import { CreateAppConfig, RootComponent } from "./types";
 
-import { ErrorBoundary } from "./components";
+import { ErrorBoundary, getErrorBoundaryProps } from "./components";
 import { RuntimeProvider } from "./runtime";
-const { createMount, createAppError, setRuntimeContext } = CoreUtils;
+const { createMount, setRuntimeContext } = CoreUtils;
 
 export const createApp = <MyAppProps extends AppProps = AppProps>(
   App: (props: MyAppProps) => ReactElement,
@@ -30,20 +30,20 @@ export const createApp = <MyAppProps extends AppProps = AppProps>(
         },
         render: ({ appProps }) => {
           if (el) {
-            const context = { version, appName };
             ReactDOM.render(
               <React.StrictMode>
                 <Root>
                   <ErrorBoundary
-                    onError={(error) =>
-                      onError(
-                        createAppError({ appName, error, version }),
-                        context
-                      )
-                    }
+                    {...getErrorBoundaryProps({
+                      isSelfHosted,
+                      onError,
+                      appName,
+                      version,
+                    })}
                   >
                     <RuntimeProvider
-                      runtime={setRuntimeContext(context, runtime)}
+                      isSelfHosted={!!isSelfHosted}
+                      runtime={setRuntimeContext({ version, appName }, runtime)}
                     >
                       <App {...(appProps as MyAppProps)} />
                     </RuntimeProvider>

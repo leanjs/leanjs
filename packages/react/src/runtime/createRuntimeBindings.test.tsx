@@ -27,7 +27,11 @@ interface WrapperProps {
 const createWrapper =
   (runtime = createRuntime({ context: { appName: "TestApp" } })) =>
   ({ children }: WrapperProps) =>
-    <RuntimeProvider runtime={runtime}>{children}</RuntimeProvider>;
+    (
+      <RuntimeProvider isSelfHosted={true} runtime={runtime}>
+        {children}
+      </RuntimeProvider>
+    );
 
 describe("createRuntimeBindings", () => {
   it("returns a HostProvider", () => {

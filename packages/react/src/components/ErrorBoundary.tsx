@@ -1,8 +1,11 @@
 import React, { Component } from "react";
 import type { ReactElement } from "react";
-import type { AppError, RuntimeContext } from "@leanjs/core";
+import type { AppError, RuntimeContext, LogAnyError } from "@leanjs/core";
+import { _ as CoreUtils } from "@leanjs/core";
 
 import { ReactRuntimeContext } from "../runtime";
+
+const { createAppError } = CoreUtils;
 
 export type ErrorFallbackComponent = (props: {
   error: AppError;
@@ -20,7 +23,7 @@ export interface State {
 
 export class ErrorBoundary extends Component<Props, State> {
   static contextType = ReactRuntimeContext;
-  context: React.ContextType<typeof ReactRuntimeContext>;
+  context: React.ContextType<typeof ReactRuntimeContext> = {};
 
   public state: State = {
     error: undefined,
@@ -35,7 +38,7 @@ export class ErrorBoundary extends Component<Props, State> {
     if (onError) {
       onError(error);
     } else {
-      this.context?.logError(error, {
+      this.context.runtime?.logError(error, {
         appName: error.appName || "",
         version: error.version,
       });
@@ -46,7 +49,7 @@ export class ErrorBoundary extends Component<Props, State> {
     const { error } = this.state;
     const { fallback: Fallback, onError } = this.props;
 
-    if (!onError && !this.context?.logError) {
+    if (!onError && !this.context.runtime?.logError) {
       return (
         <h1>
           🚨 ErrorBoundary disabled. Provide an onError prop or add a
@@ -66,3 +69,22 @@ export class ErrorBoundary extends Component<Props, State> {
     return this.props.children;
   }
 }
+
+interface GetErrorBoundaryProps {
+  isSelfHosted?: boolean;
+  onError: LogAnyError;
+  appName: string;
+  version?: string;
+}
+export const getErrorBoundaryProps = ({
+  isSelfHosted,
+  onError,
+  appName,
+  version,
+}: GetErrorBoundaryProps) => ({
+  fallback: isSelfHosted
+    ? ({ error }: { error: AppError }) => <h1>Error: {error.message}</h1>
+    : undefined,
+  onError: (error: any) =>
+    onError(createAppError({ appName, error, version }), { appName, version }),
+});

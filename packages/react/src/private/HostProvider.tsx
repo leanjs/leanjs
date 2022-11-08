@@ -13,6 +13,8 @@ export const HostProvider = ({
   origin,
 }: HostProviderProps) => (
   <HostContext.Provider value={{ origin }}>
-    <RuntimeProvider runtime={runtime}>{children}</RuntimeProvider>
+    <RuntimeProvider isSelfHosted={false} runtime={runtime}>
+      {children}
+    </RuntimeProvider>
   </HostContext.Provider>
 );

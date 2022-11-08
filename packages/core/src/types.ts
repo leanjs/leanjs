@@ -1,4 +1,4 @@
-import type { Runtime, LogAnyError, RuntimeContext } from "./runtime";
+import type { Runtime, LogAnyError } from "./runtime";
 
 export type RemoteTarget = "browser" | "node";
 export interface BasePath {

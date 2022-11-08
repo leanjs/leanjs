@@ -21,7 +21,11 @@ const createWrapper =
   (runtime = createRuntime({ context: { appName: "TestApp" } })) =>
   // eslint-disable-next-line react/display-name
   ({ children }: WrapperProps) =>
-    <RuntimeProvider runtime={runtime}>{children}</RuntimeProvider>;
+    (
+      <RuntimeProvider isSelfHosted={false} runtime={runtime}>
+        {children}
+      </RuntimeProvider>
+    );
 
 describe("useRuntime", () => {
   it("returns a Runtime if there is a Runtime in the context", () => {
@@ -59,7 +63,7 @@ describe("useRuntime", () => {
       const runtime = createRuntime({ context: { appName: "TestApp" } });
 
       render(
-        <RuntimeProvider runtime={runtime}>
+        <RuntimeProvider isSelfHosted={false} runtime={runtime}>
           <EmptyComp />
         </RuntimeProvider>
       );
