@@ -77,7 +77,7 @@ console.log(
 provider
   .deploy({
     distFolder,
-    basename: getRemoteBasename({ packageName, version }),
+    remoteBasename: getRemoteBasename({ packageName, version }),
     packageName,
     version,
   })
