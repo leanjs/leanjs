@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.2.52](https://github.com/leanjs/leanjs/compare/@leanjs/aws@0.2.51...@leanjs/aws@0.2.52) (2022-11-10)
+
+### Bug Fixes
+
+- **aws:** build main entry ([3e56755](https://github.com/leanjs/leanjs/commit/3e5675573d7e1f0abc437c86fa66d3c0a5d4968e))
+
 ## [0.2.51](https://github.com/leanjs/leanjs/compare/@leanjs/aws@0.2.50...@leanjs/aws@0.2.51) (2022-11-08)
 
 **Note:** Version bump only for package @leanjs/aws
