@@ -1,6 +1,6 @@
 {
   "name": "@leanjs/aws",
-  "version": "0.2.50",
+  "version": "0.2.51",
   "author": "Alex Lobera <alex@leanjs.com>",
   "description": "LeanJS utilities for AWS",
   "types": "./dist/index.d.ts",
@@ -42,8 +42,8 @@
     "@leanjs/core": "^0.19.1"
   },
   "devDependencies": {
-    "@leanjs/cli": "^0.7.31",
-    "@leanjs/core": "^0.24.1",
+    "@leanjs/cli": "^0.7.32",
+    "@leanjs/core": "^0.24.2",
     "@types/mime-types": "^2.1.1"
   }
 }

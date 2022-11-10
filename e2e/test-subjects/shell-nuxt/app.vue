@@ -16,5 +16,7 @@
 import { HostProvider } from "@leanjs/nuxt";
 import { createRuntime } from "@leanjs/e2e-test-package-runtime-shared";
 
-const runtime = createRuntime({ context: { appName: "NuxtShell" } });
+const runtime = createRuntime({
+  context: { appName: "NuxtShell", version: "5.6.7" },
+});
 </script>

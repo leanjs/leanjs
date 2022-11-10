@@ -1,6 +1,6 @@
 {
   "name": "@leanjs/cli",
-  "version": "0.7.31",
+  "version": "0.7.32",
   "description": "Cli for LeanJS micro-apps",
   "types": "./dist/index.d.ts",
   "main": "./dist/index.js",
@@ -48,7 +48,7 @@
     "webpack-dev-server": "4.7.4"
   },
   "devDependencies": {
-    "@leanjs/core": "^0.24.1",
+    "@leanjs/core": "^0.24.2",
     "@types/cors": "^2.8.12",
     "@types/cross-spawn": "^6.0.2",
     "@types/detect-port": "^1.3.2",

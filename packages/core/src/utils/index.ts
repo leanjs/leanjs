@@ -75,6 +75,19 @@ export const isPromise = (arg?: any): arg is Promise<any> =>
 export const isObject = (data: any) =>
   ({}.toString.call(data) === "[object Object]");
 
-export function setRuntimeContext(context: RuntimeContext, runtime?: Runtime) {
-  return runtime ? { ...runtime, context } : undefined;
+export function setRuntimeContext(
+  context: RuntimeContext,
+  runtime?: Runtime
+): Runtime | undefined {
+  return runtime
+    ? {
+        ...runtime,
+        context: {
+          appName: `${runtime.context.appName} ( ${context.appName} )`,
+          version: `${runtime.context.version ?? ""}${
+            context.version ? ` ( ${context.version} )` : ""
+          }`,
+        },
+      }
+    : undefined;
 }
