@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.7.33](https://github.com/leanjs/leanjs/compare/@leanjs/cli@0.7.32...@leanjs/cli@0.7.33) (2022-11-10)
+
+### Bug Fixes
+
+- **cli:** deploy remoteBasename argument ([aea30a3](https://github.com/leanjs/leanjs/commit/aea30a3e2c35a6ba6a540d9111d4da0e11295ab0))
+
 ## [0.7.32](https://github.com/leanjs/leanjs/compare/@leanjs/cli@0.7.31...@leanjs/cli@0.7.32) (2022-11-08)
 
 **Note:** Version bump only for package @leanjs/cli
