@@ -12,6 +12,8 @@ import {
 
 const { createRemoteName } = CoreUtils;
 
+export { uploadFolder };
+
 export const deploy = async ({
   distFolder = "dist",
   remoteBasename,
