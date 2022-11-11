@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.2.54](https://github.com/leanjs/leanjs/compare/@leanjs/aws@0.2.53...@leanjs/aws@0.2.54) (2022-11-11)
+
+### Bug Fixes
+
+- **aws:** export uploadFolder ([d94e252](https://github.com/leanjs/leanjs/commit/d94e252ff76cb339b4aded34e438ba93a6ac1d45))
+
 ## [0.2.53](https://github.com/leanjs/leanjs/compare/@leanjs/aws@0.2.52...@leanjs/aws@0.2.53) (2022-11-10)
 
 **Note:** Version bump only for package @leanjs/aws
