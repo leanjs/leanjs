@@ -1,6 +1,6 @@
 import React, { createContext } from "react";
-
-import type { HostContextValues, HostProviderProps } from "../types";
+import type { HostContextValues } from "@leanjs/core";
+import type { HostProviderProps } from "../types";
 import { RuntimeProvider } from "../runtime";
 
 export const HostContext = createContext<HostContextValues | undefined>(

@@ -1,20 +1,18 @@
+import {
+  createRemoteName,
+  deleteTrailingSlash,
+  getRemoteUrl,
+  loadModule,
+  loadScript,
+} from ".";
 import type {
   MountFunc,
   GetComposableApp,
   ComposableApp,
   RemoteComposableApp,
-} from "@leanjs/core";
-import { _ as CoreUtils } from "@leanjs/core";
-import { RemoteProp } from "..";
-import type { HostContextValues } from "../types";
-
-const {
-  loadModule,
-  loadScript,
-  createRemoteName,
-  deleteTrailingSlash,
-  getRemoteUrl,
-} = CoreUtils;
+  HostContextValues,
+  RemoteProp,
+} from "../types";
 
 const mountCache = new Map<string, MountFunc | undefined>();
 

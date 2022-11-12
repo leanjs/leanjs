@@ -9,10 +9,9 @@ import {
 import type { OuterHostProps, InnerHostProps } from "../types";
 import { HostContext } from "../private/HostProvider";
 
-import { getMount } from "../private/getMount";
 import { useRuntime } from "../runtime";
 
-const { isPromise, createAppError } = CoreUtils;
+const { isPromise, createAppError, getMount } = CoreUtils;
 
 export function isRemoteApp(
   app: GetComposableApp | GetComposableAppAsync
