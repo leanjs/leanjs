@@ -130,3 +130,11 @@ export interface AppError extends Error {
   appName?: string;
   version?: string;
 }
+
+export interface HostContextValues {
+  origin?: string;
+}
+
+export interface RemoteProp {
+  version: string;
+}
