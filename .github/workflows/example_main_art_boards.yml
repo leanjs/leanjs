@@ -77,6 +77,7 @@ jobs:
 
   version:
     runs-on: ubuntu-latest
+    if: "!contains(github.event.head_commit.message, 'chore: version example')"
     needs: [test, lint]
     outputs:
       ref: ${{ steps.set-ref.outputs.ref }}
@@ -106,12 +107,13 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.ADMIN_GH_TOKEN }}
       - name: Version ${{ matrix.workspace }}
         continue-on-error: false
-        run: "HUSKY=0 yarn lerna version --conventional-commits --yes --message 'chore: version example'"
+        run: "HUSKY=0 yarn lerna version --conventional-commits --yes --include-merged-tags --message 'chore: version example'"
         env:
           GH_TOKEN: ${{ secrets.ADMIN_GH_TOKEN }}
 
   deploy:
     runs-on: ubuntu-latest
+    if: "!contains(github.event.head_commit.message, 'chore: version example')"
     needs: [changed, version]
     strategy:
       fail-fast: false
