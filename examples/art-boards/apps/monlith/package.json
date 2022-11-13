@@ -1,6 +1,6 @@
 {
   "name": "@art-boards/monolithic-app",
-  "version": "1.0.0",
+  "version": "1.0.25",
   "description": "",
   "scripts": {
     "dev": "NODE_ENV=development webpack serve",

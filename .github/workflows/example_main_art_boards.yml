@@ -100,7 +100,7 @@ jobs:
           git config --global user.email alex@leanjs.com
           git config --global user.name leanjsbot
           git remote rm origin
-          git remote add origin "https://alexlbr:$GITHUB_TOKEN@github.com/alexlbr/leanjs_ci_example.git"
+          git remote add origin "https://alexlbr:$GITHUB_TOKEN@github.com/leanjs/leanjs.git"
           git push -u origin main
         env:
           GITHUB_TOKEN: ${{ secrets.ADMIN_GH_TOKEN }}
