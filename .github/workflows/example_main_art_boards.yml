@@ -109,7 +109,7 @@ jobs:
         continue-on-error: false
         run: "HUSKY=0 yarn lerna version --conventional-commits --yes --include-merged-tags --message 'chore: version example'"
         env:
-          GH_TOKEN: ${{ secrets.ADMIN_GH_TOKEN }}
+          GH_TOKEN: ${{ secrets.ADMIN_GH_TOKEN_EXAMPLE_ART_BOARDS }}
 
   deploy:
     runs-on: ubuntu-latest
