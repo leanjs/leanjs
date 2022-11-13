@@ -138,3 +138,15 @@ export interface HostContextValues {
 export interface RemoteProp {
   version: string;
 }
+
+interface LoadAppArgs<T> {
+  app: GetComposableApp | GetComposableAppAsync;
+  remote?: RemoteProp;
+  version?: string;
+  context?: HostContextValues;
+  HostWrapper: (mount: MountFunc, url?: string) => T;
+}
+
+export type LoadApp = <T>(
+  loadAppArgs: LoadAppArgs<T>
+) => Promise<{ default: () => T }>;

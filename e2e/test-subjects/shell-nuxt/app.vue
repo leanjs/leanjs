@@ -5,7 +5,8 @@
     <NuxtLink to="/vue">Vue page</NuxtLink> |
     <NuxtLink to="/custom">Custom page</NuxtLink> |
     <NuxtLink to="/custom-error">Custom error</NuxtLink> |
-    <NuxtLink to="/nested-routing">Nested React</NuxtLink>
+    <NuxtLink to="/nested-routing">Nested React</NuxtLink> |
+    <NuxtLink to="/build-time">Build Time</NuxtLink>
     <HostProvider :runtime="runtime" origin="http://localhost:56500">
       <NuxtPage />
     </HostProvider>
