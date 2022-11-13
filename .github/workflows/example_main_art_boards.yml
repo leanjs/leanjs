@@ -6,6 +6,9 @@ on:
     branches:
       - main
 
+permissions:
+  contents: write
+
 defaults:
   run:
     working-directory: examples/art-boards
@@ -102,12 +105,12 @@ jobs:
           git remote add origin "https://alexlbr:$GITHUB_TOKEN@github.com/leanjs/leanjs.git"
           git push -u origin main
         env:
-          GITHUB_TOKEN: ${{ secrets.ADMIN_GH_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.ADMIN_GH_TOKEN_EXAMPLE_ART_BOARDS }}
       - name: Version ${{ matrix.workspace }}
         continue-on-error: false
         run: "HUSKY=0 yarn lerna version --conventional-commits --yes --include-merged-tags --create-release github --message 'chore: version example'"
         env:
-          GH_TOKEN: ${{ secrets.ADMIN_GH_TOKEN }}
+          GH_TOKEN: ${{ secrets.ADMIN_GH_TOKEN_EXAMPLE_ART_BOARDS }}
       - id: set-ref
         run: echo "::set-output name=ref::$(git rev-parse HEAD)"
 
