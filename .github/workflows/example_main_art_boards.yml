@@ -87,8 +87,6 @@ jobs:
       - name: Install dependencies
         run: yarn install --frozen-lockfile
         shell: bash
-      - id: set-ref
-        run: echo "::set-output name=ref::$(git rev-parse HEAD)"
       - name: Setup Node LTS and yarn cache
         uses: actions/setup-node@v2
         with:
@@ -110,6 +108,8 @@ jobs:
         run: "HUSKY=0 yarn lerna version --conventional-commits --yes --include-merged-tags --message 'chore: version example'"
         env:
           GH_TOKEN: ${{ secrets.ADMIN_GH_TOKEN_EXAMPLE_ART_BOARDS }}
+      - id: set-ref
+        run: echo "::set-output name=ref::$(git rev-parse HEAD)"
 
   deploy:
     runs-on: ubuntu-latest
