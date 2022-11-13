@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.2.55](https://github.com/leanjs/leanjs/compare/@leanjs/aws@0.2.54...@leanjs/aws@0.2.55) (2022-11-13)
+
+### Bug Fixes
+
+- **aws:** create cache behaviour ([76191ed](https://github.com/leanjs/leanjs/commit/76191edbcf93e6f95e1f78b7df9fe7bc1b9e34ab))
+
 ## [0.2.54](https://github.com/leanjs/leanjs/compare/@leanjs/aws@0.2.53...@leanjs/aws@0.2.54) (2022-11-11)
 
 ### Bug Fixes
