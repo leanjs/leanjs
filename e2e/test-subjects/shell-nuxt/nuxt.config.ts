@@ -10,6 +10,9 @@ export default defineNuxtConfig({
     },
   },
   build: {
-    transpile: ["@leanjs/e2e-test-package-runtime-shared"],
+    transpile: [
+      "@leanjs/e2e-test-package-runtime-shared",
+      "@leanjs/e2e-test-package-runtime-vue",
+    ],
   },
 });

@@ -3,4 +3,5 @@ import { createRuntime } from "@my-org/runtime-shared";
 
 export { createRuntime };
 
-export const { useSharedState } = createRuntimeBindings(createRuntime);
+export const { useSharedState, HostProvider } =
+  createRuntimeBindings(createRuntime);

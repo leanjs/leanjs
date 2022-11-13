@@ -13,7 +13,7 @@
   },
   "dependencies": {
     "@leanjs/core": "*",
-    "@leanjs/e2e-test-package-runtime-react": "*",
+    "@leanjs/e2e-test-package-runtime-vue": "*",
     "@leanjs/nuxt": "*",
     "@leanjs/vue": "*"
   }
