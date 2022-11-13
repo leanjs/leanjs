@@ -18,6 +18,8 @@ interface DeployFunctionArgs {
   region: string;
   functionCode: string;
   cloudFrontDistributionId: string;
+  pathPattern: string;
+  targetOriginId: string;
 }
 
 export async function deployFunction({
@@ -27,6 +29,8 @@ export async function deployFunction({
   region,
   functionCode,
   cloudFrontDistributionId,
+  pathPattern,
+  targetOriginId,
 }: DeployFunctionArgs) {
   const client = new CloudFrontClient({ region });
   const FunctionCode = new TextEncoder().encode(functionCode);
@@ -82,6 +86,8 @@ export async function deployFunction({
         FunctionARN,
         cloudFrontDistributionId,
         client,
+        pathPattern,
+        targetOriginId,
       });
     }
   } catch (error: unknown) {

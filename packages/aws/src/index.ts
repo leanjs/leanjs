@@ -56,13 +56,16 @@ export const deploy = async ({
     batchLimit,
   });
 
+  const remoteName = createRemoteName(packageName);
   if (cloudFrontDistributionId) {
     await deployFunction({
       comment: `It maps latest version to ${version}`,
-      name: `${createRemoteName(packageName)}_latest`,
+      name: `${remoteName}_latest`,
       region,
       functionCode,
       cloudFrontDistributionId,
+      pathPattern: `/${remoteName}/*`,
+      targetOriginId: bucket,
     });
 
     console.log(`Latest version is now ${chalk.cyan(version)}`);
