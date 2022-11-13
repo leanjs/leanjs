@@ -1,4 +1,4 @@
-name: Build and deploy main branch
+name: "ArtBoards example: Build and deploy main branch"
 on:
   push:
     paths:
