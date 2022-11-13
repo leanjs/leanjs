@@ -3,6 +3,7 @@ import type { KeyOf, CreateRuntime, StateType, BaseShape } from "@leanjs/core";
 
 import type { Cleanups, StatePropArgs } from "./types";
 import { isPrimitive, shallowCopy } from "./utils";
+import HostProvider from "./private/HostProvider.vue";
 
 export const createRuntimeBindings = <
   MyCreateRuntime extends CreateRuntime = CreateRuntime,
@@ -84,6 +85,7 @@ export const createRuntimeBindings = <
 
   return {
     useSharedState,
+    HostProvider,
   };
 };
 
