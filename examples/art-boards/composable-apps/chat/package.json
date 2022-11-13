@@ -1,6 +1,6 @@
 {
   "name": "@art-boards/chat-app",
-  "version": "1.0.25",
+  "version": "1.0.26",
   "scripts": {
     "dev": "lean dev --config=react",
     "build": "lean build --config=react",
@@ -16,8 +16,8 @@
     "react-dom": "*"
   },
   "dependencies": {
-    "@art-boards/runtime-react": "*",
-    "@art-boards/ui-canvas": "*"
+    "@art-boards/runtime-react": "^1.0.1",
+    "@art-boards/ui-canvas": "^1.0.1"
   },
   "devDependencies": {
     "@leanjs/aws": "*",

@@ -1,6 +1,6 @@
 {
   "name": "@art-boards/zima-blue",
-  "version": "1.0.23",
+  "version": "1.0.24",
   "scripts": {
     "dev": "lean dev --config=react",
     "build": "lean build --config=react",
@@ -17,8 +17,8 @@
     "react-dom": "*"
   },
   "dependencies": {
-    "@art-boards/runtime-react": "*",
-    "@art-boards/ui-canvas": "*",
+    "@art-boards/runtime-react": "^1.0.1",
+    "@art-boards/ui-canvas": "^1.0.1",
     "@leanjs/core": "*"
   },
   "devDependencies": {

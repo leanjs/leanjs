@@ -1,6 +1,6 @@
 {
   "name": "@art-boards/monolithic-app",
-  "version": "1.0.25",
+  "version": "1.0.26",
   "description": "",
   "scripts": {
     "dev": "NODE_ENV=development webpack serve",
@@ -11,11 +11,11 @@
   "author": "Alex Lobera <alex@leanjs.com>",
   "license": "MIT",
   "dependencies": {
-    "@art-boards/chat-app": "*",
-    "@art-boards/chat-component": "*",
-    "@art-boards/runtime-react": "*",
-    "@art-boards/ui-canvas": "*",
-    "@art-boards/zima-blue": "*"
+    "@art-boards/chat-app": "^1.0.26",
+    "@art-boards/chat-component": "^1.0.1",
+    "@art-boards/runtime-react": "^1.0.1",
+    "@art-boards/ui-canvas": "^1.0.1",
+    "@art-boards/zima-blue": "^1.0.24"
   },
   "peerDependencies": {
     "@leanjs/react": "*",
