@@ -3,7 +3,9 @@
   "version": "1.0.0",
   "scripts": {
     "dev": "lean dev --config=react",
-    "build": "lean build --config=react"
+    "build": "lean build --config=react",
+    "deploy": "lean deploy",
+    "lint": "tsc --noEmit"
   },
   "main": "./src/index.ts",
   "author": "",
@@ -18,6 +20,7 @@
     "@art-boards/ui-canvas": "*"
   },
   "devDependencies": {
+    "@leanjs/aws": "*",
     "@leanjs/cli": "*"
   }
 }

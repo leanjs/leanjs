@@ -1,10 +1,12 @@
 {
   "name": "@art-boards/monolithic-app",
-  "private": true,
   "version": "1.0.0",
   "description": "",
   "scripts": {
-    "dev": "NODE_ENV=development webpack serve"
+    "dev": "NODE_ENV=development webpack serve",
+    "build": "NODE_ENV=production webpack",
+    "deploy": "node ./scripts/deploy.js",
+    "test": "echo TODO"
   },
   "author": "Alex Lobera <alex@leanjs.com>",
   "license": "MIT",
@@ -23,6 +25,7 @@
     "react-router-dom": "*"
   },
   "devDependencies": {
+    "@aws-sdk/client-cloudfront": "^3.121.0",
     "@swc/core": "^1.2.160",
     "@types/react": "^17.0.43",
     "@types/react-dom": "^17.0.14",

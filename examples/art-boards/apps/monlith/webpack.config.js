@@ -2,14 +2,19 @@
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const { HostWebpackPlugin } = require("@leanjs/webpack");
+// eslint-disable-next-line @typescript-eslint/no-var-requires
+const path = require("path");
+/* eslint-disable @typescript-eslint/no-var-requires */
+const CopyPlugin = require("copy-webpack-plugin");
+/* eslint-disable @typescript-eslint/no-var-requires */
+const { DefinePlugin } = require("webpack");
 
 const port = 44446;
-
 const isProduction = process.env.NODE_ENV === "production";
 
 module.exports = {
-  mode: "development",
-  devtool: "source-map",
+  mode: isProduction ? "production" : "development",
+  devtool: isProduction ? undefined : "source-map",
   entry: {
     async: {
       import: ["./src/entry/async"],
@@ -18,9 +23,15 @@ module.exports = {
   devServer: {
     historyApiFallback: true,
     port,
+    open: {
+      app: {
+        name: "Google Chrome",
+      },
+    },
   },
   output: {
-    publicPath: "/",
+    path: path.join(__dirname, "/dist/"),
+    filename: "[name].[contenthash].js",
   },
   plugins: [
     new HostWebpackPlugin({
@@ -32,6 +43,23 @@ module.exports = {
     }),
     new HtmlWebpackPlugin({
       template: "./public/index.html",
+    }),
+    new CopyPlugin({
+      patterns: [
+        {
+          from: path.join(process.cwd(), "public/images"),
+          to: "./images",
+          noErrorOnMissing: true,
+        },
+      ],
+    }),
+    new DefinePlugin({
+      "process.env.EXAMPLE_ART_BOARDS_BASENAME": JSON.stringify(
+        process.env.EXAMPLE_ART_BOARDS_BASENAME
+      ),
+      "process.env.EXAMPLE_ART_BOARDS_ORIGIN": JSON.stringify(
+        process.env.EXAMPLE_ART_BOARDS_ORIGIN || "http://localhost:33000"
+      ),
     }),
   ],
   module: {
