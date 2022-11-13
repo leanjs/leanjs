@@ -62,6 +62,8 @@ describe("CloudFront Functions", () => {
         const cloudFrontDistributionId = Math.random().toString();
         const Distribution = Math.random().toString();
         const ETag = Math.random().toString();
+        const pathPattern = Math.random().toString();
+        const targetOriginId = Math.random().toString();
         const send = jest.fn(() =>
           Promise.resolve({
             Distribution,
@@ -75,6 +77,8 @@ describe("CloudFront Functions", () => {
           FunctionARN,
           cloudFrontDistributionId,
           client,
+          pathPattern,
+          targetOriginId,
         });
 
         expect(response).toBe(ETag);
@@ -84,6 +88,8 @@ describe("CloudFront Functions", () => {
         const FunctionARN = Math.random().toString();
         const cloudFrontDistributionId = Math.random().toString();
         const ETag = Math.random().toString();
+        const pathPattern = Math.random().toString();
+        const targetOriginId = Math.random().toString();
         const send = jest.fn(() =>
           Promise.resolve({
             Distribution: undefined,
@@ -97,6 +103,8 @@ describe("CloudFront Functions", () => {
             FunctionARN,
             cloudFrontDistributionId,
             client,
+            pathPattern,
+            targetOriginId,
           });
         } catch (err) {
           error = err as Error;
@@ -112,6 +120,8 @@ describe("CloudFront Functions", () => {
         const cloudFrontDistributionId = Math.random().toString();
         const Distribution = Math.random().toString();
         const ETag = Math.random().toString();
+        const pathPattern = Math.random().toString();
+        const targetOriginId = Math.random().toString();
         const send = jest.fn(() =>
           Promise.resolve({
             Distribution,
@@ -127,6 +137,8 @@ describe("CloudFront Functions", () => {
             FunctionARN,
             cloudFrontDistributionId,
             client,
+            pathPattern,
+            targetOriginId,
           });
         } catch (err) {
           error = err as Error;

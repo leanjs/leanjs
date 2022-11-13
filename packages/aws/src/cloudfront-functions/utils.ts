@@ -34,10 +34,14 @@ export async function attachFunctionToDistribution({
   FunctionARN,
   cloudFrontDistributionId,
   client,
+  pathPattern,
+  targetOriginId,
 }: {
   cloudFrontDistributionId: string;
   FunctionARN: string;
   client: CloudFrontClient;
+  pathPattern: string;
+  targetOriginId: string;
 }) {
   const { Distribution, ETag } = await client.send(
     new GetDistributionCommand({
@@ -51,12 +55,26 @@ export async function attachFunctionToDistribution({
     );
   }
 
-  Distribution.DistributionConfig?.DefaultCacheBehavior?.FunctionAssociations?.Items?.push(
-    {
-      FunctionARN,
-      EventType: "viewer-request",
-    }
-  );
+  if (
+    !Distribution.DistributionConfig?.CacheBehaviors?.Items?.find(
+      (item) => item.PathPattern === pathPattern
+    )
+  ) {
+    Distribution.DistributionConfig?.CacheBehaviors?.Items?.push({
+      PathPattern: pathPattern,
+      TargetOriginId: targetOriginId,
+      ViewerProtocolPolicy: "redirect-to-https",
+      FunctionAssociations: {
+        Quantity: 1,
+        Items: [
+          {
+            FunctionARN,
+            EventType: "viewer-request",
+          },
+        ],
+      },
+    });
+  }
 
   const { $metadata, ETag: UpdatedETag } = await client.send(
     new UpdateDistributionCommand({
