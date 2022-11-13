@@ -105,7 +105,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.ADMIN_GH_TOKEN }}
       - name: Version ${{ matrix.workspace }}
         continue-on-error: false
-        run: "HUSKY=0 yarn lerna version --conventional-commits --yes --include-merged-tags --message 'chore: version example'"
+        run: "HUSKY=0 yarn lerna version --conventional-commits --yes --include-merged-tags --create-release github --message 'chore: version example'"
         env:
           GH_TOKEN: ${{ secrets.ADMIN_GH_TOKEN }}
       - id: set-ref
