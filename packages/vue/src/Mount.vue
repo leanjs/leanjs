@@ -6,13 +6,14 @@
 import type {
   BasePath,
   ListenFunc,
+  LogAnyError,
   MountFunc,
   NavigateFunc,
   RemoveListener,
   Runtime,
   UnmountFunc,
 } from "@leanjs/core";
-import { onBeforeUnmount, ref, watchEffect } from "vue";
+import { onBeforeUnmount, onMounted, ref } from "vue";
 
 export interface MountProps extends BasePath {
   mount: MountFunc;
@@ -20,6 +21,7 @@ export interface MountProps extends BasePath {
   basename?: string;
   navigate?: NavigateFunc;
   listen?: ListenFunc;
+  setError: LogAnyError;
 }
 
 const props = defineProps<MountProps>();
@@ -30,7 +32,7 @@ const initialPathname = ref(pathname).value;
 let unmount: UnmountFunc;
 let removeListener: RemoveListener | null | undefined;
 
-watchEffect((): void => {
+onMounted(() => {
   const myRoot = root.value;
   const mountRes = mount(myRoot ?? null, {
     onRemoteNavigate: (location): void => {

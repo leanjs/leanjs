@@ -5,6 +5,7 @@ export * from "./loadScript";
 export * from "./loadModule";
 export * from "./createMount";
 export * from "./getMount";
+export * from "./loadApp";
 
 export const createRemoteName = (packageName: string) =>
   `_${packageName.replace(/[^a-z0-9+]+/gi, "_")}`;

@@ -1,3 +1,6 @@
-import type { MountFunc } from "@leanjs/core";
+import type { GetComposableApp, GetComposableAppAsync } from "@leanjs/core";
 
-export default new Map<string, MountFunc>();
+export default new Map<
+  string | GetComposableApp | GetComposableAppAsync,
+  any
+>();
