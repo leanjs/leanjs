@@ -26,7 +26,7 @@
     "css-loader": "^6.7.1",
     "del-cli": "^4.0.1",
     "jest": "^27.5.1",
-    "lerna": "^6.0.3",
+    "lerna": "^5.5.1",
     "prettier": "^2.5.1",
     "style-loader": "^3.3.1",
     "ts-jest": "^27.1.3",

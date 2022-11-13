@@ -102,12 +102,12 @@ jobs:
           git remote add origin "https://alexlbr:$GITHUB_TOKEN@github.com/leanjs/leanjs.git"
           git push -u origin main
         env:
-          GITHUB_TOKEN: ${{ secrets.ADMIN_GH_TOKEN_EXAMPLE_ART_BOARDS }}
+          GITHUB_TOKEN: ${{ secrets.ADMIN_GH_TOKEN }}
       - name: Version ${{ matrix.workspace }}
         continue-on-error: false
         run: "HUSKY=0 yarn lerna version --conventional-commits --yes --include-merged-tags --message 'chore: version example'"
         env:
-          GH_TOKEN: ${{ secrets.ADMIN_GH_TOKEN_EXAMPLE_ART_BOARDS }}
+          GH_TOKEN: ${{ secrets.ADMIN_GH_TOKEN }}
       - id: set-ref
         run: echo "::set-output name=ref::$(git rev-parse HEAD)"
 
