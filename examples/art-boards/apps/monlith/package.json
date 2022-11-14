@@ -13,7 +13,7 @@
   "dependencies": {
     "@art-boards/chat-app": "^1.1.0",
     "@art-boards/chat-component": "*",
-    "@art-boards/dashboard-app": "^1.0.1",
+    "@art-boards/dashboard-app": "*",
     "@art-boards/runtime-react": "*",
     "@art-boards/ui-canvas": "*",
     "@art-boards/zima-blue": "^1.1.0"
