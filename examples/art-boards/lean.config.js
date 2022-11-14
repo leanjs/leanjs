@@ -14,6 +14,16 @@ module.exports = {
   webpack: {
     react: {
       ...webpackConfig,
+      module: {
+        ...webpackConfig.module,
+        rules: [
+          ...webpackConfig.module.rules,
+          {
+            test: /\.css$/i,
+            use: ["style-loader", "css-loader"],
+          },
+        ],
+      },
       devtool: "source-map",
       plugins: [
         ...webpackConfig.plugins,

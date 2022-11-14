@@ -1,7 +1,7 @@
 {
   "name": "@art-boards/root",
   "version": "0.0.0",
-  "private": "true",
+  "private": true,
   "author": "",
   "workspaces": [
     "apps/*",
@@ -37,6 +37,7 @@
   "dependencies": {
     "@leanjs/core": "0.24.2",
     "@leanjs/react": "0.17.3",
+    "@leanjs/react-router": "^0.13.3",
     "@pixi/graphics-extras": "^6.5.4",
     "@reduxjs/toolkit": "^1.8.5",
     "history": "5.3.0",
