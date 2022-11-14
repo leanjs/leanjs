@@ -9,7 +9,7 @@ import { App } from "./App";
 const runtime = createRuntime({ context: { appName: "Monolith" } });
 const origin = process.env.EXAMPLE_ART_BOARDS_ORIGIN; // "https://d1s8oi6ouy9ssm.cloudfront.net/"
 const basename = process.env.EXAMPLE_ART_BOARDS_BASENAME;
-///
+
 export function Root() {
   return (
     <Provider store={store}>

@@ -142,8 +142,8 @@ jobs:
       - name: Build ${{ matrix.workspace }}
         run: yarn lerna run build --scope ${{ matrix.workspace }}
         env:
-          EXAMPLE_ART_BOARDS_BASENAME: ${{ secrets.EXAMPLE_ART_BOARDS_BASENAME }}
-          EXAMPLE_ART_BOARDS_ORIGIN: ${{ secrets.EXAMPLE_ART_BOARDS_ORIGIN }}
+          EXAMPLE_ART_BOARDS_BASENAME: /__art_boards_app/
+          EXAMPLE_ART_BOARDS_ORIGIN: https://d1s8oi6ouy9ssm.cloudfront.net
       - name: Deploy ${{ matrix.workspace }} to AWS
         continue-on-error: false
         run: yarn lerna run deploy --scope ${{ matrix.workspace }}
