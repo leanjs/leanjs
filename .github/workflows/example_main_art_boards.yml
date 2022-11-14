@@ -81,7 +81,6 @@ jobs:
 
   version:
     runs-on: ubuntu-latest
-    if: "!contains(github.event.head_commit.message, 'chore: version example')"
     needs: [test, lint]
     outputs:
       ref: ${{ steps.set-ref.outputs.ref }}
@@ -120,7 +119,6 @@ jobs:
 
   deploy:
     runs-on: ubuntu-latest
-    if: "!contains(github.event.head_commit.message, 'chore: version example')"
     needs: [changed, version]
     strategy:
       fail-fast: false
