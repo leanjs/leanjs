@@ -13,12 +13,13 @@
   "dependencies": {
     "@art-boards/chat-app": "^1.1.0",
     "@art-boards/chat-component": "*",
+    "@art-boards/dashboard-app": "*",
     "@art-boards/runtime-react": "*",
     "@art-boards/ui-canvas": "*",
     "@art-boards/zima-blue": "^1.1.0"
   },
   "peerDependencies": {
-    "@leanjs/react": "*",
+    "@leanjs/react-router": "*",
     "@leanjs/webpack": "*",
     "react": "*",
     "react-dom": "*",

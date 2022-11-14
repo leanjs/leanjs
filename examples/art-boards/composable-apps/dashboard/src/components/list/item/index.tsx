@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
 
 import "./item.css";
-import { RootState } from "../../../../store";
+import { RootState } from "../../../redux/store";
 
 export const ListItem = () => {
   const { displayAuthor } = useSelector(

@@ -1586,6 +1586,13 @@
   resolved "https://registry.yarnpkg.com/@leanjs/core/-/core-0.24.2.tgz#2fd2ec19181ca0b7fdac77889363a0ed760abf94"
   integrity sha512-uvNtV+P9EZEI6YEeiWgz3fqhy5atMvuJnxkW0G6n0MFsn7/Paq69oaiLJLSTLOBy/yH3RAHBLUCEY0BOzUzOow==
 
+"@leanjs/react-router@^0.13.3":
+  version "0.13.3"
+  resolved "https://registry.yarnpkg.com/@leanjs/react-router/-/react-router-0.13.3.tgz#b5f6024a45a33d24f2b53fc8ccd4bc7bafdc00bb"
+  integrity sha512-lErjXUMdsf1K586VruqzsIV7ZQInuMAonh4ARL7paWTy8wzTNE8O+mp9xyhsmZ9tElPNyL8N80HVy+rf1oBVjQ==
+  dependencies:
+    "@leanjs/core" "^0.24.2"
+
 "@leanjs/react@0.17.3":
   version "0.17.3"
   resolved "https://registry.yarnpkg.com/@leanjs/react/-/react-0.17.3.tgz#ddff6cc8efc11327dcee00015d0c54d4c82f25a3"

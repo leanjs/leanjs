@@ -1,5 +1,5 @@
 import React from "react";
 
-export default function Fallback() {
+export function Loading() {
   return <div className="loading">Loading...</div>;
 }
