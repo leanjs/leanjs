@@ -4,8 +4,9 @@
   "scripts": {
     "dev": "lean dev --config=react",
     "build": "lean build --config=react",
-    "deploy": "lean deploy",
-    "lint": "tsc --noEmit"
+    "test": "echo 'ToDo'",
+    "lint": "tsc --noEmit",
+    "deploy": "lean deploy"
   },
   "main": "./src/index.ts",
   "author": "",
