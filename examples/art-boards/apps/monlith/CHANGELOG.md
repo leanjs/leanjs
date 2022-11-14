@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.1.1](https://github.com/leanjs/leanjs/compare/@art-boards/monolithic-app@1.1.0...@art-boards/monolithic-app@1.1.1) (2022-11-14)
+
+### Bug Fixes
+
+- **example:** art boards ci ([c596049](https://github.com/leanjs/leanjs/commit/c596049d6498635f0338fb0e44ad5d8e1e869d92))
+- **example:** art boards ci ([a6e9403](https://github.com/leanjs/leanjs/commit/a6e9403fcdd04e578bd18dc393c6fbca75d3560c))
+- **example:** art boards ci ([aaa245c](https://github.com/leanjs/leanjs/commit/aaa245ceeba22c3b5b96bb72db5e11c7fc4a35ae))
+
 # 1.1.0 (2022-11-14)
 
 ### Bug Fixes
