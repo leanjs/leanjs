@@ -12,7 +12,7 @@ import {
 import { useRuntime } from "@art-boards/runtime-react";
 
 export default function ZimaBlue() {
-  useEffect(() => utils.clearTextureCache);
+  useEffect(() => utils.clearTextureCache());
   const runtime = useRuntime();
 
   return (
