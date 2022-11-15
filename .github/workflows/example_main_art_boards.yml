@@ -30,7 +30,7 @@ jobs:
       - name: "Micro-frontends changed"
         run: npx lerna changed
       - id: set-workspaces
-        run: echo "workspaces=$(npx lerna changed --json)" >> $GITHUB_OUTPUT
+        run: echo "workspaces=$(npx lerna changed --json | jq -j)" >> $GITHUB_OUTPUT
 
   lint:
     needs: [changed]
