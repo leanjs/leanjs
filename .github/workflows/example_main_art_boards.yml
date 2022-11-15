@@ -30,9 +30,7 @@ jobs:
       - name: "Micro-frontends changed"
         run: npx lerna changed
       - id: set-workspaces
-        run:
-          echo "::set-output name=workspaces::$(npx lerna changed --loglevel=silent
-          | jq -R -s -c 'split("\n")[:-1]')"
+        run: echo "::set-output name=workspaces::$(npx lerna changed --json)"
 
   lint:
     needs: [changed]
@@ -54,7 +52,7 @@ jobs:
         run: yarn install --frozen-lockfile
         shell: bash
       - name: Lint
-        run: lerna run lint --scope ${{ matrix.workspace }}
+        run: lerna run lint --scope ${{ matrix.workspace.name }}
 
   test:
     needs: [changed]
@@ -63,7 +61,7 @@ jobs:
       fail-fast: false
       matrix:
         workspace: ${{fromJson(needs.changed.outputs.workspaces)}}
-    name: ${{ matrix.workspace }}
+    name: ${{ matrix.workspace.name }}
     steps:
       - name: Checkout
         uses: actions/checkout@v3
@@ -77,7 +75,7 @@ jobs:
         run: yarn install --frozen-lockfile
         shell: bash
       - name: Test
-        run: lerna run test --scope ${{ matrix.workspace }}
+        run: lerna run test --scope ${{ matrix.workspace.name }}
 
   version:
     runs-on: ubuntu-latest
@@ -109,7 +107,7 @@ jobs:
           git push -u origin main
         env:
           GITHUB_TOKEN: ${{ secrets.ADMIN_GH_TOKEN }}
-      - name: Version ${{ matrix.workspace }}
+      - name: Version ${{ matrix.workspace.name }}
         continue-on-error: false
         run: "HUSKY=0 yarn lerna version --conventional-commits --yes --include-merged-tags --message 'chore: version example'"
         env:
@@ -124,7 +122,7 @@ jobs:
       fail-fast: false
       matrix:
         workspace: ${{fromJson(needs.changed.outputs.workspaces)}}
-    name: ${{ matrix.workspace }}
+    name: ${{ matrix.workspace.name }}
     steps:
       - name: Checkout
         uses: actions/checkout@v3
@@ -139,14 +137,14 @@ jobs:
       - name: Install dependencies
         run: yarn install --frozen-lockfile
         shell: bash
-      - name: Build ${{ matrix.workspace }}
-        run: yarn lerna run build --scope ${{ matrix.workspace }}
+      - name: Build ${{ matrix.workspace.name }}
+        run: yarn lerna run build --scope ${{ matrix.workspace.name }}
         env:
           EXAMPLE_ART_BOARDS_BASENAME: /__art_boards_app/
           EXAMPLE_ART_BOARDS_ORIGIN: https://d1s8oi6ouy9ssm.cloudfront.net
-      - name: Deploy ${{ matrix.workspace }} to AWS
+      - name: Deploy ${{ matrix.workspace.name }} to AWS
         continue-on-error: false
-        run: yarn lerna run deploy --scope ${{ matrix.workspace }}
+        run: yarn lerna run deploy --scope ${{ matrix.workspace.name }}
         env:
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
