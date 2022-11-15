@@ -3,6 +3,10 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.2.42](https://github.com/leanjs/leanjs/compare/@leanjs/webpack-react@0.2.41...@leanjs/webpack-react@0.2.42) (2022-11-15)
+
+**Note:** Version bump only for package @leanjs/webpack-react
+
 ## [0.2.41](https://github.com/leanjs/leanjs/compare/@leanjs/webpack-react@0.2.40...@leanjs/webpack-react@0.2.41) (2022-11-10)
 
 **Note:** Version bump only for package @leanjs/webpack-react

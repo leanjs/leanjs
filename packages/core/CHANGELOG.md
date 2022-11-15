@@ -3,6 +3,13 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.25.0](https://github.com/leanjs/leanjs/compare/@leanjs/core@0.24.2...@leanjs/core@0.25.0) (2022-11-15)
+
+### Features
+
+- **vue-runtime-api:** enable build time loading of vue remotes ([2508760](https://github.com/leanjs/leanjs/commit/250876050f9ccf09539579eef323198b6f9372c1))
+- **vue-runtime:** move getMount to core so it can be shared between binding packages ([5442c36](https://github.com/leanjs/leanjs/commit/5442c36eefa7f4fe782894a26c8e4c4411be8426))
+
 ## [0.24.2](https://github.com/leanjs/leanjs/compare/@leanjs/core@0.24.1...@leanjs/core@0.24.2) (2022-11-08)
 
 ### Bug Fixes
