@@ -1,6 +1,6 @@
 {
   "name": "@art-boards/monolithic-app",
-  "version": "1.1.4",
+  "version": "1.1.5",
   "description": "",
   "scripts": {
     "dev": "NODE_ENV=development webpack serve",
@@ -16,7 +16,7 @@
     "@art-boards/dashboard-app": "^1.0.2",
     "@art-boards/runtime-react": "*",
     "@art-boards/ui-canvas": "*",
-    "@art-boards/zima-blue": "^1.1.1"
+    "@art-boards/zima-blue": "^1.1.2"
   },
   "peerDependencies": {
     "@leanjs/react-router": "*",
