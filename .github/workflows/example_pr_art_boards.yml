@@ -1,0 +1,117 @@
+name: "ArtBoards example: Build and deploy PR branch"
+on:
+  pull_request:
+    paths:
+      - examples/art-boards/**
+
+permissions:
+  pull-requests: write
+
+defaults:
+  run:
+    working-directory: examples/art-boards
+
+jobs:
+  changed:
+    if: "!contains(github.event.head_commit.message, 'chore: version example')"
+    runs-on: ubuntu-latest
+    outputs:
+      workspaces: ${{ steps.set-workspaces.outputs.workspaces }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+      - name: Install dependencies
+        run: yarn install --frozen-lockfile
+        shell: bash
+      - name: "Micro-frontends changed"
+        run: npx lerna changed
+      - id: set-workspaces
+        run: echo "workspaces=$(npx lerna changed --json | jq -c)" >> $GITHUB_OUTPUT
+
+  lint:
+    needs: [changed]
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        workspace: ${{fromJson(needs.changed.outputs.workspaces)}}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+      - name: Setup Node LTS and yarn cache
+        uses: actions/setup-node@v2
+        with:
+          cache: yarn
+          check-latest: true
+          node-version: 16
+      - name: Install dependencies
+        run: yarn install --frozen-lockfile
+        shell: bash
+      - name: Lint
+        run: lerna run lint --scope ${{ matrix.workspace.name }}
+
+  test:
+    needs: [changed]
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        workspace: ${{fromJson(needs.changed.outputs.workspaces)}}
+    name: ${{ matrix.workspace.name }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+      - name: Setup Node LTS and yarn cache
+        uses: actions/setup-node@v2
+        with:
+          cache: yarn
+          check-latest: true
+          node-version: 16
+      - name: Install dependencies
+        run: yarn install --frozen-lockfile
+        shell: bash
+      - name: Test
+        run: lerna run test --scope ${{ matrix.workspace.name }}
+
+  deploy:
+    runs-on: ubuntu-latest
+    needs: [changed, test, lint]
+    strategy:
+      fail-fast: false
+      matrix:
+        workspace: ${{fromJson(needs.changed.outputs.workspaces)}}
+    name: ${{ matrix.workspace.name }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+        with:
+          ref: ${{needs.version.outputs.ref}}
+      - name: Setup Node LTS and yarn cache
+        uses: actions/setup-node@v2
+        with:
+          cache: yarn
+          check-latest: true
+          node-version: 16
+      - name: Install dependencies
+        run: yarn install --frozen-lockfile
+        shell: bash
+      - name: Build ${{ matrix.workspace.name }}
+        run: yarn lerna run build --scope ${{ matrix.workspace.name }}
+        env:
+          EXAMPLE_ART_BOARDS_BASENAME: /__art_boards_app/
+          EXAMPLE_ART_BOARDS_ORIGIN: https://d1s8oi6ouy9ssm.cloudfront.net
+      - name: Deploy ${{ matrix.workspace.name }} to AWS
+        continue-on-error: false
+        run: VERSION=${{ github.sha }} yarn lerna run deploy:pr --scope ${{ matrix.workspace.name }}
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          AWS_S3_BUCKET: ${{ secrets.AWS_S3_BUCKET }}
+          AWS_REGION: ${{ secrets.AWS_REGION }}
+          CLOUDFRONT_DISTRIBUTION_ID: ${{ secrets.CLOUDFRONT_DISTRIBUTION_ID }}
+      - name: Post comment with deployed app URL
+        run: yarn app:comment --origin https://d1s8oi6ouy9ssm.cloudfront.net --location ${{ matrix.workspace.location }} --packageName ${{ matrix.workspace.name }} --version ${{ github.sha }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.LEANJSBOT }}
