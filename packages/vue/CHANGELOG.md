@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.8.0](https://github.com/leanjs/leanjs/compare/@leanjs/vue@0.7.2...@leanjs/vue@0.8.0) (2022-11-15)
+
+### Features
+
+- **vue-runtime-api:** enable build time loading of vue remotes ([2508760](https://github.com/leanjs/leanjs/commit/250876050f9ccf09539579eef323198b6f9372c1))
+- **vue-runtime-api:** move HostProvider to @leanjs/vue package and update interface to match react ([f3fbce7](https://github.com/leanjs/leanjs/commit/f3fbce720d9d57f6e701ac9f49c844d7c80ce6f3))
+- **vue-runtime:** cleanup console logging ([120e536](https://github.com/leanjs/leanjs/commit/120e536ff4d815ba6e98054b86a526458da23cd8))
+- **vue-runtime:** update jest config to mock vue in tests ([6de4a4e](https://github.com/leanjs/leanjs/commit/6de4a4e316a4c878bfe58ace23e6ce3e3b08bcd7))
+
 ## [0.7.2](https://github.com/leanjs/leanjs/compare/@leanjs/vue@0.7.1...@leanjs/vue@0.7.2) (2022-11-08)
 
 **Note:** Version bump only for package @leanjs/vue
