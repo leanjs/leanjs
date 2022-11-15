@@ -19,6 +19,7 @@ export interface MountProps extends BasePath {
   mount: MountFunc;
   runtime: Runtime;
   basename?: string;
+  pathname: string;
   navigate?: NavigateFunc;
   listen?: ListenFunc;
   setError: LogAnyError;
@@ -44,9 +45,7 @@ onMounted(() => {
     basename,
     pathname: initialPathname,
     runtime,
-    onError: (error) => {
-      throw error;
-    },
+    onError: props.setError
   });
 
   unmount = mountRes.unmount;
