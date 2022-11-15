@@ -1,6 +1,6 @@
 {
   "name": "@art-boards/dashboard-app",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "scripts": {
     "dev": "lean dev --config=react",
     "build": "lean build --config=react",
