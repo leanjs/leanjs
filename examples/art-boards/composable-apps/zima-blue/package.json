@@ -1,6 +1,6 @@
 {
   "name": "@art-boards/zima-blue",
-  "version": "1.1.1",
+  "version": "1.1.2",
   "scripts": {
     "dev": "lean dev --config=react",
     "build": "lean build --config=react",
