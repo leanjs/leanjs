@@ -5,7 +5,8 @@
     "dev": "lean dev --config=react",
     "build": "lean build --config=react",
     "test": "echo 'ToDo'",
-    "lint": "tsc --noEmit"
+    "lint": "tsc --noEmit",
+    "deploy:pr": "lean deploy"
   },
   "main": "./src/index.ts",
   "author": "",
