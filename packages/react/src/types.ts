@@ -9,6 +9,7 @@ import type {
   ComposableApp,
   CreateAppConfig as CreateAppCoreConfig,
   LogAnyError,
+  RemoteProp,
 } from "@leanjs/core";
 import type { ReactElement } from "react";
 
@@ -26,9 +27,6 @@ export interface BaseHostProps {
   className?: string;
 }
 
-export interface RemoteProp {
-  version: string;
-}
 export interface OuterHostProps extends BaseHostProps {
   app: GetComposableApp | GetComposableAppAsync;
   remote?: RemoteProp;
@@ -45,10 +43,6 @@ export interface InnerHostProps extends BaseHostProps {
 
 export interface UseMountArgs {
   app: GetComposableApp | ComposableApp;
-}
-
-export interface HostContextValues {
-  origin?: string;
 }
 
 export interface HostProviderProps<BaseRuntime extends Runtime = Runtime> {

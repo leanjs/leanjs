@@ -1,28 +1,22 @@
 <template>
-  <Mount
-    v-if="mount && runtime && !error"
-    :mount="mount"
-    :listen="listen"
-    :basename="basename"
-    :pathname="props.pathname"
-    :runtime="runtime"
-  />
+  <component :is="HostApp" v-if="HostApp"/>
   <div v-if="error">
-    <slot name="error" :error="error">Error: {{ error }}</slot>
+    <slot name="error">Error: {{ error }}</slot>
   </div>
-  <div v-if="(!mount || !runtime) && !error">
+  <div v-if="!HostApp && !error">
     <slot name="loading">Loading...</slot>
   </div>
 </template>
 
 <script setup lang="ts">
-import { inject, defineProps, watchEffect, ref, onBeforeMount } from "vue";
+import  { inject, defineProps, watchEffect, ref, Component, onMounted, shallowRef, h } from "vue";
 import type {
   Runtime,
-  NavigateFunc,
   ListenFunc,
-  ComposableApp,
-  RemoteComposableApp,
+  GetComposableApp,
+  GetComposableAppAsync,
+  RemoteProp,
+  MountFunc,
 } from "@leanjs/core";
 import { _ as CoreUtils } from "@leanjs/core";
 import { Mount } from "@leanjs/vue";
@@ -31,35 +25,26 @@ import mountCache from "./mountCache";
 import { RouteLocationNormalizedLoaded, Router } from "vue-router";
 
 export interface HostProps {
-  app: RemoteComposableApp;
+  app: GetComposableApp | GetComposableAppAsync;
   pathname?: string;
+  remote?: RemoteProp;
 }
 
 const {
-  loadModule,
-  loadScript,
-  createRemoteName,
-  deleteTrailingSlash,
-  getRemoteUrl,
+  isRemoteApp,
+  loadApp,
 } = CoreUtils;
 const runtime = inject<Runtime>("runtime");
 const injectedOrigin = inject<string>("origin");
 if (!injectedOrigin) {
   throw new Error(`you must provide an origin prop in HostProvider`);
 }
-
 const props = defineProps<HostProps>();
-const { packageName } = props.app;
-const origin = deleteTrailingSlash(injectedOrigin);
+const version = props?.remote?.version;
+const mountKey = isRemoteApp(props.app) ? `${props.app.packageName}${version}` : props.app;
 
-const name = createRemoteName(packageName);
-
-const url = getRemoteUrl({ origin, packageName });
-
-const mountKey = url + name;
-
-const cachedMount = mountCache.get(mountKey);
-const mount = ref(cachedMount);
+let cachedHostApp = mountCache.get(mountKey);
+const HostApp = shallowRef(cachedHostApp);
 
 const error = ref<Error | null>(null);
 let route: RouteLocationNormalizedLoaded;
@@ -91,33 +76,42 @@ const listen: ListenFunc = (listener) => {
   };
 };
 
-onBeforeMount(() => {
-  watchEffect(() => {
-    if (!cachedMount) {
-      loadScript(url)
-        .then(() => loadModule(name))
-        .then(({ default: createComposableApp }) => {
-          let remoteMount;
-          if (typeof createComposableApp === "function") {
-            const { mount } = createComposableApp({
-              isSelfHosted: false,
-            });
-            remoteMount = mount;
-          } else if (
-            typeof createComposableApp === "object" &&
-            createComposableApp.mount
-          ) {
-            remoteMount = createComposableApp.mount;
-          } else {
-            throw new Error("Remote module didn't return a function");
-          }
-          mount.value = remoteMount;
-          mountCache.set(mountKey, remoteMount);
-        })
-        .catch((err) => {
-          error.value = err;
-        });
-    }
+const HostWrapper = (mount: MountFunc, url?: string) => {
+  //@ts-ignore
+  return h(Mount, {
+    mount,
+    runtime,
+    basename,
+    listen,
+    setError: (e: any) => error.value = e,
+  });
+
+  
+};
+
+onMounted(() => {
+  watchEffect(async () => {
+    if (!cachedHostApp) {
+      try {
+        mountCache.set(
+          mountKey,
+          (
+            await loadApp<Component>({
+              app: props.app,
+              remote: props.remote,
+              version,
+              context: {
+                origin: injectedOrigin,
+              },
+              HostWrapper,
+            })
+          ).default
+        )
+        HostApp.value = mountCache.get(mountKey);
+      } catch (e: any) {
+        error.value = e;
+      }
+    };
   });
 });
 </script>

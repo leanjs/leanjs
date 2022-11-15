@@ -5,7 +5,8 @@
     <NuxtLink to="/vue">Vue page</NuxtLink> |
     <NuxtLink to="/custom">Custom page</NuxtLink> |
     <NuxtLink to="/custom-error">Custom error</NuxtLink> |
-    <NuxtLink to="/nested-routing">Nested React</NuxtLink>
+    <NuxtLink to="/nested-routing">Nested React</NuxtLink> |
+    <NuxtLink to="/build-time">Build Time</NuxtLink>
     <HostProvider :runtime="runtime" origin="http://localhost:56500">
       <NuxtPage />
     </HostProvider>
@@ -13,8 +14,7 @@
 </template>
 
 <script setup lang="ts">
-import { HostProvider } from "@leanjs/nuxt";
-import { createRuntime } from "@leanjs/e2e-test-package-runtime-shared";
+import { createRuntime, HostProvider } from "@leanjs/e2e-test-package-runtime-vue";
 
 const runtime = createRuntime({
   context: { appName: "NuxtShell", version: "5.6.7" },

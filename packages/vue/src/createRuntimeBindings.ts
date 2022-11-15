@@ -3,6 +3,10 @@ import type { KeyOf, CreateRuntime, StateType, BaseShape } from "@leanjs/core";
 
 import type { Cleanups, StatePropArgs } from "./types";
 import { isPrimitive, shallowCopy } from "./utils";
+// Added to allow unit tests to run properly
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-ignore
+import HostProvider from "./private/HostProvider.vue";
 
 export const createRuntimeBindings = <
   MyCreateRuntime extends CreateRuntime = CreateRuntime,
@@ -84,6 +88,7 @@ export const createRuntimeBindings = <
 
   return {
     useSharedState,
+    HostProvider,
   };
 };
 

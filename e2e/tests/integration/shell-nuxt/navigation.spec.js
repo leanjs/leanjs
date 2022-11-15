@@ -25,4 +25,19 @@ describe("Nuxtjs shell: navigation", () => {
       "be.visible"
     );
   });
+
+  it("Navigates to a build time remote app successfully", () => {
+    cy.visit("http://localhost:44447");
+    cy.contains("Build Time").click();
+    cy.url().should("include", "/build-time");
+
+    cy.contains("h1", "Vue micro-app 1").should("be.visible");
+
+    cy.contains("a", "Home page").click();
+
+    cy.url().should("include", "/");
+    cy.contains("h1", "NuxtShell ( RemoteReact1 ) @ 5.6.7 ( 1.6.16 )").should(
+      "be.visible"
+    );
+  });
 });
