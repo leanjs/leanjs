@@ -1,8 +1,7 @@
 <template>
-  Abc
   <component :is="HostApp" v-if="HostApp"/>
   <div v-if="error">
-    <slot name="error" :error="error">Error: {{ error }}</slot>
+    <slot name="error">Error: {{ error }}</slot>
   </div>
   <div v-if="!HostApp && !error">
     <slot name="loading">Loading...</slot>
@@ -10,20 +9,21 @@
 </template>
 
 <script setup lang="ts">
-import  { inject, defineProps, watchEffect, ref, onBeforeMount, defineAsyncComponent, VueElement, Component, onMounted, shallowRef, h } from "vue";
+import  { inject, defineProps, watchEffect, ref, Component, onMounted, shallowRef, h } from "vue";
 import type {
   Runtime,
   ListenFunc,
-GetComposableApp,
-GetComposableAppAsync,
-RemoteProp,
-MountFunc,
+  GetComposableApp,
+  GetComposableAppAsync,
+  RemoteProp,
+  MountFunc,
 } from "@leanjs/core";
 import { _ as CoreUtils } from "@leanjs/core";
 import { Mount } from "@leanjs/vue";
 import "./types";
 import mountCache from "./mountCache";
 import { RouteLocationNormalizedLoaded, Router } from "vue-router";
+
 export interface HostProps {
   app: GetComposableApp | GetComposableAppAsync;
   pathname?: string;
@@ -93,17 +93,20 @@ onMounted(() => {
   watchEffect(async () => {
     if (!cachedHostApp) {
       try {
-        const { default: a } = await loadApp<Component>({
-          app: props.app,
-          remote: props.remote,
-          version,
-          context: {
-            origin: injectedOrigin,
-          },
-          HostWrapper,
-        });
-        console.log(a);
-        mountCache.set(mountKey, a);
+        mountCache.set(
+          mountKey,
+          (
+            await loadApp<Component>({
+              app: props.app,
+              remote: props.remote,
+              version,
+              context: {
+                origin: injectedOrigin,
+              },
+              HostWrapper,
+            })
+          ).default
+        )
         HostApp.value = mountCache.get(mountKey);
       } catch (e: any) {
         error.value = e;
