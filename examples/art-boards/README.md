@@ -51,13 +51,13 @@ yarn dev
 
 ## Production pipeline
 
-The [`Chat` & `ZimaBlue`](https://d1s8oi6ouy9ssm.cloudfront.net/__art_boards_app/zima-blue) apps are built and deployed along with the monolith on production. The [Dashboard](https://d1s8oi6ouy9ssm.cloudfront.net/__art_boards_app/) app is always built and deployed independently, and is downloaded from a [remote build](https://d1s8oi6ouy9ssm.cloudfront.net/__art_boards_dashboard_app/latest/browser/remoteEntry.js) on production, also known as micro-frontend.
+The [`Chat` & `ZimaBlue`](https://d1s8oi6ouy9ssm.cloudfront.net/__art_boards_app/zima-blue) apps are built and deployed along with the monolith to production. The [Dashboard](https://d1s8oi6ouy9ssm.cloudfront.net/__art_boards_app/) app is always built and deployed independently, and is downloaded from a [remote build](https://d1s8oi6ouy9ssm.cloudfront.net/__art_boards_dashboard_app/latest/browser/remoteEntry.js) on production, also known as micro-frontend.
 
 Packages are not published to a registry. Both monolith and micro-frontend have in each build a copy of the packages they use.
 
 CI examples:
 
-- [Github action run](https://github.com/leanjs/leanjs/actions/runs/34746095057)
+- [Github action run](https://github.com/leanjs/leanjs/actions/runs/3474609505)
 - [Github action workflow](https://github.com/leanjs/leanjs/blob/main/.github/workflows/example_main_art_boards.yml)
 
 ## PR pipeline
