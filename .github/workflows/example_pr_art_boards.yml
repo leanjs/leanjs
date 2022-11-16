@@ -26,11 +26,12 @@ jobs:
         run: yarn install --frozen-lockfile
         shell: bash
       - name: "Micro-frontends changed"
-        run: npx lerna changed
-      - id: set-workspaces
+        id: set-workspaces
         run: echo "workspaces=$(npx lerna changed --json | jq -c)" >> $GITHUB_OUTPUT
+        continue-on-error: true
 
   lint:
+    if: needs.changed.outputs.workspaces
     needs: [changed]
     runs-on: ubuntu-latest
     strategy:
@@ -53,6 +54,7 @@ jobs:
         run: lerna run lint --scope ${{ matrix.workspace.name }}
 
   test:
+    if: needs.changed.outputs.workspaces
     needs: [changed]
     runs-on: ubuntu-latest
     strategy:
@@ -76,6 +78,7 @@ jobs:
         run: lerna run test --scope ${{ matrix.workspace.name }}
 
   deploy:
+    if: needs.changed.outputs.workspaces
     runs-on: ubuntu-latest
     needs: [changed, test, lint]
     strategy:
