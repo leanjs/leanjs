@@ -106,8 +106,7 @@ function Index({ config: siteConfig }) {
                 </div>
                 <div className="card__body">
                   <p>
-                    It integrates with your tech stack and not just with your UI
-                    library.
+                    It integrates with your tech stack beyond your UI library.
                   </p>
                 </div>
               </div>
