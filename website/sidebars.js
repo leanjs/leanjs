@@ -13,7 +13,7 @@
 
 /** @type {import('@docusaurus/plugin-content-docs').SidebarsConfig} */
 const sidebars = {
-  defaultSidebar: ["introduction", "getting-started", "contributing"],
+  defaultSidebar: ["what-is-leanjs", "getting-started", "contributing"],
 };
 
 module.exports = sidebars;
