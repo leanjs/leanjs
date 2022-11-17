@@ -9,7 +9,7 @@ const darkCodeTheme = require("prism-react-renderer/themes/dracula");
 const config = {
   title: "LeanJS",
   tagline:
-    "Enjoy building flexible and performant front-end applications that scale",
+    "Enjoy building flexible and performant front-end applications at scale",
   url: "https://leanjs.org",
   baseUrl: "/",
   onBrokenLinks: "throw",
