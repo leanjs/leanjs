@@ -28,7 +28,7 @@ yarn add @leanjs/next @leanjs/react @leanjs/core
 
 ### `HostProvider`
 
-You have to add a `HostProvider` at the root of your component tree in `pages/_app.tsx`. **Heads up!** `HostProvider` is not exported from `@leanjs/next`. Learn more about the [`HostProvider`](/packages/react/#hostprovider).
+You have to add a `HostProvider` at the root of your component tree in `pages/_app.tsx`. **Heads up!** `HostProvider` is not exported from `@leanjs/next`. Learn more about the [`HostProvider`](../react/README.md#hostprovider).
 
 Example:
 
@@ -51,7 +51,7 @@ export default App;
 
 :::info
 
-Read [@leanjs/core](/packages/core#basic-usage) if you have not already created your own `createRuntime` function
+Read [@leanjs/core](../core/README.md#basic-usage) if you have not already created your own `createRuntime` function
 
 :::
 
@@ -147,7 +147,7 @@ const Home = () => (
 export default Home;
 ```
 
-Alternatively, you can pass an object to the `app` prop with a `packageName` key which value is the field `name` in the package.json of the composable app that you want to host. In this case, the `Host` component will try to fetch the `mount` function from the remote `origin` specified in `<HostProvider origin=" 👉 HERE 👈 " runtime={runtime}>` (see [origin prop](/packages/react/#origin-prop---optional) to know more). For example:
+Alternatively, you can pass an object to the `app` prop with a `packageName` key which value is the field `name` in the package.json of the composable app that you want to host. In this case, the `Host` component will try to fetch the `mount` function from the remote `origin` specified in `<HostProvider origin=" 👉 HERE 👈 " runtime={runtime}>` (see [origin prop](../react/README.md#origin-prop---optional) to know more). For example:
 
 ```tsx
 // my-monorepo/apps/nextjs-host/pages/index.tsx
@@ -174,7 +174,7 @@ export default Home;
 ```
 
 :::caution
-Fetching from a remote `origin` only works with Webpack v5 because this feature uses Module Federation under the hood. You need to add a [HostWebpackPlugin](/packages/webpack/#hostwebpackplugin) to your `next.config.js` to enable this feature. If this feature is enabled you need to build and deploy your composable apps independently. See [@leanjs/aws](/packages/aws/) to deploy your composable apps to AWS.
+Fetching from a remote `origin` only works with Webpack v5 because this feature uses Module Federation under the hood. You need to add a [HostWebpackPlugin](../webpack/README.md#hostwebpackplugin) to your `next.config.js` to enable this feature. If this feature is enabled you need to build and deploy your composable apps independently. See [@leanjs/aws](../aws/README.md) to deploy your composable apps to AWS.
 :::
 
 <!--

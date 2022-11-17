@@ -27,7 +27,7 @@ yarn add @leanjs/vue @leanjs/core
 
 ### `createRuntimeBindings`
 
-1 . First, you have to create your Vue bindings for your [`runtime`](/packages/core/#the-leanjs-runtime).
+1 . First, you have to create your Vue bindings for your [`runtime`](../core/README.md#the-leanjs-runtime).
 
 ```ts
 // shared-runtime.ts
@@ -44,7 +44,7 @@ export const { useSharedState } = createRuntimeBindings(createRuntime);
 
 :::info
 
-Read [@leanjs/core](/packages/core#basic-usage) if you have not already created your own `createRuntime` function
+Read [@leanjs/core](../core/README.md#basic-usage) if you have not already created your own `createRuntime` function
 
 :::
 
