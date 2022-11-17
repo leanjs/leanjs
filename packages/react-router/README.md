@@ -33,7 +33,7 @@ yarn add react-router-dom@6 history react-dom@17 react@17 \
 
 ### `HostProvider`
 
-You have to add a `HostProvider` at the root of the component tree of your React Router host app if you want to host composable apps within a React Router host. **Heads up!** `HostProvider` is not exported from `@leanjs/react-router`. Learn more about the [`HostProvider`](/packages/react/#hostprovider).
+You have to add a `HostProvider` at the root of the component tree of your React Router host app if you want to host composable apps within a React Router host. **Heads up!** `HostProvider` is not exported from `@leanjs/react-router`. Learn more about the [`HostProvider`](../react/README.md#hostprovider).
 
 Example:
 
@@ -63,7 +63,7 @@ export default Root;
 
 :::info
 
-Read [@leanjs/core](/packages/core#basic-usage) if you have not already created your own `createRuntime` function.
+Read [@leanjs/core](../core/README.md#basic-usage) if you have not already created your own `createRuntime` function.
 
 :::
 
@@ -95,9 +95,7 @@ my-monorepo/
 
 :::tip
 
-<!-- Read the recommended setup in our [getting started page](../../docs/getting-started#recommended-setup) if you want to create a similar monorepo structure -->
-
-Read the recommended setup in our [getting started page](/getting-started#recommended-setup) if you want to create a similar monorepo structure
+Read the recommended setup in our [getting started page](../../docs/getting-started#recommended-setup) if you want to create a similar monorepo structure
 
 :::
 
@@ -155,7 +153,7 @@ export { createRuntime } from "@my-org/runtime-react";
 
 :::info
 
-Read [@leanjs/core](/packages/core#basic-usage) if you have not already created your own `createRuntime` function
+Read [@leanjs/core](../core/README.md#basic-usage) if you have not already created your own `createRuntime` function
 
 :::
 
@@ -235,7 +233,7 @@ const Home = () => (
 export default Home;
 ```
 
-Alternatively, you can pass an object to the `app` prop with a `packageName` key which value is the field `name` in the package.json of the composable app that you want to host. In this case, the `Host` component will try to fetch the `mount` function from the remote `origin` specified in `<HostProvider origin=" 👉 HERE 👈 " runtime={runtime}>` (see [origin prop](/packages/react/#origin-prop---optional) to know more). For example:
+Alternatively, you can pass an object to the `app` prop with a `packageName` key which value is the field `name` in the package.json of the composable app that you want to host. In this case, the `Host` component will try to fetch the `mount` function from the remote `origin` specified in `<HostProvider origin=" 👉 HERE 👈 " runtime={runtime}>` (see [origin prop](../react/README.md#origin-prop---optional) to know more). For example:
 
 ```tsx
 // my-monorepo/apps/react-router-host/src/pages/index.tsx
@@ -262,7 +260,7 @@ export default Home;
 ```
 
 :::caution
-Fetching from a remote `origin` only works with Webpack v5 because this feature uses Module Federation under the hood. You need to add a [HostWebpackPlugin](/packages/webpack/#hostwebpackplugin) to your Webpack configuration to enable this feature. If this feature is enabled you need to build and deploy your composable apps independently. See [@leanjs/aws](/packages/aws/) to deploy your composable apps to AWS.
+Fetching from a remote `origin` only works with Webpack v5 because this feature uses Module Federation under the hood. You need to add a [HostWebpackPlugin](../webpack/README.md#hostwebpackplugin) to your Webpack configuration to enable this feature. If this feature is enabled you need to build and deploy your composable apps independently. See [@leanjs/aws](../aws/README.md) to deploy your composable apps to AWS.
 :::
 
 :::tip

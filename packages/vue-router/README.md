@@ -52,9 +52,7 @@ my-monorepo/
 
 :::info
 
-<!-- > Read the recommended setup in our [getting started page](../../docs/getting-started#recommended-setup) if you want to create a similar monorepo structure -->
-
-Read the recommended setup in our [getting started page](/getting-started#recommended-setup) if you want to create a similar monorepo structure
+Read the recommended setup in our [getting started page](../../docs/getting-started#recommended-setup) if you want to create a similar monorepo structure
 
 :::
 
@@ -106,6 +104,6 @@ export { createRuntime } from "@my-org/runtime-react";
 
 :::info
 
-Read [@leanjs/core](/packages/core#basic-usage) if you have not already created your own `createRuntime` function
+Read [@leanjs/core](../core/README.md#basic-usage) if you have not already created your own `createRuntime` function
 
 :::
