@@ -9,7 +9,7 @@ const darkCodeTheme = require("prism-react-renderer/themes/dracula");
 const config = {
   title: "LeanJS",
   tagline:
-    "Tools for building maintainable and performant large front-end applications",
+    "Enjoy building flexible and performant front-end applications that scale",
   url: "https://leanjs.org",
   baseUrl: "/",
   onBrokenLinks: "throw",
@@ -122,15 +122,11 @@ const config = {
     /** @type {import('@docusaurus/preset-classic').ThemeConfig} */
     ({
       navbar: {
-        title: "LeanJS",
-        // logo: {
-        //   alt: "My Site Logo",
-        //   src: "img/logo.svg",
-        // },
+        title: "🤸🏽‍♀️ LeanJS",
         items: [
           {
             type: "doc",
-            docId: "introduction",
+            docId: "what-is-leanjs",
             position: "left",
             label: "Docs",
           },
