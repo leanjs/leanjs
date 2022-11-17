@@ -36,7 +36,6 @@ const config = {
         docs: {
           editUrl: "https://github.com/leanjs/leanjs/edit/main/docs/",
           path: "../docs",
-          routeBasePath: "/",
           sidebarPath: "sidebars.js",
         },
         theme: {
