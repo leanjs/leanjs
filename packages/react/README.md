@@ -27,7 +27,7 @@ yarn add @leanjs/react @leanjs/core
 
 ### `createRuntimeBindings`
 
-First, you have to create your React bindings (**HostProvider**, **useGetter**, etc) for your [`runtime`](/packages/core/#the-leanjs-runtime).
+First, you have to create your React bindings (**HostProvider**, **useGetter**, etc) for your [`runtime`](../core/README.md#the-leanjs-runtime).
 
 ```ts
 // shared-runtime.ts
@@ -51,7 +51,7 @@ export const {
 
 :::info
 
-Read [@leanjs/core](/packages/core#basic-usage) if you have not already created your own `createRuntime` function
+Read [@leanjs/core](../core/README.md#basic-usage) if you have not already created your own `createRuntime` function
 
 :::
 
@@ -109,9 +109,7 @@ my-monorepo/
 
 :::tip
 
-<!-- Read the recommended setup in our [getting started page](../../docs/getting-started#recommended-setup) if you want to create a similar monorepo structure -->
-
-Read the recommended setup in our [getting started page](/getting-started#recommended-setup) if you want to create a similar monorepo structure
+Read the recommended setup in our [getting started page](../../docs/getting-started/#recommended-setup) if you want to create a similar monorepo structure
 
 :::
 
@@ -169,7 +167,7 @@ export { createRuntime } from "@my-org/runtime-react";
 
 :::info
 
-Read [@leanjs/core](/packages/core#basic-usage) if you have not already created your own `createRuntime` function
+Read [@leanjs/core](../core/README.md#basic-usage) if you have not already created your own `createRuntime` function
 
 :::
 
@@ -181,11 +179,11 @@ You have to **call [createRuntimeBindings](#createruntimebindings) to create a `
 
 #### `runtime` prop - required
 
-Your Lean [runtime](/packages/core/).
+Your Lean [runtime](../core/README.md).
 
 #### `origin` prop - optional
 
-[Origin](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Origin) where your remote composable apps are. During development, use the address where you run your Lean [proxy dev server](/packages/cli#proxy-dev-server). Use the address of your CDN in production, e.g. `https://cdn.example.com`.
+[Origin](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Origin) where your remote composable apps are. During development, use the address where you run your Lean [proxy dev server](../cli/README.md#proxy-dev-server). Use the address of your CDN in production, e.g. `https://cdn.example.com`.
 
 Example
 
@@ -244,7 +242,7 @@ interface LogErrorOptions {
 interface AppError extends Error, LogErrorOptions {}
 ```
 
-If `onError` is not provided and an error is caught by the `ErrorBoundary` the error will be logged using the [`onError`](/packages/core/#onerror---required-function) function passed to the `configureRuntime` if a `HostProvider` is found in the component tree.
+If `onError` is not provided and an error is caught by the `ErrorBoundary` the error will be logged using the [`onError`](../core/README.md#onerror---required-function) function passed to the `configureRuntime` if a `HostProvider` is found in the component tree.
 
 ### `Host`
 
@@ -346,7 +344,7 @@ export default Home;
 ```
 
 :::caution
-Fetching from a remote `origin` only works with Webpack v5 because this feature uses Module Federation under the hood. You need to add a [HostWebpackPlugin](/packages/webpack/#hostwebpackplugin) to your Webpack configuration to enable this feature. If this feature is enabled you need to build and deploy your composable apps independently. See [@leanjs/aws](/packages/aws/) to deploy your composable apps to AWS.
+Fetching from a remote `origin` only works with Webpack v5 because this feature uses Module Federation under the hood. You need to add a [HostWebpackPlugin](../webpack/README.md#hostwebpackplugin) to your Webpack configuration to enable this feature. If this feature is enabled you need to build and deploy your composable apps independently. See [@leanjs/aws](../aws/README.md) to deploy your composable apps to AWS.
 :::
 
 :::tip

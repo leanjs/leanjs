@@ -6,7 +6,7 @@ title: Getting started
 
 ## Quick start
 
-For a quick start, visit [create micro-frontends](../packages/create-micro-frontends).
+To create a simple PoC for a quick start, visit [create micro-frontends](../packages/create-micro-frontends).
 
 ## Manual start
 
@@ -15,6 +15,8 @@ You will want to manually start a composable apps project when you have an exist
 ## Recommended setup
 
 ### Turn your monolith into a monorepo
+
+** [Skip this step](#add-the-lean-cli)** if your already have a monorepo.
 
 - Create directory `apps/my-monolith` and move all your code there
 - Keep also a copy of your `package.json` at the root
@@ -39,6 +41,8 @@ You will want to manually start a composable apps project when you have an exist
   ```
 
 ### Create a `packages` workspace
+
+** [Skip this step](#add-the-lean-cli)** if your already have a monorepo.
 
 Packages are used to share code between composable apps and/or the monolith.
 
