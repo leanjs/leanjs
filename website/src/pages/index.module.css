@@ -22,6 +22,12 @@
   }
 }
 
+@media screen and (max-width: 966px) {
+  .star {
+    display: none;
+  }
+}
+
 .buttons {
   display: flex;
   align-items: center;
