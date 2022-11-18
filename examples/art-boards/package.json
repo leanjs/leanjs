@@ -9,7 +9,7 @@
     "packages/*"
   ],
   "scripts": {
-    "dev": "turbo run dev --parallel --no-cache",
+    "dev": "lerna run dev --parallel",
     "app:comment": "node ./scripts/createAppComment.js"
   },
   "devDependencies": {
