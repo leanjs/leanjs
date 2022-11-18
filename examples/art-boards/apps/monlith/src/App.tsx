@@ -26,26 +26,30 @@ export function App() {
           element={
             <div className="work-layout">
               <Suspense fallback={<Loading />}>
-                <Host app={ZimaBlueLazyApp} />
+                <ZimaBlueLazyComponent />
               </Suspense>
-              <Host app={ChatApp} />
-              {/* <Suspense fallback={<Loading />}>
-                  <ZimaBlueLazyComponent />
-                </Suspense> 
-                <ChatComponent />*/}
+              <ChatComponent />
             </div>
           }
         />
-        {/* <Route path="/" element={<Dashboard />} /> */}
-        <Route
-          path="/"
-          element={
-            <Suspense fallback={<Loading />}>
-              <Host app={DashboardApp} />
-            </Suspense>
-          }
-        />
+        <Route path="/" element={<Dashboard />} />
       </Routes>
     </ErrorBoundary>
   );
 }
+
+/* 
+
+<Host app={ZimaBlueLazyApp} />
+
+<Host app={ChatApp} />
+
+<Route
+  path="/"
+  element={
+    <Suspense fallback={<Loading />}>
+      <Host app={DashboardApp} />
+    </Suspense>
+  }
+/> 
+*/

@@ -31,8 +31,8 @@ export default function ZimaBlue() {
         element.appendChild(app.view);
 
         if (!app.loader.loading) {
-          app.loader.add("earth", "/earth.png");
-          app.loader.add("robot", "/robot.png");
+          app.loader.add("earth", "/images/earth.png");
+          app.loader.add("robot", "/images/robot.png");
           app.loader.load(setup);
         }
 
