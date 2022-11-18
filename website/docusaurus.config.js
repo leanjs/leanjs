@@ -171,6 +171,15 @@ const config = {
               },
             ],
           },
+          {
+            title: "Contact",
+            items: [
+              {
+                label: "Email",
+                href: "mailto:hello@leanjs.com",
+              },
+            ],
+          },
         ],
         copyright: `Copyright © ${new Date().getFullYear()} LeanJS.`,
       },

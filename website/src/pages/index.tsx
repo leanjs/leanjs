@@ -33,7 +33,8 @@ function Index({ config: siteConfig }) {
               className="margin-left--md"
               to="https://github.com/leanjs/leanjs"
             >
-              Star on GitHub &nbsp;&nbsp;⭐️
+              Star on GitHub{" "}
+              <strong className={styles.star}>&nbsp;&nbsp;⭐️</strong>
             </Link>
           </div>
         </div>
@@ -41,8 +42,8 @@ function Index({ config: siteConfig }) {
       <main>
         <div className="container padding-vert--xl">
           <h2 className="text--center margin-bottom--xl">Why LeanJS?</h2>
-          <div className="row margin-vert--lg">
-            <div className="col col--4">
+          <div className="row">
+            <div className="col col--4 margin-bottom--lg">
               <div className="card">
                 <div className="card__header">
                   <h3>🏗 Safe architecture</h3>
@@ -56,7 +57,7 @@ function Index({ config: siteConfig }) {
                 </div>
               </div>
             </div>
-            <div className="col col--4">
+            <div className="col col--4 margin-bottom--lg">
               <div className="card">
                 <div className="card__header">
                   <h3>👩🏻‍💻 Developer experience</h3>
@@ -70,7 +71,7 @@ function Index({ config: siteConfig }) {
                 </div>
               </div>
             </div>
-            <div className="col col--4">
+            <div className="col col--4 margin-bottom--lg">
               <div className="card">
                 <div className="card__header">
                   <h3>🛡 TypeScript everywhere </h3>
@@ -85,8 +86,8 @@ function Index({ config: siteConfig }) {
             </div>
           </div>
 
-          <div className="row margin-vert--lg">
-            <div className="col col--4">
+          <div className="row">
+            <div className="col col--4 margin-bottom--lg">
               <div className="card">
                 <div className="card__header">
                   <h3>🔋 Batteries included</h3>
@@ -99,7 +100,7 @@ function Index({ config: siteConfig }) {
                 </div>
               </div>
             </div>
-            <div className="col col--4">
+            <div className="col col--4 margin-bottom--lg">
               <div className="card">
                 <div className="card__header">
                   <h3>⚙️ Powered by your tech stack</h3>
@@ -111,7 +112,7 @@ function Index({ config: siteConfig }) {
                 </div>
               </div>
             </div>
-            <div className="col col--4">
+            <div className="col col--4 margin-bottom--lg">
               <div className="card">
                 <div className="card__header">
                   <h3>🔌 Minimal APIs</h3>
@@ -123,8 +124,8 @@ function Index({ config: siteConfig }) {
             </div>
           </div>
 
-          <div className="row margin-vert--lg">
-            <div className="col col--4">
+          <div className="row">
+            <div className="col col--4 margin-bottom--lg">
               <div className="card">
                 <div className="card__header">
                   <h3>🧩 Composable apps</h3>
@@ -138,7 +139,7 @@ function Index({ config: siteConfig }) {
                 </div>
               </div>
             </div>
-            <div className="col col--4">
+            <div className="col col--4 margin-bottom--lg">
               <div className="card">
                 <div className="card__header">
                   <h3>🔖 Low learning curve</h3>
@@ -152,7 +153,7 @@ function Index({ config: siteConfig }) {
                 </div>
               </div>
             </div>
-            <div className="col col--4">
+            <div className="col col--4 margin-bottom--lg">
               <div className="card">
                 <div className="card__header">
                   <h3>🏁 Easy to get started</h3>
