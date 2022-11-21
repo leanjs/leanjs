@@ -12,9 +12,7 @@
     "directory": "packages/react"
   },
   "files": [
-    "dist",
-    "18.d.ts",
-    "runtime"
+    "dist"
   ],
   "exports": {
     ".": "./dist/index.js",
