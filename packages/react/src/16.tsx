@@ -1,31 +1,18 @@
-import type {
-  CreateAppConfig,
-  CreateComposableApp,
-  AppProps,
-  MountFunc,
-  UnmountFunc,
-} from "@leanjs/core";
+import type { CreateComposableApp, AppProps, MountFunc } from "@leanjs/core";
 import { _ as CoreUtils } from "@leanjs/core";
-import React, { ReactElement, useEffect } from "react";
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-// @ts-ignore
-import { createRoot } from "react-dom/client";
+import React, { ReactElement } from "react";
+import ReactDOM from "react-dom";
+import { CreateAppConfig, RootComponent } from "./types";
 
-import { RootComponent } from "./types";
 import { ErrorBoundary, getErrorBoundaryProps } from "./components";
 import { RuntimeProvider } from "./runtime";
-
-const { createMount, setRuntimeContext } = CoreUtils;
 
 export * as _ from "./core";
 export * from "./types";
 export * from "./runtime";
 export * from "./components";
 
-interface ReactRoot {
-  unmount: UnmountFunc;
-  render: (element: ReactElement) => void;
-}
+const { createMount, setRuntimeContext } = CoreUtils;
 
 export const createApp = <MyAppProps extends AppProps = AppProps>(
   App: (props: MyAppProps) => ReactElement,
@@ -35,47 +22,21 @@ export const createApp = <MyAppProps extends AppProps = AppProps>(
     isSelfHosted,
     version,
   } = {}) => {
-    let unmountCallback: UnmountFunc | null;
-    let rendering = false;
-    let root: ReactRoot | null;
-
-    const unmountRoot = () => {
-      root?.unmount();
-      root = null;
-    };
-
-    const Root: RootComponent = ({ children }) => {
-      useEffect(() => {
-        unmountCallback?.();
-        unmountCallback = null;
-        rendering = false;
-      }, []);
-
-      return children;
-    };
+    const Root: RootComponent = ({ children }) => children;
     Root.displayName = `${appName}Root`;
-
-    const mount: MountFunc = (el, { runtime, initialState, onError }) => {
-      return createMount({
+    const mount: MountFunc = (el, { runtime, initialState, onError }) =>
+      createMount({
         el,
         isSelfHosted,
         initialState,
         appName,
         onError,
         unmount: () => {
-          if (rendering) {
-            unmountCallback = unmountRoot;
-          } else {
-            setTimeout(unmountRoot);
-          }
+          if (el) ReactDOM.unmountComponentAtNode(el);
         },
         render: ({ appProps }) => {
-          unmountCallback = null;
-          if (el && !rendering) {
-            rendering = true;
-            root = root ?? createRoot(el);
-            const context = { version, appName };
-            root?.render(
+          if (el) {
+            ReactDOM.render(
               <React.StrictMode>
                 <Root>
                   <ErrorBoundary
@@ -88,18 +49,18 @@ export const createApp = <MyAppProps extends AppProps = AppProps>(
                   >
                     <RuntimeProvider
                       isSelfHosted={!!isSelfHosted}
-                      runtime={setRuntimeContext(context, runtime)}
+                      runtime={setRuntimeContext({ version, appName }, runtime)}
                     >
                       <App {...(appProps as MyAppProps)} />
                     </RuntimeProvider>
                   </ErrorBoundary>
                 </Root>
-              </React.StrictMode>
+              </React.StrictMode>,
+              el
             );
           }
         },
       });
-    };
 
     return { mount, appName, version };
   };

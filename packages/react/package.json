@@ -21,6 +21,27 @@
     "./18": {
       "types": "./dist/18.d.ts",
       "default": "./dist/18.js"
+    },
+    "./17": {
+      "types": "./dist/17.d.ts",
+      "default": "./dist/17.js"
+    },
+    "./16": {
+      "types": "./dist/16.d.ts",
+      "default": "./dist/16.js"
+    }
+  },
+  "typesVersions": {
+    "*": {
+      "18": [
+        "dist/18.d.ts"
+      ],
+      "17": [
+        "dist/17.d.ts"
+      ],
+      "16": [
+        "dist/16.d.ts"
+      ]
     }
   },
   "devDependencies": {
@@ -38,7 +59,6 @@
     "react": "^17.0.2"
   },
   "scripts": {
-    "prepublishOnly": "cp ./dist/18.d.ts . && mkdir runtime && cp -R ./dist/runtime/*.d.ts ./runtime",
     "test": "jest",
     "prebuild": "del-cli dist",
     "build": "tsc --outDir dist --project ./tsconfig.build.json"
