@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.19.0](https://github.com/leanjs/leanjs/compare/@leanjs/react@0.18.0...@leanjs/react@0.19.0) (2022-11-21)
+
+### Features
+
+- **react:** add package exports 16 and 17 ([c4d79e6](https://github.com/leanjs/leanjs/commit/c4d79e67cc9bb16719b8684308163eb83565851a))
+
 # [0.18.0](https://github.com/leanjs/leanjs/compare/@leanjs/react@0.17.3...@leanjs/react@0.18.0) (2022-11-15)
 
 ### Features
