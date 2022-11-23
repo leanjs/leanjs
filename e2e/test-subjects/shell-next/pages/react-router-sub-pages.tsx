@@ -1,7 +1,6 @@
 import React, { Suspense } from "react";
 import type { NextPage } from "next";
-import { useRouter } from "next/navigation";
-import { Host } from "@leanjs/next";
+import { NextHost } from "@leanjs/e2e-test-package-leanjs-react-18";
 
 import { CustomLoader } from "../components/CustomLoader";
 
@@ -23,7 +22,7 @@ const Page: NextPage = () => {
     <>
       <h1>Hosting multiple pages</h1>
       <Suspense fallback={<CustomLoader />}>
-        <Host
+        <NextHost
           app={() =>
             import("@leanjs/e2e-test-subjects-remote-react-router-sub-pages")
           }

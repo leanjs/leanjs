@@ -12,12 +12,14 @@ const basename = process.env.EXAMPLE_ART_BOARDS_BASENAME;
 
 export function Root() {
   return (
-    <Provider store={store}>
-      <HostProvider origin={origin} runtime={runtime}>
-        <BrowserRouter basename={basename}>
-          <App />
-        </BrowserRouter>
-      </HostProvider>
-    </Provider>
+    <React.StrictMode>
+      <Provider store={store}>
+        <HostProvider origin={origin} runtime={runtime}>
+          <BrowserRouter basename={basename}>
+            <App />
+          </BrowserRouter>
+        </HostProvider>
+      </Provider>
+    </React.StrictMode>
   );
 }

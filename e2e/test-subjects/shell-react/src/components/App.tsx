@@ -1,10 +1,10 @@
 import React, { Suspense } from "react";
-import { Host, ErrorBoundary } from "@leanjs/react";
 import {
   createRuntime,
   HostProvider,
-} from "@leanjs/e2e-test-package-runtime-react";
-
+  ReactHost,
+  ErrorBoundary,
+} from "@leanjs/e2e-test-package-leanjs-react-17";
 import reactThrowErrorApp from "@leanjs/e2e-test-subjects-remote-react-throw-error";
 
 const runtime = createRuntime({ context: { appName: "ReactShell" } });
@@ -16,8 +16,8 @@ export function App() {
 
       <ErrorBoundary fallback={() => <h1>Shell Error Boundary</h1>}>
         <Suspense fallback={<>Loading...</>}>
-          <Host app={reactThrowErrorApp} />
-          <Host app={reactThrowErrorApp} />
+          <ReactHost app={reactThrowErrorApp} />
+          <ReactHost app={reactThrowErrorApp} />
         </Suspense>
       </ErrorBoundary>
     </HostProvider>

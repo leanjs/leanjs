@@ -13,6 +13,7 @@ to: <%= h.inflection.dasherize(projectName) %>/apps/shell/package.json
   },
   "peerDependencies": {
     "@leanjs/next": "*",
+    "@leanjs/react": "*",
     "@leanjs/webpack": "*",
     "cors": "*",
     "next": "*",
@@ -23,7 +24,6 @@ to: <%= h.inflection.dasherize(projectName) %>/apps/shell/package.json
     "@types/cors": "^2.8.12",
     "@types/node": "^17.0.23",
     "@types/react": "^17.0.30",
-    "next-transpile-modules": "*",
     "typescript": "*"
   }
 }

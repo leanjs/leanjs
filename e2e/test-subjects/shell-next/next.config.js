@@ -10,7 +10,7 @@ const nextConfig = {
   experimental: {
     appDir: true,
     transpilePackages: [
-      "@leanjs/e2e-test-package-runtime-react",
+      "@leanjs/e2e-test-package-leanjs-react-18",
       "@leanjs/e2e-test-subjects-package-runtime-shared",
     ],
   },

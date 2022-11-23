@@ -1,7 +1,7 @@
 import React from "react";
 import type { NextPage } from "next";
-import { Host } from "@leanjs/next";
-import { ErrorBoundary } from "@leanjs/react";
+import { Host } from "@leanjs/e2e-test-package-leanjs-react-18";
+import { ErrorBoundary } from "react-error-boundary";
 // import reactThrowErrorApp from "@leanjs/e2e-test-subjects-remote-react-throw-error";
 
 import { CustomError } from "../components/CustomError";

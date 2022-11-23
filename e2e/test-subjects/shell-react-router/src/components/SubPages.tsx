@@ -1,6 +1,8 @@
 import React, { Suspense } from "react";
-import { Host } from "@leanjs/react-router";
-import { ErrorBoundary } from "@leanjs/react";
+import {
+  ErrorBoundary,
+  ReactRouterHost,
+} from "@leanjs/e2e-test-package-leanjs-react-17";
 
 export default function SubPages() {
   const basename = "/micro"; // how can we infer the basename like we do in Nextjs host?
@@ -10,7 +12,7 @@ export default function SubPages() {
       <h2>Micro-frontend page (this is not the 🏠 page)</h2>
       <ErrorBoundary>
         <Suspense fallback={<>Loading...</>}>
-          <Host
+          <ReactRouterHost
             basename={basename}
             app={{
               packageName:

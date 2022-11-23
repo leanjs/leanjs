@@ -18,7 +18,7 @@
     "check-types": "tsc --noEmit",
     "----------------------TESTING----------------------": ".",
     "test": "lerna run test",
-    "start:e2e": "turbo run start:e2e --no-cache  --no-daemon --concurrency=100 --filter=@leanjs/e2e-test-subjects*",
+    "start:e2e": "node scripts/prepare-e2e.mjs && turbo run start:e2e --no-cache  --no-daemon --concurrency=100 --filter=@leanjs/e2e-test-subjects*",
     "test:e2e": "start-test start:e2e \"44440|http-get://localhost:56501|http-get://localhost:44442|http-get://localhost:44443|http-get://localhost:44444|http-get://localhost:44447\" 'yarn workspace @leanjs/e2e-tests test:e2e'",
     "----------------------RUNNING----------------------": ".",
     "prepare": "husky install"
@@ -55,6 +55,7 @@
     "eslint-plugin-react-hooks": "^4.3.0",
     "eslint-plugin-simple-import-sort": "^7.0.0",
     "eslint-plugin-testing-library": "^5.1.0",
+    "fs-extra": "^10.1.0",
     "husky": "^7.0.4",
     "jest": "^27.5.1",
     "jest-dom": "^4.0.0",

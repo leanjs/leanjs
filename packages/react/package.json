@@ -23,17 +23,10 @@
     "./17": {
       "types": "./dist/17.d.ts",
       "default": "./dist/17.js"
-    },
-    "./16": {
-      "types": "./dist/16.d.ts",
-      "default": "./dist/16.js"
     }
   },
   "typesVersions": {
     "*": {
-      "16": [
-        "dist/16.d.ts"
-      ],
       "17": [
         "dist/17.d.ts"
       ],

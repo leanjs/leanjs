@@ -1,4 +1,4 @@
-import { useRuntime } from "@leanjs/react";
+import { useRuntime } from "@leanjs/e2e-test-package-leanjs-react-17";
 import React from "react";
 import { Link } from "react-router-dom";
 

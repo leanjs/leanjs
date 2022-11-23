@@ -1,12 +1,12 @@
 import React from "react";
 import type { NextPage } from "next";
-import { Host } from "@leanjs/next";
+import { NextHost } from "@leanjs/e2e-test-package-leanjs-react-18";
 import ReactApp from "@leanjs/e2e-test-subjects-remote-react-1";
 
 const Home: NextPage = () => (
   <>
     <h1>Nextjs Host</h1>
-    <Host app={ReactApp} />
+    <NextHost app={ReactApp} />
   </>
 );
 

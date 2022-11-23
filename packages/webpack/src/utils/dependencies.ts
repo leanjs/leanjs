@@ -172,8 +172,13 @@ export function formatSharedDependencies({
   };
   const addDependencies: SharedDependencies = {};
   for (const key in sharedDependencies) {
+    const version = sharedDependencies[key];
     if (key === "@leanjs/react") {
-      addDependencies["@leanjs/react/18"] = sharedDependencies[key];
+      addDependencies["@leanjs/react/18"] = version;
+      addDependencies["@leanjs/react/17"] = version;
+    } else if (key === "@leanjs/react-router") {
+      addDependencies["@leanjs/react-router/18"] = version;
+      addDependencies["@leanjs/react-router/17"] = version;
     }
   }
 
