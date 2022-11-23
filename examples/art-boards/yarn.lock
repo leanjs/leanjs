@@ -1570,10 +1570,15 @@
     webpack "^5.72.0"
     webpack-dev-server "4.7.4"
 
-"@leanjs/core@*", "@leanjs/core@0.24.2", "@leanjs/core@^0.24.2":
+"@leanjs/core@*", "@leanjs/core@^0.24.2":
   version "0.24.2"
   resolved "https://registry.yarnpkg.com/@leanjs/core/-/core-0.24.2.tgz#2fd2ec19181ca0b7fdac77889363a0ed760abf94"
   integrity sha512-uvNtV+P9EZEI6YEeiWgz3fqhy5atMvuJnxkW0G6n0MFsn7/Paq69oaiLJLSTLOBy/yH3RAHBLUCEY0BOzUzOow==
+
+"@leanjs/core@0.25.0":
+  version "0.25.0"
+  resolved "https://registry.yarnpkg.com/@leanjs/core/-/core-0.25.0.tgz#228ed82ca1128131006da89e69d8a9dffe701359"
+  integrity sha512-n177EsYJAEmBA8g50IZs4ZREgNO9Lci9ArGGfszxSRYO8dtPW8/o8FtY1qo0lnyYdYXWMG2qmCWFrS4ndOgD+w==
 
 "@leanjs/react-router@^0.13.3":
   version "0.13.3"

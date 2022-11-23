@@ -3,7 +3,7 @@ import React from "react";
 import {
   createRuntime,
   HostProvider,
-} from "@leanjs/e2e-test-package-runtime-react";
+} from "@leanjs/e2e-test-package-leanjs-react-18";
 import { Nav } from "../components/Nav";
 
 const runtime = createRuntime({

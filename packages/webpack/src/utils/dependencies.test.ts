@@ -237,7 +237,7 @@ describe("dependencies:", () => {
       });
     });
 
-    it("adds @leanjs/react/18 if @leanjs/react is a shared dependency", () => {
+    it("adds @leanjs/react/18 and @leanjs/react/17 if @leanjs/react is a shared dependency", () => {
       const eager = false;
       const explicitDependencies = {
         react: {
@@ -266,6 +266,47 @@ describe("dependencies:", () => {
         "@leanjs/react/18": {
           eager: false,
           requiredVersion: explicitDependencies["@leanjs/react"],
+        },
+        "@leanjs/react/17": {
+          eager: false,
+          requiredVersion: explicitDependencies["@leanjs/react"],
+        },
+      });
+    });
+
+    it("adds @leanjs/react-router/18 and @leanjs/react-router/17 if @leanjs/react is a shared dependency", () => {
+      const eager = false;
+      const explicitDependencies = {
+        react: {
+          eager: false,
+        },
+        "@leanjs/react-router": Math.random().toString(),
+      };
+      const implicitDependencies = {
+        lodash: Math.random().toString(),
+        react: Math.random().toString(),
+      };
+
+      const actual = formatSharedDependencies({
+        eager,
+        explicitDependencies,
+        implicitDependencies,
+      });
+
+      expect(actual).toEqual({
+        react: { eager: false, requiredVersion: implicitDependencies.react },
+        lodash: { eager, requiredVersion: implicitDependencies.lodash },
+        "@leanjs/react-router": {
+          eager: false,
+          requiredVersion: explicitDependencies["@leanjs/react-router"],
+        },
+        "@leanjs/react-router/18": {
+          eager: false,
+          requiredVersion: explicitDependencies["@leanjs/react-router"],
+        },
+        "@leanjs/react-router/17": {
+          eager: false,
+          requiredVersion: explicitDependencies["@leanjs/react-router"],
         },
       });
     });

@@ -5,6 +5,7 @@ import type { OuterHostProps, InnerHostProps } from "../types";
 import { HostContext } from "../private/HostProvider";
 
 import { useRuntime } from "../runtime";
+import { Mount } from "./Mount";
 
 const { loadApp, isRemoteApp } = CoreUtils;
 
@@ -31,6 +32,7 @@ export function createHost<Props extends OuterHostProps = OuterHostProps>(
       return (
         <Component
           {...rest}
+          Mount={Mount}
           url={url}
           setError={setError}
           mount={mount}

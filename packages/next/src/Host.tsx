@@ -1,17 +1,17 @@
 import React, { useCallback } from "react";
-import { _ as ReactUtils } from "@leanjs/react";
+import { _ as ReactUtils } from "@leanjs/react/18";
 import type { InnerHostProps } from "@leanjs/react";
 import type { NavigationListener, Location } from "@leanjs/core";
 import { _ as CoreUtils } from "@leanjs/core";
 import { useRouter } from "next/router";
 import Head from "next/head";
 
-const { createHost, Mount } = ReactUtils;
+const { createHost } = ReactUtils;
 const { dedupeSlash } = CoreUtils;
 
 export const Host = createHost(NextHost);
 
-function NextHost({ url, ...rest }: InnerHostProps) {
+function NextHost({ Mount, url, ...rest }: InnerHostProps) {
   const router = useRouter();
   const basename = dedupeSlash(`${router.basePath}/${router.pathname}`);
   const pathname = router.asPath.replace(router.pathname, "");

@@ -1,7 +1,7 @@
 import React from "react";
 import Link from "next/link";
 
-import { useGetter, useSetter } from "@leanjs/e2e-test-package-runtime-react";
+import { useGetter, useSetter } from "@leanjs/e2e-test-package-leanjs-react-18";
 
 export function Nav() {
   const locale = useGetter("locale");
