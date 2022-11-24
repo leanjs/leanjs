@@ -1542,20 +1542,20 @@
     "@jridgewell/resolve-uri" "3.1.0"
     "@jridgewell/sourcemap-codec" "1.4.14"
 
-"@leanjs/aws@*", "@leanjs/aws@^0.2.55":
-  version "0.2.55"
-  resolved "https://registry.yarnpkg.com/@leanjs/aws/-/aws-0.2.55.tgz#a5bfa0dd59bd5a2a08c95e7b35b8ce76049015ff"
-  integrity sha512-Mru1eafLNJ8FBBSDOCxmF15aP+FKmD2Bq5VxtjyfaAWmQ0QzQUi33dFNiE4wyvmOvsKMwtV5SIHmBPOKhzIkuA==
+"@leanjs/aws@*", "@leanjs/aws@^0.2.56":
+  version "0.2.56"
+  resolved "https://registry.yarnpkg.com/@leanjs/aws/-/aws-0.2.56.tgz#91509283a1070abab1663aa6d0df0c56d833c379"
+  integrity sha512-oXi5zz+3tM57iZrOw85V9U3Xab1wRqXdYvRu467cXxzF0B0HV4OURuWSE1bJtMo9A+8JNflSfBUrvfI08JFyvw==
   dependencies:
     "@aws-sdk/client-cloudfront" "^3.121.0"
     "@aws-sdk/client-s3" "^3.121.0"
     chalk "^4.1.2"
     mime-types "^2.1.35"
 
-"@leanjs/cli@*", "@leanjs/cli@^0.7.33":
-  version "0.7.33"
-  resolved "https://registry.yarnpkg.com/@leanjs/cli/-/cli-0.7.33.tgz#1dd34db27aa553752fa8c6ac8f0a7ffeb6bf8593"
-  integrity sha512-/spKCAvrFesRxieqhy+YiiJ4XDa6AVpk3u+vt44ntJFEDBzIw4xVxg+UbAj6txOBxdtDD8tFKIlkyEibSwLTHw==
+"@leanjs/cli@*", "@leanjs/cli@^0.7.34":
+  version "0.7.34"
+  resolved "https://registry.yarnpkg.com/@leanjs/cli/-/cli-0.7.34.tgz#957bc11d3e292f7e949b00097d7a724d390b56ce"
+  integrity sha512-gs76YUMb5jQQwboqMe9MBFVZLRU5ITH63dkvgOkAsAqoFZwJacqYCOcsD1MvhoGJ0PSoYsCZUE1XA/0+XptVzQ==
   dependencies:
     async-sema "^3.1.1"
     axios "^0.27.2"
@@ -1570,43 +1570,39 @@
     webpack "^5.72.0"
     webpack-dev-server "4.7.4"
 
-"@leanjs/core@*", "@leanjs/core@^0.24.2":
-  version "0.24.2"
-  resolved "https://registry.yarnpkg.com/@leanjs/core/-/core-0.24.2.tgz#2fd2ec19181ca0b7fdac77889363a0ed760abf94"
-  integrity sha512-uvNtV+P9EZEI6YEeiWgz3fqhy5atMvuJnxkW0G6n0MFsn7/Paq69oaiLJLSTLOBy/yH3RAHBLUCEY0BOzUzOow==
 
-"@leanjs/core@0.25.0":
+"@leanjs/core@*", "@leanjs/core@0.25.0", "@leanjs/core@^0.25.0":
   version "0.25.0"
   resolved "https://registry.yarnpkg.com/@leanjs/core/-/core-0.25.0.tgz#228ed82ca1128131006da89e69d8a9dffe701359"
   integrity sha512-n177EsYJAEmBA8g50IZs4ZREgNO9Lci9ArGGfszxSRYO8dtPW8/o8FtY1qo0lnyYdYXWMG2qmCWFrS4ndOgD+w==
 
-"@leanjs/react-router@^0.13.3":
-  version "0.13.3"
-  resolved "https://registry.yarnpkg.com/@leanjs/react-router/-/react-router-0.13.3.tgz#b5f6024a45a33d24f2b53fc8ccd4bc7bafdc00bb"
-  integrity sha512-lErjXUMdsf1K586VruqzsIV7ZQInuMAonh4ARL7paWTy8wzTNE8O+mp9xyhsmZ9tElPNyL8N80HVy+rf1oBVjQ==
+"@leanjs/react-router@^0.13.6":
+  version "0.13.6"
+  resolved "https://registry.yarnpkg.com/@leanjs/react-router/-/react-router-0.13.6.tgz#30c9f6cc5ff4b25e237f162d7444221e341288cb"
+  integrity sha512-KAMkT4M2rjqT/yb1C4LFT1pqb+BZhQ83ihx1+rvo955kBpuLWyAhr8So+Ti27XuMQ/uOFoR5/AvZ2N8TePzBQg==
   dependencies:
-    "@leanjs/core" "^0.24.2"
+    "@leanjs/core" "^0.25.0"
 
-"@leanjs/react@0.17.3":
-  version "0.17.3"
-  resolved "https://registry.yarnpkg.com/@leanjs/react/-/react-0.17.3.tgz#ddff6cc8efc11327dcee00015d0c54d4c82f25a3"
-  integrity sha512-UrsojXHUMSAxtpxp4jMkIW4rLSqRQ3Pstj1Oey+gGLMZHbGsQgDztpzMDhcBCMwY8Uk1QtQERpMbBpd5I2D1ZA==
+"@leanjs/react@0.19.1":
+  version "0.19.1"
+  resolved "https://registry.yarnpkg.com/@leanjs/react/-/react-0.19.1.tgz#7b2c40f584f3fc65fc2cf9aec5229c5cea8c4a14"
+  integrity sha512-gECLE3Mo8mzI41BtZc42U/59aR5Legjzy/JrbRQuufFZnEDNFnDEhv3CPmnw4Xt6VvKuUnSd0a+2qI9yayEVQg==
 
-"@leanjs/webpack-react@^0.2.41":
-  version "0.2.41"
-  resolved "https://registry.yarnpkg.com/@leanjs/webpack-react/-/webpack-react-0.2.41.tgz#721042d9f3dc84beb51aae7e72eb43cda95a8c2a"
-  integrity sha512-8U052VgnaK1ZHuwUkODlBFCMHte2EoQNs7cog9W+P8APLAqx1NSo5SdMBU4lsO/IXICKAq+llEyvHqY11n07jw==
+"@leanjs/webpack-react@^0.2.42":
+  version "0.2.42"
+  resolved "https://registry.yarnpkg.com/@leanjs/webpack-react/-/webpack-react-0.2.42.tgz#1a9bc9852e33835696cf02501e2ba278954f244e"
+  integrity sha512-utYAhwZNMaaz8HlMbImRI0+sQkdlZHc0FpGvqci0JBn8ZnPqGsVJrNtcEkP9T1WH6Pjh3MhbMUwUYawt9wAf0g==
   dependencies:
-    "@leanjs/cli" "^0.7.33"
+    "@leanjs/cli" "^0.7.34"
     swc-loader "^0.2.1"
 
-"@leanjs/webpack@^0.21.3":
-  version "0.21.3"
-  resolved "https://registry.yarnpkg.com/@leanjs/webpack/-/webpack-0.21.3.tgz#65bf7e7e5d8d0888d94ea1c10128881b61d5a8ec"
-  integrity sha512-1SpsdVLSiOhT8M2MwqBLC1Xrqa8gJAcX88EV9vhPMyUTEKB9c5ARRHQ2yiKblGLWz4PlQZWnhC88hKdvH3CFzA==
+"@leanjs/webpack@^0.21.4":
+  version "0.21.4"
+  resolved "https://registry.yarnpkg.com/@leanjs/webpack/-/webpack-0.21.4.tgz#16a70be9d638fb05911bd0fa41e9232357671c0e"
+  integrity sha512-d05fuS7gLvTh9kk9Kvq0JO4KrjYmP4TjLRceG23NuCjYgt6INakklyLt6JNGps4/KKvzU1MOR6d2SoI8Gblt9g==
   dependencies:
-    "@leanjs/cli" "^0.7.33"
-    "@leanjs/core" "^0.24.2"
+    "@leanjs/cli" "^0.7.34"
+    "@leanjs/core" "^0.25.0"
     chalk "^4.1.2"
     fast-glob "^3.2.11"
     html-webpack-plugin "^5.5.0"
