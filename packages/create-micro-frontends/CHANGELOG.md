@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.5.1](https://github.com/leanjs/leanjs/compare/create-micro-frontends@0.5.0...create-micro-frontends@0.5.1) (2022-11-24)
+
+### Bug Fixes
+
+- react and react router versions ([fb261d3](https://github.com/leanjs/leanjs/commit/fb261d3de9ce01a503dbb1530ef76aac6fe6fd52))
+
 # [0.5.0](https://github.com/leanjs/leanjs/compare/create-micro-frontends@0.4.4...create-micro-frontends@0.5.0) (2022-11-07)
 
 ### Features
