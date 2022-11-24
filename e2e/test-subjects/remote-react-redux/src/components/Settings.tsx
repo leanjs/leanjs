@@ -1,11 +1,11 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useRuntime } from "@leanjs/e2e-test-package-runtime-react";
+import { useGetter } from "@leanjs/e2e-test-package-leanjs-react-17";
 
 export function Settings() {
   const locale = useSelector((state: any) => state.settings?.locale);
   const dispatch = useDispatch();
-  const runtime = useRuntime();
+  const runtimeLocale = useGetter("locale");
 
   return (
     <>
@@ -14,8 +14,7 @@ export function Settings() {
       </p>
 
       <p>
-        Current locale in shared runtime is{" "}
-        <strong>{runtime.state.locale}</strong>
+        Current locale in shared runtime is <strong>{runtimeLocale}</strong>
       </p>
       <p>
         Select:

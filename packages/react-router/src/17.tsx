@@ -1,9 +1,10 @@
 import {
   RuntimeProvider,
-  CreateAppConfig,
   ErrorBoundary,
   getErrorBoundaryProps,
-} from "@leanjs/react";
+  _ as ReactUtils,
+} from "@leanjs/react/17";
+import type { CreateAppConfig } from "@leanjs/react";
 import type { CreateComposableApp, AppProps, MountFunc } from "@leanjs/core";
 import { _ as CoreUtils } from "@leanjs/core";
 import React, { ReactElement } from "react";
@@ -11,8 +12,15 @@ import ReactDOM from "react-dom";
 import { createBrowserHistory, createMemoryHistory } from "history";
 
 import { Router } from "./components/Router";
+import { OuterReactRouterHostProps, ReactRouterHost } from "./components/Host";
+
+export * from "./types";
+export * from "./components/Host";
 
 const { createMount, getDefaultPathname, setRuntimeContext } = CoreUtils;
+const { createHost } = ReactUtils;
+
+export const Host = createHost<OuterReactRouterHostProps>(ReactRouterHost);
 
 export const createApp = <MyAppProps extends AppProps = AppProps>(
   App: (props: MyAppProps) => ReactElement,
@@ -91,11 +99,7 @@ export const createApp = <MyAppProps extends AppProps = AppProps>(
       };
     };
 
-    return {
-      mount,
-      appName,
-      version,
-    };
+    return { mount, appName, version };
   };
 
   createComposableApp.appName = appName;

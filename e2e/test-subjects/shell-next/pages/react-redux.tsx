@@ -1,13 +1,12 @@
-import React, { Suspense } from "react";
+import React from "react";
 import type { NextPage } from "next";
-import { Host } from "@leanjs/next";
-
+import { NextHost } from "@leanjs/e2e-test-package-leanjs-react-18";
 import App from "@leanjs/e2e-test-subjects-remote-react-redux";
 
 const ReactRedux: NextPage = () => (
   <>
     <h1>React Redux page</h1>
-    <Host app={App} />
+    <NextHost app={App} />
   </>
 );
 

@@ -1,10 +1,10 @@
 import React, { Suspense } from "react";
-import { Host } from "@leanjs/react-router";
-import { ErrorBoundary } from "@leanjs/react";
 import {
+  ReactRouterHost,
+  ErrorBoundary,
   createRuntime,
   HostProvider,
-} from "@leanjs/e2e-test-package-runtime-react";
+} from "@leanjs/e2e-test-package-leanjs-react-17";
 import { Link, Route, Routes, BrowserRouter } from "react-router-dom";
 import reactApp from "@leanjs/e2e-test-subjects-remote-react-1";
 
@@ -30,7 +30,7 @@ export function App() {
                 <Link to="/micro">Visit micro-frontend on another page</Link>
                 <ErrorBoundary>
                   <Suspense fallback={<>Loading...</>}>
-                    <Host app={reactApp} />
+                    <ReactRouterHost app={reactApp} />
                   </Suspense>
                 </ErrorBoundary>
               </>

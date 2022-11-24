@@ -1,27 +1,24 @@
 import React, { useCallback, useRef, useEffect } from "react";
-import { _ as ReactUtils } from "@leanjs/react";
 import type { OuterHostProps, InnerHostProps } from "@leanjs/react";
 import { useNavigate, useLocation } from "react-router-dom";
 
 import type { NavigationListener } from "@leanjs/core";
-const { createHost, Mount } = ReactUtils;
 
-interface BaseReactRouterHostProps {
-  basename?: string;
-}
-
-interface OuterReactRouterHostProps
+export interface OuterReactRouterHostProps
   extends OuterHostProps,
     BaseReactRouterHostProps {}
+
+export interface BaseReactRouterHostProps {
+  basename?: string;
+}
 
 interface InnerReactRouterHostProps
   extends InnerHostProps,
     BaseReactRouterHostProps {}
 
-export const Host = createHost<OuterReactRouterHostProps>(ReactRouterHost);
-
-function ReactRouterHost({
+export function ReactRouterHost({
   basename = "/",
+  Mount,
   ...rest
 }: InnerReactRouterHostProps) {
   const location = useLocation();

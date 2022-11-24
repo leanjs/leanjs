@@ -1,17 +1,19 @@
 import React, { Suspense } from "react";
 import type { NextPage } from "next";
-import { Host } from "@leanjs/next";
+import { NextHost } from "@leanjs/e2e-test-package-leanjs-react-18";
+import { ErrorBoundary } from "react-error-boundary";
 
 import { CustomError } from "../components/CustomError";
 import { CustomLoader } from "../components/CustomLoader";
-import { ErrorBoundary } from "../components/ErrorBoundary";
 
 const CustomReactError: NextPage = () => (
   <>
     <h1>React Error page</h1>
-    <ErrorBoundary errorComponent={CustomError}>
+    <ErrorBoundary fallback={CustomError}>
       <Suspense fallback={<CustomLoader />}>
-        <Host app={{ packageName: "i-dont-exist-and-have-a-custom-error" }} />
+        <NextHost
+          app={{ packageName: "i-dont-exist-and-have-a-custom-error" }}
+        />
       </Suspense>
     </ErrorBoundary>
   </>

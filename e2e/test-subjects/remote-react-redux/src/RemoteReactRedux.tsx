@@ -1,8 +1,8 @@
 import React, { useEffect, useMemo } from "react";
 import { Provider } from "react-redux";
 import { Settings } from "./components/Settings";
-import { AppProps } from "@leanjs/react";
-import { useRuntime } from "@leanjs/e2e-test-package-runtime-react";
+import type { AppProps } from "@leanjs/react";
+import { useRuntime } from "@leanjs/e2e-test-package-leanjs-react-17";
 
 import { configureStore } from "./store";
 

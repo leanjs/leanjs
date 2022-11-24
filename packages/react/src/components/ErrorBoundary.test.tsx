@@ -4,7 +4,7 @@ import React from "react";
 import "@testing-library/jest-dom";
 
 import { createRuntimeBindings } from "../runtime/createRuntimeBindings";
-import { ErrorBoundary, getErrorBoundaryProps } from "..";
+import { ErrorBoundary, getErrorBoundaryProps } from "./ErrorBoundary";
 
 const defaultState = {
   locale: "en",

@@ -14,6 +14,27 @@
   "files": [
     "dist"
   ],
+  "exports": {
+    ".": "./dist/index.js",
+    "./18": {
+      "types": "./dist/18.d.ts",
+      "default": "./dist/18.js"
+    },
+    "./17": {
+      "types": "./dist/17.d.ts",
+      "default": "./dist/17.js"
+    }
+  },
+  "typesVersions": {
+    "*": {
+      "17": [
+        "dist/17.d.ts"
+      ],
+      "18": [
+        "dist/18.d.ts"
+      ]
+    }
+  },
   "devDependencies": {
     "@leanjs/core": "^0.13.4",
     "@leanjs/react": "^0.19.1",

@@ -10,8 +10,10 @@ import type {
   CreateAppConfig as CreateAppCoreConfig,
   LogAnyError,
   RemoteProp,
+  UnmountFunc,
 } from "@leanjs/core";
 import type { ReactElement } from "react";
+import React from "react";
 
 export type { AppProps } from "@leanjs/core";
 export interface MountProps extends BasePath {
@@ -32,8 +34,10 @@ export interface OuterHostProps extends BaseHostProps {
   remote?: RemoteProp;
 }
 
+export type MountComponent = (props: MountProps) => JSX.Element | null;
 export interface InnerHostProps extends BaseHostProps {
   mount: MountFunc;
+  Mount: MountComponent;
   runtime: Runtime;
   url?: string;
   className?: string;
@@ -58,4 +62,9 @@ export interface CreateAppConfig extends CreateAppCoreConfig {
 export interface RootComponent {
   (props: { children: ReactElement }): ReactElement;
   displayName?: string;
+}
+
+export interface ReactRoot {
+  unmount: UnmountFunc;
+  render: (element: ReactElement) => void;
 }

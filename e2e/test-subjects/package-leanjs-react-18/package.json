@@ -1,0 +1,21 @@
+{
+  "name": "@leanjs/e2e-test-package-leanjs-react-18",
+  "version": "1.0.0",
+  "private": true,
+  "description": "This package has React 18 in its node_modules. It's used to export LeanJS React related packages so the e2e tests can import them using React 18 regardless of the React version defined in the root of the repo",
+  "main": "./src/index.ts",
+  "types": "./src/index.ts",
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "@leanjs/e2e-test-package-runtime-shared": "*",
+    "@leanjs/react": "*",
+    "@leanjs/react-router": "*",
+    "@leanjs/next": "*",
+    "react": "18.2.0",
+    "react-dom": "18.2.0"
+  },
+  "devDependencies": {
+    "@types/react": "^17.0.41"
+  }
+}

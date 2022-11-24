@@ -5,7 +5,7 @@ import { Host } from "@leanjs/next";
 import React, { Suspense } from "react";
 import Head from "next/head";
 import { useGetter, useSetter } from "@<%=h.inflection.dasherize(projectName)%>/runtime-react";
-import { ErrorBoundary } from "@leanjs/react";
+import { ErrorBoundary } from "@leanjs/react/18";
 
 const Home = () => {
   const locale = useGetter("locale");

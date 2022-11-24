@@ -38,7 +38,7 @@
     "webpack": "^5.58.2"
   },
   "dependencies": {
-    "@leanjs/core": "0.24.2",
+    "@leanjs/core": "0.25.0",
     "@leanjs/react": "0.17.3",
     "@leanjs/react-router": "^0.13.3",
     "@pixi/graphics-extras": "^6.5.4",
