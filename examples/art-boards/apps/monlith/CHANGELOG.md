@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.1.12](https://github.com/leanjs/leanjs/compare/@art-boards/monolithic-app@1.1.11...@art-boards/monolithic-app@1.1.12) (2022-11-24)
+
+### Bug Fixes
+
+- react and react router versions ([fb261d3](https://github.com/leanjs/leanjs/commit/fb261d3de9ce01a503dbb1530ef76aac6fe6fd52))
+
 ## [1.1.11](https://github.com/leanjs/leanjs/compare/@art-boards/monolithic-app@1.1.10...@art-boards/monolithic-app@1.1.11) (2022-11-18)
 
 **Note:** Version bump only for package @art-boards/monolithic-app
