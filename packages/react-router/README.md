@@ -5,7 +5,7 @@
 If your React Router app is in a monorepo (recommended) execute the following command at the root of your repository:
 
 ```sh
-yarn add -W react-router-dom@6 history react-dom@17 react@17 \
+yarn add -W react-router-dom history react-dom react \
   @leanjs/react-router @leanjs/core @leanjs/react
 ```
 
@@ -16,6 +16,7 @@ then in the `package.json` of your React Router app add the following `peerDepen
   "@leanjs/core": "*",
   "@leanjs/react-router": "*",
   "@leanjs/react": "*",
+  "history": "*",
   "react-router-dom": "*",
   "react-dom": "*",
   "react": "*"
@@ -25,7 +26,7 @@ then in the `package.json` of your React Router app add the following `peerDepen
 If your React Router app is not in a monorepo, then run the following command instead of the above:
 
 ```sh
-yarn add react-router-dom@6 history react-dom@17 react@17 \
+yarn add react-router-dom history react-dom react \
   @leanjs/react-router @leanjs/core @leanjs/react
 ```
 
@@ -40,7 +41,8 @@ Example:
 ```tsx
 import React from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import { Host } from "@leanjs/react-router";
+// for either React 16 or React 17 import from "@leanjs/react-router/17"
+import { Host } from "@leanjs/react-router/18";
 // React runtime package created within your org
 import { HostProvider, createRuntime } from "@my-org/react-runtime";
 
@@ -104,7 +106,8 @@ Call `createApp` with the root component of your app, for example:
 ```ts
 // my-monorepo/composable-apps/react-router-app-1/src/index.ts
 
-import { createApp } from "@leanjs/react-router";
+// for either React 16 or React 17 import from "@leanjs/react-router/17"
+import { createApp } from "@leanjs/react-router/18";
 
 import { ReactRouterApp1 } from "./ReactRouterApp1";
 
@@ -170,7 +173,8 @@ The `app` prop expects a `GetComposableApp` type. You can `import` a `GetComposa
 ```tsx
 // my-monorepo/composable -apps/react-router-app-1/src/ReactRouterApp1.tsx
 
-import { createApp } from "@leanjs/react-router";
+// for either React 16 or React 17 import from "@leanjs/react-router/17"
+import { createApp } from "@leanjs/react-router/18";
 
 import { ReactRouterApp1 } from "./ReactRouterApp1";
 
@@ -188,7 +192,8 @@ then pass it to the `Host` component in a React Router app:
 ```tsx
 // my-monorepo/apps/react-router-host/src/pages/index.tsx
 
-import { Host } from "@leanjs/react-router";
+// for either React 16 or React 17 import from "@leanjs/react-router/17"
+import { Host } from "@leanjs/react-router/18";
 
 // this composable app is bundled and deployed along with the host app
 import ReactRouterApp1 from "@my-org/react-router-app-1";
@@ -209,7 +214,10 @@ You can also pass a function to the `Host` component that returns a dynamic impo
 // my-monorepo/apps/react-router-host/src/pages/index.tsx
 
 import React, { Suspense } from "react";
-import { Host, ErrorBoundary } from "@leanjs/react-router";
+// for either React 16 or React 17 import from "@leanjs/react-router/17"
+import { Host } from "@leanjs/react-router/18";
+// for either React 16 or React 17 import from "@leanjs/react/17"
+import { ErrorBoundary } from "@leanjs/react/18";
 
 const Home = () => (
   <>
@@ -239,7 +247,10 @@ Alternatively, you can pass an object to the `app` prop with a `packageName` key
 // my-monorepo/apps/react-router-host/src/pages/index.tsx
 
 import React, { Suspense } from "react";
-import { Host, ErrorBoundary } from "@leanjs/react";
+// for either React 16 or React 17 import from "@leanjs/react-router/17"
+import { Host } from "@leanjs/react-router/18";
+// for either React 16 or React 17 import from "@leanjs/react/17"
+import { ErrorBoundary } from "@leanjs/react/18";
 
 const Home = () => (
   <>
@@ -293,7 +304,10 @@ then in your React app:
 // @my-org/my-react-app pages/index.tsx
 
 import React, { Suspense } from "react";
-import { Host, ErrorBoundary } from "@leanjs/react";
+// for either React 16 or React 17 import from "@leanjs/react-router/17"
+import { Host } from "@leanjs/react-router/18";
+// for either React 16 or React 17 import from "@leanjs/react/17"
+import { ErrorBoundary } from "@leanjs/react/18";
 
 // this composable app is neither bundled nor deployed along with the host app
 // because of the above remote: { packages: ["@my-org/react-router-app-1"] }
@@ -350,7 +364,8 @@ CSS class added to the root DOM element where the [`app` prop](#app---required-p
 // my-monorepo/apps/react-host/src/index.ts
 
 import React from "react";
-import { Host } from "@leanjs/react";
+// for either React 16 or React 17 import from "@leanjs/react-router/17"
+import { Host } from "@leanjs/react-router/18";
 import ReactRouterApp1 from "@my-org/react-router-app-1";
 
 const Home = () => (
@@ -373,7 +388,8 @@ It makes all routes and links in your app relative to a "base" portion of the UR
 // my-monorepo/apps/react-host/src/index.ts
 
 import React from "react";
-import { Host } from "@leanjs/react";
+// for either React 16 or React 17 import from "@leanjs/react-router/17"
+import { Host } from "@leanjs/react-router/18";
 import BestSellingBooksApp from "@my-org/best-selling-books";
 
 const Home = () => (
