@@ -12,6 +12,7 @@
   "author": "",
   "license": "MIT",
   "peerDependencies": {
+    "@leanjs/core": "*",
     "@leanjs/react": "*",
     "pixi.js": "*",
     "react": "*",

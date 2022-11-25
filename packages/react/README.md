@@ -5,7 +5,7 @@
 If your React app is in a monorepo (recommended) execute the following command at the root of your repository:
 
 ```sh
-yarn add -W @leanjs/react @leanjs/core
+yarn add -W @leanjs/react @leanjs/core react react-dom
 ```
 
 then in the `package.json` of your React app add the following `peerDependencies`:
@@ -13,14 +13,16 @@ then in the `package.json` of your React app add the following `peerDependencies
 ```
 "peerDependencies": {
   "@leanjs/core": "*",
-  "@leanjs/react": "*"
+  "@leanjs/react": "*",
+  "react": "*",
+  "react-dom": "*"
 }
 ```
 
 If your React app is not in a monorepo, then run the following command instead of the above:
 
 ```sh
-yarn add @leanjs/react @leanjs/core
+yarn add @leanjs/react @leanjs/core react react-dom
 ```
 
 ## Basic usage
@@ -31,6 +33,10 @@ First, you have to create your React bindings (**HostProvider**, **useGetter**, 
 
 ```ts
 // shared-runtime.ts
+
+// for either React 16 or React 17 import from "@leanjs/react/17"
+import { createRuntimeBindings } from "@leanjs/react/18";
+import { configureRuntime } from "@leanjs/core";
 
 // You need to configure your runtime
 const defaultState = { locale: "en" }; // this is just an example
@@ -118,7 +124,8 @@ Call `createApp` with the root component of your app, for example:
 ```ts
 // my-monorepo/composable-apps/react-app-1/src/index.ts
 
-import { createApp } from "@leanjs/react";
+// for either React 16 or React 17 import from "@leanjs/react/17"
+import { createApp } from "@leanjs/react/18";
 
 import { ReactApp1 } from "./ReactApp1";
 
@@ -255,7 +262,8 @@ The `app` prop expects a `GetComposableApp` type. You can `import` a `GetComposa
 ```tsx
 // my-monorepo/composable-apps/react-app-1/src/index.tsx
 
-import { createApp } from "@leanjs/react";
+// for either React 16 or React 17 import from "@leanjs/react/17"
+import { createApp } from "@leanjs/react/18";
 import { ReactApp1 } from "./ReactApp1";
 
 export default createApp(ReactApp1);
@@ -267,7 +275,8 @@ then pass it to the `Host` component in a React app:
 // my-monorepo/apps/react-host/src/index.ts
 
 import React from "react";
-import { Host } from "@leanjs/react";
+// for either React 16 or React 17 import from "@leanjs/react/17"
+import { Host } from "@leanjs/react/18";
 
 // this composable app is bundled and deployed along with the host app
 import ReactApp1 from "@my-org/react-app-1";
@@ -294,7 +303,8 @@ You can also pass a function to the `Host` component that returns a dynamic impo
 // my-monorepo/apps/react-host/src/index.ts
 
 import React, { Suspense } from "react";
-import { Host, ErrorBoundary } from "@leanjs/react";
+// for either React 16 or React 17 import from "@leanjs/react/17"
+import { Host, ErrorBoundary } from "@leanjs/react/18";
 
 const Home = () => (
   <>
@@ -323,7 +333,8 @@ Alternatively, you can pass an object to the `app` prop with a `packageName` key
 ```tsx
 // my-monorepo/apps/react-host/src/index.ts
 
-import { Host, ErrorBoundary } from "@leanjs/react";
+// for either React 16 or React 17 import from "@leanjs/react/17"
+import { Host, ErrorBoundary } from "@leanjs/react/18";
 
 const Home = () => (
   <>
@@ -377,7 +388,8 @@ then in your React app:
 // my-monorepo/apps/react-host/src/index.ts
 
 import React, { Suspense } from "react";
-import { Host, ErrorBoundary } from "@leanjs/react";
+// for either React 16 or React 17 import from "@leanjs/react/17"
+import { Host, ErrorBoundary } from "@leanjs/react/18";
 
 // this composable app is neither bundled nor deployed along with the host app
 // because of the above remote: { packages: ["@my-org/react-app-1"] }
@@ -432,7 +444,8 @@ CSS class added to the root DOM element where the [`app` prop](#app---required-p
 // my-monorepo/apps/react-host/src/index.ts
 
 import React from "react";
-import { Host } from "@leanjs/react";
+// for either React 16 or React 17 import from "@leanjs/react/17"
+import { Host } from "@leanjs/react/18";
 import ReactApp1 from "@my-org/react-app-1";
 
 const Home = () => (
