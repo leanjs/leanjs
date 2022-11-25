@@ -5,7 +5,8 @@
 If your Nextjs app is in a monorepo (recommended) execute the following command at the root of your repository:
 
 ```sh
-yarn add -W @leanjs/next @leanjs/react @leanjs/core
+yarn add -W @leanjs/next @leanjs/react @leanjs/core \
+  next@13 react@18 react-dom@18
 ```
 
 then in the `package.json` of your Nextjs app add the following `peerDependencies`:
@@ -14,15 +15,25 @@ then in the `package.json` of your Nextjs app add the following `peerDependencie
 "peerDependencies": {
   "@leanjs/core": "*",
   "@leanjs/next": "*",
-  "@leanjs/react": "*"
+  "@leanjs/react": "*",
+  "next": "*",
+  "react": "*",
+  "react-dom": "*"
 }
 ```
 
 If your Nextjs app is not in a monorepo, then run the following command instead of the above:
 
 ```sh
-yarn add @leanjs/next @leanjs/react @leanjs/core
+yarn add @leanjs/next @leanjs/react @leanjs/core \
+  next@13 react@18 react-dom@18
 ```
+
+:::info
+
+The LeanJS integration for Nextjs only supports React 18 and Nextjs 13.
+
+:::
 
 ## Basic usage
 
@@ -84,7 +95,8 @@ The `app` prop expects a `GetComposableApp` type. You can `import` a `GetComposa
 ```tsx
 // my-monorepo/composable-apps/react-app-1/src/index.ts
 
-import { createApp } from "@leanjs/react";
+// for either React 16 or React 17 import from "@leanjs/react/17"
+import { createApp } from "@leanjs/react/18";
 
 import { ReactApp1 } from "./ReactApp1";
 
