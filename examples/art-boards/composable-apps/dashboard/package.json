@@ -1,6 +1,6 @@
 {
   "name": "@art-boards/dashboard-app",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "scripts": {
     "dev": "lean dev --config=react",
     "build": "lean build --config=react",
@@ -14,8 +14,8 @@
   "license": "MIT",
   "peerDependencies": {
     "@leanjs/core": "*",
-    "@leanjs/react-router": "*",
     "@leanjs/react": "*",
+    "@leanjs/react-router": "*",
     "history": "*",
     "react": "*",
     "react-dom": "*",
