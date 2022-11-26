@@ -1,0 +1,27 @@
+{
+  "name": "@art-boards/chat-app-vue",
+  "version": "1.0.0",
+  "scripts": {
+    "dev": "lean dev --config=vue",
+    "build": "lean build --config=vue",
+    "test": "echo 'ToDo'",
+    "lint": "tsc --noEmit",
+    "deploy:pr": "lean deploy"
+  },
+  "main": "./src/index.ts",
+  "author": "",
+  "license": "MIT",
+  "peerDependencies": {
+    "@leanjs/core": "*",
+    "@leanjs/vue": "*",
+    "vue": "*"
+  },
+  "dependencies": {
+    "@art-boards/runtime-vue": "*",
+    "@art-boards/ui-canvas": "*"
+  },
+  "devDependencies": {
+    "@leanjs/aws": "*",
+    "@leanjs/cli": "*"
+  }
+}

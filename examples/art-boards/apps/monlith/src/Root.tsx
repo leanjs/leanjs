@@ -1,5 +1,6 @@
 import React from "react";
-import { createRuntime, HostProvider } from "@art-boards/runtime-react";
+import { HostProvider } from "@art-boards/runtime-react";
+import { createRuntime } from "@art-boards/runtime-shared";
 import { BrowserRouter } from "react-router-dom";
 import { Provider } from "react-redux";
 
