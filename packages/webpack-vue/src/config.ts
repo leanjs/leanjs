@@ -24,7 +24,7 @@ export const createVueWebpackConfig = (): Configuration => {
           use: "vue-loader",
         },
         {
-          test: /\.ts$/,
+          test: /\.tsx?$/,
           loader: "ts-loader",
           options: {
             configFile: `${process.cwd()}/tsconfig.json`,
@@ -45,7 +45,7 @@ export const createVueWebpackConfig = (): Configuration => {
       ],
     },
     resolve: {
-      extensions: [".js", ".vue", ".ts"],
+      extensions: [".js", ".vue", ".ts", ".tsx"],
     },
   };
 };
