@@ -9,6 +9,8 @@
   "license": "MIT",
   "dependencies": {
     "@leanjs/e2e-test-package-runtime-shared": "*",
+    "@leanjs/react": "*",
+    "@leanjs/react-router": "*",
     "react": "17.0.2",
     "react-dom": "17.0.2"
   },
