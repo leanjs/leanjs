@@ -25,7 +25,7 @@ function clearNodeModules({ nodeModulesDir, scope }) {
 
 async function copyLocalPackagesToE2eNodeModulesToAllowMultipleVersions() {
   const __dirname = path.dirname(fileURLToPath(import.meta.url));
-  const packageNamesToCopy = new Set(["next", "react", "react-router"]);
+  const packageNamesToCopy = new Set(["core", "next", "react", "react-router"]);
   const testNameTargets = new Set([
     "package-leanjs-react-17",
     "package-leanjs-react-18",
