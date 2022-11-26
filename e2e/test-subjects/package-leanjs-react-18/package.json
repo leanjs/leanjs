@@ -7,11 +7,23 @@
   "types": "./src/index.ts",
   "author": "",
   "license": "MIT",
+  "exports": {
+    ".": "./src/index.ts",
+    "./next": "./src/next.ts"
+  },
+  "typesVersions": {
+    "*": {
+      "next": [
+        "src/next.ts"
+      ]
+    }
+  },
   "dependencies": {
     "@leanjs/e2e-test-package-runtime-shared": "*",
     "@leanjs/react": "*",
     "@leanjs/react-router": "*",
     "@leanjs/next": "*",
+    "next": "13.0.2",
     "react": "18.2.0",
     "react-dom": "18.2.0"
   },
