@@ -12,8 +12,8 @@
   "license": "MIT",
   "dependencies": {
     "@leanjs/e2e-test-package-leanjs-react-18": "*",
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0"
+    "react": "18.2.0",
+    "react-dom": "18.2.0"
   },
   "devDependencies": {
     "@leanjs/webpack": "*",
