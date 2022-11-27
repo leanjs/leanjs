@@ -11,9 +11,9 @@
   "dependencies": {
     "@leanjs/e2e-test-subjects-remote-react-router-17": "*",
     "@leanjs/e2e-test-package-leanjs-react-18": "*",
-    "next": "^13.0.0",
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0",
+    "next": "13.0.0",
+    "react": "18.2.0",
+    "react-dom": "18.2.0",
     "react-error-boundary": "^3.1.4"
   },
   "devDependencies": {

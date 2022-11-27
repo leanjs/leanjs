@@ -7,7 +7,8 @@ export function RemoteReactRouter17() {
   return (
     <>
       <h1>
-        {runtime.context.appName} @ {runtime.context.version}
+        {runtime.context.appName} @ {runtime.context.version} / React{" "}
+        {React.version}
       </h1>
       {/* <Link to="/">Home page</Link> */}
     </>

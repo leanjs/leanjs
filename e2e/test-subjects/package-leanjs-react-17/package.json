@@ -12,7 +12,8 @@
     "@leanjs/react": "*",
     "@leanjs/react-router": "*",
     "react": "17.0.2",
-    "react-dom": "17.0.2"
+    "react-dom": "17.0.2",
+    "react-router-dom": "^6.3.0"
   },
   "devDependencies": {
     "@types/react": "^17.0.41"

@@ -1,5 +1,5 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link } from "@leanjs/e2e-test-package-leanjs-react-17";
 
 import data from "./data";
 

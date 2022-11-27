@@ -12,8 +12,8 @@
     "@leanjs/e2e-test-subjects-remote-react-17": "*",
     "@leanjs/e2e-test-subjects-remote-react-router-17": "*",
     "@leanjs/e2e-test-package-leanjs-react-17": "*",
-    "react": "^17.0.2",
-    "react-dom": "^17.0.2"
+    "react": "17.0.2",
+    "react-dom": "17.0.2"
   },
   "devDependencies": {
     "@leanjs/webpack": "*",
