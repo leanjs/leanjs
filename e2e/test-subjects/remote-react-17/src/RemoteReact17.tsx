@@ -6,7 +6,8 @@ export function RemoteReact17() {
   return (
     <>
       <h1>
-        {runtime.context.appName} @ {runtime.context.version}
+        {runtime.context.appName} @ {runtime.context.version} / React{" "}
+        {React.version}
       </h1>
     </>
   );

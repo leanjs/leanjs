@@ -1,7 +1,7 @@
 {
-  "name": "@leanjs/e2e-test-subjects-shell-react-router-17",
+  "name": "@leanjs/e2e-test-subjects-shell-react-router-18",
   "private": true,
-  "version": "1.5.13",
+  "version": "1.0.0",
   "description": "",
   "scripts": {
     "start:e2e": "NODE_ENV=development webpack serve"
@@ -9,10 +9,12 @@
   "author": "Alex Lobera <alex@leanjs.com>",
   "license": "MIT",
   "dependencies": {
-    "@leanjs/e2e-test-subjects-remote-react-router-17": "*",
-    "@leanjs/e2e-test-package-leanjs-react-17": "*",
-    "react": "17.0.2",
-    "react-dom": "17.0.2",
+    "@leanjs/e2e-test-subjects-remote-react-18": "*",
+    "@leanjs/e2e-test-subjects-remote-react-router-sub-pages-17": "*",
+    "@leanjs/e2e-test-subjects-remote-react-router-18": "*",
+    "@leanjs/e2e-test-package-leanjs-react-18": "*",
+    "react": "18.2.0",
+    "react-dom": "18.2.0",
     "react-router-dom": "^6.3.0"
   },
   "devDependencies": {

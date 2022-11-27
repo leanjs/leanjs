@@ -5,5 +5,5 @@ export function CliReact() {
   const runtime = useRuntime();
   console.log("test pusher", runtime.api.pusher.key);
 
-  return <h1>React micro-app via @leanjs/cli</h1>;
+  return <h1>React micro-app via @leanjs/cli / React {React.version}</h1>;
 }

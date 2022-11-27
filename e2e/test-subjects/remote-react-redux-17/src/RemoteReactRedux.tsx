@@ -45,7 +45,7 @@ export function RemoteReactRedux({
 
   return (
     <Provider store={store}>
-      <h2>Hello 👋 remote-redux</h2>
+      <h2>Hello 👋 remote-redux / React {React.version}</h2>
       <Settings />
     </Provider>
   );

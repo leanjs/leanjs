@@ -23,3 +23,5 @@ export {
   createApp as createReactApp,
   ErrorBoundary,
 } from "@leanjs/react/17";
+
+export * from "react-router-dom";
