@@ -25,12 +25,15 @@
     "@leanjs/webpack": "*",
     "react": "*",
     "react-dom": "*",
-    "react-router-dom": "*"
+    "react-router-dom": "*",
+    "vue": "*",
+    "vue-router": "*"
   },
   "devDependencies": {
     "@aws-sdk/client-cloudfront": "^3.121.0",
     "@swc/core": "^1.2.160",
     "@types/react": "^17.0.43",
+    "@vue/compiler-sfc": "^3.2.37",
     "@types/react-dom": "^17.0.14",
     "swc-loader": "^0.1.15",
     "vue-loader": "^17.0.1",
