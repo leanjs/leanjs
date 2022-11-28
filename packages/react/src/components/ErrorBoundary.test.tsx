@@ -3,7 +3,7 @@ import { render, screen } from "@testing-library/react";
 import React from "react";
 import "@testing-library/jest-dom";
 
-import { createRuntimeBindings } from "../runtime/createRuntimeBindings";
+import { createRuntimeBindings } from "../17/createRuntimeBindings";
 import { ErrorBoundary, getErrorBoundaryProps } from "./ErrorBoundary";
 
 const defaultState = {

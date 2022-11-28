@@ -20,7 +20,7 @@ export const RuntimeProvider = ({
   </ReactRuntimeContext.Provider>
 );
 
-export function useRuntime<MyRuntime extends BaseRuntime>() {
+export function useRuntime() {
   const { runtime, isSelfHosted } = useContext(ReactRuntimeContext);
 
   if (!runtime) {
@@ -33,5 +33,5 @@ export function useRuntime<MyRuntime extends BaseRuntime>() {
     );
   }
 
-  return runtime as MyRuntime;
+  return runtime;
 }

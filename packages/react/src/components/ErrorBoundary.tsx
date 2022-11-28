@@ -3,7 +3,7 @@ import type { ReactElement } from "react";
 import type { AppError, RuntimeContext, LogAnyError } from "@leanjs/core";
 import { _ as CoreUtils } from "@leanjs/core";
 
-import { ReactRuntimeContext } from "../runtime";
+import { ReactRuntimeContext } from "../core";
 
 const { createAppError } = CoreUtils;
 

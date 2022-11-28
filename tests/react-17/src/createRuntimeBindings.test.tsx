@@ -4,8 +4,9 @@ import { act, renderHook } from "@testing-library/react-hooks";
 import React, { ReactElement } from "react";
 import waitForExpect from "wait-for-expect";
 
-import { createRuntimeBindings } from "./createRuntimeBindings";
-import { RuntimeProvider } from "./RuntimeProvider";
+import { createRuntimeBindings, _ as ReactCore } from "@leanjs/react/17";
+
+const { RuntimeProvider } = ReactCore;
 
 const defaultState = {
   locale: "en",
@@ -43,6 +44,9 @@ describe("createRuntimeBindings", () => {
 
 describe("useRuntime", () => {
   it("throws an error if there is no Runtime in the context", () => {
+    const consoleError = console.error;
+    console.error = jest.fn();
+
     const Component = () => {
       useRuntime();
       return null;
@@ -51,6 +55,8 @@ describe("useRuntime", () => {
     expect(() => {
       render(<Component />);
     }).toThrowError();
+
+    console.error = consoleError;
   });
 
   it("returns a Runtime from the context", () => {
@@ -70,6 +76,9 @@ describe("useRuntime", () => {
 
 describe("useSetter", () => {
   it("throws an error if there is no Runtime in the context", () => {
+    const consoleError = console.error;
+    console.error = jest.fn();
+
     const Component = () => {
       useSetter("locale");
       return null;
@@ -78,9 +87,13 @@ describe("useSetter", () => {
     expect(() => {
       render(<Component />);
     }).toThrowError();
+
+    console.error = consoleError;
   });
 
   it(`throws an error given an invalid prop`, () => {
+    const consoleError = console.error;
+    console.error = jest.fn();
     const Component = () => {
       // eslint-disable-next-line @typescript-eslint/ban-ts-comment
       // @ts-ignore
@@ -98,11 +111,15 @@ describe("useSetter", () => {
         </Wrapper>
       );
     }).toThrowError();
+
+    console.error = consoleError;
   });
 
   describe("given a valid prop", () => {
     describe("returns a function that", () => {
       it("throws if there is no RuntimeProvider in the context", () => {
+        const consoleError = console.error;
+        console.error = jest.fn();
         const Component = () => {
           useSetter("locale");
           return null;
@@ -111,6 +128,8 @@ describe("useSetter", () => {
         expect(() => {
           render(<Component />);
         }).toThrowError();
+
+        console.error = consoleError;
       });
 
       it("updates the state", async () => {
@@ -158,6 +177,8 @@ describe("useSetter", () => {
 
 describe("useGetter", () => {
   it("throws an error if there is no Runtime in the context", () => {
+    const consoleError = console.error;
+    console.error = jest.fn();
     const Component = () => {
       useGetter("locale");
 
@@ -167,9 +188,13 @@ describe("useGetter", () => {
     expect(() => {
       render(<Component />);
     }).toThrowError();
+
+    console.error = consoleError;
   });
 
   it(`throws an error given an invalid prop`, () => {
+    const consoleError = console.error;
+    console.error = jest.fn();
     const Component = () => {
       // eslint-disable-next-line @typescript-eslint/ban-ts-comment
       // @ts-ignore
@@ -186,6 +211,8 @@ describe("useGetter", () => {
         </Wrapper>
       );
     }).toThrowError();
+
+    console.error = consoleError;
   });
 
   describe("given a valid prop", () => {
@@ -218,6 +245,8 @@ describe("useGetter", () => {
 
 describe("useLoading", () => {
   it("throws an error if there is no Runtime in the context", () => {
+    const consoleError = console.error;
+    console.error = jest.fn();
     const Component = () => {
       useLoading("locale");
       return null;
@@ -226,9 +255,13 @@ describe("useLoading", () => {
     expect(() => {
       render(<Component />);
     }).toThrowError();
+
+    console.error = consoleError;
   });
 
   it(`throws an error given an invalid prop`, () => {
+    const consoleError = console.error;
+    console.error = jest.fn();
     const Component = () => {
       // eslint-disable-next-line @typescript-eslint/ban-ts-comment
       // @ts-ignore
@@ -245,6 +278,8 @@ describe("useLoading", () => {
         </Wrapper>
       );
     }).toThrowError();
+
+    console.error = consoleError;
   });
 
   it("returns the current loading state of that state prop given a valid prop", async () => {
@@ -276,6 +311,8 @@ describe("useLoading", () => {
 
 describe("useError", () => {
   it("throws an error if there is no Runtime in the context", () => {
+    const consoleError = console.error;
+    console.error = jest.fn();
     const Component = () => {
       useError("locale");
       return null;
@@ -284,9 +321,13 @@ describe("useError", () => {
     expect(() => {
       render(<Component />);
     }).toThrowError();
+
+    console.error = consoleError;
   });
 
   it(`throws an error given an invalid prop`, () => {
+    const consoleError = console.error;
+    console.error = jest.fn();
     const Component = () => {
       // eslint-disable-next-line @typescript-eslint/ban-ts-comment
       // @ts-ignore
@@ -303,6 +344,8 @@ describe("useError", () => {
         </Wrapper>
       );
     }).toThrowError();
+
+    console.error = consoleError;
   });
 
   it("returns the current error of that state prop given a valid prop", async () => {

@@ -1,0 +1,23 @@
+{
+  "name": "@leanjs/tests-react-17",
+  "version": "0.0.1",
+  "author": "Alex Lobera <alex@leanjs.com>",
+  "description": "Tests for @leanjs/react/17",
+  "license": "MIT",
+  "dependencies": {
+    "@leanjs/core": "*",
+    "@leanjs/react": "*"
+  },
+  "devDependencies": {
+    "@testing-library/jest-dom": "^5.16.5",
+    "@testing-library/react": "^12.1.4",
+    "@testing-library/react-hooks": "^7.0.2",
+    "@types/react": "^17.0.41",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2",
+    "wait-for-expect": "^3.0.2"
+  },
+  "scripts": {
+    "test": "jest"
+  }
+}
