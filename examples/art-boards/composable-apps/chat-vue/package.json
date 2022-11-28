@@ -21,6 +21,7 @@
     "@art-boards/ui-canvas": "*"
   },
   "devDependencies": {
+    "@vue/compiler-sfc": "^3.2.37",
     "@leanjs/aws": "*",
     "@leanjs/cli": "*"
   }
