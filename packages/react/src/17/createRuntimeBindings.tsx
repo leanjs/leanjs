@@ -4,7 +4,9 @@ import type { KeyOf, CreateRuntime, StateType } from "@leanjs/core";
 
 import { HostProvider } from "../private/HostProvider";
 import type { HostProviderProps } from "../types";
-import { useRuntime as useBaseRuntime } from "./RuntimeProvider";
+import { useRuntime as useBaseRuntime } from "../core/RuntimeProvider";
+
+export type CreateRuntimeBindings = typeof createRuntimeBindings;
 
 export const createRuntimeBindings = <
   MyCreateRuntime extends CreateRuntime = CreateRuntime,
@@ -12,7 +14,7 @@ export const createRuntimeBindings = <
 >(
   _createRuntime: MyCreateRuntime // arg only used to infer Runtime type
 ) => {
-  const useRuntime = () => useBaseRuntime<MyRuntime>();
+  const useRuntime = () => useBaseRuntime() as MyRuntime;
 
   const useGetter = <Prop extends KeyOf<MyRuntime["state"]["loader"]>>(
     prop: Prop,
@@ -22,9 +24,7 @@ export const createRuntimeBindings = <
   ) => {
     const runtime = useRuntime();
     if (loader) runtime.state.load(prop, loader, runtime.context);
-    const [value, setValue] = useState<StateType<MyRuntime>[Prop]>(
-      runtime.state.get(prop)
-    );
+    const [value, setValue] = useState(runtime.state.get(prop));
 
     useEffect(
       () =>

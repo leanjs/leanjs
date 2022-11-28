@@ -43,6 +43,8 @@ describe("useRuntime", () => {
   });
 
   it("throws an error if it can't find a runtime in the context", () => {
+    const consoleError = console.error;
+    console.error = jest.fn();
     const EmptyComp = () => {
       useRuntime();
       return null;
@@ -51,9 +53,11 @@ describe("useRuntime", () => {
     expect(() => {
       render(<EmptyComp />);
     }).toThrowError();
+
+    console.error = consoleError;
   });
 
-  it(`doesn't throw an error if it can't find a runtime in the context`, () => {
+  it(`doesn't throw an error if it can find a runtime in the context`, () => {
     const EmptyComp = () => {
       useRuntime();
       return null;

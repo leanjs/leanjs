@@ -11,15 +11,11 @@ import React, { ReactElement, useEffect } from "react";
 // @ts-ignore
 import { createRoot } from "react-dom/client";
 
-import { RootComponent, ReactRoot } from "./types";
-import { ErrorBoundary, getErrorBoundaryProps } from "./components";
-import { RuntimeProvider } from "./runtime";
+import { RootComponent, ReactRoot } from "../types";
+import { ErrorBoundary, getErrorBoundaryProps } from "../components";
+import { RuntimeProvider } from "../core";
 
 const { createMount, setRuntimeContext } = CoreUtils;
-
-export * as _ from "./core";
-export * from "./runtime";
-export * from "./components";
 
 export const createApp = <MyAppProps extends AppProps = AppProps>(
   App: (props: MyAppProps) => ReactElement,
