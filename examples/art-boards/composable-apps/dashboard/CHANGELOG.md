@@ -3,6 +3,10 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.0.6](https://github.com/leanjs/leanjs/compare/@art-boards/dashboard-app@1.0.5...@art-boards/dashboard-app@1.0.6) (2022-11-29)
+
+**Note:** Version bump only for package @art-boards/dashboard-app
+
 ## [1.0.5](https://github.com/leanjs/leanjs/compare/@art-boards/dashboard-app@1.0.4...@art-boards/dashboard-app@1.0.5) (2022-11-25)
 
 **Note:** Version bump only for package @art-boards/dashboard-app

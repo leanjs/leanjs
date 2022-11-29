@@ -1,6 +1,6 @@
 {
   "name": "@art-boards/chat-app-vue",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "scripts": {
     "dev": "lean dev --config=vue",
     "build": "lean build --config=vue",
@@ -17,12 +17,12 @@
     "vue": "*"
   },
   "dependencies": {
-    "@art-boards/runtime-vue": "*",
+    "@art-boards/runtime-vue": "^1.1.0",
     "@art-boards/ui-canvas": "*"
   },
   "devDependencies": {
-    "@vue/compiler-sfc": "^3.2.37",
     "@leanjs/aws": "*",
-    "@leanjs/cli": "*"
+    "@leanjs/cli": "*",
+    "@vue/compiler-sfc": "^3.2.37"
   }
 }
