@@ -8,6 +8,7 @@ const path = require("path");
 const CopyPlugin = require("copy-webpack-plugin");
 /* eslint-disable @typescript-eslint/no-var-requires */
 const { DefinePlugin } = require("webpack");
+const { VueLoaderPlugin } = require("vue-loader");
 
 const port = 44446;
 const isProduction = process.env.NODE_ENV === "production";
@@ -59,6 +60,7 @@ module.exports = {
         process.env.EXAMPLE_ART_BOARDS_ORIGIN || "http://localhost:33000"
       ),
     }),
+    new VueLoaderPlugin(),
   ],
   module: {
     rules: [
@@ -89,6 +91,10 @@ module.exports = {
             },
           },
         },
+      },
+      {
+        test: /\.vue$/,
+        loader: "vue-loader",
       },
     ],
   },

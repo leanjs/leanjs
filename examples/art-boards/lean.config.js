@@ -1,10 +1,8 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
 const { createReactWebpackConfig } = require("@leanjs/webpack-react");
+const { createVueWebpackConfig } = require("@leanjs/webpack-vue");
 
-/* eslint-disable @typescript-eslint/no-var-requires */
 const CopyPlugin = require("copy-webpack-plugin");
-
-/* eslint-disable @typescript-eslint/no-var-requires */
 const path = require("path");
 
 const webpackConfig = createReactWebpackConfig();
@@ -38,6 +36,7 @@ module.exports = {
         }),
       ],
     },
+    vue: createVueWebpackConfig(),
   },
   command: {
     deploy: {

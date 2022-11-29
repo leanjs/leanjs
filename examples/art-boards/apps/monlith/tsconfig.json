@@ -1,5 +1,10 @@
 {
   "extends": "../../tsconfig.json",
   "include": ["."],
-  "exclude": ["dist", "build", "node_modules"]
+  "exclude": ["dist", "build", "node_modules"],
+  "compilerOptions": {
+    "paths": {
+      "@art-boards/chat-app-vue": ["./stubs/chat-app-vue.d.ts"]
+    }
+  },
 }
