@@ -1,7 +1,7 @@
 {
   "name": "@leanjs/webpack-vue",
   "version": "0.2.42",
-  "description": "Default Webpack configuration for LeanJS Vue micro-apps",
+  "description": "Default Webpack configuration for LeanJS Vue micro-apps.",
   "main": "./dist/index.js",
   "author": "Alex Lobera <alex@leanjs.com>",
   "repository": {
