@@ -4,7 +4,7 @@ import { _ as CoreUtils, MountFunc } from "@leanjs/core";
 import type { OuterHostProps, InnerHostProps } from "../types";
 import { HostContext } from "../private/HostProvider";
 
-import { useRuntime } from "../runtime";
+import { useRuntime } from "./RuntimeProvider";
 import { Mount } from "./Mount";
 
 const { loadApp, isRemoteApp } = CoreUtils;

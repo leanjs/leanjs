@@ -40,7 +40,7 @@ async function dev() {
     const { historyApiFallback } = webpackConfig.devServer || {};
     webpackConfig.devServer = {
       historyApiFallback: {
-        ...(historyApiFallback === "object" ? historyApiFallback : {}),
+        ...(typeof historyApiFallback === "object" ? historyApiFallback : {}),
         index: `/index.html`,
       },
       port: webpackConfig.devServer?.port ?? port,

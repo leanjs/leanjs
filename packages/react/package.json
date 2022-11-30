@@ -17,21 +17,21 @@
   "exports": {
     ".": "./dist/index.js",
     "./18": {
-      "types": "./dist/18.d.ts",
-      "default": "./dist/18.js"
+      "types": "./dist/18/index.d.ts",
+      "default": "./dist/18/index.js"
     },
     "./17": {
-      "types": "./dist/17.d.ts",
-      "default": "./dist/17.js"
+      "types": "./dist/17/index.d.ts",
+      "default": "./dist/17/index.js"
     }
   },
   "typesVersions": {
     "*": {
       "17": [
-        "dist/17.d.ts"
+        "dist/17/index.d.ts"
       ],
       "18": [
-        "dist/18.d.ts"
+        "dist/18/index.d.ts"
       ]
     }
   },
@@ -47,7 +47,7 @@
   },
   "peerDependencies": {
     "@leanjs/core": "^0.13.4",
-    "react": "^17.0.2"
+    "react": "*"
   },
   "scripts": {
     "test": "jest",

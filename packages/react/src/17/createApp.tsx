@@ -2,14 +2,10 @@ import type { CreateComposableApp, AppProps, MountFunc } from "@leanjs/core";
 import { _ as CoreUtils } from "@leanjs/core";
 import React, { ReactElement } from "react";
 import ReactDOM from "react-dom";
-import { CreateAppConfig, RootComponent } from "./types";
+import { CreateAppConfig, RootComponent } from "../types";
 
-import { ErrorBoundary, getErrorBoundaryProps } from "./components";
-import { RuntimeProvider } from "./runtime";
-
-export * as _ from "./core";
-export * from "./runtime";
-export * from "./components";
+import { ErrorBoundary, getErrorBoundaryProps } from "../components";
+import { RuntimeProvider } from "../core";
 
 const { createMount, setRuntimeContext } = CoreUtils;
 

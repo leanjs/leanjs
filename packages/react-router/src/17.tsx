@@ -1,5 +1,4 @@
 import {
-  RuntimeProvider,
   ErrorBoundary,
   getErrorBoundaryProps,
   _ as ReactUtils,
@@ -18,7 +17,7 @@ export * from "./types";
 export * from "./components/Host";
 
 const { createMount, getDefaultPathname, setRuntimeContext } = CoreUtils;
-const { createHost } = ReactUtils;
+const { createHost, RuntimeProvider } = ReactUtils;
 
 export const Host = createHost<OuterReactRouterHostProps>(ReactRouterHost);
 
