@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.8.7](https://github.com/leanjs/leanjs/compare/@leanjs/next@0.8.6...@leanjs/next@0.8.7) (2022-11-30)
+
+### Bug Fixes
+
+- react and react router versions ([fb261d3](https://github.com/leanjs/leanjs/commit/fb261d3de9ce01a503dbb1530ef76aac6fe6fd52))
+
 ## [0.8.6](https://github.com/leanjs/leanjs/compare/@leanjs/next@0.8.5...@leanjs/next@0.8.6) (2022-11-21)
 
 **Note:** Version bump only for package @leanjs/next
