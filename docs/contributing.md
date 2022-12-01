@@ -32,4 +32,9 @@ The following steps will get you setup to contribute changes to this repo:
 
 3. Install dependencies by running `yarn`. LeanJS uses [Yarn (version 1)][yarn-version-1], so you should too. If you install using `npm`, unnecessary `package-lock.json` files will be generated.
 
-4. Verify you've got everything set up for local development by running `yarn test`
+4. Verify you've got everything set up for local development by running the test suite, you have to build the project first
+
+   ```bash
+   yarn build
+   yarn test
+   ```
