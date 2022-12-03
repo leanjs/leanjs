@@ -2,7 +2,7 @@ import type { CreateComposableApp, AppProps, MountFunc } from "@leanjs/core";
 import { _ as CoreUtils } from "@leanjs/core";
 import React, { ReactElement } from "react";
 import ReactDOM from "react-dom";
-import { CreateAppConfig, RootComponent } from "../types";
+import { CreateAppConfig, RootComponent17 } from "../types";
 
 import { ErrorBoundary, getErrorBoundaryProps } from "../components";
 import { RuntimeProvider } from "../core";
@@ -17,7 +17,7 @@ export const createApp = <MyAppProps extends AppProps = AppProps>(
     isSelfHosted,
     version,
   } = {}) => {
-    const Root: RootComponent = ({ children }) => children;
+    const Root: RootComponent17 = ({ children }) => children;
     Root.displayName = `${appName}Root`;
     const mount: MountFunc = (el, { runtime, initialState, onError }) =>
       createMount({

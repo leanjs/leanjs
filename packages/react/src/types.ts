@@ -59,6 +59,11 @@ export interface CreateAppConfig extends CreateAppCoreConfig {
   strict?: boolean;
 }
 
+export interface RootComponent17 {
+  (props: { children: ReactElement }): ReactElement;
+  displayName?: string;
+}
+
 export interface RootComponent {
   (props: {
     children: ReactElement;

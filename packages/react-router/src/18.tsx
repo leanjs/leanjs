@@ -4,12 +4,7 @@ import {
   _ as ReactUtils,
 } from "@leanjs/react/18";
 import type { CreateAppConfig, RootComponent, ReactRoot } from "@leanjs/react";
-import type {
-  CreateComposableApp,
-  AppProps,
-  MountFunc,
-  UnmountFunc,
-} from "@leanjs/core";
+import type { CreateComposableApp, AppProps, MountFunc } from "@leanjs/core";
 import { _ as CoreUtils } from "@leanjs/core";
 import React, { ReactElement, useEffect } from "react";
 import { createBrowserHistory, createMemoryHistory } from "history";
@@ -38,22 +33,10 @@ export const createApp = <MyAppProps extends AppProps = AppProps>(
     const history = isSelfHosted
       ? createBrowserHistory()
       : createMemoryHistory();
-    let unmountCallback: UnmountFunc | null;
-    let rendering = false;
     let root: ReactRoot | null;
 
-    const unmountRoot = () => {
-      root?.unmount();
-      root = null;
-    };
-
-    const Root: RootComponent = ({ children }) => {
-      useEffect(() => {
-        unmountCallback?.();
-        unmountCallback = null;
-        rendering = false;
-      }, []);
-
+    const Root: RootComponent = ({ children, onRendered }) => {
+      useEffect(onRendered, []);
       return children;
     };
     Root.displayName = `${appName}Root`;
@@ -82,45 +65,43 @@ export const createApp = <MyAppProps extends AppProps = AppProps>(
           appName,
           onError,
           unmount: () => {
-            if (rendering) {
-              unmountCallback = unmountRoot;
-            } else {
-              setTimeout(unmountRoot);
-            }
+            root?.unmount();
+            root = null;
           },
           cleanups: onRemoteNavigate
             ? [history.listen((e) => onRemoteNavigate(e.location))]
             : [],
-          render: ({ appProps }) => {
-            unmountCallback = null;
-            if (el && !rendering) {
-              rendering = true;
-              root = root ?? createRoot(el);
-              const context = { version, appName };
-              root?.render(
-                <React.StrictMode>
-                  <Root>
-                    <ErrorBoundary
-                      {...getErrorBoundaryProps({
-                        isSelfHosted,
-                        onError,
-                        appName,
-                        version,
-                      })}
-                    >
-                      <Router history={history} basename={basename}>
-                        <RuntimeProvider
-                          isSelfHosted={!!isSelfHosted}
-                          runtime={setRuntimeContext(context, runtime)}
-                        >
-                          <App {...(appProps as MyAppProps)} />
-                        </RuntimeProvider>
-                      </Router>
-                    </ErrorBoundary>
-                  </Root>
-                </React.StrictMode>
-              );
-            }
+          render: ({ appProps, status }) => {
+            status.rendering = true;
+            root = root ?? createRoot(el);
+            const context = { version, appName };
+            root?.render(
+              <React.StrictMode>
+                <Root
+                  onRendered={() => {
+                    status.rendering = false;
+                  }}
+                >
+                  <ErrorBoundary
+                    {...getErrorBoundaryProps({
+                      isSelfHosted,
+                      onError,
+                      appName,
+                      version,
+                    })}
+                  >
+                    <Router history={history} basename={basename}>
+                      <RuntimeProvider
+                        isSelfHosted={!!isSelfHosted}
+                        runtime={setRuntimeContext(context, runtime)}
+                      >
+                        <App {...(appProps as MyAppProps)} />
+                      </RuntimeProvider>
+                    </Router>
+                  </ErrorBoundary>
+                </Root>
+              </React.StrictMode>
+            );
           },
         }),
         onHostNavigate: ({ pathname: nextPathname }) => {
