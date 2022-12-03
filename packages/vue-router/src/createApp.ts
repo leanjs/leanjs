@@ -22,7 +22,7 @@ import type {
 import { _ as CoreUtils } from "@leanjs/core";
 
 const {
-  createMount,
+  mountApp,
   getDefaultPathname,
   dedupeSlash,
   createAppError,
@@ -64,8 +64,8 @@ export const createApp = (
         onRemoteNavigate,
         basename,
         pathname = getDefaultPathname(isSelfHosted),
-        initialState,
         onError,
+        ...rest
       }
     ) => {
       let app: App;
@@ -82,10 +82,10 @@ export const createApp = (
       });
 
       return {
-        ...createMount({
+        unmount: mountApp({
+          ...rest,
           el,
           appName,
-          initialState,
           isSelfHosted,
           onError,
           cleanups: onRemoteNavigate
@@ -103,7 +103,7 @@ export const createApp = (
                 }),
               ]
             : [],
-          render: ({ appProps }) => {
+          render: ({ appProps, rendered }) => {
             try {
               app = createVueApp(App, { ...appProps, isSelfHosted })
                 .provide(
@@ -112,6 +112,7 @@ export const createApp = (
                 )
                 .use(router);
               app.mount(el);
+              rendered(); // TODO done when onMounted
             } catch (error: any) {
               throw createAppError({ appName, version, error });
             }

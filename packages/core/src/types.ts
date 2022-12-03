@@ -19,8 +19,9 @@ export interface MountOptions<MyRuntime extends Runtime = Runtime>
   extends BasePath {
   runtime?: MyRuntime;
   onRemoteNavigate?: OnNavigate;
-  initialState?: any;
+  initialState: any;
   onError: LogAnyError;
+  mountState: MountState;
 }
 
 export type NavigateFunc = (location: Location) => void;
@@ -48,7 +49,7 @@ export interface Location {
   hash?: string;
 }
 
-export interface MountOutput {
+export interface MountFuncOutput {
   unmount: UnmountFunc;
   onHostNavigate?: OnNavigate;
 }
@@ -83,7 +84,10 @@ export interface GetComposableAppAsync {
 export type GetComposableApp = RemoteComposableApp | CreateComposableApp;
 
 export interface MountFunc<MyRuntime extends Runtime = Runtime> {
-  (element: HTMLElement | null, options: MountOptions<MyRuntime>): MountOutput;
+  (
+    element: HTMLElement | null,
+    options: MountOptions<MyRuntime>
+  ): MountFuncOutput;
 }
 
 type UdpateInitialState = (state: any) => void;
@@ -103,12 +107,18 @@ export type OnRemoteNavigate = (
 
 export type Cleanup = () => void;
 
-export type CreateMount = (args: CreateMountArgs) => MountOutput;
+export type MountApp = (args: MountAppArgs) => UnmountFunc;
 
 interface CreateMountRenderArgs {
   appProps?: AppProps;
+  rendered: () => void;
 }
-export interface CreateMountArgs {
+
+interface MountState {
+  rendering?: boolean;
+  unmountCallback?: UnmountFunc;
+}
+export interface MountAppArgs {
   el: HTMLElement | null;
   appName: string;
   version?: string;
@@ -118,6 +128,7 @@ export interface CreateMountArgs {
   initialState: any;
   onError: LogAnyError;
   cleanups?: Cleanup[];
+  mountState: MountState;
 }
 
 export interface AppProps {
