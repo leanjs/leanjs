@@ -1,6 +1,6 @@
 {
   "name": "@art-boards/runtime-vue",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "description": "",
   "main": "./src/index.ts",
   "types": "./src/index.ts",
@@ -10,6 +10,6 @@
     "@leanjs/vue": "*"
   },
   "dependencies": {
-    "@art-boards/runtime-shared": "^1.1.0"
+    "@art-boards/runtime-shared": "^1.2.0"
   }
 }

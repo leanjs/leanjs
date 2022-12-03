@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.3.0](https://github.com/leanjs/leanjs/compare/@art-boards/monolithic-app@1.1.3...@art-boards/monolithic-app@1.3.0) (2022-12-03)
+
+### Bug Fixes
+
+- react and react router versions ([b41f17e](https://github.com/leanjs/leanjs/commit/b41f17e074a78b115849abf7ecf207aa7bab6d54))
+
+### Features
+
+- **art-boards:vue-chat-app:** added new vue chat app to art boards example ([72190e1](https://github.com/leanjs/leanjs/commit/72190e1d95313c1b6e30c699a6bcf8be17d34c0b))
+- **art-boards:vue-chat-app:** update packages and typing ([cccc405](https://github.com/leanjs/leanjs/commit/cccc405e035fa09bfc762d13e065c351ddc9539f))
+
 # [1.2.0](https://github.com/leanjs/leanjs/compare/@art-boards/monolithic-app@1.1.13...@art-boards/monolithic-app@1.2.0) (2022-11-29)
 
 ### Features
