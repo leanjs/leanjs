@@ -11,9 +11,9 @@ import type {
   LogAnyError,
   RemoteProp,
   UnmountFunc,
+  Cleanup,
 } from "@leanjs/core";
 import type { ReactElement } from "react";
-import React from "react";
 
 export type { AppProps } from "@leanjs/core";
 export interface MountProps extends BasePath {
@@ -60,7 +60,10 @@ export interface CreateAppConfig extends CreateAppCoreConfig {
 }
 
 export interface RootComponent {
-  (props: { children: ReactElement }): ReactElement;
+  (props: {
+    children: ReactElement;
+    onRendered: () => Cleanup | void;
+  }): ReactElement;
   displayName?: string;
 }
 

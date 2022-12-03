@@ -1,3 +1,10 @@
+declare const UNDEFINED_VOID_ONLY: unique symbol;
+declare module "react" {
+  export function startTransition(scope: TransitionFunction): void;
+  export type TransitionFunction = () => VoidOrUndefinedOnly;
+  type VoidOrUndefinedOnly = void | { [UNDEFINED_VOID_ONLY]: never };
+}
+
 import type {
   CreateAppConfig,
   CreateComposableApp,
@@ -6,7 +13,7 @@ import type {
   UnmountFunc,
 } from "@leanjs/core";
 import { _ as CoreUtils } from "@leanjs/core";
-import React, { ReactElement, useEffect } from "react";
+import React, { ReactElement, useEffect, startTransition } from "react";
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
 import { createRoot } from "react-dom/client";
@@ -25,22 +32,9 @@ export const createApp = <MyAppProps extends AppProps = AppProps>(
     isSelfHosted,
     version,
   } = {}) => {
-    let unmountCallback: UnmountFunc | null;
-    let rendering = false;
     let root: ReactRoot | null;
-
-    const unmountRoot = () => {
-      root?.unmount();
-      root = null;
-    };
-
-    const Root: RootComponent = ({ children }) => {
-      useEffect(() => {
-        unmountCallback?.();
-        unmountCallback = null;
-        rendering = false;
-      }, []);
-
+    const Root: RootComponent = ({ children, onRendered }) => {
+      useEffect(onRendered, []);
       return children;
     };
     Root.displayName = `${appName}Root`;
@@ -53,21 +47,20 @@ export const createApp = <MyAppProps extends AppProps = AppProps>(
         appName,
         onError,
         unmount: () => {
-          if (rendering) {
-            unmountCallback = unmountRoot;
-          } else {
-            setTimeout(unmountRoot);
-          }
+          root?.unmount();
+          root = null;
         },
-        render: ({ appProps }) => {
-          unmountCallback = null;
-          if (el && !rendering) {
-            rendering = true;
+        render: ({ appProps, status }) => {
+          startTransition(() => {
+            status.rendering = true;
             root = root ?? createRoot(el);
-            const context = { version, appName };
             root?.render(
               <React.StrictMode>
-                <Root>
+                <Root
+                  onRendered={() => {
+                    status.rendering = false;
+                  }}
+                >
                   <ErrorBoundary
                     {...getErrorBoundaryProps({
                       isSelfHosted,
@@ -78,7 +71,7 @@ export const createApp = <MyAppProps extends AppProps = AppProps>(
                   >
                     <RuntimeProvider
                       isSelfHosted={!!isSelfHosted}
-                      runtime={setRuntimeContext(context, runtime)}
+                      runtime={setRuntimeContext({ version, appName }, runtime)}
                     >
                       <App {...(appProps as MyAppProps)} />
                     </RuntimeProvider>
@@ -86,7 +79,7 @@ export const createApp = <MyAppProps extends AppProps = AppProps>(
                 </Root>
               </React.StrictMode>
             );
-          }
+          });
         },
       });
     };

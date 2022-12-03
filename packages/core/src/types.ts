@@ -107,6 +107,9 @@ export type CreateMount = (args: CreateMountArgs) => MountOutput;
 
 interface CreateMountRenderArgs {
   appProps?: AppProps;
+  status: {
+    rendering: boolean;
+  };
 }
 export interface CreateMountArgs {
   el: HTMLElement | null;
