@@ -3,6 +3,19 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.20.0](https://github.com/leanjs/leanjs/compare/@leanjs/react@0.17.3...@leanjs/react@0.20.0) (2022-12-04)
+
+### Bug Fixes
+
+- react and react router versions ([b41f17e](https://github.com/leanjs/leanjs/commit/b41f17e074a78b115849abf7ecf207aa7bab6d54))
+- refactores React and ReactRouter createApp and createMount ([5764e79](https://github.com/leanjs/leanjs/commit/5764e79607203456d6113c2b24161a3baf3642a7))
+
+### Features
+
+- **react:** add package exports 16 and 17 ([484434d](https://github.com/leanjs/leanjs/commit/484434d6750a74ca60c182a6fa727a75e4b98fb3))
+- **vue-runtime-api:** enable build time loading of vue remotes ([b11009d](https://github.com/leanjs/leanjs/commit/b11009d7d3ab9f6fae45f864322838b29d47dcaf))
+- **vue-runtime:** move getMount to core so it can be shared between binding packages ([6ae5254](https://github.com/leanjs/leanjs/commit/6ae5254e9a4256ac740c78e95085f6418614c4de))
+
 ## [0.19.2](https://github.com/leanjs/leanjs/compare/@leanjs/react@0.19.1...@leanjs/react@0.19.2) (2022-11-30)
 
 ### Bug Fixes

@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.7.4](https://github.com/leanjs/leanjs/compare/@leanjs/vue-router@0.7.2...@leanjs/vue-router@0.7.4) (2022-12-04)
+
+### Bug Fixes
+
+- refactores React and ReactRouter createApp and createMount ([5764e79](https://github.com/leanjs/leanjs/commit/5764e79607203456d6113c2b24161a3baf3642a7))
+
 ## [0.7.3](https://github.com/leanjs/leanjs/compare/@leanjs/vue-router@0.7.2...@leanjs/vue-router@0.7.3) (2022-11-15)
 
 **Note:** Version bump only for package @leanjs/vue-router

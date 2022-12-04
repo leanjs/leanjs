@@ -3,6 +3,13 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.13.8](https://github.com/leanjs/leanjs/compare/@leanjs/react-router@0.13.3...@leanjs/react-router@0.13.8) (2022-12-04)
+
+### Bug Fixes
+
+- react and react router versions ([b41f17e](https://github.com/leanjs/leanjs/commit/b41f17e074a78b115849abf7ecf207aa7bab6d54))
+- refactores React and ReactRouter createApp and createMount ([5764e79](https://github.com/leanjs/leanjs/commit/5764e79607203456d6113c2b24161a3baf3642a7))
+
 ## [0.13.7](https://github.com/leanjs/leanjs/compare/@leanjs/react-router@0.13.6...@leanjs/react-router@0.13.7) (2022-11-30)
 
 ### Bug Fixes

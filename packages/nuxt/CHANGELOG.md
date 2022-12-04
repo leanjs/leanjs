@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.7.0](https://github.com/leanjs/leanjs/compare/@leanjs/nuxt@0.5.2...@leanjs/nuxt@0.7.0) (2022-12-04)
+
+### Features
+
+- **vue-runtime-api:** enable build time loading of vue remotes ([b11009d](https://github.com/leanjs/leanjs/commit/b11009d7d3ab9f6fae45f864322838b29d47dcaf))
+- **vue-runtime-api:** move HostProvider to @leanjs/vue package and update interface to match react ([8cf0ba6](https://github.com/leanjs/leanjs/commit/8cf0ba64890d24ff25ca1cd44d8009df5678d169))
+- **vue-runtime:** cleanup console logging ([ea595e0](https://github.com/leanjs/leanjs/commit/ea595e0325cc41c377fe96bdcaa57ea405ddfac7))
+
 # [0.6.0](https://github.com/leanjs/leanjs/compare/@leanjs/nuxt@0.5.2...@leanjs/nuxt@0.6.0) (2022-11-15)
 
 ### Features

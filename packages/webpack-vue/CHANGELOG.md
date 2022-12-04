@@ -3,6 +3,16 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.4.0](https://github.com/leanjs/leanjs/compare/@leanjs/webpack-vue@0.2.41...@leanjs/webpack-vue@0.4.0) (2022-12-04)
+
+### Bug Fixes
+
+- **webpack-vue:** publish new version ([2451ad3](https://github.com/leanjs/leanjs/commit/2451ad39c9b6524236a493275c231281d53dc725))
+
+### Features
+
+- **art-boards:vue-chat-app:** added new vue chat app to art boards example ([72190e1](https://github.com/leanjs/leanjs/commit/72190e1d95313c1b6e30c699a6bcf8be17d34c0b))
+
 ## [0.3.1](https://github.com/leanjs/leanjs/compare/@leanjs/webpack-vue@0.3.0...@leanjs/webpack-vue@0.3.1) (2022-11-30)
 
 **Note:** Version bump only for package @leanjs/webpack-vue
