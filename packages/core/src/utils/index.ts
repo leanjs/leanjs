@@ -3,7 +3,7 @@ import { Runtime, RuntimeContext } from "../runtime";
 
 export * from "./loadScript";
 export * from "./loadModule";
-export * from "./createMount";
+export * from "./mountApp";
 export * from "./getMount";
 export * from "./loadApp";
 

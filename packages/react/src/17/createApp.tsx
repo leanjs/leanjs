@@ -1,13 +1,13 @@
 import type { CreateComposableApp, AppProps, MountFunc } from "@leanjs/core";
 import { _ as CoreUtils } from "@leanjs/core";
-import React, { ReactElement } from "react";
+import React, { ReactElement, useEffect } from "react";
 import ReactDOM from "react-dom";
 import { CreateAppConfig, RootComponent } from "../types";
 
 import { ErrorBoundary, getErrorBoundaryProps } from "../components";
 import { RuntimeProvider } from "../core";
 
-const { createMount, setRuntimeContext } = CoreUtils;
+const { mountApp, setRuntimeContext } = CoreUtils;
 
 export const createApp = <MyAppProps extends AppProps = AppProps>(
   App: (props: MyAppProps) => ReactElement,
@@ -17,23 +17,25 @@ export const createApp = <MyAppProps extends AppProps = AppProps>(
     isSelfHosted,
     version,
   } = {}) => {
-    const Root: RootComponent = ({ children }) => children;
-    Root.displayName = `${appName}Root`;
-    const mount: MountFunc = (el, { runtime, initialState, onError }) =>
-      createMount({
+    const Root: RootComponent = ({ children, onRendered }) => {
+      useEffect(onRendered, []);
+      return children;
+    };
+    const mount: MountFunc = (el, { runtime, onError, ...rest }) => ({
+      unmount: mountApp({
+        ...rest,
         el,
         isSelfHosted,
-        initialState,
         appName,
         onError,
         unmount: () => {
           if (el) ReactDOM.unmountComponentAtNode(el);
         },
-        render: ({ appProps }) => {
+        render: ({ appProps, rendered }) => {
           if (el) {
             ReactDOM.render(
               <React.StrictMode>
-                <Root>
+                <Root onRendered={rendered}>
                   <ErrorBoundary
                     {...getErrorBoundaryProps({
                       isSelfHosted,
@@ -55,7 +57,8 @@ export const createApp = <MyAppProps extends AppProps = AppProps>(
             );
           }
         },
-      });
+      }),
+    });
 
     return { mount, appName, version };
   };

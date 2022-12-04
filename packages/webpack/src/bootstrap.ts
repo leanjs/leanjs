@@ -20,6 +20,8 @@ function host({ mount, runtime }: Host) {
   if (el) {
     mount(el, {
       runtime,
+      initialState: undefined,
+      mountState: {},
       onError: (error: any) => {
         throw error;
       },

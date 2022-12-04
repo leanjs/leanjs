@@ -3,10 +3,10 @@ import {
   getErrorBoundaryProps,
   _ as ReactUtils,
 } from "@leanjs/react/17";
-import type { CreateAppConfig } from "@leanjs/react";
+import type { CreateAppConfig, RootComponent } from "@leanjs/react";
 import type { CreateComposableApp, AppProps, MountFunc } from "@leanjs/core";
 import { _ as CoreUtils } from "@leanjs/core";
-import React, { ReactElement } from "react";
+import React, { ReactElement, useEffect } from "react";
 import ReactDOM from "react-dom";
 import { createBrowserHistory, createMemoryHistory } from "history";
 
@@ -16,7 +16,7 @@ import { OuterReactRouterHostProps, ReactRouterHost } from "./components/Host";
 export * from "./types";
 export * from "./components/Host";
 
-const { createMount, getDefaultPathname, setRuntimeContext } = CoreUtils;
+const { mountApp, getDefaultPathname, setRuntimeContext } = CoreUtils;
 const { createHost, RuntimeProvider } = ReactUtils;
 
 export const Host = createHost<OuterReactRouterHostProps>(ReactRouterHost);
@@ -33,6 +33,12 @@ export const createApp = <MyAppProps extends AppProps = AppProps>(
       ? createBrowserHistory()
       : createMemoryHistory();
 
+    const Root: RootComponent = ({ children, onRendered }) => {
+      useEffect(onRendered, []);
+      return children;
+    };
+    Root.displayName = `${appName}Root`;
+
     const mount: MountFunc = (
       el,
       {
@@ -40,8 +46,8 @@ export const createApp = <MyAppProps extends AppProps = AppProps>(
         onRemoteNavigate,
         basename,
         pathname = getDefaultPathname(isSelfHosted),
-        initialState,
         onError,
+        ...rest
       }
     ) => {
       const initialPath = [basename, pathname]
@@ -50,11 +56,11 @@ export const createApp = <MyAppProps extends AppProps = AppProps>(
       history.replace(initialPath);
 
       return {
-        ...createMount({
+        unmount: mountApp({
+          ...rest,
           el,
           appName,
           isSelfHosted,
-          initialState,
           onError,
           unmount: () => {
             if (el) ReactDOM.unmountComponentAtNode(el);
@@ -62,28 +68,32 @@ export const createApp = <MyAppProps extends AppProps = AppProps>(
           cleanups: onRemoteNavigate
             ? [history.listen((e) => onRemoteNavigate(e.location))]
             : [],
-          render: ({ appProps }) => {
+          render: ({ appProps, rendered }) => {
             if (el) {
-              const context = { version, appName };
               ReactDOM.render(
                 <React.StrictMode>
-                  <ErrorBoundary
-                    {...getErrorBoundaryProps({
-                      isSelfHosted,
-                      onError,
-                      appName,
-                      version,
-                    })}
-                  >
-                    <Router history={history} basename={basename}>
-                      <RuntimeProvider
-                        isSelfHosted={!!isSelfHosted}
-                        runtime={setRuntimeContext(context, runtime)}
-                      >
-                        <App {...(appProps as MyAppProps)} />
-                      </RuntimeProvider>
-                    </Router>
-                  </ErrorBoundary>
+                  <Root onRendered={rendered}>
+                    <ErrorBoundary
+                      {...getErrorBoundaryProps({
+                        isSelfHosted,
+                        onError,
+                        appName,
+                        version,
+                      })}
+                    >
+                      <Router history={history} basename={basename}>
+                        <RuntimeProvider
+                          isSelfHosted={!!isSelfHosted}
+                          runtime={setRuntimeContext(
+                            { version, appName },
+                            runtime
+                          )}
+                        >
+                          <App {...(appProps as MyAppProps)} />
+                        </RuntimeProvider>
+                      </Router>
+                    </ErrorBoundary>
+                  </Root>
                 </React.StrictMode>,
                 el
               );

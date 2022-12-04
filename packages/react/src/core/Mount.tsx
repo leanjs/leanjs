@@ -14,6 +14,7 @@ export const Mount = memo(function Mount({
 }: MountProps) {
   const ref = useRef<HTMLDivElement>(null);
   const initialPathname = useRef(pathname).current;
+  const mountRef = useRef({}).current;
 
   useLayoutEffect(() => {
     const { unmount, onHostNavigate } = mount(ref.current, {
@@ -27,6 +28,8 @@ export const Mount = memo(function Mount({
       pathname: initialPathname,
       runtime,
       onError: setError,
+      initialState: undefined,
+      mountState: mountRef,
     });
 
     const removeListener = onHostNavigate

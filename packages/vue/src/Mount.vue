@@ -30,6 +30,7 @@ const { mount, listen, navigate, basename, pathname, runtime } = props;
 const root = ref<HTMLDivElement>();
 
 const initialPathname = ref(pathname).value;
+const mountRef = ref({}).value;
 let unmount: UnmountFunc;
 let removeListener: RemoveListener | null | undefined;
 
@@ -45,7 +46,9 @@ onMounted(() => {
     basename,
     pathname: initialPathname,
     runtime,
-    onError: props.setError
+    onError: props.setError,
+    initialState: undefined,
+    mountState: mountRef,
   });
 
   unmount = mountRes.unmount;
