@@ -11,7 +11,7 @@ import ChatApp from "@art-boards/chat-app-vue";
 import { Dashboard } from "./dashboard";
 import { Loading } from "./components/Loading";
 import { ErrorComponent } from "./components/ErrorComponent";
-import { Host } from "@leanjs/react-router";
+import { Host } from "@leanjs/react-router/18";
 
 const ZimaBlueLazyComponent = lazy(() => import("../src/works/zima-blue"));
 const ZimaBlueLazyApp = () => import("@art-boards/zima-blue");
