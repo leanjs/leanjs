@@ -18,6 +18,7 @@
     "@leanjs/e2e-test-subjects-remote-react-router-sub-pages-17": "*",
     "@leanjs/e2e-test-subjects-remote-vue-3": "*",
     "@leanjs/nuxt": "*",
+    "@leanjs/webpack": "*",
     "@leanjs/vue": "*"
   }
 }
