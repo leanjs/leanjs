@@ -9,13 +9,14 @@
     "preview": "nuxt preview"
   },
   "devDependencies": {
-    "nuxt3": "3.0.0-27313139.1c88580"
+    "@nuxt/webpack-builder": "^3.0.0",
+    "nuxt": "3.0.0"
   },
   "dependencies": {
     "@leanjs/core": "*",
     "@leanjs/e2e-test-package-runtime-vue": "*",
-    "@leanjs/e2e-test-subjects-remote-vue-3": "*",
     "@leanjs/e2e-test-subjects-remote-react-router-sub-pages-17": "*",
+    "@leanjs/e2e-test-subjects-remote-vue-3": "*",
     "@leanjs/nuxt": "*",
     "@leanjs/vue": "*"
   }
