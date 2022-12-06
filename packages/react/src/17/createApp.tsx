@@ -32,30 +32,28 @@ export const createApp = <MyAppProps extends AppProps = AppProps>(
           if (el) ReactDOM.unmountComponentAtNode(el);
         },
         render: ({ appProps, rendered }) => {
-          if (el) {
-            ReactDOM.render(
-              <React.StrictMode>
-                <Root onRendered={rendered}>
-                  <ErrorBoundary
-                    {...getErrorBoundaryProps({
-                      isSelfHosted,
-                      onError,
-                      appName,
-                      version,
-                    })}
+          ReactDOM.render(
+            <React.StrictMode>
+              <Root onRendered={rendered}>
+                <ErrorBoundary
+                  {...getErrorBoundaryProps({
+                    isSelfHosted,
+                    onError,
+                    appName,
+                    version,
+                  })}
+                >
+                  <RuntimeProvider
+                    isSelfHosted={!!isSelfHosted}
+                    runtime={setRuntimeContext({ version, appName }, runtime)}
                   >
-                    <RuntimeProvider
-                      isSelfHosted={!!isSelfHosted}
-                      runtime={setRuntimeContext({ version, appName }, runtime)}
-                    >
-                      <App {...(appProps as MyAppProps)} />
-                    </RuntimeProvider>
-                  </ErrorBoundary>
-                </Root>
-              </React.StrictMode>,
-              el
-            );
-          }
+                    <App {...(appProps as MyAppProps)} />
+                  </RuntimeProvider>
+                </ErrorBoundary>
+              </Root>
+            </React.StrictMode>,
+            el
+          );
         },
       }),
     });

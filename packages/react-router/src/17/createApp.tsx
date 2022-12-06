@@ -10,16 +10,10 @@ import React, { ReactElement, useEffect } from "react";
 import ReactDOM from "react-dom";
 import { createBrowserHistory, createMemoryHistory } from "history";
 
-import { Router } from "./components/Router";
-import { OuterReactRouterHostProps, ReactRouterHost } from "./components/Host";
-
-export * from "./types";
-export * from "./components/Host";
+import { Router } from "../components/Router";
 
 const { mountApp, getDefaultPathname, setRuntimeContext } = CoreUtils;
-const { createHost, RuntimeProvider } = ReactUtils;
-
-export const Host = createHost<OuterReactRouterHostProps>(ReactRouterHost);
+const { RuntimeProvider } = ReactUtils;
 
 export const createApp = <MyAppProps extends AppProps = AppProps>(
   App: (props: MyAppProps) => ReactElement,
@@ -69,35 +63,33 @@ export const createApp = <MyAppProps extends AppProps = AppProps>(
             ? [history.listen((e) => onRemoteNavigate(e.location))]
             : [],
           render: ({ appProps, rendered }) => {
-            if (el) {
-              ReactDOM.render(
-                <React.StrictMode>
-                  <Root onRendered={rendered}>
-                    <ErrorBoundary
-                      {...getErrorBoundaryProps({
-                        isSelfHosted,
-                        onError,
-                        appName,
-                        version,
-                      })}
-                    >
-                      <Router history={history} basename={basename}>
-                        <RuntimeProvider
-                          isSelfHosted={!!isSelfHosted}
-                          runtime={setRuntimeContext(
-                            { version, appName },
-                            runtime
-                          )}
-                        >
-                          <App {...(appProps as MyAppProps)} />
-                        </RuntimeProvider>
-                      </Router>
-                    </ErrorBoundary>
-                  </Root>
-                </React.StrictMode>,
-                el
-              );
-            }
+            ReactDOM.render(
+              <React.StrictMode>
+                <Root onRendered={rendered}>
+                  <ErrorBoundary
+                    {...getErrorBoundaryProps({
+                      isSelfHosted,
+                      onError,
+                      appName,
+                      version,
+                    })}
+                  >
+                    <Router history={history} basename={basename}>
+                      <RuntimeProvider
+                        isSelfHosted={!!isSelfHosted}
+                        runtime={setRuntimeContext(
+                          { version, appName },
+                          runtime
+                        )}
+                      >
+                        <App {...(appProps as MyAppProps)} />
+                      </RuntimeProvider>
+                    </Router>
+                  </ErrorBoundary>
+                </Root>
+              </React.StrictMode>,
+              el
+            );
           },
         }),
         onHostNavigate: ({ pathname: nextPathname }) => {

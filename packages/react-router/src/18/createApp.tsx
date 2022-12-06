@@ -12,15 +12,10 @@ import { createBrowserHistory, createMemoryHistory } from "history";
 // @ts-ignore
 import { createRoot } from "react-dom/client";
 
-import { Router } from "./components/Router";
-import { OuterReactRouterHostProps, ReactRouterHost } from "./components/Host";
-
-export * from "./types";
+import { Router } from "../components/Router";
 
 const { mountApp, getDefaultPathname, setRuntimeContext } = CoreUtils;
-const { createHost, RuntimeProvider } = ReactUtils;
-
-export const Host = createHost<OuterReactRouterHostProps>(ReactRouterHost);
+const { RuntimeProvider } = ReactUtils;
 
 export const createApp = <MyAppProps extends AppProps = AppProps>(
   App: (props: MyAppProps) => ReactElement,
