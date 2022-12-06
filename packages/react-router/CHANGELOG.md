@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.13.9](https://github.com/leanjs/leanjs/compare/@leanjs/react-router@0.13.8...@leanjs/react-router@0.13.9) (2022-12-06)
+
+### Bug Fixes
+
+- refactor react router for react 17 and 18 ([497854c](https://github.com/leanjs/leanjs/commit/497854cb3aab20941ad5a3e78dd1845d7bf9cf57))
+
 ## [0.13.8](https://github.com/leanjs/leanjs/compare/@leanjs/react-router@0.13.3...@leanjs/react-router@0.13.8) (2022-12-04)
 
 ### Bug Fixes
