@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.20.2](https://github.com/leanjs/leanjs/compare/@leanjs/react@0.20.1...@leanjs/react@0.20.2) (2022-12-07)
+
+### Bug Fixes
+
+- **react:** typescript bindings ([37e6c6d](https://github.com/leanjs/leanjs/commit/37e6c6d5f63599284253925cd089a233b55db82b))
+
 ## [0.20.1](https://github.com/leanjs/leanjs/compare/@leanjs/react@0.20.0...@leanjs/react@0.20.1) (2022-12-06)
 
 ### Bug Fixes
