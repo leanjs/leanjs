@@ -26,7 +26,7 @@
     "@leanjs/core": "^0.26.1",
     "@leanjs/vue": "^0.9.1",
     "@vue/compiler-sfc": "^3.2.37",
-    "nuxt3": "3.0.0-27313139.1c88580",
+    "nuxt": "3.0.0",
     "ts-loader": "^9.3.1",
     "vue": "^3.0.0",
     "vue-loader": "^17.0.0",
@@ -38,7 +38,7 @@
   "peerDependencies": {
     "@leanjs/core": "^0.13.4",
     "@leanjs/vue": "^0.2.6",
-    "nuxt3": "3.0.0-27313139.1c88580",
+    "nuxt": "3.0.0",
     "vue": "^3.0.0"
   },
   "keywords": [
