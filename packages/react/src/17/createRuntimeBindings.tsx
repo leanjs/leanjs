@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useState } from "react";
 import type { ReactElement } from "react";
-import type { KeyOf, CreateRuntime, StateType } from "@leanjs/core";
+import type { KeyOf, CreateRuntime, StateType, GetState } from "@leanjs/core";
 
 import { HostProvider } from "../private/HostProvider";
 import type { HostProviderProps } from "../types";
@@ -14,17 +14,22 @@ export const createRuntimeBindings = <
 >(
   _createRuntime: MyCreateRuntime // arg only used to infer Runtime type
 ) => {
+  type State = GetState<MyRuntime>;
+
   const useRuntime = () => useBaseRuntime() as MyRuntime;
 
-  const useGetter = <Prop extends KeyOf<MyRuntime["state"]["loader"]>>(
+  const useGetter = <Prop extends KeyOf<State>>(
     prop: Prop,
     loader?: () =>
-      | MyRuntime["state"]["loader"][Prop]
-      | Promise<MyRuntime["state"]["loader"][Prop]>
+      | GetState<MyRuntime>[Prop]
+      | Promise<GetState<MyRuntime>[Prop]>
   ) => {
     const runtime = useRuntime();
+
     if (loader) runtime.state.load(prop, loader, runtime.context);
-    const [value, setValue] = useState(runtime.state.get(prop));
+    const [value, setValue] = useState<GetState<MyRuntime>[Prop]>(
+      runtime.state.get(prop)
+    );
 
     useEffect(
       () =>
@@ -37,9 +42,7 @@ export const createRuntimeBindings = <
     return value;
   };
 
-  const useSetter = <Prop extends KeyOf<MyRuntime["state"]["loader"]>>(
-    prop: Prop
-  ) => {
+  const useSetter = <Prop extends KeyOf<State>>(prop: Prop) => {
     const runtime = useRuntime();
 
     return useCallback(
@@ -50,9 +53,7 @@ export const createRuntimeBindings = <
     );
   };
 
-  const useLoading = <Prop extends KeyOf<MyRuntime["state"]["loader"]>>(
-    prop: Prop
-  ) => {
+  const useLoading = <Prop extends KeyOf<State>>(prop: Prop) => {
     const runtime = useRuntime();
     const [loading, setLoading] = useState(runtime.state.loader[prop].loading);
 
@@ -67,9 +68,7 @@ export const createRuntimeBindings = <
     return loading;
   };
 
-  const useError = <Prop extends KeyOf<MyRuntime["state"]["loader"]>>(
-    prop: Prop
-  ) => {
+  const useError = <Prop extends KeyOf<State>>(prop: Prop) => {
     const runtime = useRuntime();
     const [error, setError] = useState(runtime.state.loader[prop].error);
 
