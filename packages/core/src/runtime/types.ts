@@ -2,7 +2,10 @@ import type { AppError, Cleanup } from "..";
 
 export type Key = string | symbol;
 export type BaseShape = Record<Key, any>;
-export type KeyOf<Shape extends BaseShape> = Exclude<keyof Shape, number>;
+export type KeyOf<Shape extends BaseShape | unknown> = Exclude<
+  keyof Shape,
+  number
+>;
 
 export type StateListener<Value> = (
   value: Value,
@@ -19,6 +22,13 @@ export interface Request {
 
 export type Unsubscribe = () => void;
 export type Unlisten = () => void;
+
+export type GetState<R extends Runtime> = R["state"]["loaded"] extends {
+  (): infer Return;
+  (...args: any[]): any;
+}
+  ? Awaited<Return>
+  : never;
 
 export interface RuntimeState<
   State extends BaseShape,
