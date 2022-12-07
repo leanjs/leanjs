@@ -1,6 +1,6 @@
 {
   "name": "@leanjs/nuxt",
-  "version": "0.7.1",
+  "version": "0.7.2",
   "description": "Lean micro-app tools for Nuxtjs",
   "main": "dist/index.js",
   "module": "dist/index.js",
