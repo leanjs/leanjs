@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { HostProvider, createRuntime } from "@my-org/runtime-react";
 import { Nav } from "../components/Nav";
 
-const runtime = createRuntime();
+const runtime = createRuntime({ context: { appName: "TodoShell" } });
 
 export default function MyApp({ Component, pageProps }) {
   useEffect(() =>
