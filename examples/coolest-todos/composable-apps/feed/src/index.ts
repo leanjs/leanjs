@@ -1,4 +1,4 @@
-import { createApp } from "@leanjs/react-router";
+import { createApp } from "@leanjs/react/18";
 
 import { FeedApp } from "./components/FeedApp";
 
