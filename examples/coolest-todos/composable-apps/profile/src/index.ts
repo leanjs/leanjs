@@ -1,6 +1,5 @@
-import { createApp } from "@leanjs/react-router";
+import { createApp } from "@leanjs/react/18";
 
 import { ProfileApp } from "./components/ProfileApp";
-import packageJson from "../package.json";
 
 export default createApp(ProfileApp);
