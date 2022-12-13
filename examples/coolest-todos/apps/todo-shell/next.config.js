@@ -1,20 +1,13 @@
-// @ts-check
-
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const { HostWebpackPlugin } = require("@leanjs/webpack");
 
-/**
- * @type {import('next').NextConfig}
- **/
-const nextConfig = {
-  /* config options here */
-  reactStrictMode: true,
+module.exports = {
   experimental: {
     transpilePackages: [
-      "@leanjs/core",
-      "@leanjs/react",
       "@my-org/runtime-react",
       "@my-org/runtime-shared",
+      "@my-org/runtime-vue",
+      "@my-org/user",
     ],
   },
   webpack: (config) => {
@@ -32,5 +25,3 @@ const nextConfig = {
     return config;
   },
 };
-
-module.exports = nextConfig;
