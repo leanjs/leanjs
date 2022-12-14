@@ -14,10 +14,10 @@
     "build": "turbo run build"
   },
   "devDependencies": {
-    "@leanjs/cli": "^0.7.19",
-    "@leanjs/webpack": "^0.19.21",
-    "@leanjs/webpack-react": "^0.2.24",
-    "@leanjs/webpack-vue": "^0.2.24",
+    "@leanjs/cli": "^0.7.37",
+    "@leanjs/webpack": "^0.21.7",
+    "@leanjs/webpack-react": "^0.2.45",
+    "@leanjs/webpack-vue": "^0.4.1",
     "@swc/core": "^1.2.142",
     "@swc/jest": "^0.2.17",
     "@types/jest": "^27.4.0",
@@ -28,26 +28,28 @@
     "ts-jest": "^27.1.3",
     "turbo": "^1.2.14",
     "typescript": "^4.8.3",
-    "webpack": "^5.72.0"
+    "webpack": "5.75.0"
   },
   "dependencies": {
-    "@leanjs/core": "^0.20.0",
-    "@leanjs/next": "^0.4.25",
-    "@leanjs/react": "^0.13.1",
-    "@leanjs/react-router": "^0.9.1",
-    "@leanjs/vue-router": "^0.4.1",
-    "@leanjs/vue": "^0.5.14",
-    "cors": "^2.8.5",
-    "next": "12.2.0",
+    "@leanjs/core": "^0.26.1",
+    "@leanjs/next": "^0.8.10",
+    "@leanjs/react": "^0.20.2",
+    "@leanjs/react-router": "^0.13.10",
+    "@leanjs/vue": "^0.9.1",
+    "@leanjs/vue-router": "^0.7.5",
+    "cors": "2.8.5",
+    "history": "5.3.0",
+    "next": "13.0.2",
     "pusher-js": "^7.0.6",
-    "react": "17.0.2",
-    "react-dom": "17.0.2",
-    "react-router-dom": "^6.3.0",
-    "vue": "^3.0.0"
+    "react": "18.2.0",
+    "react-dom": "18.2.0",
+    "react-router-dom": "6.4.5",
+    "vue": "^3.0.0",
+    "vue-router": "4"
   },
   "engines": {
     "npm": ">=7.0.0",
     "node": ">=14.0.0"
   },
-  "packageManager": "yarn@1.22.17"
+  "packageManager": "yarn@1.22.19"
 }
