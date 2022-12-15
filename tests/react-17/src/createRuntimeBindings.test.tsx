@@ -11,6 +11,10 @@ const { RuntimeProvider } = ReactCore;
 const defaultState = {
   locale: "en",
   theme: "dark",
+  user: {
+    name: "Bob",
+    age: 99,
+  },
 };
 
 const { createRuntime } = configureRuntime(defaultState)({
@@ -180,7 +184,7 @@ describe("useGetter", () => {
     const consoleError = console.error;
     console.error = jest.fn();
     const Component = () => {
-      useGetter("locale");
+      useGetter("theme");
 
       return null;
     };
@@ -218,11 +222,43 @@ describe("useGetter", () => {
   describe("given a valid prop", () => {
     it("returns the current value", async () => {
       const runtime = createRuntime({ context: { appName: "TestApp" } });
-      const { result } = renderHook(() => useGetter("locale"), {
+      const { result } = renderHook(() => useGetter("user"), {
         wrapper: createWrapper(runtime),
       });
 
-      expect(result.current).toBe("en");
+      expect(result.current.name).toBe("Bob");
+    });
+
+    it("loads a sync value", async () => {
+      const runtime = createRuntime({ context: { appName: "TestApp" } });
+      const randomLocale = Math.random().toString();
+      const { result } = renderHook(
+        () => useGetter("locale", () => randomLocale),
+        {
+          wrapper: createWrapper(runtime),
+        }
+      );
+
+      expect(result.current).toBe(randomLocale);
+    });
+
+    it("loads an async value", async () => {
+      const runtime = createRuntime({ context: { appName: "TestApp" } });
+      const randomLocale = Math.random().toString();
+      const { result } = renderHook(
+        () => () => {
+          useGetter("locale", () => Promise.resolve(randomLocale));
+        },
+        {
+          wrapper: createWrapper(runtime),
+        }
+      );
+
+      await waitForExpect(() => {
+        () => {
+          expect(result.current).toBe(randomLocale);
+        };
+      });
     });
 
     it("rerenders when the current value changes", async () => {

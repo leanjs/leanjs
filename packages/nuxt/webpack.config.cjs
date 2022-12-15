@@ -46,6 +46,6 @@ module.exports = {
   plugins: [new VueLoaderPlugin()],
   externals: {
     vue: "vue",
-    nuxt: "nuxt3",
+    nuxt: "nuxt",
   },
 };

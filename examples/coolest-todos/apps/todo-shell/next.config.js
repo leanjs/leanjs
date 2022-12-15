@@ -1,13 +1,15 @@
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const { HostWebpackPlugin } = require("@leanjs/webpack");
-const withTM = require("next-transpile-modules")([
-  "@leanjs/core",
-  "@leanjs/react",
-  "@my-org/runtime-react",
-  "@my-org/runtime-shared",
-]);
 
-module.exports = withTM({
+module.exports = {
+  experimental: {
+    transpilePackages: [
+      "@my-org/runtime-react",
+      "@my-org/runtime-shared",
+      "@my-org/runtime-vue",
+      "@my-org/user",
+    ],
+  },
   webpack: (config) => {
     config.plugins.push(
       new HostWebpackPlugin({
@@ -22,4 +24,4 @@ module.exports = withTM({
     // Important: return the modified config
     return config;
   },
-});
+};

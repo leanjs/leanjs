@@ -1,13 +1,17 @@
-import { defineNuxtConfig } from "nuxt3";
+import { HostWebpackPlugin } from "@leanjs/webpack";
 
-// https://v3.nuxtjs.org/api/configuration/nuxt.config
+// https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
-  vite: false,
-  vue: {
-    config: {
-      productionTip: false,
-      devtools: true,
-    },
+  builder: "webpack",
+  webpack: {
+    plugins: [
+      new HostWebpackPlugin({
+        eager: true,
+        shared: {
+          vue: "*",
+        },
+      }),
+    ],
   },
   build: {
     transpile: [

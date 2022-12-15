@@ -3,6 +3,16 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.7.6](https://github.com/leanjs/leanjs/compare/@leanjs/vue-router@0.7.5...@leanjs/vue-router@0.7.6) (2022-12-14)
+
+### Bug Fixes
+
+- review createApp in vue router ([7ee3213](https://github.com/leanjs/leanjs/commit/7ee321352a313f31e08b0bd582031bc01039ca6a))
+
+## [0.7.5](https://github.com/leanjs/leanjs/compare/@leanjs/vue-router@0.7.4...@leanjs/vue-router@0.7.5) (2022-12-07)
+
+**Note:** Version bump only for package @leanjs/vue-router
+
 ## [0.7.4](https://github.com/leanjs/leanjs/compare/@leanjs/vue-router@0.7.2...@leanjs/vue-router@0.7.4) (2022-12-04)
 
 ### Bug Fixes

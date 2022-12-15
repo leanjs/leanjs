@@ -74,7 +74,12 @@ export const createApp = (
         ? createWebHistory(basename)
         : createMemoryHistory(basename);
 
-      history.replace(pathname);
+      const initialPath = [basename, pathname]
+        .join("/")
+        .replace(/\/{2,}/g, "/");
+
+      history.replace(initialPath);
+
       const router = createRouter({
         history,
         routes,
@@ -93,9 +98,7 @@ export const createApp = (
                 router.beforeEach((to, from) => {
                   if (from !== START_LOCATION) {
                     onRemoteNavigate?.({
-                      pathname: [basename, to.path]
-                        .join("/")
-                        .replace(/\/{2,}/g, "/"),
+                      pathname: to.path,
                       hash: to.hash,
                       // TODO search: to.query,
                     });

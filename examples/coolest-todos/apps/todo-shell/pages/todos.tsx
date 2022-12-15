@@ -1,6 +1,8 @@
-import React from "react";
+import React, { Suspense } from "react";
 import Head from "next/head";
+
 import { Host } from "@leanjs/next";
+import { ErrorBoundary } from "@leanjs/react/18";
 
 const Todo = () => {
   return (
@@ -8,7 +10,11 @@ const Todo = () => {
       <Head>
         <title>Host & Chat</title>
       </Head>
-      <Host app={{ packageName: "@my-org/micro-todo" }} />
+      <ErrorBoundary>
+        <Suspense fallback={<>Loading...</>}>
+          <Host app={{ packageName: "@my-org/micro-todo" }} />
+        </Suspense>
+      </ErrorBoundary>
     </>
   );
 };

@@ -1,6 +1,8 @@
-import { Host } from "@leanjs/next";
-import React from "react";
+import React, { Suspense } from "react";
 import Head from "next/head";
+
+import { Host } from "@leanjs/next";
+import { ErrorBoundary } from "@leanjs/react/18";
 
 const Profile = () => {
   return (
@@ -8,8 +10,12 @@ const Profile = () => {
       <Head>
         <title>Profile page</title>
       </Head>
-      <Host app={{ packageName: "@my-org/micro-profile" }} />
-      <Host app={{ packageName: "@my-org/micro-profile-reset" }} />
+      <ErrorBoundary>
+        <Suspense fallback={<>Loading...</>}>
+          <Host app={{ packageName: "@my-org/micro-profile" }} />
+          <Host app={{ packageName: "@my-org/micro-profile-reset" }} />
+        </Suspense>
+      </ErrorBoundary>
     </>
   );
 };

@@ -3,6 +3,10 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.4.1](https://github.com/leanjs/leanjs/compare/@leanjs/webpack-vue@0.4.0...@leanjs/webpack-vue@0.4.1) (2022-12-07)
+
+**Note:** Version bump only for package @leanjs/webpack-vue
+
 # [0.4.0](https://github.com/leanjs/leanjs/compare/@leanjs/webpack-vue@0.2.41...@leanjs/webpack-vue@0.4.0) (2022-12-04)
 
 ### Bug Fixes
