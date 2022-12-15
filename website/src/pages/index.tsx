@@ -146,7 +146,7 @@ function Index({ config: siteConfig }) {
                 </div>
                 <div className="card__body">
                   <p>
-                    Use all the modern front-end concepts that you are already
+                    Use all the modern front-end concepts that you already
                     know: component composition, reactivity, suspense,
                     monorepos, packages, etc.
                   </p>
