@@ -46,7 +46,7 @@
     "wait-for-expect": "^3.0.2"
   },
   "peerDependencies": {
-    "@leanjs/core": "^0.13.4",
+    "@leanjs/core": "*",
     "react": "*"
   },
   "scripts": {
