@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.13.11](https://github.com/leanjs/leanjs/compare/@leanjs/react-router@0.13.10...@leanjs/react-router@0.13.11) (2022-12-15)
+
+### Bug Fixes
+
+- **react-router:** update react peerDependency ([a3a64f2](https://github.com/leanjs/leanjs/commit/a3a64f205677edd0e458047b4327741afcf02840))
+
 ## [0.13.10](https://github.com/leanjs/leanjs/compare/@leanjs/react-router@0.13.9...@leanjs/react-router@0.13.10) (2022-12-07)
 
 **Note:** Version bump only for package @leanjs/react-router

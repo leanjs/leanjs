@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.20.3](https://github.com/leanjs/leanjs/compare/@leanjs/react@0.20.2...@leanjs/react@0.20.3) (2022-12-15)
+
+### Bug Fixes
+
+- **react:** update peerDependency ([16d0ba8](https://github.com/leanjs/leanjs/commit/16d0ba8ef5c8eea870e5fd224296657965e3a44e))
+
 ## [0.20.2](https://github.com/leanjs/leanjs/compare/@leanjs/react@0.20.1...@leanjs/react@0.20.2) (2022-12-07)
 
 ### Bug Fixes
