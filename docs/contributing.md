@@ -139,3 +139,9 @@ cd examples/coolest-todos/
 
 yalc remove --all
 ```
+
+## Use Single-version policy in monorepo
+
+When working on a monorepo, the peerDependencies should point to an asterisk (\*) as version in each package except the root package.
+Then we can bump a given dependency in all the packages by changing the version in one place.
+This is an implementation of something called single-version policy, which is something most monorepo tools recommend. All the packages in the monorepo use the same version. This is to avoid a [dependency hell](https://en.wikipedia.org/wiki/Dependency_hell).
