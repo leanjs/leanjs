@@ -1201,27 +1201,27 @@
   resolved "https://registry.yarnpkg.com/@leanjs/core/-/core-0.26.1.tgz#d55f0c6efd5133ba05d9b7909f87c84b0bf98dfb"
   integrity sha512-Kbsp4NPlxHjto0O1/q3wkCPJyOYgYJ6baTfNmTnj07dC6OkvkrkpYgzPE7j9/g+hZMCuBwpH6o+84tylHrzGFw==
 
-"@leanjs/next@^0.8.10":
-  version "0.8.10"
-  resolved "https://registry.yarnpkg.com/@leanjs/next/-/next-0.8.10.tgz#1821cc11322f8acc32489f7e1ed3775f2ab1db32"
-  integrity sha512-0nVPpaLg9ooHwgPqtw5T7JriDoy3q7DFM2UIPgitRsI3Bhmuq8ysnyUdnJp1PcCqi2A3t9pmqUYuJm0QhDYPLA==
+"@leanjs/next@^0.8.11":
+  version "0.8.11"
+  resolved "https://registry.yarnpkg.com/@leanjs/next/-/next-0.8.11.tgz#9463dd323d856b7ace443877be176b4adc916309"
+  integrity sha512-w2osPTNd+KNSsZnKQEUmNc4AsJN0F94ilUFh0slfFIORW8l0q+BRpjoCzEPcn3n1lx694qMAN1vBpt2AqsnKZA==
 
-"@leanjs/react-router@^0.13.10":
-  version "0.13.10"
-  resolved "https://registry.yarnpkg.com/@leanjs/react-router/-/react-router-0.13.10.tgz#1a666e90e32ebe02005ce6d4862e7012ceaf15bb"
-  integrity sha512-efNarFwE6Uf2QwWNqp8RgHDcIbzstzFHObYsHZyWR0mYnDzWJKZun9IKPTmNMYDMPuqG9slmH+U9acIshh/fzQ==
+"@leanjs/react-router@^0.13.11":
+  version "0.13.11"
+  resolved "https://registry.yarnpkg.com/@leanjs/react-router/-/react-router-0.13.11.tgz#041f3d1c74bb592f8e115d133eeccf1cf53aa553"
+  integrity sha512-HHKVJ+MOflWg9S13l+ZOzzPQ9ihBkbHqjVu4ogniN735G2ZzP5L73llOAzwbto+S0EQjuS9ZN+pkd7DwKz2uJg==
   dependencies:
     "@leanjs/core" "^0.26.1"
 
-"@leanjs/react@^0.20.2":
-  version "0.20.2"
-  resolved "https://registry.yarnpkg.com/@leanjs/react/-/react-0.20.2.tgz#7995f895e7e17d91d20f56dfab2031baea94f212"
-  integrity sha512-0Uo0uJ+c0dbnsykKCkUxZ/Z115s/ZdpIFQnlsSfrDPgNjWtsoPrTMcHXVqb1EW9r8PyIlJlm8Q0kDiHbse66rw==
+"@leanjs/react@^0.20.3":
+  version "0.20.3"
+  resolved "https://registry.yarnpkg.com/@leanjs/react/-/react-0.20.3.tgz#6f78af8908befbb6538ee551d39c3cb8b148e363"
+  integrity sha512-jfnrtf5Wiae6RTG/pGfsR1h5uv/3hb1mjakOVlIhynt/OYLKenLbWq/5sHBkj/fzzaNZSJ28ITm6jGrSReLOPw==
 
-"@leanjs/vue-router@^0.7.5":
-  version "0.7.5"
-  resolved "https://registry.yarnpkg.com/@leanjs/vue-router/-/vue-router-0.7.5.tgz#d2cb928a69be105520cfb16eda10b3219cde0fa5"
-  integrity sha512-Fc9vL03sIjDVITAfmfklXHMNiuCkaWaBU9yeo9ehxEu6DZz7fuQYeCj/Je1ETpr5D8lLf4bPQDlCUSNihtiBOA==
+"@leanjs/vue-router@^0.7.6":
+  version "0.7.6"
+  resolved "https://registry.yarnpkg.com/@leanjs/vue-router/-/vue-router-0.7.6.tgz#560e57f1538aa06917c7b22fa18f6324dd512ea5"
+  integrity sha512-j2JR6xS6weYZc6MnSgvjBaneHS//5GMSpmSmo9hjVXkmP/T8ciqGKJFIvkRMayNzb0YyziDLXvZIj8V9g0Rlxw==
   dependencies:
     "@leanjs/core" "^0.26.1"
 
