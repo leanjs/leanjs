@@ -36,8 +36,8 @@
     "webpack": "^5.73.0"
   },
   "peerDependencies": {
-    "@leanjs/core": "^0.13.4",
-    "@leanjs/vue": "^0.2.6",
+    "@leanjs/core": "*",
+    "@leanjs/vue": "*",
     "nuxt": "3.0.0",
     "vue": "^3.0.0"
   },
