@@ -4,17 +4,21 @@ title: Development notes
 
 # Development notes
 
-## Workspaces don’t contain Examples
+Here are some development notes that may be useful to you if you decide to contribute to the project.
+
+## No examples in workspaces
 
 The LeanJs monorepo has different workspaces; as you can see [here](https://github.com/leanjs/leanjs/blob/main/package.json#L27), the examples folder is not one of them.
 The reason is that when we install dependencies at the root of the monorepo it could take a lot of time if there are a lot of workspaces with many different dependencies, which slows down CI, our local dev, etc.
 When we run yarn in the root directory, yarn installs the dependencies, and if a local package depends on some LeanJS package (e.g. [e2e/test-subjects/package-leanjs-react-18](https://github.com/leanjs/leanjs/blob/main/e2e/test-subjects/package-leanjs-react-18/package.json#L23)) then yarn will create a symlink in the node_modules to the local LeanJS package.
 
-## How to experiment with LeanJs packages
+## Experimenting with packages
+
+### Using e2e/test-subjects
 
 If you want to experiment with some LeanJS packages by making changes and running them in an app, the easiest way is to use any of the **e2e/test-subjects** apps because they are part of the workspaces. This is what I normally do. Heads up! because we export the output of the build in the dist folder, we need to run **yarn build** in the LeanJS package that you are changing so you can use those changes in the e2e test app.
 
-## Make changes in a LeanJS package and use that in an example folder
+### Using yalc
 
 If you want to make changes in a LeanJS package and use that in an example folder, then you have to create a symlink to replicate the above functionality. You have two options of that:
 
@@ -24,7 +28,7 @@ If you want to make changes in a LeanJS package and use that in an example folde
 In my experience using **yarn link** I had sometimes issues when a linked dependency had a dependency on another package that was also local and it was also linked, e.g. @leanjs/react depends on @leanjs/core. So I prefer to use **yalc** which has worked always fine for me.
 Bear in mind that in either case, **yarn link** or **yalc**, you’ll have to do **yarn build every time that you make changes in the local @leanjs package to be able to execute those changes in your “linked” app**.
 
-### Example of using yalc
+#### yalc walkthrough
 
 - Install:
 
@@ -99,7 +103,7 @@ cd examples/coolest-todos/
 yalc remove --all
 ```
 
-## Use Single-version policy in monorepo
+## Single-version policy
 
 When working on a monorepo, the peerDependencies should point to an asterisk (\*) as version in each package except the root package.
 Then we can bump a given dependency in all the packages by changing the version in one place.
