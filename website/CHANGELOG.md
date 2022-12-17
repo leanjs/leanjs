@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.1.2](https://github.com/leanjs/leanjs/compare/@leanjs/website@0.1.0...@leanjs/website@0.1.2) (2022-12-15)
+
+### Bug Fixes
+
+- **website:** home page styles and contact ([920849a](https://github.com/leanjs/leanjs/commit/920849a1ede8401ce5691f8392a8ed8bc4b7b499))
+
 ## [0.1.1](https://github.com/leanjs/leanjs/compare/@leanjs/website@0.1.0...@leanjs/website@0.1.1) (2022-11-17)
 
 **Note:** Version bump only for package @leanjs/website
