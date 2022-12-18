@@ -59,10 +59,10 @@ cd examples/coolest-todos/
 - install the local package in the example
 
 ```bash
-yalc add -W @leanjs/vue-router@0.7.5
+yalc add @leanjs/vue-router@0.7.5
 ```
 
-- propagate installation on workspaces
+- add yalc local repo in workspaces
 
 NOTE form yalc documentation:
 
@@ -72,6 +72,7 @@ so, add `.yalc/* ` and `.yalc/@*/*` as workpackages in the example root package.
 
 ```json
 ...
+
 "workspaces": [
     "apps/*",
     "composable-apps/*",
@@ -80,7 +81,7 @@ so, add `.yalc/* ` and `.yalc/@*/*` as workpackages in the example root package.
     ".yalc/*",
     ".yalc/@*/*"
   ],
-...
+
 ```
 
 and run
@@ -102,6 +103,8 @@ cd examples/coolest-todos/
 
 yalc remove --all
 ```
+
+- remove previously added yalc repo from workspaces
 
 ## Single-version policy
 
