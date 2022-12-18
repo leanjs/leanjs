@@ -20,7 +20,7 @@
     "vue-router": "4"
   },
   "peerDependencies": {
-    "@leanjs/core": "^0.13.4",
+    "@leanjs/core": "*",
     "vue": "^3.0.0",
     "vue-router": "4"
   },

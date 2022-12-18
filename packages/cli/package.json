@@ -31,7 +31,7 @@
     "dev"
   ],
   "peerDependencies": {
-    "@leanjs/core": "^0.13.4"
+    "@leanjs/core": "*"
   },
   "dependencies": {
     "async-sema": "^3.1.1",

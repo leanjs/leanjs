@@ -38,8 +38,8 @@
     "mime-types": "^2.1.35"
   },
   "peerDependencies": {
-    "@leanjs/cli": "^0.7.16",
-    "@leanjs/core": "^0.19.1"
+    "@leanjs/cli": "*",
+    "@leanjs/core": "*"
   },
   "devDependencies": {
     "@leanjs/cli": "^0.7.37",
