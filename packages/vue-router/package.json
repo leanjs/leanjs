@@ -1,6 +1,6 @@
 {
   "name": "@leanjs/vue-router",
-  "version": "0.7.6",
+  "version": "0.7.7",
   "author": "Alex Lobera <alex@leanjs.com>",
   "description": "Lean micro-apps for Vue Router",
   "types": "./dist/index.d.ts",

@@ -1,6 +1,6 @@
 {
   "name": "@leanjs/nuxt",
-  "version": "0.7.2",
+  "version": "0.7.3",
   "description": "Lean micro-app tools for Nuxtjs",
   "main": "dist/index.js",
   "module": "dist/index.js",
@@ -24,7 +24,7 @@
   "homepage": "https://github.com/leanjs/leanjs#readme",
   "devDependencies": {
     "@leanjs/core": "^0.26.1",
-    "@leanjs/vue": "^0.9.1",
+    "@leanjs/vue": "^0.9.2",
     "@vue/compiler-sfc": "^3.2.37",
     "nuxt": "3.0.0",
     "ts-loader": "^9.3.1",

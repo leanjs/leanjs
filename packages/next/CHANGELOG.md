@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.8.12](https://github.com/leanjs/leanjs/compare/@leanjs/next@0.8.11...@leanjs/next@0.8.12) (2022-12-18)
+
+### Bug Fixes
+
+- **packages:** update react peerDependency ([667c6d9](https://github.com/leanjs/leanjs/commit/667c6d91f1bf6ef0038db9adb3843c5b4bce0bf7))
+
 ## [0.8.11](https://github.com/leanjs/leanjs/compare/@leanjs/next@0.8.10...@leanjs/next@0.8.11) (2022-12-15)
 
 **Note:** Version bump only for package @leanjs/next
