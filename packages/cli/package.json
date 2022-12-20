@@ -1,6 +1,6 @@
 {
   "name": "@leanjs/cli",
-  "version": "0.7.37",
+  "version": "0.7.38",
   "description": "Cli for LeanJS micro-apps",
   "types": "./dist/index.d.ts",
   "main": "./dist/index.js",
@@ -31,7 +31,7 @@
     "dev"
   ],
   "peerDependencies": {
-    "@leanjs/core": "^0.13.4"
+    "@leanjs/core": "*"
   },
   "dependencies": {
     "async-sema": "^3.1.1",

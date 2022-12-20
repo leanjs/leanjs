@@ -1,6 +1,6 @@
 {
   "name": "@leanjs/webpack-vue",
-  "version": "0.4.1",
+  "version": "0.4.2",
   "description": "Default Webpack configuration for LeanJS Vue micro-apps.",
   "main": "./dist/index.js",
   "author": "Alex Lobera <alex@leanjs.com>",
@@ -21,13 +21,13 @@
     "@babel/core": "^7.12.3",
     "@babel/plugin-transform-runtime": "^7.12.1",
     "@babel/preset-env": "^7.12.1",
-    "@leanjs/cli": "^0.7.37",
+    "@leanjs/cli": "^0.7.38",
     "ts-loader": "^9.2.8",
     "vue-loader": "^17.0.0",
     "vue-template-compiler": "^2.6.14"
   },
   "devDependencies": {
-    "@leanjs/webpack": "^0.21.7"
+    "@leanjs/webpack": "^0.21.8"
   },
   "peerDependencies": {
     "@leanjs/webpack": "*",
