@@ -19,7 +19,7 @@ describe("React Router 17 shell: navigation", () => {
     cy.contains("h2", "Lola is a cat").should("be.visible");
   });
 
-  it("navigates to a sub-path of a remote React app afther the initial page load", () => {
+  it("navigates to a sub-path of a remote React app after the initial page load", () => {
     cy.visit("http://localhost:44446/micro");
     cy.contains("a", "Lola").click();
     cy.contains("h2", "Lola is a cat").should("be.visible");
