@@ -135,8 +135,8 @@ export const createApp = (
           },
         }),
         onHostNavigate: async ({ pathname: rawNextPathname }) => {
-          const nextPathname = basename
-            ? dedupeSlash(rawNextPathname.replace(basename, "/"))
+          const nextPathname = initialPath
+            ? dedupeSlash(rawNextPathname.replace(initialPath, "/"))
             : rawNextPathname;
 
           if (semaphore && nextPathname !== history.location) {
