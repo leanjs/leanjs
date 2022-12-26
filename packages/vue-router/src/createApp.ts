@@ -78,8 +78,6 @@ export const createApp = (
         .join("/")
         .replace(/\/{2,}/g, "/");
 
-      history.replace(initialPath);
-
       const router = createRouter({
         history,
         routes,
@@ -97,8 +95,20 @@ export const createApp = (
             ? [
                 router.beforeEach((to, from) => {
                   if (from !== START_LOCATION) {
+                    // check if the next path (to.path) is inside the mfe (in its routes)
+                    const isToAppRoute =
+                      routes.filter(
+                        (route) =>
+                          route.path.replace(/\/$/, "") ===
+                          to.path.replace(/\/$/, "")
+                      ).length > 0;
+
+                    const nextPathname = isToAppRoute
+                      ? [initialPath, to.path].join("/").replace(/\/{2,}/g, "/")
+                      : to.path;
+
                     onRemoteNavigate?.({
-                      pathname: to.path,
+                      pathname: nextPathname,
                       hash: to.hash,
                       // TODO search: to.query,
                     });
