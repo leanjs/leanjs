@@ -17,7 +17,7 @@ describe("Nextjs shell: navigation", () => {
     cy.contains("h2", "Lola is a cat").should("be.visible");
   });
 
-  it("navigates to a sub-path of a remote React app afther the initial page load", () => {
+  it("navigates to a sub-path of a remote React app after the initial page load", () => {
     cy.visit("http://localhost:44440");
     cy.contains("a", "Page Lola").click();
     cy.contains("h2", "Lola is a cat").should("be.visible");
@@ -29,6 +29,18 @@ describe("Nextjs shell: navigation", () => {
 
     cy.url().should("include", "/vue");
 
+    cy.contains("h1", "Vue micro-app 1").should("be.visible");
+  });
+
+  it("navigates to a remote Vue app with a double click after the initial page load", () => {
+    cy.visit("http://localhost:44440");
+
+    cy.contains("a", "Vue page").click();
+    cy.url().should("include", "/vue");
+    cy.contains("h1", "Vue micro-app 1").should("be.visible");
+
+    cy.contains("a", "Vue page").click();
+    cy.url().should("include", "/vue");
     cy.contains("h1", "Vue micro-app 1").should("be.visible");
   });
 });
