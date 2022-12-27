@@ -43,4 +43,22 @@ describe("Nextjs shell: navigation", () => {
     cy.url().should("include", "/vue");
     cy.contains("h1", "Vue micro-app 1").should("be.visible");
   });
+
+  it("navigates to a remote Vue app on the initial page load of another remote Vue app", () => {
+    cy.visit("http://localhost:44440/vue");
+    cy.contains("h1", "Vue page").should("be.visible");
+    cy.contains("h1", "Vue micro-app 1").should("be.visible");
+    cy.contains("a", "Vue sub pages").click();
+    cy.contains("h1", "Vue app with sub pages").should("be.visible");
+    cy.contains("h1", "Home page").should("be.visible");
+  });
+
+  it("navigates to a sub-path of a remote Vue app on the initial page load", () => {
+    cy.visit("http://localhost:44440/vue-sub-pages/about");
+    cy.contains("h1", "Vue app with sub pages").should("be.visible");
+    cy.contains("h1", "About page").should("be.visible");
+    cy.contains("a", "Home").click();
+    cy.contains("h1", "Vue app with sub pages").should("be.visible");
+    cy.contains("h1", "Home page").should("be.visible");
+  });
 });
