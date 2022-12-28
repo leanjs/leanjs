@@ -78,6 +78,10 @@ export const createApp = (
         .join("/")
         .replace(/\/{2,}/g, "/");
 
+      if (pathname) {
+        history.replace(pathname);
+      }
+
       const router = createRouter({
         history,
         routes,
@@ -104,7 +108,7 @@ export const createApp = (
                       ).length > 0;
 
                     const nextPathname = isToAppRoute
-                      ? [initialPath, to.path].join("/").replace(/\/{2,}/g, "/")
+                      ? [basename, to.path].join("/").replace(/\/{2,}/g, "/")
                       : to.path;
 
                     onRemoteNavigate?.({
@@ -135,8 +139,8 @@ export const createApp = (
           },
         }),
         onHostNavigate: async ({ pathname: rawNextPathname }) => {
-          const nextPathname = initialPath
-            ? dedupeSlash(rawNextPathname.replace(initialPath, "/"))
+          const nextPathname = basename
+            ? dedupeSlash((rawNextPathname + "/").replace(basename + "/", "/"))
             : rawNextPathname;
 
           if (semaphore && nextPathname !== history.location) {
