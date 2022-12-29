@@ -74,13 +74,7 @@ export const createApp = (
         ? createWebHistory(basename)
         : createMemoryHistory(basename);
 
-      const initialPath = [basename, pathname]
-        .join("/")
-        .replace(/\/{2,}/g, "/");
-
-      if (pathname) {
-        history.replace(pathname);
-      }
+      history.replace(pathname);
 
       const router = createRouter({
         history,
