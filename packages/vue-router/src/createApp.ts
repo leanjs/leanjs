@@ -102,7 +102,7 @@ export const createApp = (
                       ).length > 0;
 
                     const nextPathname = isToAppRoute
-                      ? [basename, to.path].join("/").replace(/\/{2,}/g, "/")
+                      ? dedupeSlash([basename, to.path].join("/"))
                       : to.path;
 
                     onRemoteNavigate?.({
