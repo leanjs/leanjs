@@ -94,12 +94,10 @@ export const createApp = (
                 router.beforeEach((to, from) => {
                   if (from !== START_LOCATION) {
                     // check if the next path (to.path) is inside the mfe (in its routes)
-                    const isToAppRoute =
-                      routes.filter(
-                        (route) =>
-                          route.path.replace(/\/$/, "") ===
-                          to.path.replace(/\/$/, "")
-                      ).length > 0;
+                    const isToAppRoute = routes.find(
+                      ({ path }) =>
+                        path.replace(/\/$/, "") === to.path.replace(/\/$/, "")
+                    );
 
                     const nextPathname = isToAppRoute
                       ? dedupeSlash([basename, to.path].join("/"))
