@@ -76,6 +76,12 @@ export const createApp = (
 
       history.replace(pathname);
 
+      // reload page on history change (back and forward)
+      window.onpopstate = () => {
+        // eslint-disable-next-line no-self-assign
+        window.location.href = window.location.href; // page reload
+      };
+
       const router = createRouter({
         history,
         routes,
@@ -99,15 +105,19 @@ export const createApp = (
                         path.replace(/\/$/, "") === to.path.replace(/\/$/, "")
                     );
 
-                    const nextPathname = isToAppRoute
-                      ? dedupeSlash([basename, to.path].join("/"))
-                      : to.path;
-
-                    onRemoteNavigate?.({
-                      pathname: nextPathname,
-                      hash: to.hash,
-                      // TODO search: to.query,
-                    });
+                    if (!isToAppRoute) {
+                      onRemoteNavigate?.({
+                        pathname: to.path,
+                        hash: to.hash,
+                        // TODO search: to.query,
+                      });
+                    } else {
+                      const nextPathname = dedupeSlash(
+                        [basename, to.path].join("/")
+                      );
+                      // update url and navigation history
+                      window.history.pushState({}, "", nextPathname);
+                    }
                   }
                 }),
               ]
