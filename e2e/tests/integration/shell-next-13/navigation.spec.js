@@ -58,6 +58,7 @@ describe("Nextjs shell: navigation", () => {
     cy.contains("h1", "Vue app with sub pages").should("be.visible");
     cy.contains("h1", "About page").should("be.visible");
     cy.contains("a", "Home").click();
+    cy.url().should("not.contain", "/about");
     cy.contains("h1", "Vue app with sub pages").should("be.visible");
     cy.contains("h1", "Home page").should("be.visible");
   });
