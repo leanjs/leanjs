@@ -7,9 +7,8 @@
     "start:e2e": "NODE_ENV=development webpack serve"
   },
   "dependencies": {
-    "@leanjs/vue-router": "*",
-    "vue": "^3.0.0",
-    "vue-router": "^4.0.0"
+    "@leanjs/vue": "*",
+    "vue": "^3.0.0"
   },
   "author": "Alex Lobera <alex@leanjs.com>",
   "license": "MIT",

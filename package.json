@@ -19,7 +19,7 @@
     "----------------------TESTING----------------------": ".",
     "test": "node scripts/prepare-tests.mjs && npm run test --ws --if-present",
     "start:e2e": "node scripts/prepare-e2e.mjs && turbo run start:e2e --no-cache  --no-daemon --concurrency=100 --filter=@leanjs/e2e-test-subjects*",
-    "test:e2e": "start-test start:e2e \"44440|http-get://localhost:56501|http-get://localhost:44442|http-get://localhost:44443|http-get://localhost:44444|http-get://localhost:44447\" 'yarn workspace @leanjs/e2e-tests test:e2e'",
+    "test:e2e": "start-test start:e2e \"44440|http-get://localhost:56501|http-get://localhost:44442|http-get://localhost:44443|http-get://localhost:44444|http-get://localhost:44445|http-get://localhost:44447\" 'yarn workspace @leanjs/e2e-tests test:e2e'",
     "----------------------RUNNING----------------------": ".",
     "prepare": "husky install"
   },

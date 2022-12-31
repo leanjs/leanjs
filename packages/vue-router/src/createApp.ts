@@ -74,11 +74,7 @@ export const createApp = (
         ? createWebHistory(basename)
         : createMemoryHistory(basename);
 
-      const initialPath = [basename, pathname]
-        .join("/")
-        .replace(/\/{2,}/g, "/");
-
-      history.replace(initialPath);
+      history.replace(pathname);
 
       const router = createRouter({
         history,
@@ -97,8 +93,18 @@ export const createApp = (
             ? [
                 router.beforeEach((to, from) => {
                   if (from !== START_LOCATION) {
+                    // check if the next path (to.path) is inside the mfe (in its routes)
+                    const isToAppRoute = routes.find(
+                      ({ path }) =>
+                        path.replace(/\/$/, "") === to.path.replace(/\/$/, "")
+                    );
+
+                    const nextPathname = isToAppRoute
+                      ? dedupeSlash([basename, to.path].join("/"))
+                      : to.path;
+
                     onRemoteNavigate?.({
-                      pathname: to.path,
+                      pathname: nextPathname,
                       hash: to.hash,
                       // TODO search: to.query,
                     });
@@ -125,9 +131,9 @@ export const createApp = (
           },
         }),
         onHostNavigate: async ({ pathname: rawNextPathname }) => {
-          const nextPathname = basename
-            ? dedupeSlash(rawNextPathname.replace(basename, "/"))
-            : rawNextPathname;
+          const nextPathname = dedupeSlash(
+            (rawNextPathname + "/").replace(basename + "/", "/")
+          );
 
           if (semaphore && nextPathname !== history.location) {
             semaphore = false;
