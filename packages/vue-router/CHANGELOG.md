@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.7.8](https://github.com/leanjs/leanjs/compare/@leanjs/vue-router@0.7.7...@leanjs/vue-router@0.7.8) (2022-12-31)
+
+### Bug Fixes
+
+- **vue-router:** avoid issue from "vue/" to "vue-sub-pages/" becoming "-sub-pages/" ([4cf7169](https://github.com/leanjs/leanjs/commit/4cf71699b6cf0efd414dd0b097a24f9a9e6363d3))
+- **vue-router:** handles internal and external routes differently ([f8aca47](https://github.com/leanjs/leanjs/commit/f8aca47b779ea46a813c9eeece0f537d5cd992df))
+- **vue-router:** navigates to a sub-path of a remote Vue app on the initial page load ([db99945](https://github.com/leanjs/leanjs/commit/db9994585144e67e2178520244fb57057be95ce2))
+
 ## [0.7.7](https://github.com/leanjs/leanjs/compare/@leanjs/vue-router@0.7.6...@leanjs/vue-router@0.7.7) (2022-12-18)
 
 ### Bug Fixes
