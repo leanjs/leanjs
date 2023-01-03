@@ -21,9 +21,9 @@ to: <%= h.inflection.dasherize(projectName) %>/apps/shell/package.json
     "react-dom": "*"
   },
   "devDependencies": {
-    "@types/cors": "^2.8.12",
-    "@types/node": "^17.0.23",
-    "@types/react": "^17.0.30",
+    "@types/cors": "*",
+    "@types/node": "*",
+    "@types/react": "*",
     "typescript": "*"
   }
 }
