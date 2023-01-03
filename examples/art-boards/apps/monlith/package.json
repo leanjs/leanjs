@@ -32,14 +32,14 @@
   "devDependencies": {
     "@aws-sdk/client-cloudfront": "^3.121.0",
     "@swc/core": "^1.2.160",
-    "@types/react": "^17.0.43",
-    "@types/react-dom": "^17.0.14",
+    "@types/react": "^18.0.26",
+    "@types/react-dom": "^18.0.10",
     "@vue/compiler-sfc": "^3.2.37",
-    "swc-loader": "^0.1.15",
+    "swc-loader": "^0.2.3",
     "vue-loader": "^17.0.1",
     "vue-template-compiler": "^2.7.14",
     "webpack": "^5.58.2",
-    "webpack-cli": "^4.9.1",
+    "webpack-cli": "^5.0.1",
     "webpack-dev-server": "^4.3.1"
   }
 }
